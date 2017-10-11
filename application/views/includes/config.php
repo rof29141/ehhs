@@ -11,7 +11,7 @@ if(strpos($directory, $document_root)===0)
 defined("CTR_URL") ? null : define("CTR_URL", base_url());
 defined("ASSETS_URL") ? null : define("ASSETS_URL", base_url('assets'));
 defined("VIEW_URL") ? null : define("VIEW_URL", APPPATH."views/");
-$project='Beacon Entity Manager';
+$project='Advanced Cosmetic Surgery';
 $src_logo=ASSETS_URL.'/images/logo.png';
 $src_logo1=ASSETS_URL.'/images/logo1.png';
 $src_favico=ASSETS_URL.'/images/favicon/favicon.ico';

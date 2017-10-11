@@ -20,9 +20,9 @@ elseif($position=='left')
             <div class="text-left" id="banner_img"><div id="img_logo"></div></div>
             <div class="text-center" id="banner_project"><?php echo $project;?></div>
             <div class="text-right" id="banner_name">
-                <?php echo $company_name;?>
-                <br>
-                <a onclick="LoadContent('User');"><img style="width: 40px;border-radius: 50%;margin-right: 5px;" src="<?php echo ASSETS_URL; ?>/images/male.png" /><?php echo $full_name.' ('.$user_name.')';?></a></div>
+                <?php //echo $company_name;?>
+                <!--<br>-->
+                <a onclick="LoadContent('User');"><img style="width: 40px;border-radius: 50%;margin-right: 5px;" src="<?php echo ASSETS_URL; ?>/images/male.png" /><?php echo $bd_FirstName.' '.$bd_LastName.' ('.$user_name.')';?></a></div>
 
         </div>
     </div>

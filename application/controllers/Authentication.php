@@ -93,16 +93,9 @@ class Authentication extends CI_Controller
             $sess_array = array(
                 'id' => $result['id'],
                 'user_name' => $result['user_name'],
-                'full_name' => $result['full_name'],
-                'title' => $result['title'],
-                'client_number' => $result['client_number'],
-                'email' => $result['email'],
-                'id_company' => $result['id_company'],
-                'company_name' => $result['company_name'],
-                'company_web' => $result['company_web'],
-                'id_privileges' => $result['id_privileges'],
-                'menu' => $result['menu'],
-                'BEACONAccess' => $result['BEACONAccess'],
+                'bd_FirstName' => $result['bd_FirstName'],
+                'bd_LastName' => $result['bd_LastName'],
+                'email' => $result['email']
             );
 
             $this->session->set_userdata('logged_user', $sess_array);
@@ -125,52 +118,34 @@ class Authentication extends CI_Controller
             {//echo var_dump($result['result']);//die();
                 if($send=='pass')
                 {
-                    if(isset($_POST['answer']))
-                    {
-                        if($_POST['answer']!='')
-                        {
-                            $answer = $_POST['answer'];
+                    $id = $result['id'];
+                    $result = $this->generarLinkTemporal($id);//echo '$token: '.$token;die();
 
-                            $result_anw = $this->Auth->ValidateAnswer($email, $answer);
+                    if ($result['token']) {
+                        $token = $result['token'];
 
-                            if ($result_anw['error'] == '0') {
-                                $id = $result['id'];
-                                $result = $this->generarLinkTemporal($id);//echo '$token: '.$token;die();
+                        $from_email = 'dispatch-system@tekexperts.com';
+                        $from_name = 'Advanced Cosmetic Surgery';
+                        $email_to = 'raydel@mactutor.net';
+                        $reply_to_email = '';
+                        $reply_to_name = '';
+                        $subject = "Recover Password";
+                        $link = base_url('/Authentication/Restore/' . $token);
+                        $body = ' <h1>Password reset code</h1>
+                        <p>Please use this link to reset the password for the account</p>
+                            <p>Here is your link: </p>
+                                <p><a href="' . $link . '"> Reset password</a></p>
+                        <p>If you don\'t recognize the email, you can delete this email.</p>
+                        <p>Thanks,</p>
+                        <p>Beacon Entity Manager</p>';
 
-                                if ($result['token']) {
-                                    $token = $result['token'];
-
-                                    $from_email = 'dispatch-system@tekexperts.com';
-                                    $from_name = 'Corporate Creations';
-                                    $email_to = 'raydel@mactutor.net';
-                                    $reply_to_email = '';
-                                    $reply_to_name = '';
-                                    $subject = "Recover Password";
-                                    $link = base_url('/Authentication/Restore/' . $token);
-                                    $body = ' <h1>Password reset code</h1>
-                                    <p>Please use this link to reset the password for the account</p>
-                                        <p>Here is your link: </p>
-                                            <p><a href="' . $link . '"> Reset password</a></p>
-                                    <p>If you don\'t recognize the email, you can delete this email.</p>
-                                    <p>Thanks,</p>
-                                    <p>Beacon Entity Manager</p>';
-
-                                    $this->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body);
-                                }
-                            }
-                            else
-                                echo 'WRONG_ANS';
-                        }
-                        else
-                            echo 'EMPTY_ANS';
+                        $this->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body);
                     }
-                    else
-                        echo 'EMPTY_ANS';
                 }
                 elseif ($send=='user')
                 {
                     $from_email='dispatch-system@tekexperts.com';
-                    $from_name='Corporate Creations';
+                    $from_name='Advanced Cosmetic Surgery';
                     $email_to='raydel@mactutor.net';
                     $reply_to_email='';
                     $reply_to_name='';

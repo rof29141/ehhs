@@ -78,13 +78,14 @@ require_once(APPPATH."views/includes/header.php");
 
                 request.done(function(response, textStatus, jqXHR)
                 {
-                    if(response!=0)
-                    {
-                        alertify.error(response);
+                    if(response == 'WRONG') {
+                        alertify.error('Your email is wrong.');
                     }
-                    else
-                    {
-                        alertify.success('Please, check your inbox. Has been sent an email to '+$('#inp_email').val());
+                    else if(response == 'EMPTY') {
+                        alertify.error('The field email is required.');
+                    }
+                    else {
+                        alertify.success('Please, check your inbox. Has been sent an email to ' + $('#inp_email').val());
                         $('#frm_auth').html('<div class="actions"><a style="color:#fff;" href="<?php echo CTR_URL; ?>Authentication"><div class="btn btn-lg btn-primary btn-block">Return to login</div></a></div>');
                     }
                 });

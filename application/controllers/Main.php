@@ -16,29 +16,28 @@ class Main extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
+        $data['id'] = '1';
+        $data['user_name'] = 'rojeda';
+        $data['bd_FirstName'] = 'Raydel';
+        $data['bd_LastName'] = 'Ojeda';
+        $data['email'] = 'W@w.w';
+
 	    if($this->session->userdata('logged_user'))
         {
             $session_data = $this->session->userdata('logged_user');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
-            $data['full_name'] = $session_data['full_name'];
-            $data['title'] = $session_data['title'];
-            $data['client_number'] = $session_data['client_number'];
+            $data['bd_FirstName'] = $session_data['bd_FirstName'];
+            $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
-            $data['id_company'] = $session_data['id_company'];
-            $data['company_name'] = $session_data['company_name'];
-            $data['company_web'] = $session_data['company_web'];
-            $data['id_privileges'] = $session_data['id_privileges'];
-            $data['menu'] = $session_data['menu'];
-            $data['BEACONAccess'] = $session_data['BEACONAccess'];
 
             $this->load->view($view, $data);
         }
         else
         {
-            $data['error']='Your session is expired.';
-            $this->load->view('authentication/Login', $data);
+            $this->load->view($view, $data);//$data['error']='Your session is expired.';
+            //$this->load->view('authentication/Login', $data);
         }
 	}
 
@@ -60,15 +59,9 @@ class Main extends CI_Controller
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
-            $data['full_name'] = $session_data['full_name'];
-            $data['title'] = $session_data['title'];
-            $data['client_number'] = $session_data['client_number'];
+            $data['bd_FirstName'] = $session_data['bd_FirstName'];
+            $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
-            $data['id_company'] = $session_data['id_company'];
-            $data['company_name'] = $session_data['company_name'];
-            $data['company_web'] = $session_data['company_web'];
-            $data['id_privileges'] = $session_data['id_privileges'];
-            $data['menu'] = $session_data['menu'];
 
             $data_type = $_POST['data_type'];
             $view_url = $_POST['view_url'];
@@ -92,110 +85,24 @@ class Main extends CI_Controller
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
-            $data['full_name'] = $session_data['full_name'];
-            $data['title'] = $session_data['title'];
-            $data['client_number'] = $session_data['client_number'];
+            $data['bd_FirstName'] = $session_data['bd_FirstName'];
+            $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
-            $data['id_company'] = $session_data['id_company'];
-            $data['company_name'] = $session_data['company_name'];
-            $data['company_web'] = $session_data['company_web'];
-            $data['id_privileges'] = $session_data['id_privileges'];
-            $data['menu'] = $session_data['menu'];
 
-            if($data_type=='tableLitigationAlerts')
+            if($data_type=='tableCalendarAlerts')
             {}
-            elseif($data_type=='tableComplianceAlerts')
-            {}
-            elseif($data_type=='tableCalendarAlerts')
-            {}
-            elseif($data_type=='tableBillingAlerts')
-            {}
-            elseif($data_type=='tableTrademarkAlerts')
-            {}
-            elseif($data_type=='tableLitigationVolume')
-            {}
-            elseif($data_type=='dropdowncompanyrecords')
-            {}
-            elseif($data_type=='datatablecompanyrecords')
+            elseif($data_type=='appointment')
             {
-                $this->load->model('M_CompanyRecords');
-                $result['company_records']=$this->M_CompanyRecords->GetListMyCompanyRecords($data);
-            }
-            elseif($data_type=='dataUpdateCompanyRecords')
-            {
-                $this->load->model('M_CompanyRecords');
-                $data['id'] = $_POST['id'];
-                $result['company_records']=$this->M_CompanyRecords->GetUpdateCompanyRecords($data);
-                $result['filing_type']=$this->M_Main->GetVLFilingType();
-                $result['country']=$this->M_Main->GetCountry();
-                $result['state']=$this->M_Main->GetState();
-                $result['entity_type']=$this->M_Main->GetEntityType();
-                $result['status']=$this->M_Main->GetVLStatus();
-            }
-            elseif($data_type=='detailcompanyrecords')
-            {
-                //$this->load->model('M_CompanyRecords');
-                $result['id'] = $_POST['id'];//echo 'primera: '.$result['id'];
-                //$result['company_records']=$this->M_CompanyRecords->GetListMyCompanyRecordsUnit($data);
-            }
-            elseif($data_type=='datatablecompanyrecordsUnit')
-            {
-                $this->load->model('M_CompanyRecords');
-                $data['id'] = $_POST['id'];//echo 'segunda: '.$result['id'];
-                $result['company_records']=$this->M_CompanyRecords->GetListMyCompanyRecordsUnit($data);
-            }
-            elseif($data_type=='dataUpdateCompanyRecordsUnit')
-            {
-                $this->load->model('M_CompanyRecords');
-                $data['id'] = $_POST['id'];
-                $result['company_records']=$this->M_CompanyRecords->GetUpdateCompanyRecordsUnit($data);
-                $result['filing_type']=$this->M_Main->GetVLFilingType();
-                $result['country']=$this->M_Main->GetCountry();
-                $result['state']=$this->M_Main->GetState();
-                $result['entity_type']=$this->M_Main->GetEntityType();
-                $result['status']=$this->M_Main->GetVLStatus();
-            }
-            elseif($data_type=='dataAddCompanyRecordsUnit')
-            {
-                $this->load->model('M_CompanyRecords');
-                $data['id'] = $_POST['id'];
-                $result['company_records']=$this->M_CompanyRecords->GetUpdateCompanyRecords($data);
-                $result['filing_type']=$this->M_Main->GetVLFilingType();
-                $result['country']=$this->M_Main->GetCountry();
-                $result['state']=$this->M_Main->GetState();
-                $result['entity_type']=$this->M_Main->GetEntityType();
-                $result['status']=$this->M_Main->GetVLStatus();
+                $result['id_service'] = $_POST['id_service'];
+                $result['id_doctor'] = $_POST['id_doctor'];
+                $result['start'] = $_POST['start'];
+                $result['doctors']=$this->M_Main->GetDoctors($data);
             }
             elseif($data_type=='dataprofile')
             {
                 $this->load->model('M_User');
                 $result['user']=$this->M_User->GetProfileUser($data);
-                $result['vl']=$this->M_Main->GetVLSecQuestion();
-            }
-            elseif($data_type=='datatableListUser')
-            {
-                $this->load->model('M_User');
-                $result['user']=$this->M_User->GetListUser($data);
-            }
-            elseif($data_type=='dataUpdateUser')
-            {
-                $this->load->model('M_User');
-                $data['id'] = $_POST['id'];
-                $result['user']=$this->M_User->GetUpdateUser($data);
-                $result['vl']=$this->M_Main->GetVLSecQuestion();
-            }
-            elseif($data_type=='dataAddUser')
-            {
-                $result['id_company'] = $_POST['id_company'];
-                $result['company_name'] = $_POST['company_name'];
-                $result['vl']=$this->M_Main->GetVLSecQuestion();
-            }
-            elseif($data_type=='detailDataTableUser')
-            {
-                $this->load->model('M_User');
-                $data['id'] = $_POST['id'];
-                $result['user']=$this->M_User->GetUpdateUser($data);
-                $result['vl']=$this->M_Main->GetVLSecQuestion();
+
             }
 
             return $result;

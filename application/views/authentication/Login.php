@@ -47,14 +47,6 @@ require_once(APPPATH."views/includes/header.php");
                 </div>
             </fieldset>
 
-            <br>
-
-            <fieldset>
-                <div class="text-center">
-                    <a href="<?php echo CTR_URL; ?>Authentication/GoToServices">Our Services</a>
-                </div>
-            </fieldset>
-
         <?php require_once(VIEW_URL."includes/hidden.php");?>
         <?php echo form_close(); ?>
     </div>
@@ -63,6 +55,7 @@ require_once(APPPATH."views/includes/header.php");
 
 
 <?php require_once(VIEW_URL."includes/footer.php");?>
+<?php require_once(VIEW_URL."includes/footer_scripts.php");?>
 
 <script type="text/javascript">
 	$(function() {

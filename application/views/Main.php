@@ -11,7 +11,7 @@ ini_set('memory_limit', '2048M');
 
 
     <?php require_once(VIEW_URL."includes/hidden.php");?>
-    <?php require_once(VIEW_URL."includes/nav.php");?>
+    <?php //require_once(VIEW_URL."includes/nav.php");?>
 
 
         <div class="content-wrapper" id="container" style="position:relative; top: 80px; background-color: #ffffff;"></div>

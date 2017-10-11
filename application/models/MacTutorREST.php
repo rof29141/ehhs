@@ -268,7 +268,7 @@ class MacTutorREST extends CI_Model
         return json_decode($result, true);
     }
 		
-    function __construct($host='mtdev.mactutor.net',$db='ACS_Bridge.fmp12',$layout='ACS_Bridge',$user='jem',$pass='admin')
+    function __construct($host='mtdev.mactutor.net',$db='ACS_Bridge.fmp12',$layout='PHP_Patients',$user='jem',$pass='admin')
 	{
         if (!empty ($host))$this->host = $host;
         if (!empty ($db)) $this->db = $db;

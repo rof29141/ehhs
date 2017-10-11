@@ -22,9 +22,8 @@ class User extends CI_Controller
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
-            $data['full_name'] = $session_data['full_name'];
-            $data['title'] = $session_data['title'];
-            $data['client_number'] = $session_data['client_number'];
+            $data['bd_FirstName'] = $session_data['bd_FirstName'];
+            $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
 
             $this->load->view($view, $data);
@@ -48,9 +47,8 @@ class User extends CI_Controller
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
-            $data['full_name'] = $session_data['full_name'];
-            $data['title'] = $session_data['title'];
-            $data['client_number'] = $session_data['client_number'];
+            $data['bd_FirstName'] = $session_data['bd_FirstName'];
+            $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
 
             $this->load->view('user/ListUser', $data);

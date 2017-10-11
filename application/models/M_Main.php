@@ -25,11 +25,11 @@ Class M_Main extends CI_Model
             return 0;
     }
 
-    function GetNav($data)//NOT USED
+    function GetDoctors()
     {
-        $layout='PHP_BEACON_Customized';
+        $layout='PHP_Doctors';
 
-        $request1['_kf_PrivilegeSet_ID'] = $data['id_privileges'];
+        $request1['FirstName'] = "*";//echo $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -42,53 +42,24 @@ Class M_Main extends CI_Model
         {
             for($i=0;$i<count($result["data"]);$i++)
             {
-                $field['id_module'] = $result["data"][$i]["fieldData"]["_kf_Module_ID"];
-                $field['id_access'] = $result["data"][$i]["fieldData"]["_kf_Access_SN"];
-                $field['label'] = $result["data"][$i]["fieldData"]["PHP_BEACON_Modules_Customized::Module_Label"];
-                $field['name'] = $result["data"][$i]["fieldData"]["PHP_BEACON_Modules_Customized::Module_Name"];
-                $field['url'] = $result["data"][$i]["fieldData"]["PHP_BEACON_Modules_Customized::Module_URL"];
+                $field['_zpk_Staff_Rec'] = $result["data"][$i]["fieldData"]["_zpk_Staff_Rec"];
+                $field['FirstName'] = $result["data"][$i]["fieldData"]["FirstName"];
+                $field['LastName'] = $result["data"][$i]["fieldData"]["LastName"];
 
                 $fields[$i] = $field;
             }
 
             $return['data']=$fields;
         }
-        else
-        {
-            $layout='PHP_BEACON_Defaults';
-
-            $request1['_kf_PrivilegeSet_ID'] = $data['id_privileges'];
-            $query = array ($request1);
-            $criteria['query'] = $query;
-
-            $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
-            $return['error']=$this->error($result);
-
-            if($return['error']=='0')
-            {
-                for($i=0;$i<count($result["data"]);$i++)
-                {
-                    $field['id_module'] = $result["data"][$i]["fieldData"]["_kf_Module_ID"];
-                    $field['id_access'] = $result["data"][$i]["fieldData"]["_kf_Access_SN"];
-                    $field['label'] = $result["data"][$i]["fieldData"]["PHP_BEACON_Modules_Default::Module_Label"];
-                    $field['name'] = $result["data"][$i]["fieldData"]["PHP_BEACON_Modules_Default::Module_Name"];
-                    $field['url'] = $result["data"][$i]["fieldData"]["PHP_BEACON_Modules_Default::Module_URL"];
-
-                    $fields[$i] = $field;
-                }
-
-                $return['fields']=$fields;
-            }
-        }
 
         return $return;
     }
 
-    function GetVLSecQuestion()
+    function GetServices()
     {
-        $layout='PHP_VL_SecQuestion';
+        $layout='PHP_Doctors';
 
-        $request1['Security_Questions'] = "*";//echo $data['id'];
+        $request1['droth@rich.com'] = "*";//echo $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -101,154 +72,9 @@ Class M_Main extends CI_Model
         {
             for($i=0;$i<count($result["data"]);$i++)
             {
-                $field['_zhk_RecordSerialNumber'] = $result["data"][$i]["fieldData"]["_zhk_RecordSerialNumber"];
-                $field['Security_Questions'] = $result["data"][$i]["fieldData"]["Security_Questions"];
-
-                $fields[$i] = $field;
-            }
-
-            $return['data']=$fields;
-        }
-
-        return $return;
-    }
-
-    function GetVLFilingType()
-    {
-        $layout='PHP_VL_Filing_Type';
-
-        $request1['FilingType'] = "*";//echo $data['id'];
-        $query = array ($request1);
-        $criteria['query'] = $query;
-
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
-        $return['error']=$this->error($result);
-
-        if($return['error']=='0')
-        {
-            for($i=0;$i<count($result["data"]);$i++)
-            {
-                $field['_zhk_RecordSerialNumber'] = $result["data"][$i]["fieldData"]["_zhk_RecordSerialNumber"];
-                $field['FilingType'] = $result["data"][$i]["fieldData"]["FilingType"];
-
-                $fields[$i] = $field;
-            }
-
-            $return['data']=$fields;
-        }
-
-        return $return;
-    }
-
-    function GetState()
-    {
-        $layout='PHP_State';
-
-        $request1['CountryCode'] = "*";//echo $data['id'];
-        $query = array ($request1);
-        $criteria['query'] = $query;
-
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
-        $return['error']=$this->error($result);
-
-        if($return['error']=='0')
-        {
-            for($i=0;$i<count($result["data"]);$i++)
-            {
-                $field['__kp_STATE_ID'] = $result["data"][$i]["fieldData"]["__kp_STATE_ID"];
-                $field['StateCode'] = $result["data"][$i]["fieldData"]["StateCode"];
-                $field['StateName'] = $result["data"][$i]["fieldData"]["StateName"];
-                $field['CountryCode'] = $result["data"][$i]["fieldData"]["CountryCode"];
-                $field['CountryName'] = $result["data"][$i]["fieldData"]["PHP_Countries::CountryName"];
-
-                $fields[$i] = $field;
-            }
-
-            $return['data']=$fields;
-        }
-
-        return $return;
-    }
-
-    function GetCountry()
-    {
-        $layout='PHP_Contries';
-
-        $request1['CountryCode'] = "*";//echo $data['id'];
-        $query = array ($request1);
-        $criteria['query'] = $query;
-        $criteria['range'] = '10000';
-        $criteria['offset'] = '1';
-
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
-        $return['error']=$this->error($result);
-
-        if($return['error']=='0')
-        {
-            for($i=0;$i<count($result["data"]);$i++)
-            {
-                $field['__kp_COUNTRY_ID'] = $result["data"][$i]["fieldData"]["__kp_COUNTRY_ID"];
-                $field['CountryCode'] = $result["data"][$i]["fieldData"]["CountryCode"];
-                $field['CountryName'] = $result["data"][$i]["fieldData"]["CountryName"];
-
-                $fields[$i] = $field;
-            }
-
-            $return['data']=$fields;
-        }
-
-        return $return;
-    }
-
-    function GetEntityType()
-    {
-        $layout='PHP_Entity_Type';
-
-        $request1['EntityType'] = "*";//echo $data['id'];
-        $query = array ($request1);
-        $criteria['query'] = $query;
-        $criteria['range'] = '10000';
-        $criteria['offset'] = '1';
-
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
-        $return['error']=$this->error($result);
-
-        if($return['error']=='0')
-        {
-            for($i=0;$i<count($result["data"]);$i++)
-            {
-                $field['__kp_ENTITYTYPE_ID'] = $result["data"][$i]["fieldData"]["__kp_ENTITYTYPE_ID"];
-                $field['EntityType'] = $result["data"][$i]["fieldData"]["EntityType"];
-                $field['Status'] = $result["data"][$i]["fieldData"]["Status"];
-
-                $fields[$i] = $field;
-            }
-
-            $return['data']=$fields;
-        }
-
-        return $return;
-    }
-
-    function GetVLStatus()
-    {
-        $layout='PHP_VL_Status';
-
-        $request1['ActiveInactive'] = "*";//echo $data['id'];
-        $query = array ($request1);
-        $criteria['query'] = $query;
-        $criteria['range'] = '10000';
-        $criteria['offset'] = '1';
-
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
-        $return['error']=$this->error($result);
-
-        if($return['error']=='0')
-        {
-            for($i=0;$i<count($result["data"]);$i++)
-            {
-                $field['_zhk_RecordSerialNumber'] = $result["data"][$i]["fieldData"]["_zhk_RecordSerialNumber"];
-                $field['ActiveInactive'] = $result["data"][$i]["fieldData"]["ActiveInactive"];
+                $field['_zpk_Staff_Rec'] = $result["data"][$i]["fieldData"]["_zpk_Staff_Rec"];
+                $field['FirstName'] = $result["data"][$i]["fieldData"]["FirstName"];
+                $field['LastName'] = $result["data"][$i]["fieldData"]["LastName"];
 
                 $fields[$i] = $field;
             }

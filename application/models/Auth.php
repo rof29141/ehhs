@@ -27,9 +27,9 @@ Class Auth extends CI_Model
 
     function Login($username, $password)
 	{
-        $layout='PHP_Company_Users';
+        $layout='PHP_Patients';
 
-        $request1['UserName'] = '"'.$username.'"';
+        $request1["bd_user_name"] = '"'.$username.'"';
         $query = array ($request1);
         $criteria['query'] = $query;
 
@@ -41,20 +41,13 @@ Class Auth extends CI_Model
             for($i=0;$i<count($result["data"]);$i++)
             {
                 //echo $password.' - '.$result["data"][$i]["fieldData"]["Password"];die();
-                if(password_verify($password, $result["data"][$i]["fieldData"]["Password"]))
+                if(password_verify($password, $result["data"][$i]["fieldData"]["bd_pwd"]))
                 {
-                    $return['id'] = $result["data"][$i]["fieldData"]["_RecordID"];
-                    $return['user_name'] = $result["data"][$i]["fieldData"]["UserName"];
-                    $return['full_name'] = $result["data"][$i]["fieldData"]["PT_FullName"];
-                    $return['title'] = $result["data"][$i]["fieldData"]["PT_Title"];
-                    $return['client_number'] = $result["data"][$i]["fieldData"]["PT_ClientNumber"];
-                    $return['email'] = $result["data"][$i]["fieldData"]["UserEmail"];
-                    $return['id_company'] = $result["data"][$i]["fieldData"]["_kf_Company_ID"];
-                    $return['company_name'] = $result["data"][$i]["fieldData"]["PHP_Company::Name"];
-                    $return['company_web'] = $result["data"][$i]["fieldData"]["PHP_Company::WebSite"];
-                    $return['id_privileges'] = $result["data"][$i]["fieldData"]["_kf_PrivilegeSet_ID"];
-                    $return['menu'] = $result["data"][$i]["fieldData"]["UserMenu"];
-                    $return['BEACONAccess'] = $result["data"][$i]["fieldData"]["PHP_Company::_zct_BEACON_Services"];
+                    $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
+                    $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
+                    $return['bd_FirstName'] = $result["data"][$i]["fieldData"]["bd_FirstName"];
+                    $return['bd_LastName'] = $result["data"][$i]["fieldData"]["bd_LastName"];
+                    $return['email'] = $result["data"][$i]["fieldData"]["bd_user_email"];
                 }
                 else {$return['error']='Password incorrect.';}
             }
@@ -66,11 +59,11 @@ Class Auth extends CI_Model
 
     function ValidateEmail($email)
     {
-        $layout='PHP_Company_Users';
+        $layout='PHP_Patients';
 
-        $request1['UserEmail'] = '"'.$email.'"';
+        $request1['bd_user_email'] = '"'.$email.'"';
         $query = array ($request1);
-        $criteria['query'] = $query;
+        $criteria['query'] = $query;//echo json_encode($criteria);
 
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
@@ -79,9 +72,8 @@ Class Auth extends CI_Model
         {
             for($i=0;$i<count($result["data"]);$i++)
             {
-                $return['id'] = $result["data"][$i]["fieldData"]["_RecordID"];
-                $return['user_name'] = $result["data"][$i]["fieldData"]["UserName"];
-                $return['_kf_SecurityQuestion_SN'] = $result["data"][$i]["fieldData"]["_kf_SecurityQuestion_SN"];
+                $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
+                $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
             }
         }
 
@@ -90,9 +82,9 @@ Class Auth extends CI_Model
 
     function ValidateAnswer($email, $answer)
     {
-        $layout='PHP_Company_Users';
+        $layout='PHP_Patients';
 
-        $request1['UserEmail'] = '"'.$email.'"';
+        $request1['bd_user_email'] = '"'.$email.'"';
         $request1['SecurityAnswer'] = '"'.$answer.'"';
         $query = array ($request1);
         $criteria['query'] = $query;
@@ -104,8 +96,8 @@ Class Auth extends CI_Model
         {
             for($i=0;$i<count($result["data"]);$i++)
             {
-                $return['id'] = $result["data"][$i]["fieldData"]["_RecordID"];
-                $return['user_name'] = $result["data"][$i]["fieldData"]["UserName"];
+                $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
+                $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
                 $return['_kf_SecurityQuestion_SN'] = $result["data"][$i]["fieldData"]["_kf_SecurityQuestion_SN"];
             }
         }
@@ -115,7 +107,7 @@ Class Auth extends CI_Model
 
     function SaveToken($id_usuario, $token)//
     {
-        $layout='PHP_Company_Users';//echo $id_usuario;
+        $layout='PHP_Patients';//echo $id_usuario;
 
         $record['TokenForgotPassword'] = $token;
         $data['data'] = $record;
@@ -130,7 +122,7 @@ Class Auth extends CI_Model
 
     function ValidaToken($token)
     {
-        $layout='PHP_Company_Users';
+        $layout='PHP_Patients';
 
         $request1['TokenForgotPassword'] = '"'.$token.'"';
         $query = array ($request1);
@@ -143,8 +135,8 @@ Class Auth extends CI_Model
         {
             for($i=0;$i<count($result["data"]);$i++)
             {
-                $return['id'] = $result["data"][$i]["fieldData"]["_RecordID"];
-                $return['user_name'] = $result["data"][$i]["fieldData"]["UserName"];
+                $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
+                $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
             }
         }
 
@@ -153,10 +145,10 @@ Class Auth extends CI_Model
 
     function SaveNewPass($data)
     {
-        $layout='PHP_Company_Users';
+        $layout='PHP_Patients';
 
         $id=$data['id'];
-        $record['Password'] = $data['pass'];//new pass
+        $record['bd_pwd'] = $data['pass'];//new pass
         $record['TokenForgotPassword'] = '';//clean the token
         $data['data'] = $record;//var_dump($data);die();
 
@@ -168,9 +160,9 @@ Class Auth extends CI_Model
 
     function ResetNewPass($data)
     {
-        $layout='PHP_Company_Users';
+        $layout='PHP_Patients';
 
-        $request1['UserName'] = '"'.$data['user'].'"';
+        $request1["bd_user_name"] = '"'.$data['user'].'"';
         $query = array ($request1);
         $criteria['query'] = $query;
 
@@ -181,7 +173,7 @@ Class Auth extends CI_Model
         {
             if(password_verify($data['pass'], $result["data"][0]["fieldData"]["Password"]))
             {
-                $id = $result["data"][0]["fieldData"]["_RecordID"];
+                $id = $result["data"][0]["fieldData"]["RecordID"];
                 $record['Password'] = $data['newpass'];//new pass
                 $data['data'] = $record;//var_dump($data);die();
 
@@ -197,9 +189,9 @@ Class Auth extends CI_Model
 
     function CreateAccount($data)
     {
-        $layout='PHP_Company_Users';//var_dump($data);die();
+        $layout='PHP_Patients';//var_dump($data);die();
 
-        $record['UserName'] = $data['email'];
+        $record["bd_user_name"] = $data['email'];
         $record['Password'] =  $data['password'];
         $data['data'] = $record;
 
