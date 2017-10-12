@@ -45,6 +45,8 @@ Class M_Main extends CI_Model
                 $field['_zpk_Staff_Rec'] = $result["data"][$i]["fieldData"]["_zpk_Staff_Rec"];
                 $field['FirstName'] = $result["data"][$i]["fieldData"]["FirstName"];
                 $field['LastName'] = $result["data"][$i]["fieldData"]["LastName"];
+                $field['Title'] = $result["data"][$i]["fieldData"]["Title"];
+                $field['Photo'] = $result["data"][$i]["fieldData"]["Photo"];
 
                 $fields[$i] = $field;
             }
@@ -57,9 +59,39 @@ Class M_Main extends CI_Model
 
     function GetServices()
     {
+        $layout='PHP_Service';
+
+        $request1['Service'] = "*";//echo $data['id'];
+        $query = array ($request1);
+        $criteria['query'] = $query;
+        $criteria['range'] = '10000';
+        $criteria['offset'] = '1';
+
+        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $return['error']=$this->error($result);
+
+        if($return['error']=='0')
+        {
+            for($i=0;$i<count($result["data"]);$i++)
+            {
+                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
+                $field['Service'] = $result["data"][$i]["fieldData"]["Service"];
+                $field['GroupService'] = $result["data"][$i]["fieldData"]["GroupService"];
+
+                $fields[$i] = $field;
+            }
+
+            $return['data']=$fields;
+        }
+
+        return $return;
+    }
+
+    function GetDoctorByID($id_doctor)
+    {
         $layout='PHP_Doctors';
 
-        $request1['droth@rich.com'] = "*";//echo $data['id'];
+        $request1['_zpk_Staff_Rec'] = $id_doctor;//echo $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -75,6 +107,71 @@ Class M_Main extends CI_Model
                 $field['_zpk_Staff_Rec'] = $result["data"][$i]["fieldData"]["_zpk_Staff_Rec"];
                 $field['FirstName'] = $result["data"][$i]["fieldData"]["FirstName"];
                 $field['LastName'] = $result["data"][$i]["fieldData"]["LastName"];
+                $field['Title'] = $result["data"][$i]["fieldData"]["Title"];
+                $field['Photo'] = $result["data"][$i]["fieldData"]["Photo"];
+
+                $fields[$i] = $field;
+            }
+
+            $return['data']=$fields;
+        }
+
+        return $return;
+    }
+
+    function GetServiceByID($id_service)
+    {
+        $layout='PHP_Service';
+
+        $request1['__kp_PRIMARY_KEY'] = $id_service;//echo $data['id'];
+        $query = array ($request1);
+        $criteria['query'] = $query;
+        $criteria['range'] = '10000';
+        $criteria['offset'] = '1';
+
+        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $return['error']=$this->error($result);
+
+        if($return['error']=='0')
+        {
+            for($i=0;$i<count($result["data"]);$i++)
+            {
+                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
+                $field['Service'] = $result["data"][$i]["fieldData"]["Service"];
+                $field['GroupService'] = $result["data"][$i]["fieldData"]["GroupService"];
+
+                $fields[$i] = $field;
+            }
+
+            $return['data']=$fields;
+        }
+
+        return $return;
+    }
+
+    function GetDoctorsByService($id_service)
+    {
+        $layout='PHP_Service_Doctor';
+
+        $request1['_kf_ServiceID'] = $id_service;//echo $data['id'];
+        $query = array ($request1);
+        $criteria['query'] = $query;
+        $criteria['range'] = '10000';
+        $criteria['offset'] = '1';
+
+        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $return['error']=$this->error($result);
+
+        if($return['error']=='0')
+        {
+            for($i=0;$i<count($result["data"]);$i++)
+            {
+                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
+                $field['_kf_DoctorID'] = $result["data"][$i]["fieldData"]["_kf_DoctorID"];
+                $field['FirstName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::FirstName"];
+                $field['LastName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::LastName"];
+                $field['Title'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Title"];
+                $field['Photo'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Photo"];
 
                 $fields[$i] = $field;
             }
@@ -97,7 +194,7 @@ Class M_Main extends CI_Model
                 }
             }
 
-            $data['data'] = $record;//echo json_encode($data);
+            $data['data'] = $record;echo json_encode($data);
 
             $result = $this->fm->createRecord($data, $layout);//var_dump($result);
             $return['error']=$this->error($result);

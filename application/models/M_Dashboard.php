@@ -25,41 +25,10 @@ Class M_Dashboard extends CI_Model
             return 0;
     }
 
-    function GetTemplateEvents()
-    {
-        $layout='PHP_Template_Appointment';
-
-        $request1['Title'] = "*";//echo $data['id'];
-        $query = array ($request1);
-        $criteria['query'] = $query;
-        $criteria['range'] = '10000';
-        $criteria['offset'] = '1';
-
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
-        $return['error']=$this->error($result);
-
-        if($return['error']=='0')
-        {
-            for($i=0;$i<count($result["data"]);$i++)
-            {
-                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
-                $field['Title'] = $result["data"][$i]["fieldData"]["Title"];
-                $field['Start'] = $result["data"][$i]["fieldData"]["Start"];
-                $field['End'] = $result["data"][$i]["fieldData"]["End"];
-
-                $fields[$i] = $field;
-            }
-
-            $return['data']=$fields;
-        }
-
-        return $return;
-    }
-
-    function GetAppointment($next, $hr_start, $hr_end_day)
+    function GetAppointment($next, $hr_start, $hr_end_day, $id_doctor)
     {
         $layout='PHP_Appointment';
-//echo $next.' - '.$final_day;
+        $request1['ProviderRec'] = $id_doctor;
         $request1['APT_Date'] = $next;
         $request1['APT_Time'] = '>='.$hr_start;
         $request1['APT_TimeEnd'] = '<='.$hr_end_day;
@@ -97,6 +66,37 @@ Class M_Dashboard extends CI_Model
         return $return;
     }
 
+    function GetAppointmentSettings($id_service)
+    {
+        $layout='PHP_Web_Appointment_Setting';
 
+        $request1['_kf_ServiceID'] = '"'.$id_service.'"';//echo $data['id'];
+        $query = array ($request1);
+        $criteria['query'] = $query;
+        $criteria['range'] = '10000';
+        $criteria['offset'] = '1';//echo json_encode($criteria);
+
+        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $return['error']=$this->error($result);
+
+        if($return['error']=='0')
+        {
+            for($i=0;$i<count($result["data"]);$i++)
+            {
+                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
+                $field['QtyWeeksRepeat'] = $result["data"][$i]["fieldData"]["QtyWeeksRepeat"];
+                $field['HrStart'] = $result["data"][$i]["fieldData"]["HrStart"];
+                $field['HrEnd'] = $result["data"][$i]["fieldData"]["HrEnd"];
+                $field['AppDays'] = $result["data"][$i]["fieldData"]["AppDays"];
+                $field['UnitTime'] = $result["data"][$i]["fieldData"]["UnitTime"];
+
+                $fields[$i] = $field;
+            }
+
+            $return['data']=$fields;
+        }
+
+        return $return;
+    }
 }
 ?>

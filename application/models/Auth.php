@@ -48,6 +48,7 @@ Class Auth extends CI_Model
                     $return['bd_FirstName'] = $result["data"][$i]["fieldData"]["bd_FirstName"];
                     $return['bd_LastName'] = $result["data"][$i]["fieldData"]["bd_LastName"];
                     $return['email'] = $result["data"][$i]["fieldData"]["bd_user_email"];
+                    $return['__zkp_Client_Rec'] = $result["data"][$i]["fieldData"]["__zkp_Client_Rec"];
                 }
                 else {$return['error']='Password incorrect.';}
             }

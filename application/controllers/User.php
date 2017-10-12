@@ -25,6 +25,7 @@ class User extends CI_Controller
             $data['bd_FirstName'] = $session_data['bd_FirstName'];
             $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
+            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
             $this->load->view($view, $data);
         }
@@ -50,6 +51,7 @@ class User extends CI_Controller
             $data['bd_FirstName'] = $session_data['bd_FirstName'];
             $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
+            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
             $this->load->view('user/ListUser', $data);
         }

@@ -16,12 +16,6 @@ class Main extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
-        $data['id'] = '1';
-        $data['user_name'] = 'rojeda';
-        $data['bd_FirstName'] = 'Raydel';
-        $data['bd_LastName'] = 'Ojeda';
-        $data['email'] = 'W@w.w';
-
 	    if($this->session->userdata('logged_user'))
         {
             $session_data = $this->session->userdata('logged_user');
@@ -31,13 +25,14 @@ class Main extends CI_Controller
             $data['bd_FirstName'] = $session_data['bd_FirstName'];
             $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
+            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
             $this->load->view($view, $data);
         }
         else
         {
-            $this->load->view($view, $data);//$data['error']='Your session is expired.';
-            //$this->load->view('authentication/Login', $data);
+            $data['error']='Your session is expired.';
+            $this->load->view('authentication/Login', $data);
         }
 	}
 
@@ -62,6 +57,7 @@ class Main extends CI_Controller
             $data['bd_FirstName'] = $session_data['bd_FirstName'];
             $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
+            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
             $data_type = $_POST['data_type'];
             $view_url = $_POST['view_url'];
@@ -88,21 +84,33 @@ class Main extends CI_Controller
             $data['bd_FirstName'] = $session_data['bd_FirstName'];
             $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
+            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
             if($data_type=='tableCalendarAlerts')
             {}
             elseif($data_type=='appointment')
             {
-                $result['id_service'] = $_POST['id_service'];
-                $result['id_doctor'] = $_POST['id_doctor'];
+                $id_service = $_POST['id_service'];
+                $id_doctor = $_POST['id_doctor'];
                 $result['start'] = $_POST['start'];
-                $result['doctors']=$this->M_Main->GetDoctors($data);
+                $result['service']=$this->M_Main->GetServiceByID($id_service);
+                $result['doctor']=$this->M_Main->GetDoctorByID($id_doctor);
             }
             elseif($data_type=='dataprofile')
             {
                 $this->load->model('M_User');
                 $result['user']=$this->M_User->GetProfileUser($data);
+            }
+            elseif($data_type=='dropdown_doctor')
+            {
+                $id_service = $_POST['id_service'];
+                $this->load->model('M_Dashboard');
+                $setting=$this->M_Dashboard->GetAppointmentSettings($id_service);
 
+                if($setting['error']=='0')
+                {
+                    $result['doctor'] = $this->M_Main->GetDoctorsByService($id_service);
+                }
             }
 
             return $result;
@@ -209,5 +217,30 @@ class Main extends CI_Controller
         {
             echo 1;
         }
+    }
+
+    function EnviarEmail()
+    {
+        $from_email=$_POST['from_email'];
+        $from_name=$_POST['from_name'];
+        $email_to=$_POST['email_to'];
+        $reply_to_email=$_POST['reply_to_email'];
+        $reply_to_name=$_POST['reply_to_name'];
+        $subject=$_POST['subject'];
+        $body=$_POST['body'];
+
+        date_default_timezone_set('Etc/UTC');
+        $this->load->library('email');
+        $body = utf8_decode($body);
+        $this->email->set_mailtype("html");
+        $this->email->from($from_email, $from_name);
+        $this->email->reply_to($reply_to_email, $reply_to_name);
+        $this->email->to($email_to);
+        $this->email->subject($subject);
+        $this->email->message($body);
+        if($this->email->send())
+            echo 'OK';
+        else
+            echo 'WRONG';
     }
 }

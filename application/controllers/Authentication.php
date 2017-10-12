@@ -95,7 +95,8 @@ class Authentication extends CI_Controller
                 'user_name' => $result['user_name'],
                 'bd_FirstName' => $result['bd_FirstName'],
                 'bd_LastName' => $result['bd_LastName'],
-                'email' => $result['email']
+                'email' => $result['email'],
+                '__zkp_Client_Rec' => $result['__zkp_Client_Rec'],
             );
 
             $this->session->set_userdata('logged_user', $sess_array);
