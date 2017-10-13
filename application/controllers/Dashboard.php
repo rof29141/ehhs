@@ -195,4 +195,38 @@ class Dashboard extends CI_Controller
         else
             echo 'NOT_SETTINGS';
     }
+
+    public function ConfirmApp()
+    {
+        $data['token']=$this->uri->segment(3);//echo $token;die();
+        $token=$data['token'];
+
+        $result=$this->M_Dashboard->ValidaTokenApp($token);//var_dump($result);
+
+        //echo $result['error'];
+        if ($result['error']=='0')
+        {
+            $data['__zpk_Appointment_Rec'] = $result['__zpk_Appointment_Rec'];
+            $data['APT_Date'] = $result['APT_Date'];
+            $data['APT_Time'] = $result['APT_Time'];
+            $data['APT_TimeEnd'] = $result['APT_TimeEnd'];
+            $data['APT_Title'] = $result['APT_Title'];
+            $data['FirstName'] = $result['FirstName'];
+            $data['LastName'] = $result['LastName'];
+            $data['Photo'] = $result['Photo'];
+            $data['Service'] = $result['Service'];
+            $data['RecordID'] = $result['RecordID'];
+
+            $this->load->view('appointment/ModalConfirmAppointment', $data);
+        }
+        else
+        {
+            $data['msg']='';
+            $data['success']='';
+            $data['warning']='';
+            $data['error']=$result['error'];//echo$error;die();
+
+            $this->load->view('authentication/Login', $data);
+        }
+    }
 }

@@ -92,9 +92,20 @@ class Main extends CI_Controller
             {
                 $id_service = $_POST['id_service'];
                 $id_doctor = $_POST['id_doctor'];
+
+                if(isset($_POST['start']))
+                {
+                    $date=date('m/d/y', strtotime($_POST['start']));
+                    $time=substr($_POST['start'],16,8);
+                    $this->load->model('M_Dashboard');
+                    $result['app']=$this->M_Dashboard->GetAppointmentBy($id_service, $id_doctor, $date, $time);
+                }
+
                 $result['start'] = $_POST['start'];
+                $result['end'] = $_POST['end'];
                 $result['service']=$this->M_Main->GetServiceByID($id_service);
                 $result['doctor']=$this->M_Main->GetDoctorByID($id_doctor);
+
             }
             elseif($data_type=='dataprofile')
             {
@@ -177,6 +188,27 @@ class Main extends CI_Controller
         }
     }
 
+    function SaveObjectWoutLogin()
+    {
+        $i=0;
+        foreach($_POST as $field_name => $value)
+        {
+            if($field_name!='layout' && $field_name!='type') {
+                $fields[$i] = $field_name;
+                $datas[$field_name] = $value;
+                $i++;
+                //echo $field_name . "=" . $value;
+                //eval($asignacion);
+            }
+            elseif($field_name=='layout')
+                $layout=$value;
+            elseif($field_name=='type')
+                $type=$value;
+        }
+        $result=$this->M_Main->Execute($type, $fields, $datas, $layout);
+        echo $result['error'];
+    }
+
     function DeleteObject()
     {
         if($this->session->userdata('logged_user'))
@@ -238,9 +270,13 @@ class Main extends CI_Controller
         $this->email->to($email_to);
         $this->email->subject($subject);
         $this->email->message($body);
+
+        //$this->email->attach('/path/to/photo3.jpg');
+
         if($this->email->send())
             echo 'OK';
         else
             echo 'WRONG';
     }
 }
+

@@ -45,13 +45,6 @@
         $('#calendar').fullCalendar(
             {
                 selectable: true,
-                businessHours: [ // specify an array instead
-                    {
-                        dow: [ 2, 4 ], // Monday, Tuesday, Wednesday
-                        start: '09:00', // 8am
-                        end: '11:00' // 6pm
-                    }
-                ],
 
                 eventClick: function(calEvent, jsEvent, view) {
 
@@ -60,26 +53,26 @@
                         var id_service=$('#sel_service').val();
                         var id_doctor=$('#sel_doctor').val();
                         var start=String(calEvent.start);//alert(start);
+                        var end=String(calEvent.end);//alert(end);
 
-                        FillModalApp(id_service, id_doctor, start);
+                        FillModalApp(id_service, id_doctor, start, end);
                     }
-
                 },
                 displayEventTime: true,
-                editable: true,
+                editable: false,
                 timeFormat: 'hh:mm t',
                 events: <?php echo $events;?>,
 
             });
 
-        function FillModalApp(id_service, id_doctor, start)
+        function FillModalApp(id_service, id_doctor, start, end)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start
 
             $.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {'data_type':'appointment','view_url':'appointment/ModalAddAppointment','id_service':id_service, 'id_doctor':id_doctor, 'start':start}
+                data: {'data_type':'appointment','view_url':'appointment/ModalAddAppointment','id_service':id_service, 'id_doctor':id_doctor, 'start':start, 'end':end}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response!='')

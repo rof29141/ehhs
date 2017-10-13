@@ -194,7 +194,7 @@ Class M_Main extends CI_Model
                 }
             }
 
-            $data['data'] = $record;echo json_encode($data);
+            $data['data'] = $record;//echo json_encode($data);
 
             $result = $this->fm->createRecord($data, $layout);//var_dump($result);
             $return['error']=$this->error($result);
@@ -206,11 +206,10 @@ Class M_Main extends CI_Model
             {
                 if($field!='id'){
                     $record[$field] = $datas[$field];
-
                 }
             }
 
-            $data['data'] = $record;//echo json_encode($data).' layout: '.$layout. ' id: '.$datas['id'].'  ';//die();
+            $data['data'] = $record;//echo json_encode($data);//.' layout: '.$layout. ' id: '.$datas['id'].'  ';//die();
 
             $result = $this->fm->editRecord($datas['id'], $data, $layout);//var_dump($result);
             $return['error']=$this->error($result);

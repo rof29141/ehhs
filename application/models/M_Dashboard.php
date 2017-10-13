@@ -66,6 +66,38 @@ Class M_Dashboard extends CI_Model
         return $return;
     }
 
+    function GetAppointmentBy($id_service, $id_doctor, $date, $time)
+    {
+        $layout='PHP_Appointment';
+
+        $request1['_kf_ServiceID'] = $id_service;
+        $request1['ProviderRec'] = $id_doctor;
+        $request1['APT_Date'] = $date;
+        $request1['APT_Time'] = $time;
+
+        $query = array ($request1);
+        $criteria['query'] = $query;
+        $criteria['range'] = '10000';
+        $criteria['offset'] = '1';
+
+        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $return['error']=$this->error($result);
+
+        if($return['error']=='0')
+        {
+            for($i=0;$i<count($result["data"]);$i++)
+            {
+                $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
+
+                $fields[$i] = $field;
+            }
+
+            $return['data']=$fields;
+        }
+        //var_dump($return);
+        return $return;
+    }
+
     function GetAppointmentSettings($id_service)
     {
         $layout='PHP_Web_Appointment_Setting';
@@ -94,6 +126,37 @@ Class M_Dashboard extends CI_Model
             }
 
             $return['data']=$fields;
+        }
+
+        return $return;
+    }
+
+    function ValidaTokenApp($token)
+    {
+        $layout='PHP_Appointment';
+
+        $request1['TokenConfirmApp'] = '"'.$token.'"';
+        $query = array ($request1);
+        $criteria['query'] = $query;
+
+        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $return['error']=$this->error($result);
+
+        if($return['error']=='0')
+        {
+            for($i=0;$i<count($result["data"]);$i++)
+            {
+                $return['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
+                $return['APT_Date'] = $result["data"][$i]["fieldData"]["APT_Date"];
+                $return['APT_Time'] = $result["data"][$i]["fieldData"]["APT_Time"];
+                $return['APT_TimeEnd'] = $result["data"][$i]["fieldData"]["APT_TimeEnd"];
+                $return['APT_Title'] = $result["data"][$i]["fieldData"]["APT_Title"];
+                $return['FirstName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::FirstName"];
+                $return['LastName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::LastName"];
+                $return['Photo'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Photo"];
+                $return['Service'] = $result["data"][$i]["fieldData"]["PHP_Service::Service"];
+                $return['RecordID'] = $result["data"][$i]["fieldData"]["RecordID"];
+            }
         }
 
         return $return;
