@@ -99,7 +99,7 @@ class Authentication extends CI_Controller
                 '__zkp_Client_Rec' => $result['__zkp_Client_Rec'],
             );
 
-            $this->session->set_userdata('logged_user', $sess_array);
+            $this->session->set_userdata('logged_user_acs', $sess_array);
         }
 
         return $result;

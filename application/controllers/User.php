@@ -16,9 +16,9 @@ class User extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
-        if($this->session->userdata('logged_user'))
+        if($this->session->userdata('logged_user_acs'))
         {
-            $session_data = $this->session->userdata('logged_user');
+            $session_data = $this->session->userdata('logged_user_acs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -42,9 +42,9 @@ class User extends CI_Controller
         $data['warning']=$warning;
         $data['error']=$error;
 
-        if($this->session->userdata('logged_user'))
+        if($this->session->userdata('logged_user_acs'))
         {
-            $session_data = $this->session->userdata('logged_user');
+            $session_data = $this->session->userdata('logged_user_acs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];

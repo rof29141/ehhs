@@ -16,9 +16,9 @@ class Main extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
-	    if($this->session->userdata('logged_user'))
+	    if($this->session->userdata('logged_user_acs'))
         {
-            $session_data = $this->session->userdata('logged_user');
+            $session_data = $this->session->userdata('logged_user_acs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -38,9 +38,9 @@ class Main extends CI_Controller
 
     function Logout()
     {
-        if($this->session->userdata('logged_user')) {
+        if($this->session->userdata('logged_user_acs')) {
 
-            $this->session->unset_userdata('logged_user');
+            $this->session->unset_userdata('logged_user_acs');
         }
 
         redirect('Authentication');
@@ -48,9 +48,9 @@ class Main extends CI_Controller
 
     function LlenarDataTable()
     {
-        if($this->session->userdata('logged_user'))
+        if($this->session->userdata('logged_user_acs'))
         {
-            $session_data = $this->session->userdata('logged_user');
+            $session_data = $this->session->userdata('logged_user_acs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -74,10 +74,10 @@ class Main extends CI_Controller
 
     function GetData($data_type='')
     {
-        if($this->session->userdata('logged_user'))
+        if($this->session->userdata('logged_user_acs'))
         {
             $result='';
-            $session_data = $this->session->userdata('logged_user');
+            $session_data = $this->session->userdata('logged_user_acs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -134,9 +134,9 @@ class Main extends CI_Controller
 
     function GoObject()
     {
-        if($this->session->userdata('logged_user'))
+        if($this->session->userdata('logged_user_acs'))
         {
-            $session_data = $this->session->userdata('logged_user');
+            $session_data = $this->session->userdata('logged_user_acs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -160,7 +160,7 @@ class Main extends CI_Controller
 
     function SaveObject()
     {
-        if($this->session->userdata('logged_user'))
+        if($this->session->userdata('logged_user_acs'))
         {
             $i=0;
             foreach($_POST as $field_name => $value)
@@ -211,7 +211,7 @@ class Main extends CI_Controller
 
     function DeleteObject()
     {
-        if($this->session->userdata('logged_user'))
+        if($this->session->userdata('logged_user_acs'))
         {
             $layouts = $this->input->post('go_layout');
             $data['ids'] = $this->input->post('id');

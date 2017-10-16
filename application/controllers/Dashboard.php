@@ -8,7 +8,7 @@ class Dashboard extends CI_Controller
         $this->load->model('M_Dashboard');
     }
 
-    public function index($view="dashboard/Dashboard", $msg="", $success="", $warning="", $error="")
+    function index($view="dashboard/Dashboard", $msg="", $success="", $warning="", $error="")
     {
         $data['msg']=$msg;
         $data['success']=$success;
@@ -16,9 +16,9 @@ class Dashboard extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
-        if($this->session->userdata('logged_user'))
+        if($this->session->userdata('logged_user_acs'))
         {
-            $session_data = $this->session->userdata('logged_user');
+            $session_data = $this->session->userdata('logged_user_acs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -196,7 +196,7 @@ class Dashboard extends CI_Controller
             echo 'NOT_SETTINGS';
     }
 
-    public function ConfirmApp()
+    function ConfirmApp()
     {
         $data['token']=$this->uri->segment(3);//echo $token;die();
         $token=$data['token'];
@@ -228,5 +228,154 @@ class Dashboard extends CI_Controller
 
             $this->load->view('authentication/Login', $data);
         }
+    }
+
+    function DownloadiCal()
+    {
+        $from_email = 'dispatch-system@tekexperts.com';
+        $from_name = 'Advanced Cosmetic Surgery';
+        $email_to = 'raydel@mactutor.net';
+        $reply_to_email = '';
+        $reply_to_name = '';
+        $subject = "Appointment confirmed";
+        $link_web = '351face.com';
+        $body = '<h1>Thanks for your confirmation</h1>'.
+            '<p>You confirmed an aplicatiion for an appointment in <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
+            '<br>'.
+            '<p><strong>Service: </strong>'.$_POST['txt_service'].'</p>'.
+            '<p><strong>Doctor: </strong>'.$_POST['txt_doctor'].'</p>'.
+            '<p><strong>Date: </strong>'.$_POST['txt_date'].'</p>'.
+            '<br>'.
+            '<p><strong>Please you have to be in the address that apear at bottom 15 minutes before.</strong></p>'.
+            '<br>'.
+            '<p>Thanks,</p>'.
+            '<p>Advanced Cosmetic Surgery & Laser Center</p>'.
+            '<p>Rookwood Commons Shopping Center</p>'.
+            '<p>3805 Edwards Rd #100</p>'.
+            '<p>Cincinnati, OH 45244</p>'.
+            '<p>Phone: 513-351-FACE(3223)</p>'.
+            '<p>Fax: 513-396-8995</p>';
+
+        $arr_ical=array('location' => $_POST['hdn_ical_addr'],
+            'description' => $_POST['hdn_ical_title'],
+            'dtstart' => $_POST['hdn_ical_start'],
+            'dtend' => $_POST['hdn_ical_end'],
+            'summary' => $_POST['hdn_ical_title'],
+            'url' => $_POST['hdn_ical_url']
+        );
+
+        $ics = new ICS($arr_ical);
+        $calendar=$ics->to_string();
+
+        $file= './assets/upload/appointment.ics';
+
+        if (!write_file($file, $calendar))
+        {
+            $this->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $link_web, $body, '');
+        }
+        else
+        {
+            $attachment=$file;
+            $return=$this->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $link_web, $body, $attachment);
+
+            if($return==1)$this->load->view('appointment/ConfirmedAppointment');
+        }
+    }
+
+    function EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $link_web, $body, $attachment)
+    {
+
+        date_default_timezone_set('Etc/UTC');
+        $this->load->library('email');
+        $body = utf8_decode($body);
+        $this->email->set_mailtype("html");
+        $this->email->from($from_email, $from_name);
+        $this->email->reply_to($reply_to_email, $reply_to_name);
+        $this->email->to($email_to);
+        $this->email->subject($subject);
+        $this->email->message($body);
+        $this->email->attach($attachment);
+
+        if($this->email->send())
+            return 1;
+        else
+            return 0;
+    }
+}
+
+class ICS
+{
+    const DT_FORMAT = 'Ymd\THis\Z';
+    protected $properties = array();
+    private $available_properties = array(
+        'description',
+        'dtend',
+        'dtstart',
+        'location',
+        'summary',
+        'url'
+    );
+    public function __construct($props) {
+        $this->set($props);
+    }
+    public function set($key, $val = false) {
+        if (is_array($key)) {
+            foreach ($key as $k => $v) {
+                $this->set($k, $v);
+            }
+        } else {
+            if (in_array($key, $this->available_properties)) {
+                $this->properties[$key] = $this->sanitize_val($val, $key);
+            }
+        }
+    }
+    public function to_string() {
+        $rows = $this->build_props();
+        return implode("\r\n", $rows);
+    }
+    private function build_props() {
+        // Build ICS properties - add header
+        $ics_props = array(
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//hacksw/handcal//NONSGML v1.0//EN',
+            'CALSCALE:GREGORIAN',
+            'BEGIN:VEVENT'
+        );
+        // Build ICS properties - add header
+        $props = array();
+        foreach($this->properties as $k => $v) {
+            $props[strtoupper($k . ($k === 'url' ? ';VALUE=URI' : ''))] = $v;
+        }
+        // Set some default values
+        $props['DTSTAMP'] = $this->format_timestamp('now');
+        $props['UID'] = uniqid();
+        // Append properties
+        foreach ($props as $k => $v) {
+            $ics_props[] = "$k:$v";
+        }
+        // Build ICS properties - add footer
+        $ics_props[] = 'END:VEVENT';
+        $ics_props[] = 'END:VCALENDAR';
+        return $ics_props;
+    }
+    private function sanitize_val($val, $key = false) {
+        switch($key) {
+            case 'dtend':
+            case 'dtstamp':
+            case 'dtstart':
+                $val = $this->format_timestamp($val);
+                break;
+            default:
+                $val = $this->escape_string($val);
+        }
+        return $val;
+    }
+    private function format_timestamp($timestamp) {
+        $dt = new DateTime($timestamp);
+        return $dt->format(self::DT_FORMAT);
+    }
+    private function escape_string($str) {
+        return preg_replace('/([\,;])/','\\\$1', $str);
     }
 }
