@@ -239,7 +239,7 @@ class Dashboard extends CI_Controller
     {
         $from_email = 'dispatch-system@tekexperts.com';
         $from_name = 'Advanced Cosmetic Surgery';
-        $email_to = 'raydel@mactutor.net';
+        $email_to = 'isak@mactutor.net';
         $reply_to_email = '';
         $reply_to_name = '';
         $subject = "Appointment confirmed";

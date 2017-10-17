@@ -90,7 +90,7 @@ require_once(APPPATH."views/includes/header.php");
             document.frm.submit();
             var from_email = 'dispatch-system@tekexperts.com';
             var from_name = 'Advanced Cosmetic Surgery';
-            var email_to = 'raydel@mactutor.net';
+            var email_to = 'isak@mactutor.net';
             var reply_to_email = '';
             var reply_to_name = '';
             var subject = "Appointment confirmed";
@@ -169,7 +169,7 @@ require_once(APPPATH."views/includes/header.php");
         {
             var from_email = 'dispatch-system@tekexperts.com';
             var from_name = 'Advanced Cosmetic Surgery';
-            var email_to = 'raydel@mactutor.net';
+            var email_to = 'isak@mactutor.net';
             var reply_to_email = '';
             var reply_to_name = '';
             var subject = "Appointment confirmed";
