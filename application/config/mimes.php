@@ -152,7 +152,7 @@ return array(
 	'ogg'   =>	array('audio/ogg', 'video/ogg', 'application/ogg'),
 	'kmz'	=>	array('application/vnd.google-earth.kmz', 'application/zip', 'application/x-zip'),
 	'kml'	=>	array('application/vnd.google-earth.kml+xml', 'application/xml', 'text/xml'),
-	'ics'	=>	'text/calendar',
+	'MTICS' =>	'text/calendar',
 	'ical'	=>	'text/calendar',
 	'zsh'	=>	'text/x-scriptzsh',
 	'7zip'	=>	array('application/x-compressed', 'application/x-zip-compressed', 'application/zip', 'multipart/x-zip'),

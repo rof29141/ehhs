@@ -38,7 +38,7 @@
  *   A url to attach to the the event. Make sure to add the protocol (http://
  *   or https://).
  */
-class ICS {
+class MT_ICS {
     const DT_FORMAT = 'Ymd\THis\Z';
     protected $properties = array();
     private $available_properties = array(
@@ -49,14 +49,14 @@ class ICS {
         'summary',
         'url'
     );
-    public function __construct($props) {
+    public function __construct($props='') {
         $this->set($props);
     }
     public function set($key, $val = false) {
         if (is_array($key)) {
             foreach ($key as $k => $v) {
                 $this->set($k, $v);
-                echo $v;
+                //echo $v;
             }
         } else {
             if (in_array($key, $this->available_properties)) {

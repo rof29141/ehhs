@@ -15,7 +15,3 @@
         require_once("scripts.php");
     ?>
 </head>
-
-        <?php
-            //require_once("nav.php");
-        ?>

@@ -68,9 +68,9 @@
     .carousel-indicators .active{ background: #31708f; } .content{ margin-top:20px; } .adjust1{ float:left; width:100%; margin-bottom:0; } .adjust2{ margin:0; }
     .carousel-indicators li{ border :1px solid #ccc; background-color: #2c596d;} .carousel-control{ color:#31708f; width:5%; } .carousel-control:hover, .carousel-control:focus{ color:#31708f; } .carousel-control.left, .carousel-control.right { background-image: none; } .media-object{ margin:auto; margin-top:15%; } @media screen and (max-width: 768px) { .media-object{ margin-top:0; } }
 
-    /* Calendar */
+    /* Calendar
 
-    .fc-time:after { content: "m"; }
+    .fc-time:after{ content: "m"; }*/
 
     /* Calendar */
 

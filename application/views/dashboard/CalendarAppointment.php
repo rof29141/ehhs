@@ -44,11 +44,16 @@
     {
         $('#calendar').fullCalendar(
             {
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listWeek'
+                },
                 selectable: true,
 
                 eventClick: function(calEvent, jsEvent, view) {
 
-                    if(calEvent.title=='Available')
+                    if(calEvent.title==' Available')
                     {
                         var id_service=$('#sel_service').val();
                         var id_doctor=$('#sel_doctor').val();

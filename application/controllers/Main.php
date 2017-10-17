@@ -6,6 +6,7 @@ class Main extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_Main');
+        //$this->output->cache(5);
     }
 
     function index($view="Main", $msg="", $success="", $warning="", $error="")
@@ -167,7 +168,10 @@ class Main extends CI_Controller
             {
                 if($field_name!='layout' && $field_name!='type') {
                     $fields[$i] = $field_name;
+                    $value = $this->security->xss_clean($value);
+                    $value = html_escape($value);
                     $datas[$field_name] = $value;
+
                     $i++;
                     //$asignacion = "\$" . $field_name . "='" . $value . "';";
                     //eval($asignacion);
@@ -195,6 +199,8 @@ class Main extends CI_Controller
         {
             if($field_name!='layout' && $field_name!='type') {
                 $fields[$i] = $field_name;
+                $value = $this->security->xss_clean($value);
+                $value = html_escape($value);
                 $datas[$field_name] = $value;
                 $i++;
                 //echo $field_name . "=" . $value;
@@ -260,23 +266,14 @@ class Main extends CI_Controller
         $reply_to_name=$_POST['reply_to_name'];
         $subject=$_POST['subject'];
         $body=$_POST['body'];
+        $attachment='';
 
-        date_default_timezone_set('Etc/UTC');
-        $this->load->library('email');
-        $body = utf8_decode($body);
-        $this->email->set_mailtype("html");
-        $this->email->from($from_email, $from_name);
-        $this->email->reply_to($reply_to_email, $reply_to_name);
-        $this->email->to($email_to);
-        $this->email->subject($subject);
-        $this->email->message($body);
+        $this->load->library('MT_Mail');
+        $obj_mail = new MT_Mail();
 
-        //$this->email->attach('/path/to/photo3.jpg');
+        $return=$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachment);
 
-        if($this->email->send())
-            echo 'OK';
-        else
-            echo 'WRONG';
+        echo $return;
     }
 }
 
