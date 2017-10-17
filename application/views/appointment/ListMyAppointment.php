@@ -72,7 +72,7 @@
             $.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'datatableListMyAppointment',view_url:'Appointment/DataTableListAppointment'}
+                data: {data_type:'datatableListMyAppointment',view_url:'appointment/DataTableListAppointment'}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
