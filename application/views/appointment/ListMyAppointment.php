@@ -2,7 +2,19 @@
     <div class="row" style="margin: 20px;">
         <div class="col-lg-12">
             <fieldset class="myfieldset">
-                <legend class="mylegend">My Appointments</legend>
+                <legend class="mylegend">Next appointments</legend>
+
+                <div style="margin-top: 20px;">
+
+                    <section class="col col-12" style="padding: 10px;">
+                        <div id='next_app'></div>
+                    </section>
+
+                </div>
+            </fieldset>
+
+            <fieldset class="myfieldset">
+                <legend class="mylegend">History</legend>
 
                 <div style="margin-top: 20px;">
 
@@ -38,10 +50,28 @@
 
         function Load()
         {
-            LoadDataTable_Appointment();
+            LoadNext_Appointment();
         }
 
+        function LoadNext_Appointment()
+        {
+            var target = document.getElementById('container');
+            var spinner = new Spinner(opts).spin(target);
 
+            $.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'NextMyAppointment',view_url:'appointment/NextAppointment'}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    $('#next_app').html(response);
+                    spinner.stop();
+                    LoadDataTable_Appointment();
+                }
+            });
+        }
 
         function DataTable_Appointment()
         {

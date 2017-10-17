@@ -34,7 +34,7 @@
 
     </div>
 
-</div>
+</div><?php //echo $events;?>
 
 
 <script type="text/javascript">
@@ -81,7 +81,7 @@
                 events: <?php echo $events;?>,
 
             });
-            //alert('<?php echo $events;?>');
+            //console.log('<?php echo $events;?>');
         function FillModalApp(id_service, id_doctor, start, end)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start

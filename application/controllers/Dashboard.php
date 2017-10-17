@@ -76,6 +76,7 @@ class Dashboard extends CI_Controller
 
                     $next = date("Y-m-d", strtotime("next " . $str_day));
                     $event_end = '';
+                    $real_appointment_start_first = '';
                     $minutes = 0;
                     $app_time = 15 * $unit_time;
                     $spaces = floor(32 / $unit_time);
@@ -84,23 +85,25 @@ class Dashboard extends CI_Controller
                     $title_available=' Available';
                     $title_not_available=' Not Available';
 
-                    for ($d = 0; $d < $weeks; $d++) {
+                    for ($d = 0; $d < $weeks; $d++)
+                    {
                         $week = $d * 7;
                         $day = $this->GiveDate($next, $week);
 
                         $appointment = $this->M_Dashboard->GetAppointment(date("m/d/Y", strtotime($day)), $hr_start, $hr_end_day, $id_doctor);
 
                         $event_start = $day . ' ' . $hr_start;
+                        $event_end = $day . ' ' . $hr_start;//if the day doesn't have an appointment in the 3th cicle (for) the events will be filled starting at the beginning of the day
                         $event_end_day = $day . ' ' . $hr_end_day;
 
-                        if (isset($appointment['data'][0]['APT_Date']) && isset($appointment['data'][0]['APT_Time']))
+                        if(isset($appointment['data'][0]['APT_Date']))//search if exist an appointment in this date and time
+                        {
                             $real_appointment_start_first = date("Y-m-d", strtotime($appointment['data'][0]['APT_Date'])) . ' ' . $appointment['data'][0]['APT_Time'];
 
-                        for ($e = 0; $e < $spaces; $e++)//search if exist an appointment in this date and time
-                        {
-                            $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_start)));
+                            for ($e = 0; $e < $spaces; $e++)//1st cicle
+                            {
+                                $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_start)));
 
-                            if (isset($real_appointment_start_first)) {
                                 if ($event_end < $real_appointment_start_first) {
                                     $event['title'] = $title_available;
                                     $event['start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_start)));
@@ -109,21 +112,14 @@ class Dashboard extends CI_Controller
                                     $events[] = $event;
 
                                     $event_start = $event_end;
-                                } else
+                                    $real_appointment_start_first = '';
+                                } else {
+                                    $real_appointment_start_first = '';
                                     break;
-                            } else {
-                                $event['title'] = $title_available;
-                                $event['start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_start)));
-                                $event['end'] = $event_end;
-                                $event['color'] = $color_available;
-                                $events[] = $event;
-
-                                $event_start = $event_end;
+                                }
                             }
-                        }
 
-                        if (isset($appointment['data'])) {
-                            for ($a = 0; $a < count($appointment['data']); $a++)//search if exist an appointment in this date and time
+                            for ($a = 0; $a < count($appointment['data']); $a++)
                             {
                                 $real_appointment_title = $appointment['data'][$a]['APT_Title'];
                                 $real_appointment_title = $title_not_available;
@@ -170,7 +166,7 @@ class Dashboard extends CI_Controller
                             }
                         }
 
-                        for ($e = 0; $e < $spaces; $e++)//search if exist an appointment in this date and time
+                        for ($e = 0; $e < $spaces; $e++)
                         {
                             $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
                             $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_end)));
@@ -239,7 +235,7 @@ class Dashboard extends CI_Controller
     {
         $from_email = 'dispatch-system@tekexperts.com';
         $from_name = 'Advanced Cosmetic Surgery';
-        $email_to = 'isak@mactutor.net';
+        $email_to = 'raydel@mactutor.net';
         $reply_to_email = '';
         $reply_to_name = '';
         $subject = "Appointment confirmed";

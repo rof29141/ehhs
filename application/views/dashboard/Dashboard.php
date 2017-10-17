@@ -85,7 +85,7 @@
             }
         });
 
-        $('body').on('change', '#sel_service', function ()
+        $('#sel_service').on('change', function ()
         {
             var id_service = $(this).val();
             if(id_service!='' && id_service!=0 && id_service!=null)
@@ -114,27 +114,6 @@
                     spinner.stop();
                 });
             }
-        });
-
-        $('body').on('change', '#sel_doctor', function ()
-        {
-            var id_service = $('#sel_service').val();
-            var id_doctor = $(this).val();
-            var target = document.getElementById('container');
-            var spinner = new Spinner(opts).spin(target);
-
-            $.ajax({
-                url: 'Dashboard/GetAppointments',
-                type: 'POST',
-                data: {id_service:id_service,id_doctor:id_doctor}
-            }).done(function(response, textStatus, jqXHR)
-            {
-                if(response)
-                {
-                    $('#calendar_app').html(response);
-                    spinner.stop();
-                }
-            });
         });
     });
 </script>
