@@ -1,8 +1,7 @@
 <div class="container" >
     <div class="row" style="margin: 20px;">
         <div class="col-lg-12">
-            <fieldset class="myfieldset">
-                <legend class="mylegend">Create an Appointment</legend>
+
 
                 <div class="row">
                     <div style="margin-top: 20px;">
@@ -10,7 +9,7 @@
                     </div>
                 </div>
 
-            </fieldset>
+
         </div>
 
     </div>
@@ -62,6 +61,7 @@
                 maxTime:'19:00',
                 allDaySlot:false,
                 defaultView:'agendaWeek',
+                height: 'auto',
 
                 eventClick: function(calEvent, jsEvent, view) {
 

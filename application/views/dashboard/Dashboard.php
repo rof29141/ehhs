@@ -6,7 +6,7 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="form-group">
+                        <div class="form-group" style="margin-left: 35px;">
                             <label>Service</label>
                             <select class="my_select2" id="sel_service" name="sel_service">
                                 <option value="-1"></option>
@@ -81,7 +81,7 @@
         $(".my_select2").select2({
             placeholder: {
                 id: '-1', // the value of the option
-                text: 'Select an option'
+                text: 'Select a Service'
             }
         });
 
