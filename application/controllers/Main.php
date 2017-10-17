@@ -124,6 +124,12 @@ class Main extends CI_Controller
                     $result['doctor'] = $this->M_Main->GetDoctorsByService($id_service);
                 }
             }
+            elseif($data_type=='datatableListMyAppointment')
+            {
+                $id_patient = $data['__zkp_Client_Rec'];
+                $this->load->model('M_Appointment');
+                $result['my_appointments']=$this->M_Appointment->GetAppointmentByPatient($id_patient);
+            }
 
             return $result;
         }

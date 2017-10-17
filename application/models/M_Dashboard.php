@@ -79,7 +79,7 @@ Class M_Dashboard extends CI_Model
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
         $criteria['offset'] = '1';
-
+        //echo json_encode($criteria);
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
 

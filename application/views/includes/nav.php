@@ -2,7 +2,7 @@
 
     <?php
     require_once("banner.php");
-    $menu='[{"Label":"Dashboard", "URL":"Dashboard", "Service":"", "access":2, "menu":""}, {"Label":"My Appointments", "URL":"Dashboard", "Service":"", "access":2, "menu":""}] ';
+    $menu='[{"Label":"Dashboard", "URL":"Dashboard", "Service":"", "access":2, "menu":""}, {"Label":"My Appointments", "URL":"Appointment", "Service":"", "access":2, "menu":""}] ';
     $BEACONAccess='';
     $array_BEACONAccess = explode("|", $BEACONAccess);
 

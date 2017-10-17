@@ -46,7 +46,7 @@
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listWeek'
+                    right: 'month,agendaWeek'
                 },
                 selectable: true,
                 hiddenDays: [ 0, 6 ],
@@ -81,7 +81,7 @@
                 events: <?php echo $events;?>,
 
             });
-
+            //alert('<?php echo $events;?>');
         function FillModalApp(id_service, id_doctor, start, end)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start

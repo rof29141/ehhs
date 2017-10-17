@@ -50,8 +50,8 @@ body .fc { /* extra precedence to overcome jqui */
 
 	/* dimensions */
 	margin: 0;
-	height: 2.1em;
-	padding: 0 .6em;
+	height: 30px;
+	padding: 3px;
 
 	/* text & cursor */
 	font-size: 1em; /* normalize */
