@@ -15,7 +15,7 @@ elseif($position=='left')
 {
 ?>
     <div style="height: 50px;top:0;background-color: #eee;display: table;width: 100%;padding-left: 10px;padding-right: 10px;">
-        <div class="container" style="height: 80px; display: table-row">
+        <div class="container" style="height: 90px; display: table-row">
 
             <div class="text-left" id="banner_img"><div id="img_logo"></div></div>
             <div class="text-center" id="banner_project"><?php echo $project;?></div>

@@ -1,5 +1,5 @@
 <?php if(isset($data['doctor']['data'])){?>
-<label>Doctor</label>
+<label>Provider</label>
 <select class="my_select2_doc" id="sel_doctor" name="sel_doctor">
     <option value="-1"></option>
     <?php for ($i=0;$i<count($data['doctor']['data']);$i++){?>
@@ -35,7 +35,7 @@
         $(".my_select2_doc").select2({
             placeholder: {
                 id: '-1', // the value of the option
-                text: 'Select a Doctor'
+                text: 'Select a Provider'
             },
             templateResult: formatData,
             templateSelection: formatData1

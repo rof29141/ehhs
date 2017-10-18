@@ -33,6 +33,7 @@
                                     }
                                 }?>
                             </select>
+                            <div class="note" style="padding-top: 5px;">Please, call to the office if you don't see the service you need.</div>
                         </div>
                     </div>
 
@@ -62,7 +63,7 @@
         <div class="col-lg-4"></div>
 
         <form method="post" action="" id="frm">
-            <div class="col-lg-4" style="background-color: #fff;">
+            <div class="col-lg-4" style="top:100px;background-color: #fff;">
                 <fieldset class="myfieldset">
                     <legend class="mylegend">Confirm Appointment</legend>
                         <div display="padding:15px"id="modal"></div>

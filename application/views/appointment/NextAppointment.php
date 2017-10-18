@@ -101,7 +101,7 @@
                             <div class="" style="text-align:center;font-weight: bold; font-size: 13px;"><?php echo $data['my_next_appointments']['data'][$k]['APT_Time'];?></div>
 
                             <?php if($data['my_next_appointments']['data'][$k]['TokenConfirmApp']!=''){?>
-                                <div  style="text-align:right;padding: 5px;"><a class="btn btn_confirm_app" style="background-color: #492f91"style="background-color: #492f91" id="<?php echo $k;?>">Please, Confirm appointment</a></div>
+                                <div  style="text-align:right;padding: 5px;"><a class="btn btn_confirm_app" style="background-color: #492f91" id="<?php echo $k;?>">Please, Confirm appointment</a></div>
                             <?php }else {?>
                                 <div style="text-align:right;padding: 5px;"><a class="btn resend_email" style="background-color: #492f91" id="<?php echo $k;?>">Resend email</a></div>
                             <?php }?>
@@ -125,7 +125,7 @@
     <script type="text/javascript">
         $(document).ready(function()
         {
-            $('body').on('click', '.btn_confirm_app', function ()
+            $('.btn_confirm_app').on('click', function ()
             {
                 var i = $(this).attr('id');//alert(i);
 
@@ -140,7 +140,7 @@
                 var email_to = "<?php echo $email;?>";
                 var reply_to_email = '';
                 var reply_to_name = '';
-                var subject = "Please, Confirm appointment";
+                var subject = "Please, Confirm your appointment";
                 var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
                 var link_web = '351face.com';
                 var body = '<h1>Appointment confirmation</h1>' +
@@ -175,12 +175,13 @@
                     }
                     else
                     {
-                        $('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to);
+                        $('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');
                     }
+                    $('#remoteModal').modal('show');
                 });
             });
 
-            $('body').on('click', '.resend_email', function ()
+            $('.resend_email').on('click', function ()
             {
                 var i = $(this).attr('id');//alert(i);
 
@@ -228,6 +229,7 @@
                     {
                         $('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to);
                     }
+                    $('#remoteModal').modal('show');
                 });
             });
 

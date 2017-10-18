@@ -41,6 +41,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="remoteModal" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true" style="display: none;">
+
+    <div class="modal-content" style="align-content: center;">
+
+        <div class="col-lg-4"></div>
+
+        <form method="post" action="" id="frm">
+            <div class="col-lg-4" style="top:100px;background-color: #fff;">
+                <fieldset class="myfieldset">
+                    <legend class="mylegend">Confirm Appointment</legend>
+                    <div display="padding:15px"id="modal"></div>
+                </fieldset>
+            </div>
+        </form>
+
+        <div class="col-lg-4"></div>
+
+    </div>
+
+</div>
+
 
 <script type="text/javascript">
 

@@ -135,7 +135,7 @@
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'WRONG') {$('#modal').html('Your email is wrong.');}
-                else {$('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to);}
+                else {$('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
                 spinner.stop();
             });
         }

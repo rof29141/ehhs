@@ -481,12 +481,12 @@
     /* Banner */
     #img_logo {
         background:url(<?php echo $src_logo;?>);
-        background-size: auto 48px;
+        background-size: auto 90px;
         background-repeat: no-repeat;
         width:100%;
-        height:50px;
+        height:88px;
         margin-right: 5px;
-        margin-left: 25px;
+        margin-left: 40px;
         vertical-align: middle;
     }
 
