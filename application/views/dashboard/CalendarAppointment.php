@@ -22,7 +22,7 @@
         <div class="col-lg-4"></div>
 
         <form method="post" action="" id="frm">
-            <div class="col-lg-4" style="background-color: #fff;">
+            <div class="col-lg-4" style="top:100px;background-color: #fff;">
                 <fieldset class="myfieldset">
                     <legend class="mylegend">Confirm Appointment</legend>
                     <div display="padding:15px"id="modal"></div>
@@ -53,7 +53,6 @@
                 businessHours: {
                     // days of week. an array of zero-based day of week integers (0=Sunday)
                     dow: [ 1, 2, 3, 4 ], // Monday - Thursday
-
                     start: '6:00', // a start time (10am in this example)
                     end: '19:00', // an end time (6pm in this example)
                 },
@@ -81,7 +80,7 @@
                 events: <?php echo $events;?>,
 
             });
-            //console.log('<?php echo $events;?>');
+            //alert('<?php echo $events;?>');
         function FillModalApp(id_service, id_doctor, start, end)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start

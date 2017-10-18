@@ -10,9 +10,12 @@
                             <label>Service</label>
                             <select class="my_select2" id="sel_service" name="sel_service">
                                 <option value="-1"></option>
-                                <?php $group_service='';for ($i=0;$i<count($service['data']);$i++){
+                                <?php $group_service='';
+                                for ($i=0;$i<count($service['data']);$i++)
+                                {
                                     if($service['data'][$i]['GroupService']!=$group_service)
                                     {
+                                        $group_service=$service['data'][$i]['GroupService'];
                                     ?>
                                         <optgroup label="<?php echo $service['data'][$i]['GroupService'];?>">
                                     <?php
@@ -27,7 +30,6 @@
                                     ?>
                                         </optgroup>
                                     <?php
-                                        $group_service=$service['data'][$i]['GroupService'];
                                     }
                                 }?>
                             </select>
@@ -87,6 +89,10 @@
 
         $('#sel_service').on('change', function ()
         {
+            $('#drop_down_doc').html('');
+            $('#calendar_app').html('');
+            $('#doc_photo').html('');
+
             var id_service = $(this).val();
             if(id_service!='' && id_service!=0 && id_service!=null)
             {
@@ -99,16 +105,13 @@
                     type: 'POST',
                     data: {data_type: 'dropdown_doctor', view_url: 'dashboard/DropDownDoctor', id_service: id_service}
                 }).done(function (response, textStatus, jqXHR) {
-                    if(response!='NOT_SETTINGS')
+                    if(response!='NOT_DOCTOR')
                     {
                         $('#drop_down_doc').html(response);
                     }
                     else
                     {
-                        alertify.error('Settings not defined for this service.');
-                        $('#drop_down_doc').html('');
-                        $('#calendar_app').html('');
-                        $('#doc_photo').html('');
+                        alertify.error('Doctor not asingned for this service.');
                     }
 
                     spinner.stop();

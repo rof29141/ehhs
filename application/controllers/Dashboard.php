@@ -112,9 +112,7 @@ class Dashboard extends CI_Controller
                                     $events[] = $event;
 
                                     $event_start = $event_end;
-                                    $real_appointment_start_first = '';
                                 } else {
-                                    $real_appointment_start_first = '';
                                     break;
                                 }
                             }
@@ -233,9 +231,19 @@ class Dashboard extends CI_Controller
 
     function DownloadiCal()
     {
-        $from_email = 'dispatch-system@tekexperts.com';
-        $from_name = 'Advanced Cosmetic Surgery';
-        $email_to = 'raydel@mactutor.net';
+        $session_data = $this->session->userdata('logged_user_acs');
+
+        $email = $session_data['email'];
+
+        $data_email = $this->session->userdata('param_email_acs');
+
+        $email_from = $data_email['email_from'];
+        $email_from_name = $data_email['email_from_name'];
+        $email_test_to = $data_email['email_test_to'];
+
+        $from_email = $email_from;
+        $from_name = $email_from_name;
+        $email_to = $email;
         $reply_to_email = '';
         $reply_to_name = '';
         $subject = "Appointment confirmed";
@@ -288,5 +296,17 @@ class Dashboard extends CI_Controller
 
             if($return=='OK')$this->load->view('appointment/ConfirmedAppointment');
         }
+    }
+
+    function GetAppointmentBy()
+    {
+        $id_service = $_POST['id_service'];
+        $id_doctor = $_POST['id_doctor'];
+        $date = $_POST['date'];
+        $start = $_POST['start'];
+
+        $app = $this->M_Dashboard->GetAppointmentBy($id_service, $id_doctor, $date, $start);
+
+        echo $app['error'];
     }
 }

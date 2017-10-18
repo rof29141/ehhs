@@ -64,4 +64,4 @@
     });
 </script>
 
-<?php }else echo 'NOT_SETTINGS';?>
+<?php }else echo 'NOT_DOCTOR';?>

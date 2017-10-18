@@ -11,18 +11,20 @@ require_once(APPPATH."views/includes/header.php");
 
     <div class="container">
 
-        <div class="modal-content" style="align-content: center;">
+        <div style="align-content: center;">
 
             <div class="col-lg-3"></div>
 
             <form method="POST" action="../DownloadiCal" id="frm" name="frm">
                 <div class="col-lg-6" style="background-color: #fff;">
                     <fieldset class="myfieldset">
-                        <legend class="mylegend">Confirmed Appointment</legend>
+                        <legend class="mylegend">Confirm Appointment</legend>
 
-                        <div class="col-lg-12" id="confirm_app">
+                        <div class="col-lg-12 text-center" id="confirm_app">
 
                             Thanks, Appointment confirmed.
+                            <br>
+                            Please, check your inbox. Has been sent an email.
                             <br>
                             <fieldset class="container auth">
                                 <div class="text-center">

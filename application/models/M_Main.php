@@ -67,6 +67,13 @@ Class M_Main extends CI_Model
         $criteria['range'] = '10000';
         $criteria['offset'] = '1';
 
+        $sort1['fieldName'] = 'GroupService';
+        $sort1['sortOrder'] = 'ascend';
+        $sort2['fieldName'] = 'Service';
+        $sort2['sortOrder'] = 'ascend';
+        $sort = array ($sort1, $sort2);
+        $criteria['sort'] = $sort;
+
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
 

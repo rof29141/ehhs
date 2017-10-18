@@ -52,6 +52,7 @@ class Main extends CI_Controller
         if($this->session->userdata('logged_user_acs'))
         {
             $session_data = $this->session->userdata('logged_user_acs');
+            $data_email = $this->session->userdata('param_email_acs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -59,6 +60,11 @@ class Main extends CI_Controller
             $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
+
+            $data['email_from'] = $data_email['email_from'];
+            $data['email_from_name'] = $data_email['email_from_name'];
+            $data['email_test_to'] = $data_email['email_test_to'];
+            $data['email_test_staff_to'] = $data_email['email_test_staff_to'];
 
             $data_type = $_POST['data_type'];
             $view_url = $_POST['view_url'];
@@ -121,6 +127,7 @@ class Main extends CI_Controller
 
                 if($setting['error']=='0')
                 {
+                    //echo 'errorrrrrr: '.$setting['error'];
                     $result['doctor'] = $this->M_Main->GetDoctorsByService($id_service);
                 }
             }
@@ -204,7 +211,7 @@ class Main extends CI_Controller
         }
     }
 
-    function SaveObjectWoutLogin()
+    function SaveObjectWoutLogged()
     {
         $i=0;
         foreach($_POST as $field_name => $value)

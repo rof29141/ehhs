@@ -11,7 +11,7 @@ require_once(APPPATH."views/includes/header.php");
 
     <div class="container">
 
-        <div class="modal-content" style="align-content: center;">
+        <div style="align-content: center;">
 
             <div class="col-lg-3"></div>
 
@@ -85,12 +85,16 @@ require_once(APPPATH."views/includes/header.php");
 <script type="text/javascript">
     $(document).ready(function()
     {
-        $('body').on('click', '#btn_confirm_app', function ()
+        $('#btn_confirm_app').on('click', function ()
         {
-            document.frm.submit();
-            var from_email = 'dispatch-system@tekexperts.com';
-            var from_name = 'Advanced Cosmetic Surgery';
-            var email_to = 'raydel@mactutor.net';
+            ConfirmAppointment($('#txt_app').val());
+        });
+
+        function SendMail()
+        {
+            var from_email = "<?php echo $email_from;?>";
+            var from_name = "<?php echo $email_from_name;?>";
+            var email_to = "<?php echo $email;?>";
             var reply_to_email = '';
             var reply_to_name = '';
             var subject = "Appointment confirmed";
@@ -114,29 +118,29 @@ require_once(APPPATH."views/includes/header.php");
 
 
             $.ajax(
-            {
-                url:'../../Main/EnviarEmail',
-                type:'POST',
-                data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body}
-            }).done(function(response, textStatus, jqXHR)
+                {
+                    url:'../../Main/EnviarEmail',
+                    type:'POST',
+                    data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body}
+                }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'WRONG') {
                     $('#modal').html('Your email is wrong.');
                 }
                 else
                 {
-                    ConfirmAppointment($('#txt_app').val());
+                    document.frm.submit();
                     //SendMailtoStaff($('#txt_service').val(), $('#txt_doctor').val(), $('#txt_date').val());
-                    $('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to);
+                    //$('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to);
                 }
             });
-        });
+        }
 
         function ConfirmAppointment(id)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start
             var array_inputs='&TokenConfirmApp='+'&id='+id;
-            var url = '../../Main/SaveObjectWoutLogin';
+            var url = '../../Main/SaveObjectWoutLogged';
             var data = array_inputs+'&layout=PHP_Appointment&type=UPDATE';
 
             SaveContentApp(url, data);
@@ -153,8 +157,8 @@ require_once(APPPATH."views/includes/header.php");
             {
                 if(response=='0')
                 {
-                    $('#confirm_app').html('Thanks, Appointment confirmed.<br><fieldset><div class="text-center"><a href="<?php echo CTR_URL; ?>Authentication">Back to Login</a></div></fieldset>');
-
+                    //$('#confirm_app').html('Thanks, Appointment confirmed.<br>Please, check your inbox. Has been sent an email to ' + email_to+'<br><fieldset><div class="text-center"><a href="<?php echo CTR_URL; ?>Authentication">Back to Login</a></div></fieldset>');
+                    SendMail();
                 }
                 else{alertify.error('Error: The element could not be Saved. '+ response);}
 
@@ -165,11 +169,11 @@ require_once(APPPATH."views/includes/header.php");
             });
         }
 
-        function SendMailtoStaff(service, doctor, date)
+        function SendMailtoStaff(service, doctor, date)//not used
         {
-            var from_email = 'dispatch-system@tekexperts.com';
-            var from_name = 'Advanced Cosmetic Surgery';
-            var email_to = 'raydel@mactutor.net';
+            var from_email = "<?php echo $email_from;?>";
+            var from_name = "<?php echo $email_from_name;?>";
+            var email_to = "<?php echo $email_test_staff_to;?>";
             var reply_to_email = '';
             var reply_to_name = '';
             var subject = "Appointment confirmed";

@@ -1,5 +1,7 @@
 
     <?php
+    if(isset($data['my_next_appointments']['data']))
+    {
     for($i=0;$i<count($data['my_next_appointments']['data']);$i=$i+3)
     {
         $j=$i+1;
@@ -119,7 +121,7 @@
             <?php }?>
         </div>
 
-    <?php }?>
+    <?php }}else echo '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>' ;?>
     <script type="text/javascript">
         $(document).ready(function()
         {
@@ -133,9 +135,9 @@
                 var date=$('#hdn_date_'+i).val();
                 var token=$('#hdn_tok_'+i).val();//alert(token);
 
-                var from_email = 'dispatch-system@tekexperts.com';
-                var from_name = 'Advanced Cosmetic Surgery';
-                var email_to = 'raydel@mactutor.net';
+                var from_email = "<?php echo $email_from;?>";
+                var from_name = "<?php echo $email_from_name;?>";
+                var email_to = "<?php echo $email;?>";
                 var reply_to_email = '';
                 var reply_to_name = '';
                 var subject = "Please, Confirm appointment";

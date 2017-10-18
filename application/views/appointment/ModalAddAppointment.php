@@ -42,17 +42,70 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
-        $('body').on('click', '#btn_submit_app', function ()
+        $('#btn_submit_app').on('click', function ()
         {
+            var target = document.getElementById('container');
+            var spinner = new Spinner(opts).spin(target);
+
             var token=Math.floor((Math.random() * 1000000000000000) + 1);
             var title='Appointment with '+$('#txt_doctor').val()+' at '+$('#txt_date').val();
 
-            var from_email = 'dispatch-system@tekexperts.com';
-            var from_name = 'Advanced Cosmetic Surgery';
-            var email_to = 'isak@mactutor.net';
+            SaveAppointment($('#txt_service').attr('datafld'), $('#txt_patient').val(), $('#txt_doctor').attr('datafld'), $('#txt_date').val(), $('#txt_start').val(), $('#txt_end').val(), title, token, spinner);
+
+        });
+
+        function SaveAppointment(id_service, id_patient, id_doctor, date,start, end, title, token, spinner)
+        {
+            var array_inputs='_kf_ServiceID='+id_service+'&_zfk_ClientRec='+id_patient+'&ProviderRec='+id_doctor+'&APT_Date='+date+'&APT_Time='+start+'&APT_TimeEnd='+end+'&APT_Title='+title+'&TokenConfirmApp='+token+'&AppFromWeb=1';
+            var url = 'Main/SaveObject';
+            var data = array_inputs+'&layout=PHP_Appointment&type=INSERT';
+
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: 'Dashboard/GetAppointmentBy',
+                data:{id_service:id_service, id_doctor:id_doctor, date:date, start:start}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response=='0'){$('#modal').html('Please, reload the page, exist an appointment in this date and time.');spinner.stop();}
+                else{SaveContentApp(url, data, title, token, spinner);}
+
+            }).fail(function(jqHTR, textStatus, thrown)
+            {
+                alertify.error('Something wrong with AJAX:' + textStatus);
+            });
+        }
+
+        function SaveContentApp(url, array_inputs, title, token, spinner)
+        {
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: url,
+                data:array_inputs
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response!='1')
+                {
+                    if(response=='0'){alertify.success('Data Saved.');SendMail(title, token, spinner);}
+                    else{alertify.error('Error: The element could not be Saved. '+ response);spinner.stop();}
+                }
+                else
+                    window.location.replace("Authentication");
+            }).fail(function(jqHTR, textStatus, thrown)
+            {
+                alertify.error('Something wrong with AJAX:' + textStatus);
+            });
+        }
+
+        function SendMail(title, token, spinner)
+        {
+            var from_email = "<?php echo $email_from;?>";
+            var from_name = "<?php echo $email_from_name;?>";
+            var email_to = "<?php echo $email;?>";
             var reply_to_email = '';
             var reply_to_name = '';
-            var subject = "Confirm Appointment";
+            var subject = "Please, Confirm your Appointment";
             var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
             var link_web = '351face.com';
             var body = '<h1>Appointment confirmation</h1>' +
@@ -74,58 +127,16 @@
                 '<p>Phone: 513-351-FACE(3223)</p>' +
                 '<p>Fax: 513-396-8995</p>';
 
-
             $.ajax(
-                {
-                    url:'Main/EnviarEmail',
-                    type:'POST',
-                    data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body}
-                }).done(function(response, textStatus, jqXHR)
             {
-                if(response == 'WRONG') {
-                    $('#modal').html('Your email is wrong.');
-                }
-                else
-                {
-                    SaveAppointment($('#txt_service').attr('datafld'), $('#txt_patient').val(), $('#txt_doctor').attr('datafld'), $('#txt_date').val(), $('#txt_start').val(), $('#txt_end').val(), title, token);
-                    $('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to);
-                }
-            });
-        });
-
-        function SaveAppointment(id_service, id_patient, id_doctor, date,start, end, title, token)
-        {
-            //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start
-            var array_inputs='_kf_ServiceID='+id_service+'&_zfk_ClientRec='+id_patient+'&ProviderRec='+id_doctor+'&APT_Date='+date+'&APT_Time='+start+'&APT_TimeEnd='+end+'&APT_Title='+title+'&TokenConfirmApp='+token+'&AppFromWeb=1';
-            var url = 'Main/SaveObject';
-            var data = array_inputs+'&layout=PHP_Appointment&type=INSERT';
-
-            SaveContentApp(url, data);
-        }
-
-        function SaveContentApp(url, array_inputs)
-        {
-            var target = document.getElementById('container');
-            var spinner = new Spinner(opts).spin(target);
-
-            $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: url,
-                data:array_inputs
+                url:'Main/EnviarEmail',
+                type:'POST',
+                data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body}
             }).done(function(response, textStatus, jqXHR)
             {
-                if(response!='1')
-                {
-                    if(response=='0'){alertify.success('Data Saved.');}
-                    else{alertify.error('Error: The element could not be Saved. '+ response);}
-                    spinner.stop();
-                }
-                else
-                    window.location.replace("Authentication");
-            }).fail(function(jqHTR, textStatus, thrown)
-            {
-                alertify.error('Something wrong with AJAX:' + textStatus);
+                if(response == 'WRONG') {$('#modal').html('Your email is wrong.');}
+                else {$('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to);}
+                spinner.stop();
             });
         }
     });
