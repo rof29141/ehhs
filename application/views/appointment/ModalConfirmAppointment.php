@@ -1,13 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-$page_title = "Reset Password";
+$page_title = "";
 $position='center';
 require_once(APPPATH."views/includes/header.php");
 ?>
 
 <body >
 <div id="wrapper">
-
+    <div class="container text-center" style="margin-top: 90px;">
+        <?php require_once(VIEW_URL."includes/banner.php");?>
+    </div>
 
     <div class="container">
 
