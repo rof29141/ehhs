@@ -61,6 +61,7 @@
                 allDaySlot:false,
                 defaultView:'agendaWeek',
                 height: 'auto',
+                slotDuration:'00:15:00',
 
                 eventClick: function(calEvent, jsEvent, view) {
 

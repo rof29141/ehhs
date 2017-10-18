@@ -21,11 +21,6 @@
         <input type="email" name="bd_user_email" id="bd_user_email" class="form-control required"  value="<?php if(isset($data['user']['data'][0]['bd_user_email'])) echo $data['user']['data'][0]['bd_user_email'];?>" />
     </div>
 
-    <div class="form-group">
-        <label>Confirm Email address</label>
-        <input type="email" name="UserEmail2" id="UserEmail2" class="form-control required equalTo" datafld="ignore"  value="" />
-    </div>
-
     <div class="form-group pull-right">
         <button type="button" datafld="PHP_Patients" datatype="UPDATE" id="btn_save" class="btn btn-success">Save</button>
     </div>
@@ -42,20 +37,12 @@
             rules : {
                 bd_user_email: {
                     required: true
-                },
-                UserEmail2: {
-                    required: true,
-                    equalTo: "#bd_user_email"
                 }
             },
 
             messages : {
                 bd_user_email: {
                     required: 'Please enter your email'
-                },
-                UserEmail2: {
-                    required : 'Please confirm your email',
-                    equalTo : 'Please insert the same email'
                 }
             },
 
