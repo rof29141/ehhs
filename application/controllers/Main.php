@@ -285,12 +285,12 @@ class Main extends CI_Controller
         $reply_to_name=$_POST['reply_to_name'];
         $subject=$_POST['subject'];
         $body=$_POST['body'];
-        $attachment='';
+        $attachments=$_POST['attachments'];
 
         $this->load->library('MT_Mail');
         $obj_mail = new MT_Mail();
 
-        $return=$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachment);
+        $return=$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
 
         echo $return;
     }

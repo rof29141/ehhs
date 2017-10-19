@@ -155,6 +155,7 @@ Class M_Dashboard extends CI_Model
                 $return['LastName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::LastName"];
                 $return['Photo'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Photo"];
                 $return['Service'] = $result["data"][$i]["fieldData"]["PHP_Service::Service"];
+                $return['bd_user_email'] = $result["data"][$i]["fieldData"]["PHP_Patients::bd_user_email"];
                 $return['RecordID'] = $result["data"][$i]["fieldData"]["RecordID"];
             }
         }

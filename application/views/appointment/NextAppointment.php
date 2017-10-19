@@ -122,6 +122,17 @@
         </div>
 
     <?php }}else echo '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>' ;?>
+
+
+
+    <?php
+
+
+    //$attachments = ;
+
+
+
+    ?>
     <script type="text/javascript">
         $(document).ready(function()
         {
@@ -141,6 +152,7 @@
                 var reply_to_email = '';
                 var reply_to_name = '';
                 var subject = "Please, Confirm your appointment";
+                var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
                 var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
                 var link_web = '351face.com';
                 var body = '<h1>Appointment confirmation</h1>' +
@@ -160,14 +172,16 @@
                     '<p>3805 Edwards Rd #100</p>' +
                     '<p>Cincinnati, OH 45244</p>' +
                     '<p>Phone: 513-351-FACE(3223)</p>' +
-                    '<p>Fax: 513-396-8995</p>';
+                    '<p>Fax: 513-396-8995</p>' +
+                    '<br>' +
+                    '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
 
 
                 $.ajax(
                     {
                         url:'Main/EnviarEmail',
                         type:'POST',
-                        data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body}
+                        data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body, attachments:attachments}
                     }).done(function(response, textStatus, jqXHR)
                 {
                     if(response == 'WRONG') {
@@ -196,8 +210,9 @@
                 var reply_to_email = '';
                 var reply_to_name = '';
                 var subject = "Appointment information";
+                var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
                 var link_web = '351face.com';
-                var body = '<h1>Appointment information</h1>' +
+                var body = '<h1>Appointment informationnnn</h1>' +
                     '<p>You have an appointment in <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
                     '<br>' +
                     '<p><strong>Service: </strong>'+serv+'</p>' +
@@ -212,14 +227,23 @@
                     '<p>3805 Edwards Rd #100</p>' +
                     '<p>Cincinnati, OH 45244</p>' +
                     '<p>Phone: 513-351-FACE(3223)</p>' +
-                    '<p>Fax: 513-396-8995</p>';
+                    '<p>Fax: 513-396-8995</p>' +
+                    '<br>' +
+
+                    //'<video poster="https://www.youtube.com/embed/fIRJu41GQSo" width="100%" height="50%" controls="controls">\n' +
+                    //'<source src="https://www.youtube.com/embed/fIRJu41GQSo" type="video/mp4" />\n' +
+                    //'<a href="https://www.youtube.com/embed/fIRJu41GQSo">\n' +
+                    //'<img src="cid:img_cid_0" width="400" alt="Video" />\n' +
+                    //'</a>\n' +
+                    //'</video>' +
+                    '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
 
 
                 $.ajax(
                     {
                         url:'Main/EnviarEmail',
                         type:'POST',
-                        data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body}
+                        data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body, attachments:attachments}
                     }).done(function(response, textStatus, jqXHR)
                 {
                     if(response == 'WRONG') {

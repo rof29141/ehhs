@@ -214,6 +214,7 @@ class Dashboard extends CI_Controller
             $data['LastName'] = $result['LastName'];
             $data['Photo'] = $result['Photo'];
             $data['Service'] = $result['Service'];
+            $data['email'] = $result['bd_user_email'];
             $data['RecordID'] = $result['RecordID'];
 
             $this->load->view('appointment/ModalConfirmAppointment', $data);
@@ -247,6 +248,7 @@ class Dashboard extends CI_Controller
         $reply_to_email = '';
         $reply_to_name = '';
         $subject = "Appointment confirmed";
+        $attachments = './assets/images/logo.png';
         $link_web = '351face.com';
         $body = '<h1>Thanks for your confirmation</h1>'.
             '<p>You confirmed an aplicatiion for an appointment in <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
@@ -263,7 +265,9 @@ class Dashboard extends CI_Controller
             '<p>3805 Edwards Rd #100</p>'.
             '<p>Cincinnati, OH 45244</p>'.
             '<p>Phone: 513-351-FACE(3223)</p>'.
-            '<p>Fax: 513-396-8995</p>';
+            '<p>Fax: 513-396-8995</p>'.
+            '<br>'.
+            '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
 
         $arr_ical=array('location' => $_POST['hdn_ical_addr'],
             'description' => $_POST['hdn_ical_title'],
@@ -283,19 +287,15 @@ class Dashboard extends CI_Controller
         $this->load->library('MT_Mail');
         $obj_mail = new MT_Mail();
 
-        if (!write_file($file, $calendar))
+        if (write_file($file, $calendar))
         {
-            $return=$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, '');
-
-            if($return=='OK')$this->load->view('appointment/ConfirmedAppointment');
+            $attachments=$attachments.'&'.$file;
         }
-        else
-        {
-            $attachment=$file;
-            $return=$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachment);
 
-            if($return=='OK')$this->load->view('appointment/ConfirmedAppointment');
-        }
+        $return=$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
+
+        if($return=='OK')
+            $this->load->view('appointment/ConfirmedAppointment');
     }
 
     function GetAppointmentBy()

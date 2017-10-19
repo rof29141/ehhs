@@ -100,6 +100,7 @@ require_once(APPPATH."views/includes/header.php");
             var reply_to_email = '';
             var reply_to_name = '';
             var subject = "Appointment confirmed";
+            var attachments = './assets/images/logo.png';
             var link_web = '351face.com';
             var body = '<h1>Appointment Confirmed</h1>' +
                 '<p>A patient has submmited an appointment' +
@@ -116,14 +117,16 @@ require_once(APPPATH."views/includes/header.php");
                 '<p>3805 Edwards Rd #100</p>' +
                 '<p>Cincinnati, OH 45244</p>' +
                 '<p>Phone: 513-351-FACE(3223)</p>' +
-                '<p>Fax: 513-396-8995</p>';
+                '<p>Fax: 513-396-8995</p>' +
+                '<br>' +
+                '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
 
 
             $.ajax(
                 {
                     url:'../../Main/EnviarEmail',
                     type:'POST',
-                    data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body}
+                    data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body, attachments:attachments}
                 }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'WRONG') {
@@ -179,6 +182,7 @@ require_once(APPPATH."views/includes/header.php");
             var reply_to_email = '';
             var reply_to_name = '';
             var subject = "Appointment confirmed";
+            var attachments = './assets/images/logo.png';
             var link_web = '351face.com';
             var body = '<h1>Appointment Confirmed</h1>' +
                 '<p>A patient has submmited an appointment' +
@@ -193,14 +197,16 @@ require_once(APPPATH."views/includes/header.php");
                 '<p>3805 Edwards Rd #100</p>' +
                 '<p>Cincinnati, OH 45244</p>' +
                 '<p>Phone: 513-351-FACE(3223)</p>' +
-                '<p>Fax: 513-396-8995</p>';
+                '<p>Fax: 513-396-8995</p>' +
+                '<br>' +
+                '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
 
 
             $.ajax(
             {
                 url:'../../Main/EnviarEmail',
                 type:'POST',
-                data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body}
+                data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body, attachments:attachments}
             }).done(function(response, textStatus, jqXHR)
             {});
         }
