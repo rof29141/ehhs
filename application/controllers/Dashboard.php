@@ -251,15 +251,16 @@ class Dashboard extends CI_Controller
         $attachments = './assets/images/logo.png';
         $link_web = '351face.com';
         $body = '<h1>Thanks for your confirmation</h1>'.
-            '<p>You confirmed an aplicatiion for an appointment in <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
+            '<p>You confirmed an aplicatiion for an appointment at the <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
             '<br>'.
-            '<p><strong>Service: </strong>'.$_POST['txt_service'].'</p>'.
-            '<p><strong>Doctor: </strong>'.$_POST['txt_doctor'].'</p>'.
             '<p><strong>Date: </strong>'.$_POST['txt_date'].'</p>'.
+            '<p><strong>Time: </strong>'.$_POST['txt_start'].'</p>'.
+            '<p><strong>Provider: </strong>'.$_POST['txt_doctor'].'</p>'.
+            '<p><strong>Service: </strong>'.$_POST['txt_service'].'</p>'.
             '<br>'.
             '<p><strong>Please you have to be in the address that apear at bottom 15 minutes before.</strong></p>'.
             '<br>'.
-            '<p>Thanks,</p>'.
+            '<p>Thanks you,</p>'.
             '<p>Advanced Cosmetic Surgery & Laser Center</p>'.
             '<p>Rookwood Commons Shopping Center</p>'.
             '<p>3805 Edwards Rd #100</p>'.
@@ -267,7 +268,7 @@ class Dashboard extends CI_Controller
             '<p>Phone: 513-351-FACE(3223)</p>'.
             '<p>Fax: 513-396-8995</p>'.
             '<br>'.
-            '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
+            '<a href="' . $link_web . '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
 
         $arr_ical=array('location' => $_POST['hdn_ical_addr'],
             'description' => $_POST['hdn_ical_title'],

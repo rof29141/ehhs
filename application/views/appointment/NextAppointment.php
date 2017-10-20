@@ -33,7 +33,8 @@
                             <?php }?>
 
                             <input id="hdn_title_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['APT_Title'];?>"/>
-                            <input id="hdn_date_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['APT_Date'].' '.$data['my_next_appointments']['data'][$i]['APT_Time'];?>"/>
+                            <input id="hdn_date_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['APT_Date'];?>"/>
+                            <input id="hdn_time_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['APT_Time'];?>"/>
                             <input id="hdn_doc_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['FirstName'].' '.$data['my_next_appointments']['data'][$i]['LastName'];?>"/>
                             <input id="hdn_ser_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['Service'];?>"/>
                             <input id="hdn_tok_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['TokenConfirmApp'];?>"/>
@@ -70,7 +71,8 @@
                             <?php }?>
 
                             <input id="hdn_title_<?php echo $j;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$j]['APT_Title'];?>"/>
-                            <input id="hdn_date_<?php echo $j;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$j]['APT_Date'].' '.$data['my_next_appointments']['data'][$j]['APT_Time'];?>"/>
+                            <input id="hdn_date_<?php echo $j;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$j]['APT_Date'];?>"/>
+                            <input id="hdn_time_<?php echo $j;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$j]['APT_Time'];?>"/>
                             <input id="hdn_doc_<?php echo $j;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$j]['FirstName'].' '.$data['my_next_appointments']['data'][$j]['LastName'];?>"/>
                             <input id="hdn_ser_<?php echo $j;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$j]['Service'];?>"/>
                             <input id="hdn_tok_<?php echo $j;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$j]['TokenConfirmApp'];?>"/>
@@ -108,7 +110,8 @@
 
 
                             <input id="hdn_title_<?php echo $k;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$k]['APT_Title'];?>"/>
-                            <input id="hdn_date_<?php echo $k;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$k]['APT_Date'].' '.$data['my_next_appointments']['data'][$k]['APT_Time'];?>"/>
+                            <input id="hdn_date_<?php echo $k;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$k]['APT_Date'];?>"/>
+                            <input id="hdn_time_<?php echo $k;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$k]['APT_Time'];?>"/>
                             <input id="hdn_doc_<?php echo $k;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$k]['FirstName'].' '.$data['my_next_appointments']['data'][$k]['LastName'];?>"/>
                             <input id="hdn_ser_<?php echo $k;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$k]['Service'];?>"/>
                             <input id="hdn_tok_<?php echo $k;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$k]['TokenConfirmApp'];?>"/>
@@ -144,6 +147,7 @@
                 var serv=$('#hdn_ser_'+i).val();
                 var doc=$('#hdn_doc_'+i).val();
                 var date=$('#hdn_date_'+i).val();
+                var time=$('#hdn_time_'+i).val();
                 var token=$('#hdn_tok_'+i).val();//alert(token);
 
                 var from_email = "<?php echo $email_from;?>";
@@ -151,22 +155,23 @@
                 var email_to = "<?php echo $email;?>";
                 var reply_to_email = '';
                 var reply_to_name = '';
-                var subject = "Please, Confirm your appointment";
+                var subject = "Appointment confirmation";
                 var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
                 var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
                 var link_web = '351face.com';
                 var body = '<h1>Appointment confirmation</h1>' +
-                    '<p>You submitted an aplicatiion for an appointment in <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
+                    '<p>Dear <?php echo $bd_FirstName." ".$bd_LastName;?>,</p>' +
+                    '<p>This email is to confirm that you submitted an application for an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
                     '<br>' +
-                    '<p><strong>Service: </strong>'+serv+'</p>' +
-                    '<p><strong>Doctor: </strong>'+doc+'</p>' +
                     '<p><strong>Date: </strong>'+date+'</p>' +
+                    '<p><strong>Time: </strong>'+time+'</p>' +
+                    '<p><strong>Provider: </strong>'+doc+'</p>' +
+                    '<p><strong>Service: </strong>'+serv+'</p>' +
                     '<br>' +
-                    '<p>Please use this link to confirm your appoint.</p>' +
-                    '<p>Here is your link: </p><p><a href="' + link + '"><button class="btn btn-default">Please, Confirm appointment</button></a></p>' +
-                    '<p>If you don\'t recognize the email, you can delete this email.</p>' +
+                    '<p>Please click on this link to confirm your appointment.</p>' +
+                    '<p><a href="' + link + '"><button class="btn btn-success">Confirm Appointment</button></a></p>' +
                     '<br>' +
-                    '<p>Thanks,</p>' +
+                    '<p>Thank you,</p>' +
                     '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
                     '<p>Rookwood Commons Shopping Center</p>' +
                     '<p>3805 Edwards Rd #100</p>' +
@@ -174,8 +179,7 @@
                     '<p>Phone: 513-351-FACE(3223)</p>' +
                     '<p>Fax: 513-396-8995</p>' +
                     '<br>' +
-                    '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
-
+                    '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
 
                 $.ajax(
                     {
@@ -203,6 +207,7 @@
                 var serv=$('#hdn_ser_'+i).val();
                 var doc=$('#hdn_doc_'+i).val();
                 var date=$('#hdn_date_'+i).val();
+                var time=$('#hdn_time_'+i).val();
 
                 var from_email = 'dispatch-system@tekexperts.com';
                 var from_name = 'Advanced Cosmetic Surgery';
@@ -212,16 +217,16 @@
                 var subject = "Appointment information";
                 var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
                 var link_web = '351face.com';
-                var body = '<h1>Appointment informationnnn</h1>' +
-                    '<p>You have an appointment in <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
+                var body = '<h1>Appointment information</h1>' +
+                    '<p>Dear <?php echo $bd_FirstName." ".$bd_LastName;?>,</p>' +
+                    '<p>You have an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
                     '<br>' +
-                    '<p><strong>Service: </strong>'+serv+'</p>' +
-                    '<p><strong>Doctor: </strong>'+doc+'</p>' +
                     '<p><strong>Date: </strong>'+date+'</p>' +
+                    '<p><strong>Time: </strong>'+time+'</p>' +
+                    '<p><strong>Provider: </strong>'+doc+'</p>' +
+                    '<p><strong>Service: </strong>'+serv+'</p>' +
                     '<br>' +
-                    '<p>If you don\'t recognize the email, you can delete this email.</p>' +
-                    '<br>' +
-                    '<p>Thanks,</p>' +
+                    '<p>Thank you,</p>' +
                     '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
                     '<p>Rookwood Commons Shopping Center</p>' +
                     '<p>3805 Edwards Rd #100</p>' +
@@ -229,14 +234,13 @@
                     '<p>Phone: 513-351-FACE(3223)</p>' +
                     '<p>Fax: 513-396-8995</p>' +
                     '<br>' +
-
                     //'<video poster="https://www.youtube.com/embed/fIRJu41GQSo" width="100%" height="50%" controls="controls">\n' +
                     //'<source src="https://www.youtube.com/embed/fIRJu41GQSo" type="video/mp4" />\n' +
                     //'<a href="https://www.youtube.com/embed/fIRJu41GQSo">\n' +
                     //'<img src="cid:img_cid_0" width="400" alt="Video" />\n' +
                     //'</a>\n' +
                     //'</video>' +
-                    '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
+                    '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
 
 
                 $.ajax(

@@ -105,13 +105,12 @@ require_once(APPPATH."views/includes/header.php");
             var body = '<h1>Appointment Confirmed</h1>' +
                 '<p>A patient has submmited an appointment' +
                 '<br>' +
+                '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
+                '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +
+                '<p><strong>Provider: </strong>'+$('#txt_doctor').val()+'</p>' +
                 '<p><strong>Service: </strong>'+$('#txt_service').val()+'</p>' +
-                '<p><strong>Doctor: </strong>'+$('#txt_doctor').val()+'</p>' +
-                '<p><strong>Date: </strong>'+$('#txt_date').val()+' '+$('#txt_start').val()+'</p>' +
                 '<br>' +
-                '<p>If you don\'t recognize the email, you can delete this email.</p>' +
-                '<br>' +
-                '<p>Thanks,</p>' +
+                '<p>Thank you,</p>' +
                 '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
                 '<p>Rookwood Commons Shopping Center</p>' +
                 '<p>3805 Edwards Rd #100</p>' +
@@ -119,8 +118,7 @@ require_once(APPPATH."views/includes/header.php");
                 '<p>Phone: 513-351-FACE(3223)</p>' +
                 '<p>Fax: 513-396-8995</p>' +
                 '<br>' +
-                '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
-
+                '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
 
             $.ajax(
                 {
@@ -187,11 +185,12 @@ require_once(APPPATH."views/includes/header.php");
             var body = '<h1>Appointment Confirmed</h1>' +
                 '<p>A patient has submmited an appointment' +
                 '<br>' +
-                '<p><strong>Service: </strong>'+service+'</p>' +
-                '<p><strong>Doctor: </strong>'+doctor+'</p>' +
-                '<p><strong>Date: </strong>'+date+' '+$('#txt_start').val()+'</p>' +
+                '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
+                '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +
+                '<p><strong>Provider: </strong>'+$('#txt_doctor').val()+'</p>' +
+                '<p><strong>Service: </strong>'+$('#txt_service').val()+'</p>' +
                 '<br>' +
-                '<p>Thanks,</p>' +
+                '<p>Thank you,</p>' +
                 '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
                 '<p>Rookwood Commons Shopping Center</p>' +
                 '<p>3805 Edwards Rd #100</p>' +
@@ -199,8 +198,7 @@ require_once(APPPATH."views/includes/header.php");
                 '<p>Phone: 513-351-FACE(3223)</p>' +
                 '<p>Fax: 513-396-8995</p>' +
                 '<br>' +
-                '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
-
+                '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
 
             $.ajax(
             {

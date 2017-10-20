@@ -105,22 +105,23 @@
             var email_to = "<?php echo $email;?>";
             var reply_to_email = '';
             var reply_to_name = '';
-            var subject = "Please, Confirm your Appointment";
+            var subject = "Appointment Confirmation";
             var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
             var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
             var link_web = '351face.com';
             var body = '<h1>Appointment confirmation</h1>' +
-                '<p>You submitted an aplicatiion for an appointment in <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
+                '<p>Dear <?php echo $bd_FirstName." ".$bd_LastName;?>,</p>' +
+                '<p>This email is to confirm that you submitted an application for an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
                 '<br>' +
+                '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
+                '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +
+                '<p><strong>Provider: </strong>'+$('#txt_doctor').val()+'</p>' +
                 '<p><strong>Service: </strong>'+$('#txt_service').val()+'</p>' +
-                '<p><strong>Doctor: </strong>'+$('#txt_doctor').val()+'</p>' +
-                '<p><strong>Date: </strong>'+$('#txt_date').val()+' '+$('#txt_start').val()+'</p>' +
                 '<br>' +
-                '<p>Please use this link to confirm your appoint.</p>' +
-                '<p>Here is your link: </p><p><a href="' + link + '"><button class="btn btn-success">Confirm Appointment</button></a></p>' +
-                '<p>If you don\'t recognize the email, you can delete this email.</p>' +
+                '<p>Please click on this link to confirm your appointment.</p>' +
+                '<p><a href="' + link + '"><button class="btn btn-success">Confirm Appointment</button></a></p>' +
                 '<br>' +
-                '<p>Thanks,</p>' +
+                '<p>Thank you,</p>' +
                 '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
                 '<p>Rookwood Commons Shopping Center</p>' +
                 '<p>3805 Edwards Rd #100</p>' +
@@ -128,7 +129,7 @@
                 '<p>Phone: 513-351-FACE(3223)</p>' +
                 '<p>Fax: 513-396-8995</p>' +
                 '<br>' +
-                '<img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" />';
+                '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
 
             $.ajax(
             {
