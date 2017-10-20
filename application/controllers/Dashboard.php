@@ -61,6 +61,8 @@ class Dashboard extends CI_Controller
             $app_days = $setting['data'][0]['AppDays'];//days of the appointment
 
             $var = explode(",", $app_days);
+            $data['last_day']=end($var);
+            reset($var);
 
             if (count($var) != 0) {
                 for ($i = 0; $i < count($var); next($var), $i++) {
@@ -75,8 +77,6 @@ class Dashboard extends CI_Controller
                     if ($app_day == 7) $str_day = 'saturday';
 
                     $next = date("Y-m-d", strtotime("next " . $str_day));
-                    $event_end = '';
-                    $real_appointment_start_first = '';
                     $minutes = 0;
                     $app_time = 15 * $unit_time;
                     $spaces = floor(32 / $unit_time);

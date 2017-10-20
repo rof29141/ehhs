@@ -42,46 +42,54 @@
     $(document).ready(function()
     {
         $('#calendar').fullCalendar(
-            {
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek'
-                },
-                selectable: true,
-                hiddenDays: [ 0, 6 ],
-                businessHours: {
-                    // days of week. an array of zero-based day of week integers (0=Sunday)
-                    dow: [ 1, 2, 3, 4 ], // Monday - Thursday
-                    start: '6:00', // a start time (10am in this example)
-                    end: '19:00', // an end time (6pm in this example)
-                },
-                minTime:'6:00',
-                maxTime:'19:00',
-                allDaySlot:false,
-                defaultView:'agendaWeek',
-                height: 'auto',
-                slotDuration:'00:15:00',
+        {
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek'
+            },
+            selectable: true,
+            hiddenDays: [ 0, 6 ],
+            businessHours: {
+                // days of week. an array of zero-based day of week integers (0=Sunday)
+                dow: [ 1, 2, 3, 4 ], // Monday - Thursday
+                start: '6:00', // a start time (10am in this example)
+                end: '19:00', // an end time (6pm in this example)
+            },
+            minTime:'6:00',
+            maxTime:'19:00',
+            allDaySlot:false,
+            defaultView:'agendaWeek',
+            height: 'auto',
+            slotDuration:'00:15:00',
 
-                eventClick: function(calEvent, jsEvent, view) {
+            eventClick: function(calEvent, jsEvent, view) {
 
-                    if(calEvent.title==' Available')
-                    {
-                        var id_service=$('#sel_service').val();
-                        var id_doctor=$('#sel_doctor').val();
-                        var start=String(calEvent.start);//alert(start);
-                        var end=String(calEvent.end);//alert(end);
+                if(calEvent.title==' Available')
+                {
+                    var id_service=$('#sel_service').val();
+                    var id_doctor=$('#sel_doctor').val();
+                    var start=String(calEvent.start);//alert(start);
+                    var end=String(calEvent.end);//alert(end);
 
-                        FillModalApp(id_service, id_doctor, start, end);
-                    }
-                },
-                displayEventTime: true,
-                editable: false,
-                timeFormat: 'hh:mm t',
-                events: <?php echo $events;?>,
+                    FillModalApp(id_service, id_doctor, start, end);
+                }
+            },
+            displayEventTime: true,
+            editable: false,
+            timeFormat: 'hh:mm t',
+            events: <?php echo $events;?>,
 
-            });
-            //alert('<?php echo $events;?>');
+        });
+
+        var today = new Date().getDay();//0=Sun, 1=Mon, ..., 6=Sat
+        var last_day = '<?php echo $last_day;?>'-1;//last day of the appointments
+
+        //alert(today+'>='+last_day);
+
+        if(today>=last_day){$('#calendar').fullCalendar('next');}
+
+        //alert('<?php echo $events;?>');
         function FillModalApp(id_service, id_doctor, start, end)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start
