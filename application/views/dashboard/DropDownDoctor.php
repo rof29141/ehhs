@@ -54,11 +54,12 @@
                 data: {id_service:id_service,id_doctor:id_doctor}
             }).done(function(response, textStatus, jqXHR)
             {
-                if(response)
-                {
-                    $('#calendar_app').html(response);
-                    spinner.stop();
-                }
+                //alert(response);
+                if(response=='NOT_SETTINGS')
+                {alertify.error('Please, call the office, the doctor not have settings.');}
+                else if(response)
+                {$('#calendar_app').html(response);}
+                spinner.stop();
             });
         });
     });

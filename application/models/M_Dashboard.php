@@ -98,11 +98,12 @@ Class M_Dashboard extends CI_Model
         return $return;
     }
 
-    function GetAppointmentSettings($id_service)
+    function GetAppointmentSettings($id_service, $id_doctor)
     {
-        $layout='PHP_Web_Appointment_Setting';
+        $layout='PHP_Service_Doctor';
 
-        $request1['_kf_ServiceID'] = '"'.$id_service.'"';//echo $data['id'];
+        $request1['_kf_ServiceID'] = '=='.$id_service;//echo $data['id'];
+        $request1['_kf_DoctorID'] = '=='.$id_doctor;//echo $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -155,6 +156,9 @@ Class M_Dashboard extends CI_Model
                 $return['LastName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::LastName"];
                 $return['Photo'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Photo"];
                 $return['Service'] = $result["data"][$i]["fieldData"]["PHP_Service::Service"];
+                $return['bd_user_email'] = $result["data"][$i]["fieldData"]["PHP_Patients::bd_user_email"];
+                $return['bd_FirstName'] = $result["data"][$i]["fieldData"]["PHP_Patients::bd_FirstName"];
+                $return['bd_LastName'] = $result["data"][$i]["fieldData"]["PHP_Patients::bd_LastName"];
                 $return['bd_user_email'] = $result["data"][$i]["fieldData"]["PHP_Patients::bd_user_email"];
                 $return['RecordID'] = $result["data"][$i]["fieldData"]["RecordID"];
             }

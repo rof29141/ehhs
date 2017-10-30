@@ -105,21 +105,20 @@
             var email_to = "<?php echo $email;?>";
             var reply_to_email = '';
             var reply_to_name = '';
-            var subject = "Appointment Confirmation";
+            var subject = "Please confirm your appointment";
             var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
             var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
             var link_web = '351face.com';
-            var body = '<h1>Appointment confirmation</h1>' +
-                '<p>Dear <?php echo $bd_FirstName." ".$bd_LastName;?>,</p>' +
-                '<p>This email is to confirm that you submitted an application for an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
+            var body ='<p>Dear <?php echo $bd_FirstName." ".$bd_LastName;?>,</p>' +
+                '<p>Thank you for submitting an application for an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
+                '<br>' +
+                '<p>Please click on this link to confirm your appointment details below.</p>' +
+                '<p><a href="' + link + '"><button class="btn btn-success">Confirm Appointment</button></a></p>' +
                 '<br>' +
                 '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
                 '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +
                 '<p><strong>Provider: </strong>'+$('#txt_doctor').val()+'</p>' +
                 '<p><strong>Service: </strong>'+$('#txt_service').val()+'</p>' +
-                '<br>' +
-                '<p>Please click on this link to confirm your appointment.</p>' +
-                '<p><a href="' + link + '"><button class="btn btn-success">Confirm Appointment</button></a></p>' +
                 '<br>' +
                 '<p>Thank you,</p>' +
                 '<p>Advanced Cosmetic Surgery & Laser Center</p>' +

@@ -17,12 +17,17 @@ require_once(APPPATH."views/includes/header.php");
 
             <div class="col-lg-3"></div>
 
-            <form method="POST" action="../DownloadiCal" id="frm" name="frm">
+            <form method="POST" action="../SendMailDownloadiCal" id="frm" name="frm">
                 <div class="col-lg-6" style="background-color: #fff;">
                     <fieldset class="myfieldset">
                         <legend class="mylegend">Confirm Appointment</legend>
 
                         <div class="col-lg-12" id="confirm_app">
+
+                            <div class="form-group">
+                                <label>Patient</label>
+                                <input type="text" name="txt_patient" id="txt_patient" class="form-control required" readonly value="<?php if(isset($bd_FirstName) && isset($bd_LastName)) echo $bd_FirstName.' '.$bd_LastName;?>" />
+                            </div>
 
                             <div class="form-group">
                                 <label>Title</label>
@@ -63,6 +68,7 @@ require_once(APPPATH."views/includes/header.php");
 
                                 <input name="hdn_ical_addr" type="hidden" value="<?php echo '3805 Edwards Rd #100 Cincinnati, OH 45244';?>"/>
                                 <input name="hdn_ical_title" type="hidden" value="<?php echo $APT_Title;?>"/>
+                                <input name="hdn_bd_user_email" type="hidden" value="<?php echo $bd_user_email;?>"/>
                                 <input name="hdn_ical_date" type="hidden" value="<?php echo $APT_Date;?>"/>
                                 <input name="hdn_ical_start" type="hidden" value="<?php echo $APT_Date.' '.$APT_Time;?>"/>
                                 <input name="hdn_ical_end" type="hidden" value="<?php echo $APT_Date.' '.$APT_TimeEnd;?>"/>
@@ -103,7 +109,7 @@ require_once(APPPATH."views/includes/header.php");
             var attachments = './assets/images/logo.png';
             var link_web = '351face.com';
             var body = '<h1>Appointment Confirmed</h1>' +
-                '<p>A patient has submmited an appointment' +
+                '<p>The patient <b><?php echo $bd_FirstName." ".$bd_LastName;?></b> has submmited an appointment' +
                 '<br>' +
                 '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
                 '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +
@@ -183,7 +189,7 @@ require_once(APPPATH."views/includes/header.php");
             var attachments = './assets/images/logo.png';
             var link_web = '351face.com';
             var body = '<h1>Appointment Confirmed</h1>' +
-                '<p>A patient has submmited an appointment' +
+                '<p>The patient <b><?php echo $bd_FirstName." ".$bd_LastName;?></b> has submmited an appointment' +
                 '<br>' +
                 '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
                 '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +

@@ -40,7 +40,8 @@ class MT_Mail
         if($my_instance->email->send())
             return 'OK';
         else
-            return 'ERROR';
+            echo $my_instance->email->print_debugger();
+        //return 'ERROR';
     }
 }
 ?>

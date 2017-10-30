@@ -158,6 +158,7 @@ Class M_Main extends CI_Model
 
     function GetDoctorsByService($id_service)
     {
+        $array_dist=array();
         $layout='PHP_Service_Doctor';
 
         $request1['_kf_ServiceID'] = $id_service;//echo $data['id'];
@@ -173,14 +174,19 @@ Class M_Main extends CI_Model
         {
             for($i=0;$i<count($result["data"]);$i++)
             {
-                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
-                $field['_kf_DoctorID'] = $result["data"][$i]["fieldData"]["_kf_DoctorID"];
-                $field['FirstName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::FirstName"];
-                $field['LastName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::LastName"];
-                $field['Title'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Title"];
-                $field['Photo'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Photo"];
+                if(!in_array($result["data"][$i]["fieldData"]["_kf_DoctorID"], $array_dist))
+                {
+                    $array_dist[$i] = $result["data"][$i]["fieldData"]["_kf_DoctorID"];
 
-                $fields[$i] = $field;
+                    $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
+                    $field['_kf_DoctorID'] = $result["data"][$i]["fieldData"]["_kf_DoctorID"];
+                    $field['FirstName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::FirstName"];
+                    $field['LastName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::LastName"];
+                    $field['Title'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Title"];
+                    $field['Photo'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Photo"];
+
+                    $fields[$i] = $field;
+                }
             }
 
             $return['data']=$fields;

@@ -75,7 +75,9 @@ class MT_ICS {
             'VERSION:2.0',
             'PRODID:-//hacksw/handcal//NONSGML v1.0//EN',
             'CALSCALE:GREGORIAN',
-            'BEGIN:VEVENT'
+            'TZID:America/New_York',
+            'BEGIN:VEVENT',
+
         /*,
             'BEGIN:VALARM',
             'X-WR-ALARMUID:4575AA72-92BE-4EE3-9692-A18F710E0E1F',
@@ -91,11 +93,16 @@ class MT_ICS {
             $props[strtoupper($k . ($k === 'url' ? ';VALUE=URI' : ''))] = $v;
         }
         // Set some default values
+
         $props['DTSTAMP'] = $this->format_timestamp('now');
         $props['UID'] = uniqid();
+
         // Append properties
         foreach ($props as $k => $v) {
-            $ics_props[] = "$k:$v";
+            if($k=='dtstart' || $k=='dtend')
+                $ics_props[] = "$k;TZID=America/New_York:$v";
+                else
+                $ics_props[] = "$k:$v";
         }
         // Build ICS properties - add footer
         $ics_props[] = 'END:VEVENT';
@@ -115,8 +122,9 @@ class MT_ICS {
         return $val;
     }
     private function format_timestamp($timestamp) {
-        $dt = new DateTime($timestamp);
-        return $dt->format(self::DT_FORMAT);
+        //$dt = new DateTime($timestamp);
+        //return $dt->format(self::DT_FORMAT);
+        return date('Ymd\THis', strtotime('+0 days',strtotime($timestamp)));
     }
     private function escape_string($str) {
         return preg_replace('/([\,;])/','\\\$1', $str);

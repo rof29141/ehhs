@@ -29,7 +29,7 @@ Class Auth extends CI_Model
 	{
         $layout='PHP_Patients';
 
-        $request1["bd_user_name"] = '"'.$username.'"';
+        $request1["bd_user_name"] = '=='.$username;
         $query = array ($request1);
         $criteria['query'] = $query;
 

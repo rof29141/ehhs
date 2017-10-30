@@ -123,13 +123,13 @@ class Main extends CI_Controller
             {
                 $id_service = $_POST['id_service'];
                 $this->load->model('M_Dashboard');
-                $setting=$this->M_Dashboard->GetAppointmentSettings($id_service);
+                //$setting=$this->M_Dashboard->GetAppointmentSettings($id_service);
 
-                if($setting['error']=='0')
-                {
+                //if($setting['error']=='0')
+                //{
                     //echo 'errorrrrrr: '.$setting['error'];
                     $result['doctor'] = $this->M_Main->GetDoctorsByService($id_service);
-                }
+                //}
             }
             elseif($data_type=='datatableListMyAppointment')
             {
