@@ -48,6 +48,7 @@ class Dashboard extends CI_Controller
     {
         $events[] = '[]';
         $error='';
+        date_default_timezone_set('America/New_York');
 
         $id_service = $_POST['id_service'];
         $id_doctor = $_POST['id_doctor'];//echo $id_service.' - '.$id_doctor;
@@ -58,13 +59,28 @@ class Dashboard extends CI_Controller
         {
             for ($s = 0; $s < count($setting['data']); $s++)
             {
+                $weeks_day=7;
+                $number_ServiceStartingDate=0;
 
-                date_default_timezone_set('America/New_York');
                 $weeks = $setting['data'][$s]['QtyWeeksRepeat'];//qty of week is posible to make an appointment
                 $unit_time = $setting['data'][$s]['UnitTime'];//qty of units of 15 minutes
                 $hr_start = $setting['data'][$s]['HrStart'];//start time, always should be 1 minute less
                 $hr_end = $setting['data'][$s]['HrEnd'];//end time
                 $app_days = $setting['data'][$s]['AppDays'];//days of the appointment
+                $ServiceStartingDate = $setting['data'][$s]['ServiceStartingDate'];//when the service start
+                $ServiceEndingDate = $setting['data'][$s]['ServiceEndingDate'];//when the service end
+                $RepeatEveryWeeks = $setting['data'][$s]['RepeatEveryWeeks'];//the service is or not in alternative weeks
+
+                if($ServiceStartingDate!='')
+                {
+                    if(new DateTime($ServiceStartingDate)<new DateTime(date("m/d/Y")))
+                    {
+                        $ServiceStartingDate=date("m/d/Y");
+                    }
+
+                    $timestamp_ServiceStartingDate = strtotime($ServiceStartingDate);
+                    $number_ServiceStartingDate = date('w', $timestamp_ServiceStartingDate)+1;
+                }
 
                 if($weeks!='' && $unit_time!='' && $hr_start!='' && $hr_end!='' && $app_days!='')
                 {
@@ -73,8 +89,26 @@ class Dashboard extends CI_Controller
                     $data['last_day'] = end($var);
                     reset($var);
 
-                    if (count($var) != 0) {
-                        for ($i = 0; $i < count($var); next($var), $i++) {
+                    $start_same_week=0;
+                    if (count($var) != 0)
+                    {
+                        for ($i = 0; $i < count($var); next($var), $i++)
+                        {
+                            $app_day = current($var);
+                            if($number_ServiceStartingDate<=$app_day)
+                            {
+                                $start_same_week=1;
+                            }
+                        }
+                    }
+                    reset($var);
+
+                    //echo '$start_same_week: '.$start_same_week;
+
+                    if (count($var) != 0)
+                    {
+                        for ($i = 0; $i < count($var); next($var), $i++)
+                        {
                             $app_day = current($var);
 
                             if ($app_day == 1) $str_day = 'sunday';
@@ -85,7 +119,32 @@ class Dashboard extends CI_Controller
                             if ($app_day == 6) $str_day = 'friday';
                             if ($app_day == 7) $str_day = 'saturday';
 
-                            $next = date("Y-m-d", strtotime("next " . $str_day));
+                            //echo '  $start_same_week: '.$start_same_week.'  $number_ServiceStartingDate: '.$number_ServiceStartingDate.'  $app_day: '.$app_day;//.'  $today: '.$today;
+
+                            if($start_same_week==1 && $number_ServiceStartingDate<$app_day)//if $start_same_week==1 the event start in the same week and if the CURRENT appointment day is > $number_ServiceStartingDate
+                            {
+                                $next = date("Y-m-d", strtotime('next '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//echo 'next: '.$next.' ';
+                            }
+                            elseif($start_same_week==1 && $number_ServiceStartingDate==$app_day)//if $start_same_week==1 the event start in the same week and if the CURRENT appointment day is > $number_ServiceStartingDate
+                            {
+                                $next = date("Y-m-d", strtotime($ServiceStartingDate));
+                                //$next = 'no';
+                            }
+                            elseif($start_same_week==1 && $number_ServiceStartingDate==$app_day)//if $start_same_week==1 the event start in the same week and if the CURRENT appointment day is > $number_ServiceStartingDate
+                            {
+                                $next = date("Y-m-d", strtotime($ServiceStartingDate));
+                            }
+                            elseif($start_same_week==1 && $number_ServiceStartingDate>$app_day)
+                            {
+                                $next = date("Y-m-d", strtotime('last '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//echo 'last: '.$next.' ';
+                            }
+                            elseif($start_same_week==0)
+                            {
+                                $next = date("Y-m-d", strtotime('next '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//echo 'next: '.$next.' ';
+                            }
+
+                            //echo $next;
+
                             $minutes = 0;
                             $app_time = 15 * $unit_time;
                             $spaces = floor(32 / $unit_time);
@@ -94,104 +153,148 @@ class Dashboard extends CI_Controller
                             $title_available = ' Available';
                             $title_not_available = ' Not Available';
 
-                            for ($d = 0; $d < $weeks; $d++) {
-                                $week = $d * 7;
+                            for ($d = 0; $d < $weeks; $d++)
+                            {
+                                if ($RepeatEveryWeeks != '')
+                                    $weeks_day = $RepeatEveryWeeks * 7;
+
+                                $week = $d * $weeks_day;
                                 $day = $this->GiveDate($next, $week);
 
-                                $appointment = $this->M_Dashboard->GetAppointment(date("m/d/Y", strtotime($day)), $hr_start, $hr_end, $id_doctor);
-
-                                $event_start = $day . ' ' . $hr_start;
-                                $event_end = $day . ' ' . $hr_start;//if the day doesn't have an appointment in the 3th cicle (for) the events will be filled starting at the beginning of the day
-                                $event_end_period = $day . ' ' . $hr_end;
-
-                                if (isset($appointment['data'][0]['APT_Date']))//search if exist an appointment in this date and time
+                                if($day!=date('Y-m-d'))
                                 {
-                                    $real_appointment_start_first = date("Y-m-d", strtotime($appointment['data'][0]['APT_Date'])) . ' ' . $appointment['data'][0]['APT_Time'];
+                                    $exist_availables = $this->ExistEventsBetweenTimes($ServiceStartingDate, $ServiceEndingDate, $day);
 
-                                    for ($e = 0; $e < $spaces; $e++)//1st cicle
+                                    if ($exist_availables == 1)
                                     {
-                                        $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_start)));
+                                        if ($week == 0)
+                                            $all_appointments = $this->M_Dashboard->GetAppointment(date("m/d/Y", strtotime($day)), $hr_start, $hr_end, $id_doctor);
+                                        //echo json_encode($all_appointments).'     ';//die();
 
-                                        if ($event_end < $real_appointment_start_first) {
-                                            $event['title'] = $title_available;
-                                            $event['start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_start)));
-                                            $event['end'] = $event_end;
-                                            $event['color'] = $color_available;
-                                            $events[] = $event;
+                                        $app_today = 0;
 
-                                            $event_start = $event_end;
-                                        } else {
-                                            break;
-                                        }
-                                    }
-
-                                    for ($a = 0; $a < count($appointment['data']); $a++) {
-                                        $real_appointment_title = $appointment['data'][$a]['APT_Title'];
-                                        $real_appointment_title = $title_not_available;
-                                        $real_appointment_start = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_Time'];
-                                        $real_appointment_end = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_TimeEnd'];
-
-                                        //echo 'event_start: '.$event_start.' <= '.$real_appointment_start .' && '. $real_appointment_start.' < event_end: '.$event_end.' <br><br><br>';
-                                        //echo 'real_appointment_start: '.$real_appointment_start.'   real_appointment_end: '.$real_appointment_end.'<br><br><br><br>';
-
-                                        if ($event_end != '') {
-                                            $date1 = new DateTime($event_end);
-                                            $date2 = new DateTime($real_appointment_start);
-                                            $diff = $date1->diff($date2);
-                                            $minutes = $diff->h * 60 + $diff->i - 1;
-                                            //echo 'real_appointment_start: '.$real_appointment_start.' = '.$event_end.'   minutes: '.$minutes. '  <br><br>';
-                                        }
-
-                                        if ($minutes >= $app_time) {
-                                            $cant_hold = floor($minutes / $app_time);
-                                            //echo '$cant_hold: ' . $cant_hold . ' = ' . $minutes . ' / ' . $app_time . ' <br>';
-
-                                            for ($h = 0; $h < $cant_hold; $h++)//search if exist an appointment in this date and time
+                                        if (isset($all_appointments['data'][0]['APT_Date']))
+                                        {
+                                            for ($app = 0; $app < count($all_appointments['data']); $app++)
                                             {
-                                                $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
-                                                $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minutes', strtotime($event_end)));
+                                                if (isset($all_appointments['data'][$app]['APT_Date']))
+                                                {
+                                                    if (date("m/d/Y", strtotime($day)) == $all_appointments['data'][$app]['APT_Date'] && $all_appointments['data'][$app]['APT_Time'] >= $hr_start && $all_appointments['data'][$app]['APT_TimeEnd'] <= $hr_end)
+                                                    {
+                                                        $appointment[$app_today] = $all_appointments['data'][$app];
+                                                        $app_today++;
+                                                    }
+                                                }
+                                            }
+                                        } else
+                                        {
+                                            $appointment[$app_today] = '';
+                                        }
 
-                                                $event['title'] = $title_available;;
+
+                                        $event_start = $day . ' ' . $hr_start;
+                                        $event_end = $day . ' ' . $hr_start;//if the day doesn't have an appointment in the 3th cicle (for) the events will be filled starting at the beginning of the day
+                                        $event_end_period = $day . ' ' . $hr_end;
+
+                                        if (isset($appointment['data'][0]['APT_Date']))//search if exist an appointment in this date and time
+                                        {
+                                            $real_appointment_start_first = date("Y-m-d", strtotime($appointment['data'][0]['APT_Date'])) . ' ' . $appointment['data'][0]['APT_Time'];
+
+                                            for ($e = 0; $e < $spaces; $e++)//1st cicle
+                                            {
+                                                $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_start)));
+
+                                                if ($event_end < $real_appointment_start_first)
+                                                {
+                                                    $event['title'] = $title_available;
+                                                    $event['start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_start)));
+                                                    $event['end'] = $event_end;
+                                                    $event['color'] = $color_available;
+                                                    $events[] = $event;
+
+                                                    $event_start = $event_end;
+                                                } else
+                                                {
+                                                    break;
+                                                }
+                                            }
+
+                                            for ($a = 0; $a < count($appointment['data']); $a++)
+                                            {
+                                                //$real_appointment_title = $appointment['data'][$a]['APT_Title'];
+                                                $real_appointment_title = $title_not_available;
+                                                $real_appointment_start = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_Time'];
+                                                $real_appointment_end = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_TimeEnd'];
+
+                                                //echo 'event_start: '.$event_start.' <= '.$real_appointment_start .' && '. $real_appointment_start.' < event_end: '.$event_end.' <br><br><br>';
+                                                //echo 'real_appointment_start: '.$real_appointment_start.'   real_appointment_end: '.$real_appointment_end.'<br><br><br><br>';
+
+                                                if ($event_end != '')
+                                                {
+                                                    $date1 = new DateTime($event_end);
+                                                    $date2 = new DateTime($real_appointment_start);
+                                                    $diff = $date1->diff($date2);
+                                                    $minutes = $diff->h * 60 + $diff->i - 1;
+                                                    //echo 'real_appointment_start: '.$real_appointment_start.' = '.$event_end.'   minutes: '.$minutes. '  <br><br>';
+                                                }
+
+                                                if ($minutes >= $app_time)
+                                                {
+                                                    $cant_hold = floor($minutes / $app_time);
+                                                    //echo '$cant_hold: ' . $cant_hold . ' = ' . $minutes . ' / ' . $app_time . ' <br>';
+
+                                                    for ($h = 0; $h < $cant_hold; $h++)//search if exist an appointment in this date and time
+                                                    {
+                                                        $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
+                                                        $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minutes', strtotime($event_end)));
+
+                                                        $event['title'] = $title_available;;
+                                                        $event['start'] = $event_start;
+                                                        $event['end'] = $event_end;
+                                                        $event['color'] = $color_available;
+                                                        $events[] = $event;
+                                                        //echo $event_start . ' = ' . $event_end . '    ' . $event['title'] . ' <br><br>';
+                                                    }
+                                                }
+
+                                                $event_start = $real_appointment_start;
+                                                $event_end = $real_appointment_end;
+
+                                                $event['title'] = $real_appointment_title;
+                                                $event['start'] = $event_start;
+                                                $event['end'] = $event_end;
+                                                $event['color'] = $color_not_available;
+                                                $events[] = $event;//echo $event_start.' = '.$event_end.'    '.$event_title.' <br><br>';
+                                            }
+                                        }
+
+                                        for ($e = 0; $e < $spaces; $e++)
+                                        {
+                                            $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
+                                            $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_end)));
+
+                                            //echo $event_start.' - '.$event_end;
+                                            if ($event_end < $event_end_period)
+                                            {
+                                                //echo $event_end . ' < ' . $event_end_period;
+                                                $event['title'] = $title_available;
                                                 $event['start'] = $event_start;
                                                 $event['end'] = $event_end;
                                                 $event['color'] = $color_available;
                                                 $events[] = $event;
-                                                //echo $event_start . ' = ' . $event_end . '    ' . $event['title'] . ' <br><br>';
-                                            }
+
+                                                $event_start = $event_end;
+                                            } else
+                                                break;
                                         }
+                                    }//if from ServiceStartingDate
 
-                                        $event_start = $real_appointment_start;
-                                        $event_end = $real_appointment_end;
+                                }//if from next
 
-                                        $event['title'] = $real_appointment_title;
-                                        $event['start'] = $event_start;
-                                        $event['end'] = $event_end;
-                                        $event['color'] = $color_not_available;
-                                        $events[] = $event;//echo $event_start.' = '.$event_end.'    '.$event_title.' <br><br>';
-                                    }
-                                }
-
-                                for ($e = 0; $e < $spaces; $e++) {
-                                    $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
-                                    $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_end)));
-
-                                    //echo $event_start.' - '.$event_end;
-                                    if ($event_end < $event_end_period) {
-                                        //echo $event_end . ' < ' . $event_end_period;
-                                        $event['title'] = $title_available;
-                                        $event['start'] = $event_start;
-                                        $event['end'] = $event_end;
-                                        $event['color'] = $color_available;
-                                        $events[] = $event;
-
-                                        $event_start = $event_end;
-                                    } else
-                                        break;
-                                }
-
-                            }
+                            }//for from weeks
 
                         }//for from $app_days
+
                     }//if have something
                     else
                         $error = 'NOT_SETTINGS';
@@ -210,6 +313,28 @@ class Dashboard extends CI_Controller
         }
         else
             echo $error;
+    }
+
+    function ExistEventsBetweenTimes($ServiceStartingDate, $ServiceEndingDate, $day)
+    {
+        $exist_availables = 0;
+        if ($ServiceStartingDate != '' && $ServiceEndingDate != '')
+        {
+            //echo $ServiceStartingDate.' <= '.date("m/d/Y", strtotime($day)) && date("m/d/Y", strtotime($day)).' <= '.$ServiceEndingDate.'   ---------  '.$exist_availables.' =====  ';
+            if (new DateTime($ServiceStartingDate) <= new DateTime(date("m/d/Y", strtotime($day))) && new DateTime(date("m/d/Y", strtotime($day))) <= new DateTime($ServiceEndingDate))
+                $exist_availables = 1;
+        } elseif ($ServiceStartingDate != '' && $ServiceEndingDate == '')
+        {
+            if (new DateTime($ServiceStartingDate) <= new DateTime(date("m/d/Y", strtotime($day))))
+                $exist_availables = 1;
+        } elseif ($ServiceStartingDate == '' && $ServiceEndingDate != '')
+        {
+            if (new DateTime(date("m/d/Y", strtotime($day))) <= new DateTime($ServiceEndingDate))
+                $exist_availables = 1;
+        } else
+            $exist_availables = 1;
+
+        return $exist_availables;
     }
 
     function ConfirmApp()

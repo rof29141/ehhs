@@ -77,15 +77,11 @@ class MT_ICS {
             'CALSCALE:GREGORIAN',
             'TZID:America/New_York',
             'BEGIN:VEVENT',
-
-        /*,
             'BEGIN:VALARM',
-            'X-WR-ALARMUID:4575AA72-92BE-4EE3-9692-A18F710E0E1F',
-            'UID:4575AA72-92BE-4EE3-9692-A18F710E0E1F',
-            'TRIGGER:-P1D',
-            'DESCRIPTION:This is an event reminder',
             'ACTION:DISPLAY',
-            'END:VALARM'*/
+            'DESCRIPTION:REMINDER',
+            'TRIGGER:-PT24H',
+            'END:VALARM',
         );
         // Build ICS properties - add header
         $props = array();

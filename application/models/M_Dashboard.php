@@ -29,9 +29,9 @@ Class M_Dashboard extends CI_Model
     {
         $layout='PHP_Appointment';
         $request1['ProviderRec'] = $id_doctor;
-        $request1['APT_Date'] = $next;
-        $request1['APT_Time'] = '>='.$hr_start;
-        $request1['APT_TimeEnd'] = '<='.$hr_end_day;
+        $request1['APT_Date'] = '>='.$next;
+        //$request1['APT_Time'] = '>='.$hr_start;
+        //$request1['APT_TimeEnd'] = '<='.$hr_end_day;
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -122,6 +122,9 @@ Class M_Dashboard extends CI_Model
                 $field['HrEnd'] = $result["data"][$i]["fieldData"]["HrEnd"];
                 $field['AppDays'] = $result["data"][$i]["fieldData"]["AppDays"];
                 $field['UnitTime'] = $result["data"][$i]["fieldData"]["UnitTime"];
+                $field['ServiceStartingDate'] = $result["data"][$i]["fieldData"]["ServiceStartingDate"];
+                $field['ServiceEndingDate'] = $result["data"][$i]["fieldData"]["ServiceEndingDate"];
+                $field['RepeatEveryWeeks'] = $result["data"][$i]["fieldData"]["RepeatEveryWeeks"];
 
                 $fields[$i] = $field;
             }

@@ -81,7 +81,7 @@ Class M_Main extends CI_Model
         {
             for($i=0;$i<count($result["data"]);$i++)
             {
-                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
+                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_SERVICE_ID"];
                 $field['Service'] = $result["data"][$i]["fieldData"]["Service"];
                 $field['GroupService'] = $result["data"][$i]["fieldData"]["GroupService"];
 
@@ -130,7 +130,7 @@ Class M_Main extends CI_Model
     {
         $layout='PHP_Service';
 
-        $request1['__kp_PRIMARY_KEY'] = $id_service;//echo $data['id'];
+        $request1['__kp_SERVICE_ID'] = $id_service;//echo $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -143,7 +143,7 @@ Class M_Main extends CI_Model
         {
             for($i=0;$i<count($result["data"]);$i++)
             {
-                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
+                $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_SERVICE_ID"];
                 $field['Service'] = $result["data"][$i]["fieldData"]["Service"];
                 $field['GroupService'] = $result["data"][$i]["fieldData"]["GroupService"];
 
