@@ -106,15 +106,19 @@
                     type: 'POST',
                     data: {data_type: 'dropdown_doctor', view_url: 'dashboard/DropDownDoctor', id_service: id_service}
                 }).done(function (response, textStatus, jqXHR) {
-                    if(response!='NOT_DOCTOR')
+
+                    if(response=='1')
                     {
-                        $('#drop_down_doc').html(response);
+                        window.location.replace("Authentication");
                     }
-                    else
+                    else if(response=='NOT_DOCTOR')
                     {
                         alertify.error('Doctor not asingned for this service.');
                     }
-
+                    else
+                    {
+                        $('#drop_down_doc').html(response);
+                    }
                     spinner.stop();
                 });
             }
