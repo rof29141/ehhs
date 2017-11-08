@@ -148,7 +148,7 @@ class Dashboard extends CI_Controller
                             $minutes = 0;
                             //$app_time = 10 * $unit_time;
                             $app_time = $unit_time;//echo $app_time;
-                            $spaces = floor(96 / $unit_time);
+                            $spaces = floor(480 / $unit_time);
                             $color_available = '#009933';
                             $color_not_available = '#b30000';
                             $title_available = ' Available';
