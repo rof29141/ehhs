@@ -121,7 +121,7 @@ Class M_Dashboard extends CI_Model
                 $field['HrStart'] = $result["data"][$i]["fieldData"]["HrStart"];
                 $field['HrEnd'] = $result["data"][$i]["fieldData"]["HrEnd"];
                 $field['AppDays'] = $result["data"][$i]["fieldData"]["AppDays"];
-                $field['UnitTime'] = $result["data"][$i]["fieldData"]["UnitTime"];
+                $field['UnitTime'] = $result["data"][$i]["fieldData"]["_zcn_UnitTime"];
                 $field['ServiceStartingDate'] = $result["data"][$i]["fieldData"]["ServiceStartingDate"];
                 $field['ServiceEndingDate'] = $result["data"][$i]["fieldData"]["ServiceEndingDate"];
                 $field['RepeatEveryWeeks'] = $result["data"][$i]["fieldData"]["RepeatEveryWeeks"];
