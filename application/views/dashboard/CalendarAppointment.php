@@ -65,8 +65,9 @@
                     var id_doctor=$('#sel_doctor').val();
                     var start=String(calEvent.start);//alert(start);
                     var end=String(calEvent.end);//alert(end);
+                    var setting_id=String(calEvent.setting_id);//alert(setting_id);
 
-                    FillModalApp(id_service, id_doctor, start, end);
+                    FillModalApp(id_service, id_doctor, start, end, setting_id);
                 }
             },
             displayEventTime: true,
@@ -84,14 +85,14 @@
         if(today>=last_day){$('#calendar').fullCalendar('next');}
 
         //alert('<?php echo $events;?>');
-        function FillModalApp(id_service, id_doctor, start, end)
+        function FillModalApp(id_service, id_doctor, start, end, setting_id)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start
 
             $.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {'data_type':'appointment','view_url':'appointment/ModalAddAppointment','id_service':id_service, 'id_doctor':id_doctor, 'start':start, 'end':end}
+                data: {'data_type':'appointment','view_url':'appointment/ModalAddAppointment','id_service':id_service, 'id_doctor':id_doctor, 'start':start, 'end':end, 'setting_id':setting_id}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response!='')

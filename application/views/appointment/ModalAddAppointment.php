@@ -30,6 +30,7 @@
             <label>Time</label>
             <input type="text" name="txt_start" id="txt_start" class="form-control required" readonly value="<?php if(isset($data['start'])) echo substr($data['start'],16,8);?>" />
             <input type="hidden" name="txt_end" id="txt_end" class="form-control required" readonly value="<?php if(isset($data['end'])) echo substr($data['end'],16,8);?>" />
+            <input type="hidden" name="txt_id_setting" id="txt_id_setting" class="form-control required" readonly value="<?php if(isset($data['setting_id'])) echo $data['setting_id'];?>" />
         </div>
 
         <div class="form-group pull-right">
@@ -50,13 +51,13 @@
             var token=Math.floor((Math.random() * 1000000000000000) + 1);
             var title='Appointment with '+$('#txt_doctor').val()+' at '+$('#txt_date').val();
 
-            SaveAppointment($('#txt_service').attr('datafld'), $('#txt_patient').val(), $('#txt_doctor').attr('datafld'), $('#txt_date').val(), $('#txt_start').val(), $('#txt_end').val(), title, token, spinner);
+            SaveAppointment($('#txt_service').attr('datafld'), $('#txt_patient').val(), $('#txt_doctor').attr('datafld'), $('#txt_date').val(), $('#txt_start').val(), $('#txt_end').val(), title, token, spinner, $('#txt_id_setting').val());
 
         });
 
-        function SaveAppointment(id_service, id_patient, id_doctor, date,start, end, title, token, spinner)
-        {
-            var array_inputs='_kf_ServiceID='+id_service+'&_zfk_ClientRec='+id_patient+'&ProviderRec='+id_doctor+'&APT_Date='+date+'&APT_Time='+start+'&APT_TimeEnd='+end+'&APT_Title='+title+'&TokenConfirmApp='+token+'&AppFromWeb=1';
+        function SaveAppointment(id_service, id_patient, id_doctor, date,start, end, title, token, spinner, setting_id)
+        {//alert(setting_id);
+            var array_inputs='_kf_ServiceID='+id_service+'&_zfk_ClientRec='+id_patient+'&ProviderRec='+id_doctor+'&APT_Date='+date+'&APT_Time='+start+'&APT_TimeEnd='+end+'&APT_Title='+title+'&TokenConfirmApp='+token+'&AppFromWeb=1&_kf_Setting_ID='+setting_id;
             var url = 'Main/SaveObject';
             var data = array_inputs+'&layout=PHP_Appointment&type=INSERT';
 
@@ -138,7 +139,7 @@
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'WRONG') {$('#modal').html('Your email is wrong.');}
-                else {$('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
+                else {$('#modal').html('Please, check your inbox. A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
                 spinner.stop();
             });
         }

@@ -113,6 +113,8 @@ class Main extends CI_Controller
                 $result['service']=$this->M_Main->GetServiceByID($id_service);
                 $result['doctor']=$this->M_Main->GetDoctorByID($id_doctor);
 
+                $result['setting_id'] = $_POST['setting_id'];
+
             }
             elseif($data_type=='dataprofile')
             {

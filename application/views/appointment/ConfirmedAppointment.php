@@ -20,13 +20,13 @@ require_once(APPPATH."views/includes/header.php");
             <form method="POST" action="../DownloadiCal" id="frm" name="frm">
                 <div class="col-lg-6" style="background-color: #fff;">
                     <fieldset class="myfieldset">
-                        <legend class="mylegend">Confirm Appointment</legend>
+                        <legend class="mylegend">Appointment Confirmed</legend>
 
                         <div class="col-lg-12 text-center" id="confirm_app">
 
-                            Thanks, Appointment confirmed.
+                            Thanks for your confirmation.
                             <br>
-                            Please, check your inbox. Has been sent an email.
+                            Please, check your inbox. A confirmation email has been sent.
                             <br>
                             <fieldset class="container auth">
                                 <div class="text-center">

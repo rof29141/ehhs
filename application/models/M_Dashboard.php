@@ -25,11 +25,11 @@ Class M_Dashboard extends CI_Model
             return 0;
     }
 
-    function GetAppointment($next, $hr_start, $hr_end_day, $id_doctor)
+    function GetAppointment($next, $id_doctor)
     {
         $layout='PHP_Appointment';
         $request1['ProviderRec'] = $id_doctor;
-        $request1['APT_Date'] = '>='.$next;
+        $request1['APT_Date'] = '>'.$next;
         //$request1['APT_Time'] = '>='.$hr_start;
         //$request1['APT_TimeEnd'] = '<='.$hr_end_day;
         $query = array ($request1);
@@ -44,7 +44,7 @@ Class M_Dashboard extends CI_Model
         $sort = array ($sort1, $sort2);
         $criteria['sort'] = $sort;//echo json_encode($criteria);
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);die();
         $return['error']=$this->error($result);
 
         if($return['error']=='0')

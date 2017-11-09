@@ -269,7 +269,7 @@
                     }
                     else
                     {
-                        $('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');
+                        $('#modal').html('Please, check your inbox. A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');
                     }
                     $('#remoteModal').modal('show');
                 });
@@ -332,7 +332,7 @@
                     }
                     else
                     {
-                        $('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');
+                        $('#modal').html('<div class="text-center">Please, check your inbox. A reminder email has been sent to ' + email_to+'</div><br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');
                     }
                     $('#remoteModal').modal('show');
                 });

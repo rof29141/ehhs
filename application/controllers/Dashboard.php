@@ -54,7 +54,7 @@ class Dashboard extends CI_Controller
         $id_doctor = $_POST['id_doctor'];//echo $id_service.' - '.$id_doctor;
 
         $setting=$this->M_Dashboard->GetAppointmentSettings($id_service, $id_doctor);
-
+//echo json_encode($setting);
         if($setting['error']=='0')
         {
             for ($s = 0; $s < count($setting['data']); $s++)
@@ -62,6 +62,7 @@ class Dashboard extends CI_Controller
                 $weeks_day=7;
                 $number_ServiceStartingDate=0;
 
+                $setting_id = $setting['data'][$s]['__kp_PRIMARY_KEY'];//id of setting
                 $weeks = $setting['data'][$s]['QtyWeeksRepeat'];//qty of week is posible to make an appointment
                 $unit_time = $setting['data'][$s]['UnitTime'];//qty of units of 15 minutes
                 $hr_start = $setting['data'][$s]['HrStart'];//start time, always should be 1 minute less
@@ -70,6 +71,7 @@ class Dashboard extends CI_Controller
                 $ServiceStartingDate = $setting['data'][$s]['ServiceStartingDate'];//when the service start
                 $ServiceEndingDate = $setting['data'][$s]['ServiceEndingDate'];//when the service end
                 $RepeatEveryWeeks = $setting['data'][$s]['RepeatEveryWeeks'];//the service is or not in alternative weeks
+                $all_appointments = $this->M_Dashboard->GetAppointment(date("m/d/Y"), $id_doctor);
 
                 if($ServiceStartingDate!='')
                 {
@@ -82,6 +84,7 @@ class Dashboard extends CI_Controller
                     $number_ServiceStartingDate = date('w', $timestamp_ServiceStartingDate)+1;
                 }
 
+                //echo $weeks.$unit_time.$hr_start.$hr_end.$app_days!='';
                 if($weeks!='' && $unit_time!='' && $hr_start!='' && $hr_end!='' && $app_days!='')
                 {
 
@@ -148,7 +151,7 @@ class Dashboard extends CI_Controller
                             $minutes = 0;
                             //$app_time = 10 * $unit_time;
                             $app_time = $unit_time;//echo $app_time;
-                            $spaces = floor(480 / $unit_time);
+                            $spaces = floor(1440 / $unit_time);
                             $color_available = '#009933';
                             $color_not_available = '#b30000';
                             $title_available = ' Available';
@@ -168,11 +171,12 @@ class Dashboard extends CI_Controller
 
                                     if ($exist_availables == 1)
                                     {
-                                        if ($week == 0)
-                                            $all_appointments = $this->M_Dashboard->GetAppointment(date("m/d/Y", strtotime($day)), $hr_start, $hr_end, $id_doctor);
+
+
                                         //echo json_encode($all_appointments).'     ';//die();
 
                                         $app_today = 0;
+                                        $appointment['data']='';
 
                                         if (isset($all_appointments['data'][0]['APT_Date']))
                                         {
@@ -182,16 +186,16 @@ class Dashboard extends CI_Controller
                                                 {
                                                     if (date("m/d/Y", strtotime($day)) == $all_appointments['data'][$app]['APT_Date'] && $all_appointments['data'][$app]['APT_Time'] >= $hr_start && $all_appointments['data'][$app]['APT_TimeEnd'] <= $hr_end)
                                                     {
-                                                        $appointment[$app_today] = $all_appointments['data'][$app];
+                                                        $appointment['data'][$app_today] = $all_appointments['data'][$app];
                                                         $app_today++;
                                                     }
                                                 }
                                             }
                                         } else
                                         {
-                                            $appointment[$app_today] = '';
+                                            $appointment['data'][$app_today] = '';
                                         }
-
+//var_dump($appointment);
 
                                         $event_start = $day . ' ' . $hr_start;
                                         $event_end = $day . ' ' . $hr_start;//if the day doesn't have an appointment in the 3th cicle (for) the events will be filled starting at the beginning of the day
@@ -211,6 +215,7 @@ class Dashboard extends CI_Controller
                                                     $event['start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_start)));
                                                     $event['end'] = $event_end;
                                                     $event['color'] = $color_available;
+                                                    $event['setting_id'] = $setting_id;
                                                     $events[] = $event;
 
                                                     $event_start = $event_end;
@@ -253,6 +258,7 @@ class Dashboard extends CI_Controller
                                                         $event['start'] = $event_start;
                                                         $event['end'] = $event_end;
                                                         $event['color'] = $color_available;
+                                                        $event['setting_id'] = $setting_id;
                                                         $events[] = $event;
                                                         //echo $event_start . ' = ' . $event_end . '    ' . $event['title'] . ' <br><br>';
                                                     }
@@ -265,6 +271,7 @@ class Dashboard extends CI_Controller
                                                 $event['start'] = $event_start;
                                                 $event['end'] = $event_end;
                                                 $event['color'] = $color_not_available;
+                                                $event['setting_id'] = $setting_id;
                                                 $events[] = $event;//echo $event_start.' = '.$event_end.'    '.$event_title.' <br><br>';
                                             }
                                         }
@@ -282,6 +289,7 @@ class Dashboard extends CI_Controller
                                                 $event['start'] = $event_start;
                                                 $event['end'] = $event_end;
                                                 $event['color'] = $color_available;
+                                                $event['setting_id'] = $setting_id;
                                                 $events[] = $event;
 
                                                 $event_start = $event_end;
