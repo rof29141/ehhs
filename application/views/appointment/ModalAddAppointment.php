@@ -159,9 +159,12 @@
         {
             $.ajax(
             {
-                url:'Main/DeleteObject',
+                url:'Appointment/CancelAppointment',
                 type:'POST',
-                data:{go_layout:go_layout,id:id}
+                data:{id:id}
+                /*url:'Main/DeleteObject',
+                type:'POST',
+                data:{go_layout:go_layout,id:id}*/
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'NO_CANCEL') {
