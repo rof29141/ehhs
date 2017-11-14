@@ -124,6 +124,8 @@ class Main extends CI_Controller
             elseif($data_type=='dropdown_doctor')
             {
                 $id_service = $_POST['id_service'];
+                if(isset($_POST['id_doctor']))$result['id_doctor'] = $_POST['id_doctor'];
+
                 $this->load->model('M_Dashboard');
                 //$setting=$this->M_Dashboard->GetAppointmentSettings($id_service);
 
@@ -256,7 +258,7 @@ class Main extends CI_Controller
                     if (isset($data['ids']))
                     {
 
-                        $result=$this->M_Main->Execute('D', '', $data, $layout);
+                        $result=$this->M_Main->Execute('DELETE', '', $data, $layout);
                         echo $result['error'];
                     }
                     else

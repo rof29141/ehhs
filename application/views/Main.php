@@ -25,7 +25,7 @@ ini_set('memory_limit', '2048M');
 
     /*-------------------DO NOT CHANGE THE CODE-------------------*/
 
-    LoadContent('Dashboard');
+    LoadContent('Appointment');
 
     function UpdateContent(go_function, go_view, go_back, id='')
     {

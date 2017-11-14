@@ -56,6 +56,7 @@ Class M_Dashboard extends CI_Model
                 $field['APT_Time'] = $result["data"][$i]["fieldData"]["APT_Time"];
                 $field['APT_TimeEnd'] = $result["data"][$i]["fieldData"]["APT_TimeEnd"];
                 $field['APT_Title'] = $result["data"][$i]["fieldData"]["APT_Title"];
+                $field['_zfk_ClientRec'] = $result["data"][$i]["fieldData"]["_zfk_ClientRec"];
 
                 $fields[$i] = $field;
             }

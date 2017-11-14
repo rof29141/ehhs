@@ -75,7 +75,9 @@ Class M_Appointment extends CI_Model
         $criteria['offset'] = '1';
         $sort1['fieldName'] = 'APT_Date';
         $sort1['sortOrder'] = 'ascend';
-        $sort = array ($sort1);
+        $sort2['fieldName'] = 'APT_Time';
+        $sort2['sortOrder'] = 'ascend';
+        $sort = array ($sort1, $sort2);
         $criteria['sort'] = $sort;
         //echo json_encode($criteria);
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
@@ -95,6 +97,8 @@ Class M_Appointment extends CI_Model
                 $field['LastName'] = $result["data"][$i]["fieldData"]["PHP_Doctor::LastName"];
                 $field['Photo'] = $result["data"][$i]["fieldData"]["PHP_Doctor::Photo"];
                 $field['Service'] = $result["data"][$i]["fieldData"]["PHP_Service::Service"];
+                $field['ProviderRec'] = $result["data"][$i]["fieldData"]["ProviderRec"];
+                $field['_kf_ServiceID'] = $result["data"][$i]["fieldData"]["_kf_ServiceID"];
                 $field['RecordID'] = $result["data"][$i]["fieldData"]["RecordID"];
 
                 $fields[$i] = $field;

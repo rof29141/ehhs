@@ -67,7 +67,16 @@
                     var end=String(calEvent.end);//alert(end);
                     var setting_id=String(calEvent.setting_id);//alert(setting_id);
 
-                    FillModalApp(id_service, id_doctor, start, end, setting_id);
+
+
+                    for (var i in calEvent) {
+                        console.log(i+":"+calEvent[i]);
+                    }
+
+                    //console.log(objToString(calEvent, 8));
+
+
+                    FillModalApp(id_service, id_doctor, start, end, setting_id, calEvent);
                 }
             },
             displayEventTime: true,
@@ -85,7 +94,7 @@
         if(today>=last_day){$('#calendar').fullCalendar('next');}
 
         //alert('<?php echo $events;?>');
-        function FillModalApp(id_service, id_doctor, start, end, setting_id)
+        function FillModalApp(id_service, id_doctor, start, end, setting_id, calEvent)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start
 
@@ -99,6 +108,17 @@
                 {//alert(response);
                     $('#modal').html(response);
                     $('#remoteModal').modal('show');
+                    $('#hdn_calEvent').val(calEvent);
+
+                    $('#btn_submit_app').on('click', function ()
+                    {
+                        calEvent.title = "Appointment Submited";
+                        calEvent.color = "#ffff66";
+                        calEvent.textColor = "#000";
+                        $('#calendar').fullCalendar('updateEvent', calEvent);
+                    });
+
+
 
                 }
             });

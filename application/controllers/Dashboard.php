@@ -46,6 +46,9 @@ class Dashboard extends CI_Controller
 
     function GetAppointments()
     {
+        $session_data = $this->session->userdata('logged_user_acs');
+        $__zkp_Client_Rec = $session_data['__zkp_Client_Rec'];
+
         $events[] = '[]';
         $error='';
         date_default_timezone_set('America/New_York');
@@ -153,7 +156,9 @@ class Dashboard extends CI_Controller
                             $app_time = $unit_time;//echo $app_time;
                             $spaces = floor(1440 / $unit_time);
                             $color_available = '#009933';
-                            $color_not_available = '#b30000';
+                            $color_not_available = '#ffff66';
+                            $text_color_not_available = '#000';
+                            $text_color_available = '#fff';
                             $title_available = ' Available';
                             $title_not_available = ' Not Available';
 
@@ -211,10 +216,12 @@ class Dashboard extends CI_Controller
 
                                                 if ($event_end < $real_appointment_start_first)
                                                 {
+                                                    $event['id'] = rand(1,999999999999999);
                                                     $event['title'] = $title_available;
                                                     $event['start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_start)));
                                                     $event['end'] = $event_end;
                                                     $event['color'] = $color_available;
+                                                    $event['textColor'] = $text_color_available;
                                                     $event['setting_id'] = $setting_id;
                                                     $events[] = $event;
 
@@ -227,13 +234,12 @@ class Dashboard extends CI_Controller
 
                                             for ($a = 0; $a < count($appointment['data']); $a++)
                                             {
-                                                //$real_appointment_title = $appointment['data'][$a]['APT_Title'];
-                                                $real_appointment_title = $title_not_available;
+                                                $real_appointment_title = $appointment['data'][$a]['APT_Title'];
+                                                //$real_appointment_title = $title_not_available;
                                                 $real_appointment_start = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_Time'];
                                                 $real_appointment_end = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_TimeEnd'];
 
-                                                //echo 'event_start: '.$event_start.' <= '.$real_appointment_start .' && '. $real_appointment_start.' < event_end: '.$event_end.' <br><br><br>';
-                                                //echo 'real_appointment_start: '.$real_appointment_start.'   real_appointment_end: '.$real_appointment_end.'<br><br><br><br>';
+                                                $client_rec = $appointment['data'][$a]['_zfk_ClientRec'];
 
                                                 if ($event_end != '')
                                                 {
@@ -254,10 +260,12 @@ class Dashboard extends CI_Controller
                                                         $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
                                                         $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minutes', strtotime($event_end)));
 
+                                                        $event['id'] = rand(1,999999999999999);
                                                         $event['title'] = $title_available;;
                                                         $event['start'] = $event_start;
                                                         $event['end'] = $event_end;
                                                         $event['color'] = $color_available;
+                                                        $event['textColor'] = $text_color_available;
                                                         $event['setting_id'] = $setting_id;
                                                         $events[] = $event;
                                                         //echo $event_start . ' = ' . $event_end . '    ' . $event['title'] . ' <br><br>';
@@ -267,12 +275,15 @@ class Dashboard extends CI_Controller
                                                 $event_start = $real_appointment_start;
                                                 $event_end = $real_appointment_end;
 
+                                                $event['id'] = rand(1,999999999999999);
                                                 $event['title'] = $real_appointment_title;
                                                 $event['start'] = $event_start;
                                                 $event['end'] = $event_end;
                                                 $event['color'] = $color_not_available;
+                                                $event['textColor'] = $text_color_not_available;
                                                 $event['setting_id'] = $setting_id;
-                                                $events[] = $event;//echo $event_start.' = '.$event_end.'    '.$event_title.' <br><br>';
+                                                if($client_rec==$__zkp_Client_Rec)
+                                                $events[] = $event;//--------------------------events unavailables--------------------------
                                             }
                                         }
 
@@ -285,10 +296,12 @@ class Dashboard extends CI_Controller
                                             if ($event_end < $event_end_period)
                                             {
                                                 //echo $event_end . ' < ' . $event_end_period;
+                                                $event['id'] = rand(1,999999999999999);
                                                 $event['title'] = $title_available;
                                                 $event['start'] = $event_start;
                                                 $event['end'] = $event_end;
                                                 $event['color'] = $color_available;
+                                                $event['textColor'] = $text_color_available;
                                                 $event['setting_id'] = $setting_id;
                                                 $events[] = $event;
 
@@ -399,20 +412,21 @@ class Dashboard extends CI_Controller
         $email_to = $email;
         $reply_to_email = '';
         $reply_to_name = '';
-        $subject = "Appointment confirmed";
+        $subject = "Appointment Confirmed";
         $attachments = './assets/images/logo.png';
         $link_web = '351face.com';
         $body = '<h1>Thanks for your confirmation</h1>'.
-            '<p>Dear <b>'.$_POST['txt_patient'].'</b>, you confirmed an aplicatiion for an appointment at the <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
+            '<p>Dear <b>'.$_POST['txt_patient'].'</b>,</p>'.
+            '<p>You confirmed an aplication for an appointment at the <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
             '<br>'.
             '<p><b>Date: </b>'.$_POST['txt_date'].'</p>'.
             '<p><b>Time: </b>'.$_POST['txt_start'].'</p>'.
             '<p><b>Provider: </b>'.$_POST['txt_doctor'].'</p>'.
             '<p><b>Service: </b>'.$_POST['txt_service'].'</p>'.
             '<br>'.
-            '<p><strong>Please you have to be in the address that apear at bottom 15 minutes before.</strong></p>'.
+            '<p><b>Please arrive 15 minutes prior to your scheduled appointment time at the address listed below.</b></p>'.
             '<br>'.
-            '<p>Thanks you,</p>'.
+            '<p>Thank you,</p>'.
             '<p>Advanced Cosmetic Surgery & Laser Center</p>'.
             '<p>Rookwood Commons Shopping Center</p>'.
             '<p>3805 Edwards Rd #100</p>'.
@@ -488,5 +502,40 @@ class Dashboard extends CI_Controller
         $app = $this->M_Dashboard->GetAppointmentBy($id_service, $id_doctor, $date, $start);
 
         echo $app['error'];
+    }
+
+    function GoToAppointments($view="dashboard/Dashboard", $msg="", $success="", $warning="", $error="")
+    {
+        $data['msg']=$msg;
+        $data['success']=$success;
+        $data['warning']=$warning;
+        $data['error']=$error;
+        $data['view']=$view;
+
+        $data['go_layout']=$this->input->post('go_layout');
+        $data['delete_id']=$this->input->post('id');
+        $data['id_doc']=$this->input->post('id_doc');
+        $data['id_serv']=$this->input->post('id_serv');
+
+        if($this->session->userdata('logged_user_acs'))
+        {
+            $session_data = $this->session->userdata('logged_user_acs');
+
+            $data['id'] = $session_data['id'];
+            $data['user_name'] = $session_data['user_name'];
+            $data['bd_FirstName'] = $session_data['bd_FirstName'];
+            $data['bd_LastName'] = $session_data['bd_LastName'];
+            $data['email'] = $session_data['email'];
+            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
+
+            $this->load->model('M_Main');
+            $data['service']=$this->M_Main->GetServices();
+
+            $this->load->view($view, $data);
+        }
+        else
+        {
+            echo 1;
+        }
     }
 }

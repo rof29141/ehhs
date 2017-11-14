@@ -5,6 +5,7 @@
         <div class="form-group">
             <label>Service</label>
             <input type="text" name="txt_service" id="txt_service" datafld="<?php echo $data['service']['data'][0]['__kp_PRIMARY_KEY'];?>" class="form-control required" readonly value="<?php if(isset($data['service']['data'][0]['Service'])) echo $data['service']['data'][0]['Service'];?>" />
+            <input type="text" name="hdn_service" id="hdn_service" value="<?php if(isset($data['service']['data'][0]['ACS_ServiceValueList'])) echo $data['service']['data'][0]['ACS_ServiceValueList'];?>" />
             <input type="hidden" name="txt_patient" id="txt_patient" value="<?php if(isset($__zkp_Client_Rec)) echo $__zkp_Client_Rec;?>" />
         </div>
 
@@ -35,6 +36,7 @@
 
         <div class="form-group pull-right">
             <button type="button" id="btn_submit_app" class="btn btn-success">Submit Appointment</button>
+            <button type="button" id="" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
 
     <?php }else{echo 'Please, reload the page, exist an appointment in this date and time.';}?>
@@ -49,15 +51,14 @@
             var spinner = new Spinner(opts).spin(target);
 
             var token=Math.floor((Math.random() * 1000000000000000) + 1);
-            var title='Appointment with '+$('#txt_doctor').val()+' at '+$('#txt_date').val();
+            var title=toString($('#txt_doctor').val())+' / '+toString($('#txt_service').val());
 
-            SaveAppointment($('#txt_service').attr('datafld'), $('#txt_patient').val(), $('#txt_doctor').attr('datafld'), $('#txt_date').val(), $('#txt_start').val(), $('#txt_end').val(), title, token, spinner, $('#txt_id_setting').val());
-
+            SaveAppointment($('#txt_service').attr('datafld'), $('#hdn_service').val(), $('#txt_patient').val(), $('#txt_doctor').attr('datafld'), $('#txt_date').val(), $('#txt_start').val(), $('#txt_end').val(), title, token, spinner, $('#txt_id_setting').val());
         });
 
-        function SaveAppointment(id_service, id_patient, id_doctor, date,start, end, title, token, spinner, setting_id)
+        function SaveAppointment(id_service, ACS_ServiceValueList, id_patient, id_doctor, date,start, end, title, token, spinner, setting_id)
         {//alert(setting_id);
-            var array_inputs='_kf_ServiceID='+id_service+'&_zfk_ClientRec='+id_patient+'&ProviderRec='+id_doctor+'&APT_Date='+date+'&APT_Time='+start+'&APT_TimeEnd='+end+'&APT_Title='+title+'&TokenConfirmApp='+token+'&AppFromWeb=1&_kf_Setting_ID='+setting_id;
+            var array_inputs='_kf_ServiceID='+id_service+'&APT_VisitType='+ACS_ServiceValueList+'&_zfk_ClientRec='+id_patient+'&ProviderRec='+id_doctor+'&APT_Date='+date+'&APT_Time='+start+'&APT_TimeEnd='+end+'&APT_Title='+title+'&TokenConfirmApp='+token+'&AppFromWeb=1&_kf_Setting_ID='+setting_id;
             var url = 'Main/SaveObject';
             var data = array_inputs+'&layout=PHP_Appointment&type=INSERT';
 
@@ -88,7 +89,17 @@
             {
                 if(response!='1')
                 {
-                    if(response=='0'){alertify.success('Data Saved.');SendMail(title, token, spinner);}
+                    if(response=='0')
+                    {
+                        alertify.success('Data Saved.');
+                        SendMail(title, token, spinner);
+
+                        var id=$('#hdn_id').val();
+                        var go_layout=$('#hdn_go_layout').val();
+
+                        if(id!='' && go_layout!='')//reschedule
+                            CancelAppointment(id, go_layout);
+                    }
                     else{alertify.error('Error: The element could not be Saved. '+ response);spinner.stop();}
                 }
                 else
@@ -106,7 +117,7 @@
             var email_to = "<?php echo $email;?>";
             var reply_to_email = '';
             var reply_to_name = '';
-            var subject = "Please confirm your appointment";
+            var subject = "Please Confirm Your Appointment";
             var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
             var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
             var link_web = '351face.com';
@@ -141,6 +152,27 @@
                 if(response == 'WRONG') {$('#modal').html('Your email is wrong.');}
                 else {$('#modal').html('Please, check your inbox. A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
                 spinner.stop();
+            });
+        }
+
+        function CancelAppointment(id, go_layout)
+        {
+            $.ajax(
+            {
+                url:'Main/DeleteObject',
+                type:'POST',
+                data:{go_layout:go_layout,id:id}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response == 'NO_CANCEL') {
+                    $('#modal').html('<div class="text-center">You can not reschedule the appointment, please, call the office at 513-351-FACE(3223).</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                }
+                else
+                {
+                    $('#modal').html('<div class="text-center">Your appointment has been rescheduled.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                }
+                $('#modal_title').html('Reschedule Appointment');
+                $('#remoteModal').modal('show');
             });
         }
     });

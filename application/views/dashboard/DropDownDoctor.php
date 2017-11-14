@@ -3,7 +3,7 @@
 <select class="my_select2_doc" id="sel_doctor" name="sel_doctor">
     <option value="-1"></option>
     <?php for ($i=0;$i<count($data['doctor']['data']);$i++){?>
-        <option value="<?php echo $data['doctor']['data'][$i]['_kf_DoctorID'];?>" title="<?php echo $data['doctor']['data'][$i]['Photo'];?>">
+        <option <?php if(isset($data['id_doctor']) && $data['id_doctor']==$data['doctor']['data'][$i]['_kf_DoctorID']){echo 'selected';}?> value="<?php echo $data['doctor']['data'][$i]['_kf_DoctorID'];?>" title="<?php echo $data['doctor']['data'][$i]['Photo'];?>">
             <?php echo $data['doctor']['data'][$i]['FirstName'].' '.$data['doctor']['data'][$i]['LastName'];?>
         </option>
     <?php }?>
@@ -29,6 +29,7 @@
                 '<span>' + data.text + '</span>'
             );
             if(data.title)$('#doc_photo').html('<img class="doc_img" src="'+data.title+'"/>');
+            else $('#doc_photo').html('<img class="doc_img" src="<?php echo base_url('assets/images/male.png');?>"/>');
             return $result;
         };
 
@@ -56,11 +57,38 @@
             {
                 //alert(response);
                 if(response=='NOT_SETTINGS')
-                {alertify.error('Please, call the office, the doctor not have settings.');}
+                {alertify.error('There is not availability for this Service and Provider (settings). Please, call the office at 513-351-FACE(3223).');}
                 else if(response)
                 {$('#calendar_app').html(response);}
                 spinner.stop();
             });
+        });
+
+        $(function ()
+        {
+            var id_doctor = "<?php if(isset($data['id_doctor'])) echo $data['id_doctor'];else echo 'NO_DOC'?>";
+
+            if (id_doctor != 'NO_DOC')
+            {
+                var id_service = $('#sel_service').val();
+
+                if (id_service != 'NO_SERV')
+                {
+                    $.ajax({
+                        url: 'Dashboard/GetAppointments',
+                        type: 'POST',
+                        data: {id_service:id_service,id_doctor:id_doctor}
+                    }).done(function(response, textStatus, jqXHR)
+                    {
+                        //alert(response);
+                        if(response=='NOT_SETTINGS')
+                        {alertify.error('There is not availability for this Service and Provider (settings). Please, call the office at 513-351-FACE(3223).');}
+                        else if(response)
+                        {$('#calendar_app').html(response);}
+                        spinner.stop();
+                    });
+                }
+            }
         });
     });
 </script>

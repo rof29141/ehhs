@@ -105,11 +105,11 @@ require_once(APPPATH."views/includes/header.php");
             var email_to = "<?php echo $email;?>";
             var reply_to_email = '';
             var reply_to_name = '';
-            var subject = "Appointment confirmed";
+            var subject = "Appointment Confirmed";
             var attachments = './assets/images/logo.png';
             var link_web = '351face.com';
             var body = '<h1>Appointment Confirmed</h1>' +
-                '<p>The patient <b><?php echo $bd_FirstName." ".$bd_LastName;?></b> has submmited an appointment' +
+                '<p>The patient <b><?php echo $bd_FirstName." ".$bd_LastName;?></b> has submited an appointment.' +
                 '<br>' +
                 '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
                 '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +

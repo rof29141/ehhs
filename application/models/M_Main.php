@@ -84,6 +84,8 @@ Class M_Main extends CI_Model
                 $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_SERVICE_ID"];
                 $field['Service'] = $result["data"][$i]["fieldData"]["Service"];
                 $field['GroupService'] = $result["data"][$i]["fieldData"]["GroupService"];
+                $field['Description'] = $result["data"][$i]["fieldData"]["Description"];
+                $field['ACS_ServiceValueList'] = $result["data"][$i]["fieldData"]["ACS_ServiceValueList"];
 
                 $fields[$i] = $field;
             }
@@ -146,6 +148,7 @@ Class M_Main extends CI_Model
                 $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_SERVICE_ID"];
                 $field['Service'] = $result["data"][$i]["fieldData"]["Service"];
                 $field['GroupService'] = $result["data"][$i]["fieldData"]["GroupService"];
+                $field['ACS_ServiceValueList'] = $result["data"][$i]["fieldData"]["ACS_ServiceValueList"];
 
                 $fields[$i] = $field;
             }
@@ -161,7 +164,7 @@ Class M_Main extends CI_Model
         $array_dist=array();
         $layout='PHP_Service_Doctor';
 
-        $request1['_kf_ServiceID'] = $id_service;//echo $data['id'];
+        $request1['_kf_ServiceID'] = '=='.$id_service;//echo $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -228,7 +231,7 @@ Class M_Main extends CI_Model
             $return['error']=$this->error($result);
         }
 
-        if($type=='D')
+        if($type=='DELETE')
         {
             //$myfm = new MacTutorREST ('','', $layout,'');
 
