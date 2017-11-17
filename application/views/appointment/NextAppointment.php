@@ -14,7 +14,7 @@
                 <div style="display: table;width: 100%;height: 90px;">
                     <div style="display: table-row;">
 
-                        <div  style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 10px;">
+                        <div  style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
                             <?php
                                 echo '<img class="doc_img" style="width: 70%;" src="'; if($data['my_next_appointments']['data'][$i]['Photo'])echo $data['my_next_appointments']['data'][$i]['Photo'];else echo base_url('assets/images/male.png');echo'"/><br><br>';
                                 echo $data['my_next_appointments']['data'][$i]['FirstName'].' '.$data['my_next_appointments']['data'][$i]['LastName'];
