@@ -14,7 +14,7 @@
 
 
 <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/js/alertifyjs/css/alertify.rtl.css">
+<link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/js/alertifyjs/css/alertify.css">
 
 <script src="<?php echo ASSETS_URL; ?>/js/jquery-3.2.1.min.js"></script>
 

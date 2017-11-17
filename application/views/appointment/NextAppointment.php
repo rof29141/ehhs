@@ -282,6 +282,7 @@
                     var id = $('#hdn_id_zpk_Appointment_Rec'+i).val();
                     var go_layout='PHP_Appointment';
 
+                    //alertify.set('notifier','position', 'top-center');
                     alertify.confirm("Do you confirm the action?", function()
                     {
                         $.ajax(
@@ -308,6 +309,7 @@
                     }
                     ,function()
                     {
+                        //alertify.set('notifier','position', 'top-center');
                         alertify.error('Declined.');
                     });
                 });
