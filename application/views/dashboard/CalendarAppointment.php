@@ -67,14 +67,9 @@
                     var end=String(calEvent.end);//alert(end);
                     var setting_id=String(calEvent.setting_id);//alert(setting_id);
 
-
-
                     for (var i in calEvent) {
                         console.log(i+":"+calEvent[i]);
                     }
-
-                    //console.log(objToString(calEvent, 8));
-
 
                     FillModalApp(id_service, id_doctor, start, end, setting_id, calEvent);
                 }
@@ -84,12 +79,35 @@
             timeFormat: 'hh:mm t',
             events: <?php echo $events;?>,
 
+            eventRender: function(event, eventElement)
+            {
+                var view = $('#calendar').fullCalendar('getView');
+
+                if (event.confirm=='text-success')
+                {
+                    eventElement.find(".fc-time").append('<div style="float: right;position: relative; font-size: 16px; top:-15px;">' +
+                        '<a data-container="body" data-toggle="popover" data-placement="top" data-content="Appointment confirmed." class="' + event.confirm + '">' +
+                        '<span class="brankic-checkmark"></span></a>' +
+                        '</div>');
+                    if(view.name=='month')
+                        eventElement.find(".fc-content").css({ height: "14px" });
+                }
+                else if(event.confirm=='text-danger')
+                {
+                    eventElement.find(".fc-time").append('<div style="float: right;position: relative; font-size: 15px; top:-15px;">' +
+                        '<a data-container="body" data-toggle="popover" data-placement="top" data-content="Please, Confirm your appintment." class="'+event.confirm+'">' +
+                        '<span class="brankic-warning"></span></a>' +
+                        '</div>');
+
+                    if(view.name=='month')
+                        eventElement.find(".fc-content").css({ height: "14px" });
+                }
+            },
+
         });
 
         var today = new Date().getDay();//0=Sun, 1=Mon, ..., 6=Sat
         var last_day = '<?php echo $last_day;?>'-1;//last day of the appointments
-
-        //alert(today+'>='+last_day);
 
         if(today>=last_day){$('#calendar').fullCalendar('next');}
 
@@ -117,11 +135,12 @@
                         calEvent.textColor = "#000";
                         $('#calendar').fullCalendar('updateEvent', calEvent);
                     });
-
-
-
                 }
             });
         }
+
+        $('[data-toggle="popover"]').on('mouseover mouseout', function(){
+            $(this).popover('toggle')
+        });
     });
 </script>

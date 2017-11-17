@@ -2,47 +2,96 @@
     <?php
     if(isset($data['my_next_appointments']['data']))
     {
-    for($i=0;$i<count($data['my_next_appointments']['data']);$i++)
-    {
-    ?>
-        <div class="row" style="margin-bottom: 10px;" id="<?php echo $i;?>">
-            <article class="col-sm-12 col-md-6 col-lg-4">
+        ?>
+        <div class="row" style="margin-bottom: 10px;">
+
+        <?php
+        for($i=0;$i<count($data['my_next_appointments']['data']);$i++)
+        {
+            ?>
+
+            <article style="padding-bottom: 20px;" class="col-sm-12 col-md-6 col-lg-4">
                 <div style="display: table;width: 100%;height: 90px;">
                     <div style="display: table-row;">
 
                         <div  style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 10px;">
                             <?php
-                                echo '<img class="doc_img" style="width: 80%;" src="'; if($data['my_next_appointments']['data'][$i]['Photo'])echo $data['my_next_appointments']['data'][$i]['Photo'];else echo base_url('assets/images/male.png');echo'"/><br><br>';
+                                echo '<img class="doc_img" style="width: 70%;" src="'; if($data['my_next_appointments']['data'][$i]['Photo'])echo $data['my_next_appointments']['data'][$i]['Photo'];else echo base_url('assets/images/male.png');echo'"/><br><br>';
                                 echo $data['my_next_appointments']['data'][$i]['FirstName'].' '.$data['my_next_appointments']['data'][$i]['LastName'];
                             ?>
                         </div>
                         <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
+                            <div style="float: right;position: relative;font-size: 16px;"><a target="_blank" href="<?php echo base_url('/Appointment/PrintAppointment/'.$data['my_next_appointments']['data'][$i]['RecordID']);?>"><span class="entypo-printer"></span></a></div>
+
                             <div class="" style="text-align:center;font-weight: bold; font-size: 11px;"><?php echo $data['my_next_appointments']['data'][$i]['APT_Title'];?></div>
                             <br>
                             <div class="" style="text-align:center;font-weight: bold; font-size: 12px;"><?php echo $data['my_next_appointments']['data'][$i]['Service'];?></div>
                             <br>
-                            <div class="" style="text-align:center;font-weight: bold; font-size: 13px;"><?php echo $data['my_next_appointments']['data'][$i]['APT_Date'];?></div>
-                            <div class="" style="text-align:center;font-weight: bold; font-size: 13px;"><?php echo $data['my_next_appointments']['data'][$i]['APT_Time'];?></div>
+                            <div class="" style="text-align:center;font-weight: bold; font-size: 15px;"><?php echo $data['my_next_appointments']['data'][$i]['APT_Date'].' '.$data['my_next_appointments']['data'][$i]['APT_Time'];?></div>
 
                             <br>
 
                             <?php if($data['my_next_appointments']['data'][$i]['TokenConfirmApp']!=''){?>
-                                <div class="" style="text-align:center;font-weight: bold; font-size: 15px; color: red;">Status: Not Confirmed</div>
+                                <div class="text-warning" style="text-align:center;font-weight: bold; font-size: 15px;">Status: Not Confirmed <span class="brankic-warning"></span></div>
                             <?php }else {?>
-                                <div class="" style="text-align:center;font-weight: bold; font-size: 15px; color: green;">Status: Confirmed</div>
+                                <div class="text-success" style="text-align:center;font-weight: bold; font-size: 15px;">Status: Confirmed <span class="brankic-checkmark"></span></div>
                             <?php }?>
 
                             <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
+                            <?php
+                            date_default_timezone_set('America/New_York');
+                            $today=strtotime(date('m/d/Y h:i:s'));
+                            $date=strtotime($data['my_next_appointments']['data'][$i]['APT_Date'].' '.$data['my_next_appointments']['data'][$i]['APT_Time']);
+                            $dif=$date-$today;
 
+                            if($dif>86400)
+                            {
+                                $cancel_btn=1;
+                            }
+                            else
+                            {
+                                $cancel_btn=0;
+                                $cancel_note='To Cancel or Reschedule less than 24 hours, <br>call the office 513-351-FACE(3223)';
+                            }
+                            ?>
                             <div style="text-align:right;">
-                                <?php if($data['my_next_appointments']['data'][$i]['TokenConfirmApp']!=''){?>
-                                    <button type="button" class="btn btn_confirm_app" style="background-color: #492f91" id="<?php echo $i;?>">Confirm appointment</button>
-                                <?php }else {?>
-                                    <button type="button" class="btn download_ical" style="background-color: #492f91" id="<?php echo $i;?>">Download iCal</button>
-                                    <button type="button" class="btn resend_email" style="background-color: #492f91" id="<?php echo $i;?>">Resend email</button>
-                                <?php }?>
 
-                                <button type="button" class="btn btn_cancel_app" style="background-color: #492f91" id="<?php echo $i;?>">Cancel Appointment</button>
+                                <?php
+                                if($cancel_btn==0)
+                                {
+                                    ?>
+
+                                        <div style="text-align: center;padding-left:10px;padding-right:10px;top: 10px;position: relative;display: inline-block;"
+                                             class="note"><?php echo $cancel_note; ?></div>
+
+                                    <?php
+                                }
+                                ?>
+
+                                    <?php
+
+                                    if($cancel_btn==1)
+                                    {
+                                        ?>
+                                        <button type="button" class="btn btn_cancel_app btn-danger" style="1background-color: #492f91" id="<?php echo $i;?>">Cancel</button>
+                                        <?php
+                                    }
+                                    if($data['my_next_appointments']['data'][$i]['TokenConfirmApp']!='')
+                                    {
+
+                                        ?>
+                                        <button type="button" class="btn btn_confirm_app btn-success" style="1background-color: #492f91" id="<?php echo $i;?>">Confirm</button>
+                                        <?php
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                            <button type="button" class="btn download_ical btn-success" style="1background-color: #492f91" id="<?php echo $i;?>">Download iCal</button>
+                                            <button type="button" class="btn resend_email btn-success" style="1background-color: #492f91" id="<?php echo $i;?>">Resend email</button>
+                                        <?php
+                                    }
+                                    ?>
+
                             </div>
 
                             <form method="post" action="Dashboard/DownloadiCal" id="frm_next_<?php echo $i;?>">
@@ -55,6 +104,7 @@
                                 <input id="hdn_tok_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['TokenConfirmApp'];?>"/>
                                 <input id="hdn_id_doc_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['ProviderRec'];?>"/>
                                 <input id="hdn_id_serv_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['_kf_ServiceID'];?>"/>
+                                <input id="hdn_id_zpk_Appointment_Rec<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['__zpk_Appointment_Rec'];?>"/>
                                 <input id="hdn_id_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['RecordID'];?>"/>
 
                                 <input name="hdn_ical_start_<?php echo $i;?>" type="hidden" value="<?php echo $data['my_next_appointments']['data'][$i]['APT_Date'].' '.$data['my_next_appointments']['data'][$i]['APT_Time'];?>"/>
@@ -71,9 +121,13 @@
                 </div>
             </article>
 
+            <?php
+        }
+        ?>
         </div>
-
-    <?php }}else echo '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>' ;?>
+        <?php
+    }
+    else echo '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>' ;?>
 
     <?php
 
@@ -218,7 +272,6 @@
             $('.btn_cancel_app').on('click', function ()
             {
                 var i = $(this).attr('id');//alert(i);
-                var id = $('#hdn_id_'+i).val();
 
                 $('#modal').html('<div class="text-center">Do you want to cancel or reschedule the appointment?</div><br><div class="text-right"><a class="btn btn-warning btn_reschedule" id="'+i+'" data-dismiss="modal">Reschedule</a> <a class="btn btn-danger btn_cancel" id="'+i+'" data-dismiss="modal">Cancel</a> <a class="btn btn-default" data-dismiss="modal">Close</a></div>');
                 $('#modal_title').html('Cancel or Reschedule');
@@ -227,7 +280,7 @@
                 $('.btn_cancel').on('click', function ()
                 {
                     var i = $(this).attr('id');//alert(i);
-                    var id = $('#hdn_id_'+i).val();
+                    var id = $('#hdn_id_zpk_Appointment_Rec'+i).val();
                     var go_layout='PHP_Appointment';
 
                     alertify.confirm("Do you confirm the action?", function()
@@ -269,7 +322,7 @@
                     var spinner = new Spinner(opts).spin(target);
 
                     var i = $(this).attr('id');//alert(i);
-                    var id = $('#hdn_id_'+i).val();//alert(id);
+                    var id = $('#hdn_id_zpk_Appointment_Rec'+i).val();//alert(id);
                     var go_layout = 'PHP_Appointment';
                     var id_doc = $('#hdn_id_doc_'+i).val();
                     var id_serv = $('#hdn_id_serv_'+i).val();

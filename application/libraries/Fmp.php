@@ -61,7 +61,7 @@ class Fmp extends FileMaker {
 	public function __construct($args=null) {
 		parent::__construct();
 
-        $args['database'] = 'Advanced Cosmetic Surgery System';
+        $args['database'] = 'ACS_Bridge.fmp12';
         $args['username'] = 'jem';
         $args['password'] = 'admin';
         $args['hostspec'] = 'mtdev.mactutor.net';

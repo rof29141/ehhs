@@ -7,6 +7,7 @@
     <th class="hidden-xs hidden-sm" style="width: 10%">End</th>
     <th class="hidden-xs hidden-sm" style="width: 20%">Service</th>
     <th class="hidden-xs hidden-sm">Doctor</th>
+    <th class="hidden-xs hidden-sm"></th>
     <th class="hidden-xs hidden-sm text-center" style="width: 2%"><input name='select_all' id='select_all' type='checkbox'></th>
 </tr>
 </thead>
@@ -35,6 +36,9 @@ if(isset($data))
                 <td data-goto="<?php echo $go_to;?>"><?php echo $data['my_appointments']['data'][$i]['APT_TimeEnd'];?></td>
                 <td data-goto="<?php echo $go_to;?>"><?php echo $data['my_appointments']['data'][$i]['Service'];?></td>
                 <td data-goto="<?php echo $go_to;?>"><?php echo '<img class="doc_img" style="width: 20px;" src="'.$data['my_appointments']['data'][$i]['Photo'].'"/>'.'&nbsp;&nbsp;&nbsp;'.$data['my_appointments']['data'][$i]['FirstName'].' '.$data['my_appointments']['data'][$i]['LastName'];?></td>
+
+                <td class="text-danger"><?php if($data['my_appointments']['data'][$i]['Active']!=1)echo 'Canceled';?></td>
+
                 <td class="text-center">
                     <input name='<?php echo 'cbx_'.$data['my_appointments']['data'][$i]['_RecordID'];?>' type='checkbox' value='<?php echo $data['my_appointments']['data'][$i]['_RecordID'];?>' class="cbx">
                 </td>

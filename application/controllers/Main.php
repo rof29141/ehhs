@@ -139,7 +139,7 @@ class Main extends CI_Controller
             {
                 $id_patient = $data['__zkp_Client_Rec'];
                 $this->load->model('M_Appointment');
-                $result['my_appointments']=$this->M_Appointment->GetAppointmentByPatient($id_patient);
+                $result['my_appointments']=$this->M_Appointment->GetAllAppointmentByPatient($id_patient);
             }
             elseif($data_type=='NextMyAppointment')
             {

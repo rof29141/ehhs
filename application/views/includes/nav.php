@@ -48,8 +48,8 @@
                         ?>
 
                         <li class="dropdown-submenu-top">
-                            <a <?php if($value["URL"]!=''){?>onclick="LoadContent('<?= $value["URL"] ?>')"<?php }?> class="dropdown-toggle"
-                               data-toggle="dropdown"><?= $value["Label"] ?><?
+                            <a <?php if($value["URL"]!=''){?>onclick="LoadContent('<?php echo $value["URL"] ?>')"<?php }?> class="dropdown-toggle"
+                               data-toggle="dropdown"><?php echo $value["Label"] ?><?
                                 if ($value["menu"] != '') {
                                     ?><b class="caret"></b><?
                                 } ?></a>
@@ -81,10 +81,10 @@
                                                 if ($value1["menu"] != ''){
                                                 ?>class="dropdown-submenu"<?
                                             } ?>>
-                                                <a <?php if($value1["URL"]!=''){?>onclick="LoadContent('<?= $value1["URL"] ?>')"<?php }?> <?
+                                                <a <?php if($value1["URL"]!=''){?>onclick="LoadContent('<?php echo $value1["URL"] ?>')"<?php }?> <?
                                                 if ($value1["menu"] != ''){
                                                 ?>class="dropdown-toggle" data-toggle="dropdown"<?
-                                                } ?>><?= $value1["Label"] ?></a>
+                                                } ?>><?php echo $value1["Label"] ?></a>
 
                                                 <?
                                                 if ($value1["menu"] != '') {
@@ -113,10 +113,10 @@
                                                                     if ($value2["menu"] != ''){
                                                                     ?>class="dropdown-submenu"<?
                                                                 } ?>>
-                                                                    <a <?php if($value2["URL"]!=''){?>onclick="LoadContent('<?= $value2["URL"] ?>')"<?php }?> <?
+                                                                    <a <?php if($value2["URL"]!=''){?>onclick="LoadContent('<?php echo $value2["URL"] ?>')"<?php }?> <?
                                                                     if ($value2["menu"] != ''){
                                                                     ?>class="dropdown-toggle" data-toggle="dropdown"<?
-                                                                    } ?>><?= $value2["Label"] ?></a>
+                                                                    } ?>><?php echo $value2["Label"] ?></a>
 
                                                                     <?
                                                                     if ($value2["menu"] != '') {
@@ -145,12 +145,12 @@
                                                                                         if ($value3["menu"] != ''){
                                                                                         ?>class="dropdown-submenu"<?
                                                                                     } ?>>
-                                                                                        <a <?php if($value3["URL"]!=''){?>onclick="LoadContent('<?= $value3["URL"] ?>')"<?php }?>
+                                                                                        <a <?php if($value3["URL"]!=''){?>onclick="LoadContent('<?php echo $value3["URL"] ?>')"<?php }?>
                                                                                            <?
                                                                                            if ($value3["menu"] != ''){
                                                                                            ?>class="dropdown-toggle"
                                                                                            data-toggle="dropdown"<?
-                                                                                        } ?>><?= $value3["Label"] ?></a>
+                                                                                        } ?>><?php echo $value3["Label"] ?></a>
 
                                                                                         <?
                                                                                         if ($value3["menu"] != '') {
@@ -179,12 +179,12 @@
                                                                                                             if ($value4["menu"] != ''){
                                                                                                             ?>class="dropdown-submenu"<?
                                                                                                         } ?>>
-                                                                                                            <a <?php if($value4["URL"]!=''){?>onclick="LoadContent('<?= $value4["URL"] ?>')"<?php }?>
+                                                                                                            <a <?php if($value4["URL"]!=''){?>onclick="LoadContent('<?php echo $value4["URL"] ?>')"<?php }?>
                                                                                                                <?
                                                                                                                if ($value4["menu"] != ''){
                                                                                                                ?>class="dropdown-toggle"
                                                                                                                data-toggle="dropdown"<?
-                                                                                                            } ?>><?= $value4["Label"] ?></a>
+                                                                                                            } ?>><?php echo $value4["Label"] ?></a>
 
                                                                                                             <?
                                                                                                             if ($value4["menu"] != '') {
@@ -213,12 +213,12 @@
                                                                                                                                 if ($value5["menu"] != ''){
                                                                                                                                 ?>class="dropdown-submenu"<?
                                                                                                                             } ?>>
-                                                                                                                                <a <?php if($value5["URL"]!=''){?>onclick="LoadContent('<?= $value5["URL"] ?>')"<?php }?>
+                                                                                                                                <a <?php if($value5["URL"]!=''){?>onclick="LoadContent('<?php echo $value5["URL"] ?>')"<?php }?>
                                                                                                                                    <?
                                                                                                                                    if ($value5["menu"] != ''){
                                                                                                                                    ?>class="dropdown-toggle"
                                                                                                                                    data-toggle="dropdown"<?
-                                                                                                                                } ?>><?= $value5["Label"] ?></a>
+                                                                                                                                } ?>><?php echo $value5["Label"] ?></a>
 
                                                                                                                                 <?
                                                                                                                                 if ($value5["menu"] != '') {
@@ -246,12 +246,12 @@
                                                                                                                                                     if ($value6["menu"] != ''){
                                                                                                                                                     ?>class="dropdown-submenu"<?
                                                                                                                                                 } ?>>
-                                                                                                                                                    <a <?php if($value6["URL"]!=''){?>onclick="LoadContent('<?= $value6["URL"] ?>')"<?php }?>
+                                                                                                                                                    <a <?php if($value6["URL"]!=''){?>onclick="LoadContent('<?php echo $value6["URL"] ?>')"<?php }?>
                                                                                                                                                        <?
                                                                                                                                                        if ($value6["menu"] != ''){
                                                                                                                                                        ?>class="dropdown-toggle"
                                                                                                                                                        data-toggle="dropdown"<?
-                                                                                                                                                    } ?>><?= $value6["Label"] ?></a>
+                                                                                                                                                    } ?>><?php echo $value6["Label"] ?></a>
 
                                                                                                                                                 </li>
                                                                                                                                                 <li class="divider"></li>

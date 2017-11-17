@@ -4,7 +4,7 @@
             <fieldset class="myfieldset">
                 <legend class="mylegend">Next appointments</legend>
 
-                <div style="margin-top: 20px;">
+                <div style="margin-top: 0px;">
 
                     <section class="col col-12" style="padding: 10px;">
                         <div id='next_app'></div>

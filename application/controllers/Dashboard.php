@@ -109,8 +109,6 @@ class Dashboard extends CI_Controller
                     }
                     reset($var);
 
-                    //echo '$start_same_week: '.$start_same_week;
-
                     if (count($var) != 0)
                     {
                         for ($i = 0; $i < count($var); next($var), $i++)
@@ -170,14 +168,12 @@ class Dashboard extends CI_Controller
                                 $week = $d * $weeks_day;
                                 $day = $this->GiveDate($next, $week);
 
-                                if($day!=date('Y-m-d'))
+                                if(1)//$day!=date('Y-m-d')
                                 {
                                     $exist_availables = $this->ExistEventsBetweenTimes($ServiceStartingDate, $ServiceEndingDate, $day);
 
                                     if ($exist_availables == 1)
                                     {
-
-
                                         //echo json_encode($all_appointments).'     ';//die();
 
                                         $app_today = 0;
@@ -202,9 +198,10 @@ class Dashboard extends CI_Controller
                                         }
 //var_dump($appointment);
 
-                                        $event_start = $day . ' ' . $hr_start;
+                                        $event_start_day = $day . ' ' . $hr_start;
                                         $event_end = $day . ' ' . $hr_start;//if the day doesn't have an appointment in the 3th cicle (for) the events will be filled starting at the beginning of the day
                                         $event_end_period = $day . ' ' . $hr_end;
+                                        $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_start_day)));
 
                                         if (isset($appointment['data'][0]['APT_Date']))//search if exist an appointment in this date and time
                                         {
@@ -212,20 +209,27 @@ class Dashboard extends CI_Controller
 
                                             for ($e = 0; $e < $spaces; $e++)//1st cicle
                                             {
-                                                $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_start)));
+                                                //$event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_start)));
 
+
+                                                $event_start=date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
+                                                $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minutes', strtotime($event_end)));
+
+                                                //echo $event_end. '<' .$real_appointment_start_first.'<br>';
                                                 if ($event_end < $real_appointment_start_first)
                                                 {
-                                                    $event['id'] = rand(1,999999999999999);
-                                                    $event['title'] = $title_available;
-                                                    $event['start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_start)));
-                                                    $event['end'] = $event_end;
-                                                    $event['color'] = $color_available;
-                                                    $event['textColor'] = $text_color_available;
-                                                    $event['setting_id'] = $setting_id;
-                                                    $events[] = $event;
-
-                                                    $event_start = $event_end;
+                                                    if(new DateTime($event_start)>new DateTime(date("Y-m-d H:i:s")))
+                                                    {
+                                                        $event['id'] = rand(1, 999999999999999);
+                                                        $event['title'] = $title_available;
+                                                        $event['start'] = $event_start;
+                                                        $event['end'] = $event_end;
+                                                        $event['color'] = $color_available;
+                                                        $event['textColor'] = $text_color_available;
+                                                        $event['setting_id'] = $setting_id;
+                                                        $event['confirm'] = 0;
+                                                        $events[] = $event;
+                                                    }
                                                 } else
                                                 {
                                                     break;
@@ -240,6 +244,7 @@ class Dashboard extends CI_Controller
                                                 $real_appointment_end = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_TimeEnd'];
 
                                                 $client_rec = $appointment['data'][$a]['_zfk_ClientRec'];
+                                                $TokenConfirmApp = $appointment['data'][$a]['TokenConfirmApp'];
 
                                                 if ($event_end != '')
                                                 {
@@ -267,6 +272,7 @@ class Dashboard extends CI_Controller
                                                         $event['color'] = $color_available;
                                                         $event['textColor'] = $text_color_available;
                                                         $event['setting_id'] = $setting_id;
+                                                        $event['confirm'] = 0;
                                                         $events[] = $event;
                                                         //echo $event_start . ' = ' . $event_end . '    ' . $event['title'] . ' <br><br>';
                                                     }
@@ -282,6 +288,10 @@ class Dashboard extends CI_Controller
                                                 $event['color'] = $color_not_available;
                                                 $event['textColor'] = $text_color_not_available;
                                                 $event['setting_id'] = $setting_id;
+                                                if($TokenConfirmApp!='')
+                                                $event['confirm'] = 'text-danger';
+                                                else
+                                                    $event['confirm'] = 'text-success';
                                                 if($client_rec==$__zkp_Client_Rec)
                                                 $events[] = $event;//--------------------------events unavailables--------------------------
                                             }
@@ -292,20 +302,24 @@ class Dashboard extends CI_Controller
                                             $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
                                             $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_end)));
 
-                                            //echo $event_start.' - '.$event_end;
+                                            //echo $event_start.' - '.$event_end.'<br>';
                                             if ($event_end < $event_end_period)
                                             {
-                                                //echo $event_end . ' < ' . $event_end_period;
-                                                $event['id'] = rand(1,999999999999999);
-                                                $event['title'] = $title_available;
-                                                $event['start'] = $event_start;
-                                                $event['end'] = $event_end;
-                                                $event['color'] = $color_available;
-                                                $event['textColor'] = $text_color_available;
-                                                $event['setting_id'] = $setting_id;
-                                                $events[] = $event;
+                                                if(new DateTime($event_start)>new DateTime(date("Y-m-d H:i:s")))
+                                                {
+                                                    //echo $event_start . ' > ' . date("Y-m-d H:i:s") . '<br>';
 
-                                                $event_start = $event_end;
+                                                    //echo $event_end . ' < ' . $event_end_period;
+                                                    $event['id'] = rand(1, 999999999999999);
+                                                    $event['title'] = $title_available;
+                                                    $event['start'] = $event_start;
+                                                    $event['end'] = $event_end;
+                                                    $event['color'] = $color_available;
+                                                    $event['textColor'] = $text_color_available;
+                                                    $event['setting_id'] = $setting_id;
+                                                    $event['confirm'] = 0;
+                                                    $events[] = $event;
+                                                }
                                             } else
                                                 break;
                                         }

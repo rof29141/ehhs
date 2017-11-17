@@ -5,7 +5,7 @@
         <div class="form-group">
             <label>Service</label>
             <input type="text" name="txt_service" id="txt_service" datafld="<?php echo $data['service']['data'][0]['__kp_PRIMARY_KEY'];?>" class="form-control required" readonly value="<?php if(isset($data['service']['data'][0]['Service'])) echo $data['service']['data'][0]['Service'];?>" />
-            <input type="text" name="hdn_service" id="hdn_service" value="<?php if(isset($data['service']['data'][0]['ACS_ServiceValueList'])) echo $data['service']['data'][0]['ACS_ServiceValueList'];?>" />
+            <input type="hidden" name="hdn_service" id="hdn_service" value="<?php if(isset($data['service']['data'][0]['ACS_ServiceValueList'])) echo $data['service']['data'][0]['ACS_ServiceValueList'];?>" />
             <input type="hidden" name="txt_patient" id="txt_patient" value="<?php if(isset($__zkp_Client_Rec)) echo $__zkp_Client_Rec;?>" />
         </div>
 
@@ -51,7 +51,7 @@
             var spinner = new Spinner(opts).spin(target);
 
             var token=Math.floor((Math.random() * 1000000000000000) + 1);
-            var title=toString($('#txt_doctor').val())+' / '+toString($('#txt_service').val());
+            var title=$('#txt_doctor').val()+' / '+$('#txt_service').val();
 
             SaveAppointment($('#txt_service').attr('datafld'), $('#hdn_service').val(), $('#txt_patient').val(), $('#txt_doctor').attr('datafld'), $('#txt_date').val(), $('#txt_start').val(), $('#txt_end').val(), title, token, spinner, $('#txt_id_setting').val());
         });
