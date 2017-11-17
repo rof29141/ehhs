@@ -1,5 +1,5 @@
 <div class="container" >
-    <div class="row" style="margin: 20px;">
+    <div class="row" style="margin-top: 20px;">
         <div class="col-lg-12">
             <fieldset class="myfieldset">
                 <legend class="mylegend">Create an Appointment</legend>

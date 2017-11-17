@@ -1,5 +1,5 @@
-<div class="container" >
-    <div class="row" style="margin: 20px;">
+
+    <div class="row" style="margin: 0px;">
         <div class="col-lg-12">
 
 
@@ -13,8 +13,6 @@
         </div>
 
     </div>
-</div>
-
 <div class="modal fade" id="remoteModal" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true" style="display: none;">
 
     <div class="modal-content" style="align-content: center;">

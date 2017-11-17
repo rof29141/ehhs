@@ -63,7 +63,6 @@
 
                                         <div style="text-align: center;padding-left:10px;padding-right:10px;top: 10px;position: relative;display: inline-block;"
                                              class="note"><?php echo $cancel_note; ?></div>
-
                                     <?php
                                 }
                                 ?>
