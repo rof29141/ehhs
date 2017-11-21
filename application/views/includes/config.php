@@ -31,15 +31,6 @@ $sess_array = array(
 
 $this->session->set_userdata('param_email_acs', $sess_array);
 ?>
-rbt_nose_shape_size
-rbt_jawline
-rbt_jowls
-rbt_neck
-rbt_chin
-rbt_turkey_gobbler
-rbt_facelift
-rbt_skin_lesions
-rbt_acnescars
 
 
 
