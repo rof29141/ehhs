@@ -2,20 +2,76 @@
 
     $(document).ready(function()
     {
-        $("#frm").validate();
-
-        $.validator.addMethod("select", function (value, element, arg) {
-            return arg !== value;
-        }, "This field is required. Please, select an option.");
-
-        $("#frm").find('.required').each(function ()
+        function ValidateFrm()
         {
-            $(this).rules("add", {required: true});
-        });
+            $.validator.setDefaults(
+            {
+                //errorElement: "span",
+                //errorClass: "help-block",
+                //	validClass: 'stay',
+                highlight: function (element, errorClass, validClass) {//alert('high');
+                    $(element).addClass(errorClass); //.removeClass(errorClass);
+                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                },
+                unhighlight: function (element, errorClass, validClass) {//alert('unhigh');
+                    $(element).removeClass(errorClass); //.addClass(validClass);
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                },
+                errorPlacement: function (error, element)
+                {alert('ojn');
+                    if(element.parent('.input-group').length)
+                    {
+                        error.insertAfter(element.parent());
+                    }
+                    else if(element.hasClass('my_select2'))
+                    {
+                        error.insertAfter(element.next('fieldset'));
+                    }
 
-        $("#frm").find('.required_select').each(function ()
-        {
-            $(this).rules("add", {select: "0"});
+                    else if(element.hasClass('error_fieldset'))
+                    {
+                        error.insertAfter(element.next('span'));
+                    }
+                    else
+                    {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            $("#frm").validate(
+            {
+                ignore: [],
+                focusInvalid: false,
+                invalidHandler: function(form, validator) {
+
+                    if (!validator.numberOfInvalids())
+                        return;
+
+                    $('html, body').animate({
+                        scrollTop: $(validator.errorList[0].element).offset().top-100
+                    }, 2000);
+                }
+            });
+
+            $.validator.addMethod("select", function(value, element, arg)
+            {
+                return arg !== value;
+            }, "This field is required. Please, select an option.");
+
+            $("#frm").find('.required').each(function()
+            {
+                $(this).rules( "add",{required: true});
+            });
+
+            $("#frm").find('.required_select').each(function()
+            {
+                $(this).rules( "add",{select: "-1"});
+            });
+        }
+
+        $('body').on('change', '.my_select2', function () {
+            $(this).valid();
         });
 
         var msg = $("#msg").val();
