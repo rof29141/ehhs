@@ -316,8 +316,20 @@
 
     .tab-pane{
         padding: 20px;
+        border: 1px #dadada solid;border-top: 0;
     }
 
+    .label_warning{
+        background:#e7a61a;
+        line-height:10px;
+        padding: 3px;
+        padding-left:10px;
+        padding-right:10px;
+        color: #fff;
+        border-radius: 7px 7px 7px 7px;
+        -moz-border-radius: 7px 7px 7px 7px;
+        -webkit-border-radius: 7px 7px 7px 7px;
+        border: 0px solid #000000;}
 
 
     /* Button of DataTables */
@@ -433,6 +445,11 @@
             vertical-align: middle;
             width: 100%;
         }
+    }
+
+    .dataTables_scroll
+    {
+        overflow:auto;
     }
     /* Button of DataTables */
 
@@ -554,7 +571,7 @@
 
     /* Fieldset */
     .myfieldset {
-        border: 1px solid #d7d7d7;margin: 50px 0px 50px 0px; padding: 20px;
+        border: 1px solid #d7d7d7;margin: 50px 0px 7px 0px; padding: 20px;
     }
     .myfieldsetinside {
         border: 1px solid #d7d7d7;margin: 0; padding: 10px;

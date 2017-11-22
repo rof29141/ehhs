@@ -141,11 +141,11 @@ class Main extends CI_Controller
                 $this->load->model('M_Appointment');
                 $result['my_appointments']=$this->M_Appointment->GetAllAppointmentByPatient($id_patient);
             }
-            elseif($data_type=='NextMyAppointment')
+            elseif($data_type=='MyAppointments')
             {
                 $id_patient = $data['__zkp_Client_Rec'];
                 $this->load->model('M_Appointment');
-                $result['my_next_appointments']=$this->M_Appointment->GetNextAppointmentByPatient($id_patient);
+                $result['my_all_appointments']=$this->M_Appointment->GetNextAppointmentByPatient($id_patient);
             }
 
             return $result;

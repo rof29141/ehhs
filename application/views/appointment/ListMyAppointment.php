@@ -4,9 +4,9 @@
             <fieldset class="myfieldset">
                 <legend class="mylegend">Next appointments</legend>
 
-                <div style="margin-top: 0px;">
+                <div style="margin-top: -10px;">
 
-                    <section class="col col-12" style="padding: 0px;">
+                    <section class="col col-12" style="padding-top: 0px;">
                         <div id='next_app'></div>
                     </section>
 
@@ -43,14 +43,9 @@
 
     $(document).ready(function()
     {
-        Load();
+        Load_Appointment();
 
-        function Load()
-        {
-            LoadNext_Appointment();
-        }
-
-        function LoadNext_Appointment()
+        function Load_Appointment()
         {
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
@@ -58,7 +53,7 @@
             $.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'NextMyAppointment',view_url:'appointment/NextAppointment'}
+                data: {data_type:'MyAppointments',view_url:'appointment/MyAppointments'}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
