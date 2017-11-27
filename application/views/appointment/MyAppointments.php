@@ -6,13 +6,15 @@
 </ul>
 
 <div class="tab-content" id="myTabContent1">
-    
+
     <div class="tab-pane active" id="s1">
         <div class="row">
             <section>
                 <?php
                 if(isset($data['my_all_appointments']['data']))
                 {
+                    $not_confirm=0;
+                    $confirm=0;
                     ?>
 
                     <fieldset class="myfieldset" style="margin-top: -10px">
@@ -136,7 +138,7 @@
                                                 }
                                                 if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')
                                                 {
-
+                                                    $not_confirm++;
                                                     ?>
                                                     <button type="button"
                                                             class="btn btn_confirm_app btn-success"
@@ -144,8 +146,10 @@
                                                             id="<?php echo $i; ?>">Confirm
                                                     </button>
                                                     <?php
-                                                } else
+                                                }
+                                                else
                                                 {
+                                                    $confirm++;
                                                     ?>
                                                     <button type="button" class="btn download_ical btn-success"
                                                             style="1background-color: #492f91"
@@ -704,7 +708,9 @@ if(isset($data['my_all_appointments']['data']))
     <script type="text/javascript">
         $(document).ready(function()
         {
-            //LoadCalendar();
+            $('#badge_all').html(<?php echo count($data['my_all_appointments']['data']);?>);
+            $('#badge_confirm').html(<?php echo $confirm;?>);
+            $('#badge_pending').html(<?php echo $not_confirm;?>);
 
             $('.btn_confirm_app').on('click', function ()
             {
