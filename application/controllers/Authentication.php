@@ -140,7 +140,7 @@ class Authentication extends CI_Controller
                         <p>Thanks,</p>
                         <p>Beacon Entity Manager</p>';
 
-                        $this->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body);
+                        $this-> EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body);
                     }
                 }
                 elseif ($send=='user')

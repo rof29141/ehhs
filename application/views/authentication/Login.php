@@ -31,7 +31,7 @@ require_once(APPPATH."views/includes/header.php");
 
             <div class="actions">
                 <button type="submit" class="btn btn-lg btn-primary btn-block">
-                    Sign in to your account
+                    Sign in to your account <span class="entypo-login"></span>
                 </button>
             </div>
 

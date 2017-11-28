@@ -2833,14 +2833,14 @@ input[type="button"].btn-block {
       margin-right: 2px;
       line-height: 1.42857;
       border: 1px solid transparent;
-      border-radius: 4px 4px 0 0; }
+      border-radius: 4px 4px 0 0;
+    }
       /* line 94, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_navs.scss */
       .nav-tabs > li > a:hover {
         border-color: #eeeeee #eeeeee #dddddd; }
     /* line 103, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_navs.scss */
     .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
       color: #555555;
-      background-color: white;
       border: 1px solid #dddddd;
       border-bottom-color: transparent;
       cursor: default; }

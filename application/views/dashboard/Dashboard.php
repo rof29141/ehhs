@@ -78,7 +78,7 @@
 
         <div class="col-lg-4"></div>
 
-        <form method="post" action="" id="frm">
+        <form method="post" action="" id="frm" name="frm">
             <div class="col-lg-4" style="top:20px;background-color: #fff;">
                 <fieldset class="myfieldset">
                     <legend class="mylegend">Confirm Appointment</legend>

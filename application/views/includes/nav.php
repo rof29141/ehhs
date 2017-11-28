@@ -26,7 +26,7 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?php echo CTR_URL;?>Main/Logout"><i class="entypo-logout"></i></a></li>
+                <li><a href="<?php echo CTR_URL;?>Main/Logout">Logout <i class="entypo-logout"></i></a></li>
             </ul>
             <ul class="nav navbar-nav">
                 <?php

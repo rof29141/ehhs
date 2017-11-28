@@ -21,6 +21,21 @@
         <input type="email" name="bd_user_email" id="bd_user_email" class="form-control required"  value="<?php if(isset($data['user']['data'][0]['bd_user_email'])) echo $data['user']['data'][0]['bd_user_email'];?>" />
     </div>
 
+    <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="text" name="bd_DateOfBirth" id="bd_DateOfBirth" class="form-control required"  value="<?php if(isset($data['user']['data'][0]['bd_DateOfBirth'])) echo $data['user']['data'][0]['bd_DateOfBirth'];?>" />
+    </div>
+
+    <div class="form-group">
+        <label>Phone</label>
+        <input type="text" name="bd_Phone" id="bd_Phone" class="form-control required"  value="<?php if(isset($data['user']['data'][0]['bd_Phone'])) echo $data['user']['data'][0]['bd_Phone'];?>" />
+    </div>
+
+    <div class="form-group">
+        <label>Zip Code</label>
+        <input type="text" name="bd_ZipCode" id="bd_ZipCode" class="form-control required"  value="<?php if(isset($data['user']['data'][0]['bd_ZipCode'])) echo $data['user']['data'][0]['bd_ZipCode'];?>" />
+    </div>
+
     <div class="form-group pull-right">
         <button type="button" datafld="PHP_Patients" datatype="UPDATE" id="btn_save" class="btn btn-success">Save</button>
     </div>

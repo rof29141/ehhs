@@ -44,6 +44,9 @@ Class M_User extends CI_Model
                 $field['bd_LastName'] = $result["data"][$i]["fieldData"]["bd_LastName"];
                 $field['bd_user_email'] = $result["data"][$i]["fieldData"]["bd_user_email"];
                 $field['bd_user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
+                $field['bd_DateOfBirth'] = $result["data"][$i]["fieldData"]["bd_DateOfBirth"];
+                $field['bd_Phone'] = $result["data"][$i]["fieldData"]["bd_Phone"];
+                $field['bd_ZipCode'] = $result["data"][$i]["fieldData"]["bd_ZipCode"];
                 $field['RecordID'] = $result["data"][$i]["fieldData"]["RecordID"];
 
                 $fields[$i] = $field;

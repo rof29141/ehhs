@@ -15,7 +15,7 @@ defined("VIEW_URL") ? null : define("VIEW_URL", APPPATH."views/");
 $project='Advanced Cosmetic Surgery';
 $src_logo=ASSETS_URL.'/images/logo.png';//large logo
 $src_logo1=ASSETS_URL.'/images/logo1.png';//short logo
-$src_favico=ASSETS_URL.'/images/favicon/favicon.ico';
+$src_favico=ASSETS_URL.'/images/icon.ico';
 
 $email_from = 'dispatch-system@tekexperts.com';
 $email_from_name = 'Advanced Cosmetic Surgery';

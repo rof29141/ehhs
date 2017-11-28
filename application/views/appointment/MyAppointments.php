@@ -2,7 +2,7 @@
     <li class="active"><a data-toggle="tab" href="#s1">All <span class="badge bg-color-blue txt-color-white" id="badge_all"></span></a></li>
     <li><a data-toggle="tab" href="#s2">Pending <span class="badge bg-color-blue txt-color-white" id="badge_pending"></span></a></li>
     <li><a data-toggle="tab" href="#s3">Confirmed <span class="badge bg-color-blue txt-color-white" id="badge_confirm"></span></a></li>
-    <li><a data-toggle="tab" id="show_cal" href="#s4">Calendar</a></li>
+    <li><a data-toggle="tab" href="#s4">Calendar <span class="badge bg-color-blue txt-color-white" id="badge_cal"></span></a></li>
 </ul>
 
 <div class="tab-content" id="myTabContent1">
@@ -11,10 +11,14 @@
         <div class="row">
             <section>
                 <?php
+
+                $not_confirm=0;
+                $confirm=0;
+                $all=0;
+
                 if(isset($data['my_all_appointments']['data']))
                 {
-                    $not_confirm=0;
-                    $confirm=0;
+                    $all=count($data['my_all_appointments']['data']);
                     ?>
 
                     <fieldset class="myfieldset" style="margin-top: -10px">
@@ -649,7 +653,7 @@
                     </fieldset>
                     <?php
                 }
-                else echo '<div class="text-center"><h3>You don\'t have any confirm appointments.</h3></div>';
+                else echo '<div class="text-center"><h3>You don\'t have any confirmed appointments.</h3></div>';
                 ?>
             </section>
         </div>
@@ -658,20 +662,15 @@
     <div class="tab-pane fade" id="s4">
         <div class="row">
             <section>
-                <div class="row" style="margin: 0px;">
-                    <div class="col-lg-12">
 
-                        <div class="row">
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-8">
-                                <div id='calendar' style="margin-top: 10px;"></div>
-                            </div>
-                            <div class="col-lg-2"></div>
-                        </div>
+                <div class="row">
 
+                    <div class="col-lg-offset-2 col-lg-8">
+                        <div id='calendar' style="margin-top: 10px;"></div>
                     </div>
 
                 </div>
+
             </section>
         </div>
     </div>
@@ -682,6 +681,7 @@
 
 $color_not_available = '#ffff66';
 $text_color_not_available = '#000';
+$events[]='';
 
 if(isset($data['my_all_appointments']['data']))
 {
@@ -703,12 +703,14 @@ if(isset($data['my_all_appointments']['data']))
 
 
     }
-}$events = json_encode($events);
+}
+
+$events = json_encode($events);
 ?>
     <script type="text/javascript">
         $(document).ready(function()
         {
-            $('#badge_all').html(<?php echo count($data['my_all_appointments']['data']);?>);
+            $('#badge_all').html(<?php echo $all;?>);
             $('#badge_confirm').html(<?php echo $confirm;?>);
             $('#badge_pending').html(<?php echo $not_confirm;?>);
 
@@ -971,13 +973,12 @@ if(isset($data['my_all_appointments']['data']))
                         if(view.name=='month')
                             eventElement.find(".fc-content").css({ height: "14px" });
                     }
-                },
-
+                }
             });
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 // TODO: check href of e.target to detect your tab
-                $("#show_cal:hidden").show();
+                //$("#show_cal:hidden").show();
                 $('#calendar').fullCalendar('render');
             })
         });

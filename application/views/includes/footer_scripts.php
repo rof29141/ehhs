@@ -70,9 +70,10 @@
             });
         }
 
-        $('body').on('change', '.my_select2', function () {
+        /*$('body').on('change', '.my_select2', function () {
+            ValidateFrm();
             $(this).valid();
-        });
+        });*/
 
         var msg = $("#msg").val();
         if (msg != '' && msg != null) alertify.message(msg);
