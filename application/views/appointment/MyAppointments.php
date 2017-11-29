@@ -767,7 +767,7 @@ $events = json_encode($events);
                     }
                     else
                     {
-                        $('#modal').html('Please, check your inbox. A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');
+                        $('#modal').html('A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');
                     }
                     $('#remoteModal').modal('show');
                 });

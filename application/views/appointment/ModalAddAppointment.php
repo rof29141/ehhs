@@ -65,7 +65,7 @@
 
                     <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="call"/> Call</label><br>
                     <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="sms"/> SMS</label><br>
-                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="no"/> No contact me</label><br>
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="no"/> Email Only</label><br>
 
                 </fieldset>
             </div>
@@ -225,7 +225,7 @@
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'WRONG') {$('#modal').html('Your email is wrong.');}
-                else {$('#modal').html('Please, check your inbox. A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
+                else {$('#modal').html('A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
                 spinner.stop();
             });
         }

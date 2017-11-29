@@ -429,9 +429,9 @@ class Dashboard extends CI_Controller
         $subject = "Appointment Confirmed";
         $attachments = './assets/images/logo.png';
         $link_web = '351face.com';
-        $body = '<h1>Thanks for your confirmation</h1>'.
+        $body = '<h1>Thank you for your confirmation</h1>'.
             '<p>Dear <b>'.$_POST['txt_patient'].'</b>,</p>'.
-            '<p>You confirmed an aplication for an appointment at the <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
+            '<p>You confirmed an application for an appointment at the <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
             '<br>'.
             '<p><b>Date: </b>'.$_POST['txt_date'].'</p>'.
             '<p><b>Time: </b>'.$_POST['txt_start'].'</p>'.

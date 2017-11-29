@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-//$config['base_url'] = 'http://localhost:8888/acs';
-$config['base_url'] = 'http://acs-portal.mactutor.net';
+$config['base_url'] = 'http://localhost/acs';
+//$config['base_url'] = 'http://acs-portal.mactutor.net';
 
 /*
 |--------------------------------------------------------------------------

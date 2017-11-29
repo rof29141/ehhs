@@ -153,7 +153,7 @@
                                     <label><input type="checkbox" name="cbx_contact_1" id="cbx_contact_1" class="cbx_contact" datafld="ignore"/> Phone call</label><br>
                                     <label><input type="checkbox" name="cbx_contact_2" id="cbx_contact_2" class="cbx_contact" datafld="ignore"/> Phone SMS</label><br>
                                     <label><input type="checkbox" name="cbx_contact_3" id="cbx_contact_3" class="cbx_contact" datafld="ignore"/> Email</label><br>
-                                    <label><input type="checkbox" name="cbx_contact_4" id="cbx_contact_4" class="cbx_contact" datafld="ignore"/> No contact me</label><br>
+                                    <label><input type="checkbox" name="cbx_contact_4" id="cbx_contact_4" class="cbx_contact" datafld="ignore"/> Don't contact me</label><br>
 
                                 </fieldset>
                             </div>

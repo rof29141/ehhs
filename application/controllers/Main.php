@@ -301,50 +301,53 @@ class Main extends CI_Controller
 
     function Reminder($id_app='')
     {
-        $this->load->model('M_Appointment');
-        $result['appointment']=$this->M_Appointment->GetAppointmentByRecordID($id_app);
+        if($id_app)
+        {
+            $this->load->model('M_Appointment');
+            $result['appointment'] = $this->M_Appointment->GetAppointmentByRecordID($id_app);
 
-        $email=$result['appointment']['data'][0]['bd_user_email'];
+            $email = $result['appointment']['data'][0]['bd_user_email'];
 
-        $data_email = $this->session->userdata('param_email_acs');
+            $data_email = $this->session->userdata('param_email_acs');
 
-        $email_from = $data_email['email_from'];
-        $email_from_name = $data_email['email_from_name'];
-        $email_test_to = $data_email['email_test_to'];
+            $email_from = $data_email['email_from'];
+            $email_from_name = $data_email['email_from_name'];
+            $email_test_to = $data_email['email_test_to'];
 
-        $from_email = $email_from;
-        $from_name = $email_from_name;
-        $email_to = $email;
-        $reply_to_email = '';
-        $reply_to_name = '';
-        $subject = "Appointment Reminder";
-        $attachments = './assets/images/logo.png';
-        $link_web = '351face.com';
-        $body = '<h1>This is a reminder of your Appointment</h1>'.
-            '<p>Dear <b>'.$result['appointment']['data'][0]['bd_FirstName'].' '.$result['appointment']['data'][0]['bd_LastName'].'</b>,</p>'.
-            '<p>You have an appointment at the <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
-            '<br>'.
-            '<p><b>Date: </b>'.$result['appointment']['data'][0]['APT_Date'].'</p>'.
-            '<p><b>Time: </b>'.$result['appointment']['data'][0]['APT_Time'].'</p>'.
-            '<p><b>Provider: </b>'.$result['appointment']['data'][0]['FirstName'].' '.$result['appointment']['data'][0]['LastName'].'</p>'.
-            '<p><b>Service: </b>'.$result['appointment']['data'][0]['Service'].'</p>'.
-            '<br>'.
-            '<p><b>Please arrive 15 minutes prior to your scheduled appointment time at the address listed below.</b></p>'.
-            '<br>'.
-            '<p>Thank you,</p>'.
-            '<p>Advanced Cosmetic Surgery & Laser Center</p>'.
-            '<p>Rookwood Commons Shopping Center</p>'.
-            '<p>3805 Edwards Rd #100</p>'.
-            '<p>Cincinnati, OH 45244</p>'.
-            '<p>Phone: 513-351-FACE(3223)</p>'.
-            '<p>Fax: 513-396-8995</p>'.
-            '<br>'.
-            '<a href="' . $link_web . '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
+            $from_email = $email_from;
+            $from_name = $email_from_name;
+            $email_to = $email;
+            $reply_to_email = '';
+            $reply_to_name = '';
+            $subject = "Appointment Reminder";
+            $attachments = './assets/images/logo.png';
+            $link_web = '351face.com';
+            $body = '<h1>This an Appointment Reminder</h1>' .
+                '<p>Dear <b>' . $result['appointment']['data'][0]['bd_FirstName'] . ' ' . $result['appointment']['data'][0]['bd_LastName'] . '</b>,</p>' .
+                '<p>You have an appointment at the <a href="' . $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>' .
+                '<br>' .
+                '<p><b>Date: </b>' . $result['appointment']['data'][0]['APT_Date'] . '</p>' .
+                '<p><b>Time: </b>' . $result['appointment']['data'][0]['APT_Time'] . '</p>' .
+                '<p><b>Provider: </b>' . $result['appointment']['data'][0]['FirstName'] . ' ' . $result['appointment']['data'][0]['LastName'] . '</p>' .
+                '<p><b>Service: </b>' . $result['appointment']['data'][0]['Service'] . '</p>' .
+                '<br>' .
+                '<p><b>Please arrive 15 minutes prior to your scheduled appointment time at the address listed below.</b></p>' .
+                '<br>' .
+                '<p>Thank you,</p>' .
+                '<p>Advanced Cosmetic Surgery & Laser Center</p>' .
+                '<p>Rookwood Commons Shopping Center</p>' .
+                '<p>3805 Edwards Rd #100</p>' .
+                '<p>Cincinnati, OH 45244</p>' .
+                '<p>Phone: 513-351-FACE(3223)</p>' .
+                '<p>Fax: 513-396-8995</p>' .
+                '<br>' .
+                '<a href="' . $link_web . '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
 
-        $this->load->library('MT_Mail');
-        $obj_mail = new MT_Mail();
+            $this->load->library('MT_Mail');
+            $obj_mail = new MT_Mail();
 
-        $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
+            $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
+        }
     }
 }
 

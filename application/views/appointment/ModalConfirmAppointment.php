@@ -127,11 +127,11 @@ require_once(APPPATH."views/includes/header.php");
                 '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
 
             $.ajax(
-                {
-                    url:'../../Main/EnviarEmail',
-                    type:'POST',
-                    data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body, attachments:attachments}
-                }).done(function(response, textStatus, jqXHR)
+            {
+                url:'../../Main/EnviarEmail',
+                type:'POST',
+                data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body, attachments:attachments}
+            }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'WRONG') {
                     $('#modal').html('Your email is wrong.');

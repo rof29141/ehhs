@@ -24,9 +24,9 @@ require_once(APPPATH."views/includes/header.php");
 
                         <div class="col-lg-12 text-center" id="confirm_app">
 
-                            Thanks for your confirmation.
+                            Thank you for your confirmation.
                             <br>
-                            Please, check your inbox. A confirmation email has been sent.
+                            An email has been sent to <?php $?>
                             <br>
                             <fieldset class="container auth">
                                 <div class="text-center">
