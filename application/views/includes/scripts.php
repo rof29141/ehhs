@@ -571,7 +571,7 @@
 
     /* Fieldset */
     .myfieldset {
-        border: 1px solid #d7d7d7;margin: 50px 0px 7px 0px; padding: 20px;
+        border: 1px solid #d7d7d7;margin: 20px 0px 20px 0px; padding: 20px;
     }
     .myfieldsetinside {
         border: 1px solid #d7d7d7;margin: 0; padding: 10px;

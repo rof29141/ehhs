@@ -1,5 +1,6 @@
 <div class="col-lg-12">
 
+
     <?php if($data['app']['error']!='0'){?>
 
         <div class="form-group">
@@ -34,6 +35,45 @@
             <input type="hidden" name="txt_id_setting" id="txt_id_setting" class="form-control required" readonly value="<?php if(isset($data['setting_id'])) echo $data['setting_id'];?>" />
         </div>
 
+
+
+
+
+        <fieldset class="myfieldset">
+            <legend class="mylegend">Reminder</legend>
+
+            <div class="col-sm-12 col-md-12 col-lg-12 form-group">
+                <label>Send me an Email</label>
+                <select name="sel_alert" id="sel_alert" class="form-control my_select2">
+                    <option value="-1"></option>
+                    <option value="30">30 min before</option>
+                    <option value="60">1 hr before</option>
+                    <option value="120">2 hrs before</option>
+                    <option value="1440">1 day before</option>
+                    <option value="2880">2 day before</option>
+                </select>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+                <label>Personalize your message</label>
+                <textarea class="form-control" id="txt_msg" name="txt_msg"></textarea>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+                <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
+                    <legend id="legend_contact" class="mylegend">Contact me by</legend>
+
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="call"/> Call</label><br>
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="sms"/> SMS</label><br>
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="no"/> No contact me</label><br>
+
+                </fieldset>
+            </div>
+
+        </fieldset>
+
+
+
         <div class="form-group pull-right">
             <button type="button" id="btn_submit_app" class="btn btn-success">Submit Appointment</button>
             <button type="button" id="" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -45,20 +85,55 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
-        $('#btn_submit_app').on('click', function ()
-        {
-            var target = document.getElementById('container');
-            var spinner = new Spinner(opts).spin(target);
-
-            var token=Math.floor((Math.random() * 1000000000000000) + 1);
-            var title=$('#txt_doctor').val()+' / '+$('#txt_service').val();
-
-            SaveAppointment($('#txt_service').attr('datafld'), $('#hdn_service').val(), $('#txt_patient').val(), $('#txt_doctor').attr('datafld'), $('#txt_date').val(), $('#txt_start').val(), $('#txt_end').val(), title, token, spinner, $('#txt_id_setting').val());
+        $(".my_select2").select2({
+            placeholder: {
+                id: '-1', // the value of the option
+                text: 'Select an option'
+            }
         });
 
-        function SaveAppointment(id_service, ACS_ServiceValueList, id_patient, id_doctor, date,start, end, title, token, spinner, setting_id)
+        $('#btn_submit_app').on('click', function ()
+        {
+            if ($('#rbt_contact').val())
+            {
+                var target = document.getElementById('container');
+                var spinner = new Spinner(opts).spin(target);
+
+                var token = Math.floor((Math.random() * 1000000000000000) + 1);
+                var title = $('#txt_doctor').val() + ' / ' + $('#txt_service').val();
+
+                var id_service=$('#txt_service').attr('datafld');
+                var ACS_ServiceValueList=$('#hdn_service').val();
+                var id_client=$('#txt_patient').val();
+                var id_doctor=$('#txt_doctor').attr('datafld');
+                var date=$('#txt_date').val();
+                var start=$('#txt_start').val();
+                var end=$('#txt_end').val();
+                var id_settings=$('#txt_id_setting').val();
+
+
+                var alert=$('#sel_alert').val();
+                var msg=$('#txt_msg').val();
+                var contactby=$('#rbt_contact').val();
+
+                SaveAppointment(id_service, ACS_ServiceValueList, id_client, id_doctor, date, start, end, title, token, spinner, id_settings, alert, msg, contactby);
+            }
+            else
+            {
+                $('#fieldset_contact').css('border','1px solid #A90329');
+                $('#legend_contact').css('color','#D56161');
+                $('<em class="invalid" style="top:-40px;left:10px;position:relative" id="em_contact">The field is required.</em>').insertAfter('#fieldset_contact');
+                $('html, body').animate({
+                    scrollTop: $('#fieldset_contact').offset().top-200
+                }, 1000);
+            }
+
+
+        });
+
+        function SaveAppointment(id_service, ACS_ServiceValueList, id_patient, id_doctor, date, start, end, title, token, spinner, setting_id, alert, msg, contactby)
         {//alert(setting_id);
-            var array_inputs='_kf_ServiceID='+id_service+'&APT_VisitType='+ACS_ServiceValueList+'&_zfk_ClientRec='+id_patient+'&ProviderRec='+id_doctor+'&APT_Date='+date+'&APT_Time='+start+'&APT_TimeEnd='+end+'&APT_Title='+title+'&TokenConfirmApp='+token+'&AppFromWeb=1&_kf_Setting_ID='+setting_id;
+            var array_inputs='_kf_ServiceID='+id_service+'&APT_VisitType='+ACS_ServiceValueList+'&_zfk_ClientRec='+id_patient+'&ProviderRec='+id_doctor+'&APT_Date='+date+'&APT_Time='+start+'&APT_TimeEnd='+end+'&APT_Title='+title+'&TokenConfirmApp='+token+'&AppFromWeb=1&_kf_Setting_ID='+setting_id+'&ReminderEmail='+alert+'&ReminderMsg='+msg+'&ReminderContactBy='+contactby;
             var url = 'Main/SaveObject';
             var data = array_inputs+'&layout=PHP_Appointment&type=INSERT';
 

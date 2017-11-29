@@ -98,7 +98,7 @@
 </div>
 
 <div class="container" >
-    <div class="row" style="margin-top: 20px;">
+    <div class="row" style="margin-top: 70px;">
         <div class="col-lg-12">
             <form name="frm" id="frm" >
                 <fieldset class="myfieldset">

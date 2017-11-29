@@ -21,9 +21,9 @@
 
         <form method="post" action="" id="frm">
             <div class="col-lg-4" style="top:20px;background-color: #fff;">
-                <fieldset class="myfieldset">
+                <fieldset class="myfieldset" style="padding-top: 0">
                     <legend class="mylegend">Confirm Appointment</legend>
-                    <div display="padding:15px"id="modal"></div>
+                    <div display="padding:5px"id="modal"></div>
                 </fieldset>
             </div>
         </form>
