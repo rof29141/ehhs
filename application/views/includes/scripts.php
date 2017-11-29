@@ -27,7 +27,7 @@
 <script src="<?php echo ASSETS_URL; ?>/js/spin.min.js"></script>
 
 <script src="<?php echo ASSETS_URL; ?>/js/jquery.fileupload.js"></script>
-<link href="http://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
+<link href="https://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
 
 
 <script src="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/vendor/jquery.ui.widget.js"></script>
