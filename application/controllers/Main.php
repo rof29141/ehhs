@@ -308,14 +308,8 @@ class Main extends CI_Controller
 
             $email = $result['appointment']['data'][0]['bd_user_email'];
 
-            $data_email = $this->session->userdata('param_email_acs');
-
-            $email_from = $data_email['email_from'];
-            $email_from_name = $data_email['email_from_name'];
-            $email_test_to = $data_email['email_test_to'];
-
-            $from_email = $email_from;echo $email_from;
-            $from_name = $email_from_name;
+            $from_email = EMAIL_FROM;//echo EMAIL_FROM;
+            $from_name = EMAIL_FROM_NAME;
             $email_to = $email;
             $reply_to_email = '';
             $reply_to_name = '';
