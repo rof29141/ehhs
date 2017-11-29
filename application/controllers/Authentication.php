@@ -117,6 +117,12 @@ class Authentication extends CI_Controller
 
             if ($result['error']=='0')
             {//echo var_dump($result['result']);//die();
+                $from_email = EMAIL_FROM;
+                $from_name = EMAIL_FROM_NAME;
+                $email_to = $email;
+                $reply_to_email = '';
+                $reply_to_name = '';
+
                 if($send=='pass')
                 {
                     $id = $result['id'];
@@ -125,11 +131,7 @@ class Authentication extends CI_Controller
                     if ($result['token']) {
                         $token = $result['token'];
 
-                        $from_email = 'dispatch-system@tekexperts.com';
-                        $from_name = 'Advanced Cosmetic Surgery';
-                        $email_to = 'raydel@mactutor.net';
-                        $reply_to_email = '';
-                        $reply_to_name = '';
+
                         $subject = "Recover Password";
                         $link = base_url('/Authentication/Restore/' . $token);
                         $body = ' <h1>Password reset code</h1>
@@ -145,11 +147,7 @@ class Authentication extends CI_Controller
                 }
                 elseif ($send=='user')
                 {
-                    $from_email='dispatch-system@tekexperts.com';
-                    $from_name='Advanced Cosmetic Surgery';
-                    $email_to='raydel@mactutor.net';
-                    $reply_to_email='';
-                    $reply_to_name='';
+
                     $subject = "Recover User ID";
                     $body = ' <h1>Password reset code</h1>
                         <p>Your User ID to enter to Beacon Entity Manager is:</p>

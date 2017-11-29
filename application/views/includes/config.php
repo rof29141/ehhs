@@ -16,20 +16,6 @@ $project='Advanced Cosmetic Surgery';
 $src_logo=ASSETS_URL.'/images/logo.png';//large logo
 $src_logo1=ASSETS_URL.'/images/logo1.png';//short logo
 $src_favico=ASSETS_URL.'/images/icon.ico';
-
-$email_from = 'dispatch-system@tekexperts.com';
-$email_from_name = 'Advanced Cosmetic Surgery';
-$email_test_to = 'raydel@mactutor.net';
-$email_test_staff_to = 'raydel@mactutor.net';
-
-$sess_array = array(
-    'email_from' => $email_from,
-    'email_from_name' => $email_from_name,
-    'email_test_to' => $email_test_to,
-    'email_test_staff_to' => $email_test_staff_to
-);
-
-$this->session->set_userdata('param_email_acs', $sess_array);
 ?>
 
 

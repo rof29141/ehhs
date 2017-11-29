@@ -788,7 +788,7 @@ $events = json_encode($events);
                 var email_to = 'raydel@mactutor.net';
                 var reply_to_email = '';
                 var reply_to_name = '';
-                var subject = "Appointment Information";
+                var subject = "Appointment Reminder";
                 var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
                 var link_web = '351face.com';
                 var body = '<h1>Appointment Information</h1>' +
@@ -830,7 +830,7 @@ $events = json_encode($events);
                     }
                     else
                     {
-                        $('#modal').html('<div class="text-center">Please, check your inbox. A reminder email has been sent to ' + email_to+'</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                        $('#modal').html('<div class="text-center">A reminder email has been sent to ' + email_to+'</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
                     }
                     $('#modal_title').html('Resend Email');
                     $('#remoteModal').modal('show');

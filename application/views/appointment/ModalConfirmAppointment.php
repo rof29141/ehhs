@@ -139,15 +139,12 @@ require_once(APPPATH."views/includes/header.php");
                 else
                 {
                     document.frm.submit();
-                    //SendMailtoStaff($('#txt_service').val(), $('#txt_doctor').val(), $('#txt_date').val());
-                    //$('#modal').html('Please, check your inbox. Has been sent an email to ' + email_to);
                 }
             });
         }
 
         function ConfirmAppointment(id)
         {
-            //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start
             var array_inputs='&TokenConfirmApp='+'&id='+id;
             var url = '../../Main/SaveObjectWoutLogged';
             var data = array_inputs+'&layout=PHP_Appointment&type=UPDATE';
@@ -166,7 +163,6 @@ require_once(APPPATH."views/includes/header.php");
             {
                 if(response=='0')
                 {
-                    //$('#confirm_app').html('Thanks, Appointment confirmed.<br>Please, check your inbox. Has been sent an email to ' + email_to+'<br><fieldset><div class="text-center"><a href="<?php echo CTR_URL; ?>Authentication">Back to Login</a></div></fieldset>');
                     SendMail();
                 }
                 else{alertify.error('Error: The element could not be Saved. '+ response);}

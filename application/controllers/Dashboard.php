@@ -415,17 +415,12 @@ class Dashboard extends CI_Controller
     {
         $data['email'] = $_POST['hdn_bd_user_email'];
 
-        $data_email = $this->session->userdata('param_email_acs');
-
-        $email_from = $data_email['email_from'];
-        $email_from_name = $data_email['email_from_name'];
-        $email_test_to = $data_email['email_test_to'];
-
-        $from_email = $email_from;
-        $from_name = $email_from_name;
+        $from_email = EMAIL_FROM;
+        $from_name = EMAIL_FROM_NAME;
         $email_to = $data['email'];
         $reply_to_email = '';
         $reply_to_name = '';
+
         $subject = "Appointment Confirmed";
         $attachments = './assets/images/logo.png';
         $link_web = '351face.com';
