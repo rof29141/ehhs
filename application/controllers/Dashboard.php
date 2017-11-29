@@ -413,7 +413,7 @@ class Dashboard extends CI_Controller
 
     function SendMailDownloadiCal()
     {
-        $email = $_POST['hdn_bd_user_email'];
+        $data['email'] = $_POST['hdn_bd_user_email'];
 
         $data_email = $this->session->userdata('param_email_acs');
 
@@ -423,7 +423,7 @@ class Dashboard extends CI_Controller
 
         $from_email = $email_from;
         $from_name = $email_from_name;
-        $email_to = $email;
+        $email_to = $data['email'];
         $reply_to_email = '';
         $reply_to_name = '';
         $subject = "Appointment Confirmed";
@@ -476,7 +476,7 @@ class Dashboard extends CI_Controller
         $return=$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
 
         if($return=='OK')
-            $this->load->view('appointment/ConfirmedAppointment');
+            $this->load->view('appointment/ConfirmedAppointment', $data);
     }
 
     function DownloadiCal()

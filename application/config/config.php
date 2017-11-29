@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/acs';
-//$config['base_url'] = 'http://acs-portal.mactutor.net';
+$config['base_url'] = 'http://acs-portal.mactutor.net';
 
 /*
 |--------------------------------------------------------------------------

@@ -26,7 +26,7 @@ require_once(APPPATH."views/includes/header.php");
 
                             Thank you for your confirmation.
                             <br>
-                            An email has been sent to <?php $?>
+                            An email has been sent to <?php echo $email;?>
                             <br>
                             <fieldset class="container auth">
                                 <div class="text-center">

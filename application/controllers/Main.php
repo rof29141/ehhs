@@ -314,7 +314,7 @@ class Main extends CI_Controller
             $email_from_name = $data_email['email_from_name'];
             $email_test_to = $data_email['email_test_to'];
 
-            $from_email = $email_from;
+            $from_email = $email_from;echo $email_from;
             $from_name = $email_from_name;
             $email_to = $email;
             $reply_to_email = '';
