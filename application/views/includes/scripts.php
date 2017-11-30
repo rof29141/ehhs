@@ -324,6 +324,18 @@
         border: 1px #dadada solid;border-top: 0;
     }
 
+    .label_danger{
+        background:#cc0000;
+        line-height:10px;
+        padding: 3px;
+        padding-left:10px;
+        padding-right:10px;
+        color: #fff;
+        border-radius: 7px 7px 7px 7px;
+        -moz-border-radius: 7px 7px 7px 7px;
+        -webkit-border-radius: 7px 7px 7px 7px;
+        border: 0px solid #000000;}
+
     .label_warning{
         background:#e7a61a;
         line-height:10px;

@@ -29,7 +29,9 @@
                         for($i=0;$i<count($data['my_all_appointments']['data']);$i++)
                         {
                             if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_danger">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                            elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
+                                $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
                             else
                                 $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
                             ?>
@@ -288,7 +290,9 @@
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']!='')
                                 {
                                     if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_danger">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                    elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
+                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
                                     else
                                         $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
                                     ?>
@@ -500,7 +504,9 @@
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']=='')
                                 {
                                     if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_danger">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                    elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
+                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
                                     else
                                         $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
                                     ?>
@@ -967,11 +973,11 @@ $events = json_encode($events);
                 $("textarea#chatTextarea").text('dff');
             });
 
-            $('[data-toggle="popover"]').on('click', function(){
+            $('body').on('click', '[data-toggle="popover"]',function(){
                 $(this).popover('show')
             });
 
-            $('[data-toggle="popover"]').on('mouseout', function(){
+            $('body').on('mouseout', '[data-toggle="popover"]',function(){
                 $(this).popover('hide')
             });
 
@@ -987,7 +993,7 @@ $events = json_encode($events);
                 minTime:'6:00',
                 maxTime:'19:00',
                 allDaySlot:false,
-                slotDuration:'00:15:00',
+                slotDuration:'00:30:00',
                 displayEventTime: true,
                 editable: false,
                 timeFormat: 'hh:mm t',

@@ -10,7 +10,7 @@ if(isset($data['my_next_appointments']['data']))
 {
 for($i=0;$i<count($data['my_next_appointments']['data']);$i++)
 {
-    
+
 ?>
     <div class="row" style="margin-bottom: 10px;" id="<?php echo $i;?>">
         <article class="col-sm-12 col-md-6 col-lg-4">
