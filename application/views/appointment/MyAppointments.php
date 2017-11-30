@@ -1,8 +1,8 @@
 <ul class="nav nav-tabs bordered" id="myTab1">
-    <li class="active"><a data-toggle="tab" href="#s1">All <span class="badge bg-color-blue txt-color-white" id="badge_all"></span></a></li>
-    <li><a data-toggle="tab" href="#s2">Pending <span class="badge bg-color-blue txt-color-white" id="badge_pending"></span></a></li>
-    <li><a data-toggle="tab" href="#s3">Confirmed <span class="badge bg-color-blue txt-color-white" id="badge_confirm"></span></a></li>
-    <li><a data-toggle="tab" href="#s4">Calendar <span class="badge bg-color-blue txt-color-white" id="badge_cal"></span></a></li>
+    <li class="active"><a data-toggle="tab" href="#s1">All <span class="badge txt-color-white" id="badge_all"></span></a></li>
+    <li><a data-toggle="tab" href="#s2">Pending <span class="badge txt-color-white" style="background-color: #d9534f;" id="badge_pending"></span></a></li>
+    <li><a data-toggle="tab" href="#s3">Confirmed <span class="badge txt-color-white" style="background-color: #0F9B0F;" id="badge_confirm"></span></a></li>
+    <li><a data-toggle="tab" href="#s4">Calendar <span class="badge txt-color-white" id="badge_cal"></span></a></li>
 </ul>
 
 <div class="tab-content" id="myTabContent1">
@@ -37,10 +37,17 @@
                             ?>
 
                             <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php echo $i; ?>">
+
                                 <div style="display: table;width: 100%;height: 90px;">
                                     <div style="display: table-row;">
 
                                         <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
+                                            <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
+                                            <img src="<?php echo base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
+                                            <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
+                                            <img src="<?php echo base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
+                                            <?php }?>
+
                                             <?php
                                             echo '<img class="doc_img" style="width: 70%;" src="';
                                             if ($data['my_all_appointments']['data'][$i]['Photo']) echo $data['my_all_appointments']['data'][$i]['Photo']; else echo base_url('assets/images/male.png');
@@ -51,7 +58,7 @@
                                         <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
                                             <div style="float: right;position: relative;font-size: 16px;">
                                                 <?php
-                                                if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Not confirmed';else $status='Confirmed';
+                                                if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Pending';else $status='Confirmed';
                                                 $cancel_note = 'To Cancel or Reschedule less than 24 hours, call the office 513-351-FACE(3223)';
 
                                                 $concern='Hello, I have a concern about an appointment with Id: '
@@ -154,7 +161,7 @@
                                             <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
                                                 <div class="text-warning"
                                                      style="text-align:center;font-weight: bold; font-size: 15px;">
-                                                    Status: Not Confirmed <span class="brankic-warning"></span>
+                                                    Status: Pending <span class="brankic-warning"></span>
                                                 </div>
                                             <?php } else { ?>
                                                 <div class="text-success"
@@ -185,7 +192,7 @@
                                                     $not_confirm++;
                                                     ?>
                                                     <button type="button"
-                                                            class="btn btn_confirm_app btn-success"
+                                                            class="btn btn-xs btn_confirm_app btn-success"
                                                             id="<?php echo $i; ?>">Confirm
                                                     </button>
                                                     <?php
@@ -194,7 +201,7 @@
                                                 {
                                                     $confirm++;
                                                     ?>
-                                                    <button type="button" class="btn resend_email btn-success"
+                                                    <button type="button" class="btn btn-xs resend_email btn-success"
                                                             id="<?php echo $i; ?>">Resend email
                                                     </button>
                                                     <?php
@@ -202,8 +209,8 @@
                                                 if ($cancel_btn == 1)
                                                 {
                                                     ?>
-                                                    <button type="button" class="btn btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
-                                                    <button type="button" class="btn btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
+                                                    <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
+                                                    <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
                                                     <?php
                                                 }
                                                 ?>
@@ -302,6 +309,12 @@
                                             <div style="display: table-row;">
 
                                                 <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
+                                                    <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
+                                                        <img src="<?php echo base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
+                                                    <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
+                                                        <img src="<?php echo base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
+                                                    <?php }?>
+
                                                     <?php
                                                     echo '<img class="doc_img" style="width: 70%;" src="';
                                                     if ($data['my_all_appointments']['data'][$i]['Photo']) echo $data['my_all_appointments']['data'][$i]['Photo']; else echo base_url('assets/images/male.png');
@@ -312,7 +325,7 @@
                                                 <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
                                                     <div style="float: right;position: relative;font-size: 16px;">
                                                         <?php
-                                                        if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Not confirmed';else $status='Confirmed';
+                                                        if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Pending';else $status='Confirmed';
                                                         $cancel_note = 'To Cancel or Reschedule less than 24 hours, call the office 513-351-FACE(3223)';
 
                                                         $concern='Hello, I have a concern about an appointment with Id: '
@@ -415,7 +428,7 @@
                                                     <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
                                                         <div class="text-warning"
                                                              style="text-align:center;font-weight: bold; font-size: 15px;">
-                                                            Status: Not Confirmed <span class="brankic-warning"></span>
+                                                            Status: Pending <span class="brankic-warning"></span>
                                                         </div>
                                                     <?php } else { ?>
                                                         <div class="text-success"
@@ -444,7 +457,7 @@
                                                         if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')
                                                         {
                                                             ?>
-                                                            <button type="button" class="btn btn_confirm_app btn-success"
+                                                            <button type="button" class="btn btn-xs btn_confirm_app btn-success"
                                                                     id="<?php echo $i; ?>">Confirm
                                                             </button>
                                                             <?php
@@ -452,7 +465,7 @@
                                                         else
                                                         {
                                                             ?>
-                                                            <button type="button" class="btn resend_email btn-success"
+                                                            <button type="button" class="btn btn-xs resend_email btn-success"
                                                                     id="<?php echo $i; ?>">Resend email
                                                             </button>
                                                             <?php
@@ -460,8 +473,8 @@
                                                         if ($cancel_btn == 1)
                                                         {
                                                             ?>
-                                                            <button type="button" class="btn btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
-                                                            <button type="button" class="btn btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
+                                                            <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
+                                                            <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
                                                             <?php
                                                         }
                                                         ?>
@@ -516,6 +529,12 @@
                                             <div style="display: table-row;">
 
                                                 <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
+                                                    <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
+                                                        <img src="<?php echo base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
+                                                    <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
+                                                        <img src="<?php echo base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
+                                                    <?php }?>
+
                                                     <?php
                                                     echo '<img class="doc_img" style="width: 70%;" src="';
                                                     if ($data['my_all_appointments']['data'][$i]['Photo']) echo $data['my_all_appointments']['data'][$i]['Photo']; else echo base_url('assets/images/male.png');
@@ -526,7 +545,7 @@
                                                 <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
                                                     <div style="float: right;position: relative;font-size: 16px;">
                                                         <?php
-                                                        if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Not confirmed';else $status='Confirmed';
+                                                        if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Pending';else $status='Confirmed';
                                                         $cancel_note = 'To Cancel or Reschedule less than 24 hours, call the office 513-351-FACE(3223)';
 
                                                         $concern='Hello, I have a concern about an appointment with Id: '
@@ -630,7 +649,7 @@
                                                     <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
                                                         <div class="text-warning"
                                                              style="text-align:center;font-weight: bold; font-size: 15px;">
-                                                            Status: Not Confirmed <span class="brankic-warning"></span>
+                                                            Status: Pending <span class="brankic-warning"></span>
                                                         </div>
                                                     <?php } else { ?>
                                                         <div class="text-success"
@@ -660,7 +679,7 @@
                                                         {
                                                             ?>
                                                             <button type="button"
-                                                                    class="btn btn_confirm_app btn-success"
+                                                                    class="btn btn-xs btn_confirm_app btn-success"
                                                                     style="1background-color: #492f91"
                                                                     id="<?php echo $i; ?>">Confirm
                                                             </button>
@@ -669,7 +688,7 @@
                                                         else
                                                         {
                                                             ?>
-                                                            <button type="button" class="btn resend_email btn-success"
+                                                            <button type="button" class="btn btn-xs resend_email btn-success"
                                                                     style="1background-color: #492f91"
                                                                     id="<?php echo $i; ?>">Resend email
                                                             </button>
@@ -678,8 +697,8 @@
                                                         if ($cancel_btn == 1)
                                                         {
                                                             ?>
-                                                            <button type="button" class="btn btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
-                                                            <button type="button" class="btn btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
+                                                            <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
+                                                            <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
                                                             <?php
                                                         }
                                                         ?>

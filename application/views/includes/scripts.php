@@ -317,7 +317,7 @@
 
     /* Navbar */
 
-
+    .ribbon_left{position:absolute;left:-4px;top:-4px}
 
     .tab-pane{
         padding: 20px;

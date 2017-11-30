@@ -76,7 +76,7 @@
     <input id="hdn_id" type="hidden" value="<?php if(isset($delete_id))echo $delete_id;?>"/>
     <input id="hdn_old_app" type="hidden" value="<?php if(isset($old_app))echo $old_app;?>"/>
     <input id="hdn_ReminderEmail" type="hidden" value="<?php if(isset($ReminderEmail))echo $ReminderEmail;?>"/>
-    <input id="hdn_ReminderMsg" type="text" value="<?php if(isset($ReminderMsg))echo $ReminderMsg;?>"/>
+    <input id="hdn_ReminderMsg" type="hidden" value="<?php if(isset($ReminderMsg))echo $ReminderMsg;?>"/>
     <input id="hdn_ReminderContactBy" type="hidden" value="<?php if(isset($ReminderContactBy))echo $ReminderContactBy;?>"/>
 </form>
 
