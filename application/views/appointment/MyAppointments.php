@@ -159,7 +159,7 @@
                                             <br>
 
                                             <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
-                                                <div class="text-warning"
+                                                <div class="text-danger"
                                                      style="text-align:center;font-weight: bold; font-size: 15px;">
                                                     Status: Pending <span class="brankic-warning"></span>
                                                 </div>
@@ -173,9 +173,9 @@
                                             <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
                                             <?php
                                             date_default_timezone_set('America/New_York');
-                                            $today = strtotime(date('m/d/Y h:i:s'));
+                                            $today_timestamp = strtotime('now');
                                             $date = strtotime($data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']);
-                                            $dif = $date - $today;
+                                            $dif = $date - $today_timestamp;
 
                                             if ($dif > 86400)
                                             {
@@ -426,7 +426,7 @@
                                                     <br>
 
                                                     <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
-                                                        <div class="text-warning"
+                                                        <div class="text-danger"
                                                              style="text-align:center;font-weight: bold; font-size: 15px;">
                                                             Status: Pending <span class="brankic-warning"></span>
                                                         </div>
@@ -440,9 +440,9 @@
                                                     <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
                                                     <?php
                                                     date_default_timezone_set('America/New_York');
-                                                    $today = strtotime(date('m/d/Y h:i:s'));
+                                                    $today_timestamp = strtotime('now');
                                                     $date = strtotime($data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']);
-                                                    $dif = $date - $today;
+                                                    $dif = $date - $today_timestamp;
 
                                                     if ($dif > 86400)
                                                     {
@@ -647,7 +647,7 @@
                                                     <br>
 
                                                     <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
-                                                        <div class="text-warning"
+                                                        <div class="text-danger"
                                                              style="text-align:center;font-weight: bold; font-size: 15px;">
                                                             Status: Pending <span class="brankic-warning"></span>
                                                         </div>
@@ -661,9 +661,9 @@
                                                     <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
                                                     <?php
                                                     date_default_timezone_set('America/New_York');
-                                                    $today = strtotime(date('m/d/Y h:i:s'));
+                                                    $today_timestamp = strtotime('now');
                                                     $date = strtotime($data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']);
-                                                    $dif = $date - $today;
+                                                    $dif = $date - $today_timestamp;
 
                                                     if ($dif > 86400)
                                                     {
