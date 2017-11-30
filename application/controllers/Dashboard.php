@@ -2,7 +2,7 @@
 
 class Dashboard extends CI_Controller
 {
-    function  __construct()
+    function __construct()
     {
         parent::__construct();
         $this->load->model('M_Dashboard');
@@ -57,7 +57,7 @@ class Dashboard extends CI_Controller
         $id_doctor = $_POST['id_doctor'];//echo $id_service.' - '.$id_doctor;
 
         $setting=$this->M_Dashboard->GetAppointmentSettings($id_service, $id_doctor);
-//echo json_encode($setting);
+
         if($setting['error']=='0')
         {
             for ($s = 0; $s < count($setting['data']); $s++)
@@ -196,7 +196,6 @@ class Dashboard extends CI_Controller
                                         {
                                             $appointment['data'][$app_today] = '';
                                         }
-//var_dump($appointment);
 
                                         $event_start_day = $day . ' ' . $hr_start;
                                         $event_end = $day . ' ' . $hr_start;//if the day doesn't have an appointment in the 3th cicle (for) the events will be filled starting at the beginning of the day
@@ -239,7 +238,7 @@ class Dashboard extends CI_Controller
                                             for ($a = 0; $a < count($appointment['data']); $a++)
                                             {
                                                 $real_appointment_title = $appointment['data'][$a]['APT_Title'];
-                                                //$real_appointment_title = $title_not_available;
+
                                                 $real_appointment_start = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_Time'];
                                                 $real_appointment_end = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_TimeEnd'];
 
@@ -398,6 +397,9 @@ class Dashboard extends CI_Controller
             $data['bd_user_email'] = $result['bd_user_email'];
             $data['RecordID'] = $result['RecordID'];
 
+            $data['email_from'] = EMAIL_FROM;
+            $data['email_from_name'] = EMAIL_FROM_NAME;
+
             $this->load->view('appointment/ModalConfirmAppointment', $data);
         }
         else
@@ -522,9 +524,13 @@ class Dashboard extends CI_Controller
         $data['view']=$view;
 
         $data['go_layout']=$this->input->post('go_layout');
-        $data['delete_id']=$this->input->post('id');
+        $data['delete_id']=$this->input->post('delete_id');
         $data['id_doc']=$this->input->post('id_doc');
         $data['id_serv']=$this->input->post('id_serv');
+        $data['old_app']=$this->input->post('old_app');
+        $data['ReminderEmail']=$this->input->post('ReminderEmail');
+        $data['ReminderMsg']=$this->input->post('ReminderMsg');
+        $data['ReminderContactBy']=$this->input->post('ReminderContactBy');
 
         if($this->session->userdata('logged_user_acs'))
         {

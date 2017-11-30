@@ -21,8 +21,9 @@
 
         <form method="post" action="" id="frm">
             <div class="col-lg-4" style="top:20px;background-color: #fff;">
+                <button id="btn_close_modal" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <fieldset class="myfieldset" style="padding-top: 0">
-                    <legend class="mylegend">Confirm Appointment</legend>
+                    <legend class="mylegend" id="modal_title">Confirm Appointment</legend>
                     <div display="padding:5px"id="modal"></div>
                 </fieldset>
             </div>
@@ -65,11 +66,15 @@
                     var end=String(calEvent.end);//alert(end);
                     var setting_id=String(calEvent.setting_id);//alert(setting_id);
 
+                    var ReminderEmail=$('#hdn_ReminderEmail').val();
+                    var ReminderMsg=$('#hdn_ReminderMsg').val();
+                    var ReminderContactBy=$('#hdn_ReminderContactBy').val();
+
                     for (var i in calEvent) {
                         console.log(i+":"+calEvent[i]);
                     }
 
-                    FillModalApp(id_service, id_doctor, start, end, setting_id, calEvent);
+                    FillModalApp(id_service, id_doctor, start, end, setting_id, calEvent, ReminderEmail, ReminderMsg, ReminderContactBy);
                 }
             },
             displayEventTime: true,
@@ -110,14 +115,14 @@
         if(today>=last_day){$('#calendar').fullCalendar('next');}
 
         //alert('<?php echo $events;?>');
-        function FillModalApp(id_service, id_doctor, start, end, setting_id, calEvent)
+        function FillModalApp(id_service, id_doctor, start, end, setting_id, calEvent, ReminderEmail, ReminderMsg, ReminderContactBy)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start
 
             $.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {'data_type':'appointment','view_url':'appointment/ModalAddAppointment','id_service':id_service, 'id_doctor':id_doctor, 'start':start, 'end':end, 'setting_id':setting_id}
+                data: {'data_type':'appointment','view_url':'appointment/ModalAddAppointment','id_service':id_service, 'id_doctor':id_doctor, 'start':start, 'end':end, 'setting_id':setting_id, 'ReminderEmail':ReminderEmail, 'ReminderMsg':ReminderMsg, 'ReminderContactBy':ReminderContactBy}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response!='')

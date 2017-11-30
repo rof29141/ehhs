@@ -173,42 +173,5 @@ require_once(APPPATH."views/includes/header.php");
                 alertify.error('Something wrong with AJAX:' + textStatus);
             });
         }
-
-        function SendMailtoStaff(service, doctor, date)//not used
-        {
-            var from_email = "<?php echo $email_from;?>";
-            var from_name = "<?php echo $email_from_name;?>";
-            var email_to = "<?php echo $email_test_staff_to;?>";
-            var reply_to_email = '';
-            var reply_to_name = '';
-            var subject = "Appointment confirmed";
-            var attachments = './assets/images/logo.png';
-            var link_web = '351face.com';
-            var body = '<h1>Appointment Confirmed</h1>' +
-                '<p>The patient <b><?php echo $bd_FirstName." ".$bd_LastName;?></b> has submmited an appointment' +
-                '<br>' +
-                '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
-                '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +
-                '<p><strong>Provider: </strong>'+$('#txt_doctor').val()+'</p>' +
-                '<p><strong>Service: </strong>'+$('#txt_service').val()+'</p>' +
-                '<br>' +
-                '<p>Thank you,</p>' +
-                '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
-                '<p>Rookwood Commons Shopping Center</p>' +
-                '<p>3805 Edwards Rd #100</p>' +
-                '<p>Cincinnati, OH 45244</p>' +
-                '<p>Phone: 513-351-FACE(3223)</p>' +
-                '<p>Fax: 513-396-8995</p>' +
-                '<br>' +
-                '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
-
-            $.ajax(
-            {
-                url:'../../Main/EnviarEmail',
-                type:'POST',
-                data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body, attachments:attachments}
-            }).done(function(response, textStatus, jqXHR)
-            {});
-        }
     });
 </script>

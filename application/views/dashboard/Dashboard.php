@@ -5,10 +5,10 @@
                 <legend class="mylegend">Create an Appointment</legend>
 
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="form-group">
                             <label>Service</label>
-                            <select class="my_select2" id="sel_service" name="sel_service">
+                            <select class="my_select2" id="sel_service" name="sel_service" <?php if(isset($id_serv) && $id_serv!=''){echo 'disabled';}?>>
                                 <option value="-1"></option>
                                 <?php $group_service='';
                                 for ($i=0;$i<count($service['data']);$i++)
@@ -48,14 +48,18 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="form-group">
                             <div id="drop_down_doc"></div>
                         </div>
                     </div>
 
-                    <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="col-sm-12 col-md-2 col-lg-2">
                         <div id=doc_photo></div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-2 col-lg-2">
+                        <?php if(isset($old_app))echo '<h6>Appointment to reschedule:</h6>'.$old_app;?>
                     </div>
                 </div>
 
@@ -70,6 +74,10 @@
 <form name="frm" id="frm">
     <input id="hdn_go_layout" type="hidden" value="<?php if(isset($go_layout))echo $go_layout;?>"/>
     <input id="hdn_id" type="hidden" value="<?php if(isset($delete_id))echo $delete_id;?>"/>
+    <input id="hdn_old_app" type="hidden" value="<?php if(isset($old_app))echo $old_app;?>"/>
+    <input id="hdn_ReminderEmail" type="hidden" value="<?php if(isset($ReminderEmail))echo $ReminderEmail;?>"/>
+    <input id="hdn_ReminderMsg" type="text" value="<?php if(isset($ReminderMsg))echo $ReminderMsg;?>"/>
+    <input id="hdn_ReminderContactBy" type="hidden" value="<?php if(isset($ReminderContactBy))echo $ReminderContactBy;?>"/>
 </form>
 
 <div class="modal fade" id="remoteModal" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true" style="display: none;">
@@ -81,7 +89,7 @@
         <form method="post" action="" id="frm" name="frm">
             <div class="col-lg-4" style="top:20px;background-color: #fff;">
                 <fieldset class="myfieldset">
-                    <legend class="mylegend">Confirm Appointment</legend>
+                    <legend class="mylegend" id="modal_title">Confirm Appointment</legend>
                         <div display="padding:15px"id="modal"></div>
                 </fieldset>
             </div>

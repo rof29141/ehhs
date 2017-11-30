@@ -45,27 +45,27 @@
             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                 <label>Send me an Email</label>
                 <select name="sel_alert" id="sel_alert" class="form-control my_select2">
-                    <option value="-1"></option>
-                    <option value="30">30 min before</option>
-                    <option value="60">1 hr before</option>
-                    <option value="120">2 hrs before</option>
-                    <option value="1440">1 day before</option>
-                    <option value="2880">2 day before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='-1'){echo 'selected';}?> value="-1"></option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='30'){echo 'selected';}?> value="30">30 min before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='60'){echo 'selected';}?> value="60">1 hr before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='120'){echo 'selected';}?> value="120">2 hrs before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='1440'){echo 'selected';}?> value="1440">1 day before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='2880'){echo 'selected';}?> value="2880">2 days before</option>
                 </select>
             </div>
 
             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                 <label>Personalize your message</label>
-                <textarea class="form-control" id="txt_msg" name="txt_msg"></textarea>
+                <textarea class="form-control" id="txt_msg" name="txt_msg"><?php if(isset($data['ReminderMsg']) && $data['ReminderMsg']!='')echo $data['ReminderMsg'];?></textarea>
             </div>
 
             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                 <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
                     <legend id="legend_contact" class="mylegend">Contact me by</legend>
 
-                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="call"/> Call</label><br>
-                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="sms"/> SMS</label><br>
-                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" value="no"/> Email Only</label><br>
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" <?php if(isset($data['ReminderContactBy']) && $data['ReminderContactBy']=='call'){echo 'checked';}?> value="call"/> Call</label><br>
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" <?php if(isset($data['ReminderContactBy']) && $data['ReminderContactBy']=='sms'){echo 'checked';}?> value="sms"/> SMS</label><br>
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" <?php if(isset($data['ReminderContactBy']) && $data['ReminderContactBy']=='no'){echo 'checked';}?> value="no"/> Email Only</label><br>
 
                 </fieldset>
             </div>
@@ -94,7 +94,7 @@
 
         $('#btn_submit_app').on('click', function ()
         {
-            if ($('#rbt_contact').val())
+            if ($("input[name='rbt_contact']:checked").val())
             {
                 var target = document.getElementById('container');
                 var spinner = new Spinner(opts).spin(target);
@@ -114,24 +114,31 @@
 
                 var alert=$('#sel_alert').val();
                 var msg=$('#txt_msg').val();
-                var contactby=$('#rbt_contact').val();
+                var contactby=$("input[name='rbt_contact']:checked").val();
 
-                SaveAppointment(id_service, ACS_ServiceValueList, id_client, id_doctor, date, start, end, title, token, spinner, id_settings, alert, msg, contactby);
+                CheckAvailability(id_service, ACS_ServiceValueList, id_client, id_doctor, date, start, end, title, token, spinner, id_settings, alert, msg, contactby);
             }
             else
             {
-                $('#fieldset_contact').css('border','1px solid #A90329');
-                $('#legend_contact').css('color','#D56161');
-                $('<em class="invalid" style="top:-40px;left:10px;position:relative" id="em_contact">The field is required.</em>').insertAfter('#fieldset_contact');
-                $('html, body').animate({
-                    scrollTop: $('#fieldset_contact').offset().top-200
-                }, 1000);
+                if($('#legend_contact').css('color')!='rgb(213, 97, 97)')
+                {
+                    $('#fieldset_contact').css('border', '1px solid #A90329');
+                    $('#legend_contact').css('color', '#D56161');
+                    $('<em class="invalid" style="top:-40px;left:10px;position:relative" id="em_contact">The field is required.</em>').insertAfter('#fieldset_contact');
+                    $('html, body').animate({
+                        scrollTop: $('#fieldset_contact').offset().top - 200
+                    }, 1000);
+                }
             }
-
-
         });
 
-        function SaveAppointment(id_service, ACS_ServiceValueList, id_patient, id_doctor, date, start, end, title, token, spinner, setting_id, alert, msg, contactby)
+        $("input[name='rbt_contact']").on('change', function () {
+            $('#fieldset_contact').css('border','1px solid #d7d7d7');
+            $('#legend_contact').css('color','#000');
+            $('#em_contact').remove();
+        });
+
+        function CheckAvailability(id_service, ACS_ServiceValueList, id_patient, id_doctor, date, start, end, title, token, spinner, setting_id, alert, msg, contactby)
         {//alert(setting_id);
             var array_inputs='_kf_ServiceID='+id_service+'&APT_VisitType='+ACS_ServiceValueList+'&_zfk_ClientRec='+id_patient+'&ProviderRec='+id_doctor+'&APT_Date='+date+'&APT_Time='+start+'&APT_TimeEnd='+end+'&APT_Title='+title+'&TokenConfirmApp='+token+'&AppFromWeb=1&_kf_Setting_ID='+setting_id+'&ReminderEmail='+alert+'&ReminderMsg='+msg+'&ReminderContactBy='+contactby;
             var url = 'Main/SaveObject';
@@ -167,12 +174,13 @@
                     if(response=='0')
                     {
                         alertify.success('Data Saved.');
-                        SendMail(title, token, spinner);
 
                         var id=$('#hdn_id').val();
                         var go_layout=$('#hdn_go_layout').val();
 
-                        if(id!='' && go_layout!='')//reschedule
+                        SendMail(title, token, spinner, id, go_layout);
+
+                        if(id!='' && go_layout!='')//Reschedule, the new appointment is saved and we have to cancel the old
                             CancelAppointment(id, go_layout);
                     }
                     else{alertify.error('Error: The element could not be Saved. '+ response);spinner.stop();}
@@ -185,7 +193,7 @@
             });
         }
 
-        function SendMail(title, token, spinner)
+        function SendMail(title, token, spinner, id, go_layout)
         {
             var from_email = "<?php echo $email_from;?>";
             var from_name = "<?php echo $email_from_name;?>";
@@ -225,13 +233,15 @@
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'WRONG') {$('#modal').html('Your email is wrong.');}
-                else {$('#modal').html('A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
+                else if( id=='' && go_layout==''){$('#modal').html('<div class="text-center">A confirmation request email has been sent to ' + email_to+'</div><br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
                 spinner.stop();
             });
         }
 
         function CancelAppointment(id, go_layout)
         {
+            var email_to = "<?php echo $email;?>";
+
             $.ajax(
             {
                 url:'Appointment/CancelAppointment',
@@ -247,10 +257,15 @@
                 }
                 else
                 {
-                    $('#modal').html('<div class="text-center">Your appointment has been rescheduled.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                    $('#modal').html('<div class="text-center">A confirmation request email has been sent to ' + email_to + '<br>Your appointment has been rescheduled.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
                 }
-                $('#modal_title').html('Reschedule Appointment');
+                $('#modal_title').html('Rescheduled Appointment');
                 $('#remoteModal').modal('show');
+            });
+
+            $("#remoteModal").on("hide.bs.modal", function ()
+            {
+                LoadContent('Appointment');
             });
         }
     });

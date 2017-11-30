@@ -226,13 +226,13 @@
                 var go_layout=$(this).attr("datafld");
 
                 alertify.confirm("Do you confirm the action?", function (e)
-                    {
-                        DeleteContent(go_function, go_layout, id);
-                    }
-                    ,function()
-                    {
-                        alertify.error('Declined.');
-                    });
+                {
+                    DeleteContent(go_function, go_layout, id);
+                }
+                ,function()
+                {
+                    alertify.error('Declined.');
+                });
             }
             else
                 alertify.error('You have to select a row.');

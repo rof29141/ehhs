@@ -29,6 +29,7 @@ Class M_Dashboard extends CI_Model
     {
         $layout='PHP_Appointment';
         $request1['ProviderRec'] = $id_doctor;
+        $request1['CancelWeb'] = '=';
 
         //$request1['APT_Date'] = '>='.$next;
         $request1['mt_TimestampStartCal'] = '>='.date("m/d/Y H:i:s");
@@ -59,6 +60,9 @@ Class M_Dashboard extends CI_Model
                 $field['APT_Title'] = $result["data"][$i]["fieldData"]["APT_Title"];
                 $field['_zfk_ClientRec'] = $result["data"][$i]["fieldData"]["_zfk_ClientRec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];
+                $field['ReminderEmail'] = $result["data"][$i]["fieldData"]["ReminderEmail"];
+                $field['ReminderMsg'] = $result["data"][$i]["fieldData"]["ReminderMsg"];
+                $field['ReminderContactBy'] = $result["data"][$i]["fieldData"]["ReminderContactBy"];
 
                 $fields[$i] = $field;
             }
@@ -77,6 +81,7 @@ Class M_Dashboard extends CI_Model
         $request1['ProviderRec'] = $id_doctor;
         $request1['APT_Date'] = $date;
         $request1['APT_Time'] = $time;
+        $request1['CancelWeb'] = '=';
 
         $query = array ($request1);
         $criteria['query'] = $query;

@@ -34,7 +34,7 @@
                                 $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
                             ?>
 
-                            <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4">
+                            <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php echo $i; ?>">
                                 <div style="display: table;width: 100%;height: 90px;">
                                     <div style="display: table-row;">
 
@@ -57,13 +57,70 @@
                                                     .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
                                                     .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'];
 
+                                                switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
+                                                {
+                                                    case '':
+                                                        $send_me_email="Don't reminder";
+                                                        break;
+                                                    case -1:
+                                                        $send_me_email="Don't reminder";
+                                                        break;
+                                                    case 30:
+                                                        $send_me_email="30 min before";
+                                                        break;
+                                                    case 60:
+                                                        $send_me_email="1 hr before";
+                                                        break;
+                                                    case 120:
+                                                        $send_me_email="2 hrs before";
+                                                        break;
+                                                    case 1440:
+                                                        $send_me_email="1 day before";
+                                                        break;
+                                                    case 2880:
+                                                        $send_me_email="2 days before";
+                                                        break;
+                                                }
+
+                                                switch ($data['my_all_appointments']['data'][$i]['ReminderContactBy'])
+                                                {
+                                                    case '':
+                                                        $contact_by="Email only";
+                                                        break;
+                                                    case 'no':
+                                                        $contact_by="Email only";
+                                                        break;
+                                                    case 'call':
+                                                        $contact_by="Call";
+                                                        break;
+                                                    case 'sms':
+                                                        $contact_by="SMS";
+                                                        break;
+                                                }
+
+                                                switch ($data['my_all_appointments']['data'][$i]['ReminderSent'])
+                                                {
+                                                    case 1:
+                                                        $sent_reminder='Yes';
+                                                        break;
+                                                    case 0:
+                                                        $sent_reminder='No';
+                                                        break;
+                                                    case '':
+                                                        $sent_reminder='No';
+                                                        break;
+                                                }
+
                                                 $info=
                                                     '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
                                                     '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
                                                     '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'].
                                                     '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
-                                                    '<br><b>Status:</b> '.$status.
-                                                    '<br><br><b>'.$cancel_note.'</b>';
+                                                    '<br><b>Status:</b> '.$status;
+                                                    if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
+                                                    if($data['my_all_appointments']['data'][$i]['ReminderMsg']!='')$info.='<br><b>My message:</b> '.$data['my_all_appointments']['data'][$i]['ReminderMsg'];
+                                                    $info.='<br><b>Contact me by:</b> '.$contact_by;
+                                                    if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
                                                 ?>
                                                 <a target="_blank" href="<?php echo base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
                                                     <span class="entypo-printer"></span>
@@ -73,8 +130,12 @@
                                                     <span class="entypo-chat"></span>
                                                 </a>
                                                 <br>
-                                                <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info;?>">
+                                                <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info.'<br><br><b>'.$cancel_note.'</b>';?>">
                                                     <span class="entypo-info2"></span>
+                                                </a>
+                                                <br>
+                                                <a class="download_ical" id="<?php echo $i;?>">
+                                                    <span class="brankic-calendar"></span>
                                                 </a>
                                             </div>
 
@@ -116,37 +177,13 @@
                                             }
                                             ?>
                                             <div style="text-align:right;">
-
                                                 <?php
-                                                /*
-                                                if ($cancel_btn == 0)
-                                                {
-                                                    ?>
-
-                                                    <div style="text-align: center;padding-left:5px;padding-right:5px;top: 5px;position: relative;display: inline-block;"
-                                                         class="note"><?php echo $cancel_note; ?></div>
-                                                    <?php
-                                                }*/
-                                                ?>
-
-                                                <?php
-
-                                                if ($cancel_btn == 1)
-                                                {
-                                                    ?>
-                                                    <button type="button" class="btn btn_cancel_app btn-danger"
-                                                            style="1background-color: #492f91"
-                                                            id="<?php echo $i; ?>">Cancel
-                                                    </button>
-                                                    <?php
-                                                }
                                                 if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')
                                                 {
                                                     $not_confirm++;
                                                     ?>
                                                     <button type="button"
                                                             class="btn btn_confirm_app btn-success"
-                                                            style="1background-color: #492f91"
                                                             id="<?php echo $i; ?>">Confirm
                                                     </button>
                                                     <?php
@@ -155,14 +192,16 @@
                                                 {
                                                     $confirm++;
                                                     ?>
-                                                    <button type="button" class="btn download_ical btn-success"
-                                                            style="1background-color: #492f91"
-                                                            id="<?php echo $i; ?>">Download iCal
-                                                    </button>
                                                     <button type="button" class="btn resend_email btn-success"
-                                                            style="1background-color: #492f91"
                                                             id="<?php echo $i; ?>">Resend email
                                                     </button>
+                                                    <?php
+                                                }
+                                                if ($cancel_btn == 1)
+                                                {
+                                                    ?>
+                                                    <button type="button" class="btn btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
+                                                    <button type="button" class="btn btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
                                                     <?php
                                                 }
                                                 ?>
@@ -208,6 +247,10 @@
                                                        value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
                                                 <input name="hdn_item_<?php echo $i; ?>" type="hidden"
                                                        value="<?php echo $i; ?>"/>
+                                                <input id="hdn_old_app_<?php echo $i; ?>" type="hidden" value="<?php echo $info; ?>"/>
+                                                <input id="hdn_ReminderEmail_<?php echo $i; ?>" type="hidden" value="<?php echo $data['my_all_appointments']['data'][$i]['ReminderEmail']; ?>"/>
+                                                <input id="hdn_ReminderMsg_<?php echo $i; ?>" type="hidden" value="<?php echo $data['my_all_appointments']['data'][$i]['ReminderMsg']; ?>"/>
+                                                <input id="hdn_ReminderContactBy_<?php echo $i; ?>" type="hidden" value="<?php echo $data['my_all_appointments']['data'][$i]['ReminderContactBy']; ?>"/>
 
                                             </form>
                                         </div>
@@ -250,7 +293,7 @@
                                         $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
                                     ?>
 
-                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4">
+                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php echo $i; ?>">
                                         <div style="display: table;width: 100%;height: 90px;">
                                             <div style="display: table-row;">
 
@@ -273,13 +316,70 @@
                                                             .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
                                                             .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'];
 
+                                                        switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
+                                                        {
+                                                            case '':
+                                                                $send_me_email="Don't reminder";
+                                                                break;
+                                                            case -1:
+                                                                $send_me_email="Don't reminder";
+                                                                break;
+                                                            case 30:
+                                                                $send_me_email="30 min before";
+                                                                break;
+                                                            case 60:
+                                                                $send_me_email="1 hr before";
+                                                                break;
+                                                            case 120:
+                                                                $send_me_email="2 hrs before";
+                                                                break;
+                                                            case 1440:
+                                                                $send_me_email="1 day before";
+                                                                break;
+                                                            case 2880:
+                                                                $send_me_email="2 days before";
+                                                                break;
+                                                        }
+
+                                                        switch ($data['my_all_appointments']['data'][$i]['ReminderContactBy'])
+                                                        {
+                                                            case '':
+                                                                $contact_by="Email only";
+                                                                break;
+                                                            case 'no':
+                                                                $contact_by="Email only";
+                                                                break;
+                                                            case 'call':
+                                                                $contact_by="Call";
+                                                                break;
+                                                            case 'sms':
+                                                                $contact_by="SMS";
+                                                                break;
+                                                        }
+
+                                                        switch ($data['my_all_appointments']['data'][$i]['ReminderSent'])
+                                                        {
+                                                            case 1:
+                                                                $sent_reminder='Yes';
+                                                                break;
+                                                            case 0:
+                                                                $sent_reminder='No';
+                                                                break;
+                                                            case '':
+                                                                $sent_reminder='No';
+                                                                break;
+                                                        }
+
                                                         $info=
                                                             '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
                                                             '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
                                                             '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'].
                                                             '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
-                                                            '<br><b>Status:</b> '.$status.
-                                                            '<br><br><b>'.$cancel_note.'</b>';
+                                                            '<br><b>Status:</b> '.$status;
+                                                        if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
+                                                        if($data['my_all_appointments']['data'][$i]['ReminderMsg']!='')$info.='<br><b>My message:</b> '.$data['my_all_appointments']['data'][$i]['ReminderMsg'];
+                                                        $info.='<br><b>Contact me by:</b> '.$contact_by;
+                                                        if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
                                                         ?>
                                                         <a target="_blank" href="<?php echo base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
                                                             <span class="entypo-printer"></span>
@@ -289,8 +389,12 @@
                                                             <span class="entypo-chat"></span>
                                                         </a>
                                                         <br>
-                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info;?>">
+                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info.'<br><br><b>'.$cancel_note.'</b>';?>">
                                                             <span class="entypo-info2"></span>
+                                                        </a>
+                                                        <br>
+                                                        <a class="download_ical" id="<?php echo $i;?>">
+                                                            <span class="brankic-calendar"></span>
                                                         </a>
                                                     </div>
 
@@ -332,100 +436,35 @@
                                                     }
                                                     ?>
                                                     <div style="text-align:right;">
-
                                                         <?php
-                                                        /*
-                                                        if ($cancel_btn == 0)
-                                                        {
-                                                            ?>
-
-                                                            <div style="text-align: center;padding-left:5px;padding-right:5px;top: 5px;position: relative;display: inline-block;"
-                                                                 class="note"><?php echo $cancel_note; ?></div>
-                                                            <?php
-                                                        }*/
-                                                        ?>
-
-                                                        <?php
-
-                                                        if ($cancel_btn == 1)
-                                                        {
-                                                            ?>
-                                                            <button type="button" class="btn btn_cancel_app btn-danger"
-                                                                    style="1background-color: #492f91"
-                                                                    id="<?php echo $i; ?>">Cancel
-                                                            </button>
-                                                            <?php
-                                                        }
                                                         if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')
                                                         {
-
                                                             ?>
-                                                            <button type="button"
-                                                                    class="btn btn_confirm_app btn-success"
-                                                                    style="1background-color: #492f91"
+                                                            <button type="button" class="btn btn_confirm_app btn-success"
                                                                     id="<?php echo $i; ?>">Confirm
                                                             </button>
                                                             <?php
-                                                        } else
+                                                        }
+                                                        else
                                                         {
                                                             ?>
-                                                            <button type="button" class="btn download_ical btn-success"
-                                                                    style="1background-color: #492f91"
-                                                                    id="<?php echo $i; ?>">Download iCal
-                                                            </button>
                                                             <button type="button" class="btn resend_email btn-success"
-                                                                    style="1background-color: #492f91"
                                                                     id="<?php echo $i; ?>">Resend email
                                                             </button>
+                                                            <?php
+                                                        }
+                                                        if ($cancel_btn == 1)
+                                                        {
+                                                            ?>
+                                                            <button type="button" class="btn btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
+                                                            <button type="button" class="btn btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
                                                             <?php
                                                         }
                                                         ?>
 
                                                     </div>
 
-                                                    <form method="post" action="Dashboard/DownloadiCal"
-                                                          id="frm_next_<?php echo $i; ?>">
-
-                                                        <input id="hdn_title_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                        <input id="hdn_date_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                        <input id="hdn_time_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
-                                                        <input id="hdn_doc_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName']; ?>"/>
-                                                        <input id="hdn_ser_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['Service']; ?>"/>
-                                                        <input id="hdn_tok_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['TokenConfirmApp']; ?>"/>
-                                                        <input id="hdn_id_doc_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['ProviderRec']; ?>"/>
-                                                        <input id="hdn_id_serv_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['_kf_ServiceID']; ?>"/>
-                                                        <input id="hdn_id_zpk_Appointment_Rec<?php echo $i; ?>"
-                                                               type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['__zpk_Appointment_Rec']; ?>"/>
-                                                        <input id="hdn_id_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['RecordID']; ?>"/>
-
-                                                        <input name="hdn_ical_start_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
-                                                        <input name="hdn_ical_end_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
-                                                        <input name="hdn_ical_addr" type="hidden"
-                                                               value="<?php echo '3805 Edwards Rd #100 Cincinnati, OH 45244'; ?>"/>
-                                                        <input name="hdn_ical_url" type="hidden"
-                                                               value="<?php echo '351face.com'; ?>"/>
-                                                        <input name="hdn_ical_title_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                        <input name="hdn_ical_date_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                        <input name="hdn_item_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $i; ?>"/>
-
-                                                    </form>
                                                 </div>
-                                                </div1
                                             </div>
                                     </article>
 
@@ -466,7 +505,7 @@
                                         $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
                                     ?>
 
-                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4">
+                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php echo $i; ?>">
                                         <div style="display: table;width: 100%;height: 90px;">
                                             <div style="display: table-row;">
 
@@ -489,13 +528,70 @@
                                                             .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
                                                             .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'];
 
+                                                        switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
+                                                        {
+                                                            case '':
+                                                                $send_me_email="Don't reminder";
+                                                                break;
+                                                            case -1:
+                                                                $send_me_email="Don't reminder";
+                                                                break;
+                                                            case 30:
+                                                                $send_me_email="30 min before";
+                                                                break;
+                                                            case 60:
+                                                                $send_me_email="1 hr before";
+                                                                break;
+                                                            case 120:
+                                                                $send_me_email="2 hrs before";
+                                                                break;
+                                                            case 1440:
+                                                                $send_me_email="1 day before";
+                                                                break;
+                                                            case 2880:
+                                                                $send_me_email="2 days before";
+                                                                break;
+                                                        }
+
+                                                        switch ($data['my_all_appointments']['data'][$i]['ReminderContactBy'])
+                                                        {
+                                                            case '':
+                                                                $contact_by="Email only";
+                                                                break;
+                                                            case 'no':
+                                                                $contact_by="Email only";
+                                                                break;
+                                                            case 'call':
+                                                                $contact_by="Call";
+                                                                break;
+                                                            case 'sms':
+                                                                $contact_by="SMS";
+                                                                break;
+                                                        }
+
+                                                        switch ($data['my_all_appointments']['data'][$i]['ReminderSent'])
+                                                        {
+                                                            case 1:
+                                                                $sent_reminder='Yes';
+                                                                break;
+                                                            case 0:
+                                                                $sent_reminder='No';
+                                                                break;
+                                                            case '':
+                                                                $sent_reminder='No';
+                                                                break;
+                                                        }
+
                                                         $info=
                                                             '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
                                                             '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
                                                             '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'].
                                                             '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
-                                                            '<br><b>Status:</b> '.$status.
-                                                            '<br><br><b>'.$cancel_note.'</b>';
+                                                            '<br><b>Status:</b> '.$status;
+                                                        if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
+                                                        if($data['my_all_appointments']['data'][$i]['ReminderMsg']!='')$info.='<br><b>My message:</b> '.$data['my_all_appointments']['data'][$i]['ReminderMsg'];
+                                                        $info.='<br><b>Contact me by:</b> '.$contact_by;
+                                                        if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
                                                         ?>
                                                         <a target="_blank" href="<?php echo base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
                                                             <span class="entypo-printer"></span>
@@ -505,9 +601,14 @@
                                                             <span class="entypo-chat"></span>
                                                         </a>
                                                         <br>
-                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info;?>">
+                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info.'<br><br><b>'.$cancel_note.'</b>';?>">
                                                             <span class="entypo-info2"></span>
                                                         </a>
+                                                        <br>
+                                                        <a class="download_ical" id="<?php echo $i;?>">
+                                                            <span class="brankic-calendar"></span>
+                                                        </a>
+
                                                     </div>
 
                                                     <div class=""
@@ -548,33 +649,9 @@
                                                     }
                                                     ?>
                                                     <div style="text-align:right;">
-
                                                         <?php
-                                                        /*
-                                                        if ($cancel_btn == 0)
-                                                        {
-                                                            ?>
-
-                                                            <div style="text-align: center;padding-left:5px;padding-right:5px;top: 5px;position: relative;display: inline-block;"
-                                                                 class="note"><?php echo $cancel_note; ?></div>
-                                                            <?php
-                                                        }*/
-                                                        ?>
-
-                                                        <?php
-
-                                                        if ($cancel_btn == 1)
-                                                        {
-                                                            ?>
-                                                            <button type="button" class="btn btn_cancel_app btn-danger"
-                                                                    style="1background-color: #492f91"
-                                                                    id="<?php echo $i; ?>">Cancel
-                                                            </button>
-                                                            <?php
-                                                        }
                                                         if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')
                                                         {
-
                                                             ?>
                                                             <button type="button"
                                                                     class="btn btn_confirm_app btn-success"
@@ -582,66 +659,28 @@
                                                                     id="<?php echo $i; ?>">Confirm
                                                             </button>
                                                             <?php
-                                                        } else
+                                                        }
+                                                        else
                                                         {
                                                             ?>
-                                                            <button type="button" class="btn download_ical btn-success"
-                                                                    style="1background-color: #492f91"
-                                                                    id="<?php echo $i; ?>">Download iCal
-                                                            </button>
                                                             <button type="button" class="btn resend_email btn-success"
                                                                     style="1background-color: #492f91"
                                                                     id="<?php echo $i; ?>">Resend email
                                                             </button>
                                                             <?php
                                                         }
+                                                        if ($cancel_btn == 1)
+                                                        {
+                                                            ?>
+                                                            <button type="button" class="btn btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
+                                                            <button type="button" class="btn btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
+                                                            <?php
+                                                        }
                                                         ?>
 
                                                     </div>
 
-                                                    <form method="post" action="Dashboard/DownloadiCal"
-                                                          id="frm_next_<?php echo $i; ?>">
-
-                                                        <input id="hdn_title_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                        <input id="hdn_date_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                        <input id="hdn_time_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
-                                                        <input id="hdn_doc_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName']; ?>"/>
-                                                        <input id="hdn_ser_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['Service']; ?>"/>
-                                                        <input id="hdn_tok_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['TokenConfirmApp']; ?>"/>
-                                                        <input id="hdn_id_doc_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['ProviderRec']; ?>"/>
-                                                        <input id="hdn_id_serv_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['_kf_ServiceID']; ?>"/>
-                                                        <input id="hdn_id_zpk_Appointment_Rec<?php echo $i; ?>"
-                                                               type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['__zpk_Appointment_Rec']; ?>"/>
-                                                        <input id="hdn_id_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['RecordID']; ?>"/>
-
-                                                        <input name="hdn_ical_start_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
-                                                        <input name="hdn_ical_end_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
-                                                        <input name="hdn_ical_addr" type="hidden"
-                                                               value="<?php echo '3805 Edwards Rd #100 Cincinnati, OH 45244'; ?>"/>
-                                                        <input name="hdn_ical_url" type="hidden"
-                                                               value="<?php echo '351face.com'; ?>"/>
-                                                        <input name="hdn_ical_title_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                        <input name="hdn_ical_date_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                        <input name="hdn_item_<?php echo $i; ?>" type="hidden"
-                                                               value="<?php echo $i; ?>"/>
-
-                                                    </form>
                                                 </div>
-                                                </div1
                                             </div>
                                     </article>
     
@@ -700,8 +739,6 @@ if(isset($data['my_all_appointments']['data']))
         //if ($client_rec == $__zkp_Client_Rec)
 
         $events[] = $event;
-
-
     }
 }
 
@@ -843,73 +880,83 @@ $events = json_encode($events);
                 $('#frm_next_'+i).submit();
             });
 
-            $('.btn_cancel_app').on('click', function ()
+            $('.btn_cancel').on('click', function ()
             {
                 var i = $(this).attr('id');//alert(i);
+                var id = $('#hdn_id_zpk_Appointment_Rec'+i).val();
+                var go_layout='PHP_Appointment';
+                var old_app = $('#hdn_old_app_'+i).val();
 
-                $('#modal').html('<div class="text-center">Do you want to cancel or reschedule the appointment?</div><br><div class="text-right"><a class="btn btn-warning btn_reschedule" id="'+i+'" data-dismiss="modal">Reschedule</a> <a class="btn btn-danger btn_cancel" id="'+i+'" data-dismiss="modal">Cancel</a> <a class="btn btn-default" data-dismiss="modal">Close</a></div>');
-                $('#modal_title').html('Cancel or Reschedule');
-                $('#remoteModal').modal('show');
-
-                $('.btn_cancel').on('click', function ()
+                //alertify.set('notifier','position', 'top-center');
+                alertify.defaults.theme.ok = "btn btn-success";
+                alertify.confirm("<div class='text-center'><h4>Are you sure you want to cancel?</h4></div><br><h6>Appointment to cancel:</h6>" + old_app, function()
                 {
-                    var i = $(this).attr('id');//alert(i);
-                    var id = $('#hdn_id_zpk_Appointment_Rec'+i).val();
-                    var go_layout='PHP_Appointment';
-
-                    //alertify.set('notifier','position', 'top-center');
-                    alertify.confirm("Do you confirm the action?", function()
+                    $.ajax(
                     {
-                        $.ajax(
+                        url:'Appointment/CancelAppointment',
+                        type:'POST',
+                        data:{id:id}
+                        /*url:'Main/DeleteObject',
+                        type:'POST',
+                        data:{go_layout:go_layout,id:id}*/
+                    }).done(function(response, textStatus, jqXHR)
+                    {
+                        if(response == 'NO_CANCEL') {
+                            $('#modal').html('<div class="text-center">You can not cancel the appointment, please, call the office at 513-351-FACE(3223).</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                        }
+                        else
                         {
-                            url:'Appointment/CancelAppointment',
-                            type:'POST',
-                            data:{id:id}
-                            /*url:'Main/DeleteObject',
-                            type:'POST',
-                            data:{go_layout:go_layout,id:id}*/
-                        }).done(function(response, textStatus, jqXHR)
+                            $('#modal').html('<div class="text-center">Your appointment has been canceled.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                        }
+                        $('#modal_title').html('Cancel Appointment');
+                        $('#remoteModal').modal('show');
+                        //$('#card_'+i).remove();
+
+                        $("#remoteModal").on("hide.bs.modal", function ()
                         {
-                            if(response == 'NO_CANCEL') {
-                                $('#modal').html('<div class="text-center">You can not cancel the appointment, please, call the office at 513-351-FACE(3223).</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
-                            }
-                            else
-                            {
-                                $('#modal').html('<div class="text-center">Your appointment has been canceled.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
-                            }
-                            $('#modal_title').html('Cancel Appointment');
-                            $('#remoteModal').modal('show');
-                            $('#'+i).remove();
+                            LoadContent('Appointment');
                         });
-                    }
-                    ,function()
-                    {
-                        //alertify.set('notifier','position', 'top-center');
-                        alertify.error('Declined.');
                     });
-                });
-
-                $('.btn_reschedule').on('click', function ()
+                }
+                ,function()
                 {
-                    $('.modal-backdrop').remove();
-                    $('body').removeClass("modal-open");
+                    //alertify.set('notifier','position', 'top-center');
+                    alertify.error('Declined.');
+                }).set({labels:{ok:'Yes', cancel: 'Go back'}});
 
-                    var target = document.getElementById('container');
-                    var spinner = new Spinner(opts).spin(target);
 
-                    var i = $(this).attr('id');//alert(i);
-                    var id = $('#hdn_id_zpk_Appointment_Rec'+i).val();//alert(id);
-                    var go_layout = 'PHP_Appointment';
-                    var id_doc = $('#hdn_id_doc_'+i).val();
-                    var id_serv = $('#hdn_id_serv_'+i).val();
-                    $( '.content-wrapper' ).empty();
+            });
 
-                    $.post("Dashboard/GoToAppointments", {go_layout:go_layout,id:id,id_doc:id_doc,id_serv:id_serv}, function(result)
-                    {
-                        $('.content-wrapper').html(result);
-                        spinner.stop();
-                    });
+            $('.btn_reschedule').on('click', function ()
+            {
+                $('.modal-backdrop').remove();
+                $('body').removeClass("modal-open");
+
+                var target = document.getElementById('container');
+                var spinner = new Spinner(opts).spin(target);
+
+                var i = $(this).attr('id');//alert(i);
+                var delete_id = $('#hdn_id_zpk_Appointment_Rec'+i).val();//alert(id);
+                var go_layout = 'PHP_Appointment';
+                var id_doc = $('#hdn_id_doc_'+i).val();
+                var id_serv = $('#hdn_id_serv_'+i).val();
+                var old_app = $('#hdn_old_app_'+i).val();
+
+                var ReminderEmail = $('#hdn_ReminderEmail_'+i).val();
+                var ReminderMsg = $('#hdn_ReminderMsg_'+i).val();
+                var ReminderContactBy = $('#hdn_ReminderContactBy_'+i).val();
+
+                $( '.content-wrapper' ).empty();
+
+                $.post("Dashboard/GoToAppointments", {go_layout:go_layout,delete_id:delete_id,id_doc:id_doc,id_serv:id_serv, old_app:old_app, ReminderEmail:ReminderEmail, ReminderMsg:ReminderMsg, ReminderContactBy:ReminderContactBy}, function(result)
+                {
+                    $('.content-wrapper').html(result);
+                    alertify.defaults.transition = "slide";
+                    alertify.defaults.theme.ok = "btn btn-success";
+                    alertify.alert("<div class='text-center'><h4>To reschedule your appointment, click on any available space.</h4></div><br><br><h6>Appointment to reschedule:</h6><br>" + old_app);
+
                 });
+                spinner.stop();
             });
 
             $('.chat').on('click', function ()
@@ -920,16 +967,12 @@ $events = json_encode($events);
                 $("textarea#chatTextarea").text('dff');
             });
 
-            $('body').on('mouseover', '[data-toggle="popover"]', function(){
+            $('[data-toggle="popover"]').on('click', function(){
                 $(this).popover('show')
             });
 
-            $('body').on('mouseout', '[data-toggle="popover"]', function(){
+            $('[data-toggle="popover"]').on('mouseout', function(){
                 $(this).popover('hide')
-            });
-
-            $('body').on('click', '[data-toggle="popover"]', function(){
-                $(this).popover('toggle')
             });
 
             $('#calendar').fullCalendar(

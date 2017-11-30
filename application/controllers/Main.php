@@ -113,6 +113,9 @@ class Main extends CI_Controller
                 $result['doctor']=$this->M_Main->GetDoctorByID($id_doctor);
 
                 $result['setting_id'] = $_POST['setting_id'];
+                $result['ReminderEmail'] = $_POST['ReminderEmail'];
+                $result['ReminderMsg'] = $_POST['ReminderMsg'];
+                $result['ReminderContactBy'] = $_POST['ReminderContactBy'];
 
             }
             elseif($data_type=='dataprofile')

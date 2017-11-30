@@ -164,6 +164,10 @@ Class M_Appointment extends CI_Model
                 $field['Service'] = $result["data"][$i]["fieldData"]["PHP_Service::Service"];
                 $field['ProviderRec'] = $result["data"][$i]["fieldData"]["ProviderRec"];
                 $field['_kf_ServiceID'] = $result["data"][$i]["fieldData"]["_kf_ServiceID"];
+                $field['ReminderEmail'] = $result["data"][$i]["fieldData"]["ReminderEmail"];
+                $field['ReminderMsg'] = $result["data"][$i]["fieldData"]["ReminderMsg"];
+                $field['ReminderContactBy'] = $result["data"][$i]["fieldData"]["ReminderContactBy"];
+                $field['ReminderSent'] = $result["data"][$i]["fieldData"]["ReminderSent"];
                 $field['RecordID'] = $result["data"][$i]["fieldData"]["RecordID"];
 
                 $fields[$i] = $field;

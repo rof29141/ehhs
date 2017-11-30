@@ -6,10 +6,11 @@
 <!--
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/ionicons.min.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/font-awesome.min.css" />
--->
-
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/datepicker.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/morris.css" />
+
+-->
+
 
 
 
@@ -18,13 +19,16 @@
 
 <script src="<?php echo ASSETS_URL; ?>/js/jquery-3.2.1.min.js"></script>
 
-<script src="<?php echo ASSETS_URL; ?>/js/cbx.js"></script>
+
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="<?php echo ASSETS_URL; ?>/js/jquery-validate/jquery.validate.min.js"></script>
 <script src="<?php echo ASSETS_URL; ?>/js/alertifyjs/alertify.js"> </script>
 <script src="<?php echo ASSETS_URL; ?>/js/spin.min.js"></script>
+
+<!--
+<script src="<?php echo ASSETS_URL; ?>/js/cbx.js"></script>
 
 <script src="<?php echo ASSETS_URL; ?>/js/jquery.fileupload.js"></script>
 <link href="https://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
@@ -39,6 +43,7 @@
 
 <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/css/style.css">
 <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/css/jquery.fileupload.css">
+-->
 
 <!--[if lt IE 9]>
 <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>

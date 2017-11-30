@@ -1,6 +1,6 @@
 <?php if(isset($data['doctor']['data'])){?>
 <label>Provider</label>
-<select class="my_select2_doc" id="sel_doctor" name="sel_doctor">
+<select class="my_select2_doc" id="sel_doctor" name="sel_doctor" <?php if(isset($data['id_doctor']) && $data['id_doctor']!=''){echo 'disabled';}?>>
     <option value="-1"></option>
     <?php for ($i=0;$i<count($data['doctor']['data']);$i++){?>
         <option <?php if(isset($data['id_doctor']) && $data['id_doctor']==$data['doctor']['data'][$i]['_kf_DoctorID']){echo 'selected';}?> value="<?php echo $data['doctor']['data'][$i]['_kf_DoctorID'];?>" title="<?php echo $data['doctor']['data'][$i]['Photo'];?>">
@@ -46,6 +46,27 @@
         {
             var id_service = $('#sel_service').val();
             var id_doctor = $(this).val();
+
+            GetAppointments(id_service, id_doctor)
+        });
+
+        $(function ()
+        {
+            var id_doctor = "<?php if(isset($data['id_doctor'])) echo $data['id_doctor'];else echo 'NO_DOC'?>";
+
+            if (id_doctor != 'NO_DOC')
+            {
+                var id_service = $('#sel_service').val();
+
+                if (id_service != 'NO_SERV')
+                {
+                    GetAppointments(id_service, id_doctor)
+                }
+            }
+        });
+
+        function GetAppointments(id_service, id_doctor)
+        {
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
@@ -62,34 +83,7 @@
                 {$('#calendar_app').html(response);}
                 spinner.stop();
             });
-        });
-
-        $(function ()
-        {
-            var id_doctor = "<?php if(isset($data['id_doctor'])) echo $data['id_doctor'];else echo 'NO_DOC'?>";
-
-            if (id_doctor != 'NO_DOC')
-            {
-                var id_service = $('#sel_service').val();
-
-                if (id_service != 'NO_SERV')
-                {
-                    $.ajax({
-                        url: 'Dashboard/GetAppointments',
-                        type: 'POST',
-                        data: {id_service:id_service,id_doctor:id_doctor}
-                    }).done(function(response, textStatus, jqXHR)
-                    {
-                        //alert(response);
-                        if(response=='NOT_SETTINGS')
-                        {alertify.error('There is not availability for this Service and Provider (settings). Please, call the office at 513-351-FACE(3223).');}
-                        else if(response)
-                        {$('#calendar_app').html(response);}
-                        spinner.stop();
-                    });
-                }
-            }
-        });
+        }
     });
 </script>
 
