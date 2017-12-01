@@ -430,7 +430,9 @@ class Dashboard extends CI_Controller
 
 
         $body = '<h1>Thank you for your confirmation</h1>'.
-            '<a href="'.base_url('Dashboard/GetiCal').'?location='.$_POST['hdn_ical_addr'].'&amp;description='.$_POST['hdn_ical_title'].'&amp;dtstart='.$_POST['hdn_ical_start'].'&amp;dtend='.$_POST['hdn_ical_end'].'&amp;summary='.$_POST['hdn_ical_title'].'&amp;url='.$_POST['hdn_ical_url'].'">Add event</a>'.
+            '<a href="'.base_url('Dashboard/GetiCal').'?location='.$_POST['hdn_ical_addr'].'&amp;description='.$_POST['hdn_ical_title'].'&amp;dtstart='.$_POST['hdn_ical_start'].'&amp;dtend='.$_POST['hdn_ical_end'].'&amp;summary='.$_POST['hdn_ical_title'].'&amp;url='.$_POST['hdn_ical_url'].'">'.
+            '<button class="btn btn-success">Add event to calendar</button>>'.
+            '</a>'.
             '<p>Dear <b>'.$_POST['txt_patient'].'</b>,</p>'.
             '<p>You confirmed an application for an appointment at the <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
             '<br>'.
