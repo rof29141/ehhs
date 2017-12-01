@@ -426,7 +426,11 @@ class Dashboard extends CI_Controller
         $subject = "Appointment Confirmed";
         $attachments = './assets/images/logo.png';
         $link_web = '351face.com';
+
+
+
         $body = '<h1>Thank you for your confirmation</h1>'.
+            '<a href="'.base_url('Dashboard/GetiCal').'?location='.$_POST['hdn_ical_addr'].'&amp;description='.$_POST['hdn_ical_title'].'&amp;dtstart='.$_POST['hdn_ical_start'].'&amp;dtend='.$_POST['hdn_ical_end'].'&amp;summary='.$_POST['hdn_ical_title'].'&amp;url='.$_POST['hdn_ical_url'].'">Add event</a>'.
             '<p>Dear <b>'.$_POST['txt_patient'].'</b>,</p>'.
             '<p>You confirmed an application for an appointment at the <a href="'. $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>'.
             '<br>'.
@@ -440,7 +444,7 @@ class Dashboard extends CI_Controller
             '<p>Thank you,</p>'.
             '<p>Advanced Cosmetic Surgery & Laser Center</p>'.
             '<p>Rookwood Commons Shopping Center</p>'.
-            '<p>3805 Edwards Rd #100</p>'.
+            '<p>3805 Edwards Rd 100</p>'.
             '<p>Cincinnati, OH 45244</p>'.
             '<p>Phone: 513-351-FACE(3223)</p>'.
             '<p>Fax: 513-396-8995</p>'.
@@ -487,20 +491,41 @@ class Dashboard extends CI_Controller
             {$arr_ical['location'] = $value;}
             if(substr($field_name, 0, 14)=='hdn_ical_title')
             {$arr_ical['description'] = $value;}
-            if(substr($field_name, 0, 14)=='hdn_ical_start')
-            {$arr_ical['dtstart'] = $value;}
-            if(substr($field_name, 0, 12)=='hdn_ical_end')
-            {$arr_ical['dtend'] = $value;}
             if(substr($field_name, 0, 14)=='hdn_ical_title')
             {$arr_ical['summary'] = $value;}
             if(substr($field_name, 0, 12)=='hdn_ical_url')
             {$arr_ical['url'] = $value;}
+            if(substr($field_name, 0, 14)=='hdn_ical_start')
+            {$arr_ical['dtstart'] = $value;}
+            if(substr($field_name, 0, 12)=='hdn_ical_end')
+            {$arr_ical['dtend'] = $value;}
         }
 
         $this->load->library('MT_ICS');
         $ics = new MT_ICS($arr_ical);
 
         echo $ics->to_string();
+    }
+
+    function GetiCal()
+    {
+        $arr_ical=array('location' => $_GET['location'],
+            'description' => $_GET['description'],
+            'dtstart' => $_GET['dtstart'],
+            'dtend' => $_GET['dtend'],
+            'summary' => $_GET['summary'],
+            'url' => $_GET['url']
+        );
+
+        $this->load->library('MT_ICS');
+        $ics = new MT_ICS($arr_ical);
+
+        $calendar=$ics->to_string();
+
+        header('Content-type: text/calendar; charset=utf-8');
+        header('Content-Disposition: inline; filename=calendar.ics');
+        echo $calendar;
+        exit;
     }
 
     function GetAppointmentBy()

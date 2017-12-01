@@ -43,11 +43,11 @@ class MT_ICS {
     protected $properties = array();
     private $available_properties = array(
         'description',
-        'dtend',
-        'dtstart',
         'location',
         'summary',
-        'url'
+        'url',
+        'dtend',
+        'dtstart'
     );
     public function __construct($props='') {
         $this->set($props);
@@ -73,25 +73,29 @@ class MT_ICS {
         $ics_props = array(
             'BEGIN:VCALENDAR',
             'VERSION:2.0',
-            'PRODID:-//hacksw/handcal//NONSGML v1.0//EN',
+            'PRODID:-//ZContent.net//Zap Calendar 1.0//EN',
             'CALSCALE:GREGORIAN',
-            'TZID:America/New_York',
+            'METHOD:PUBLISH',
             'BEGIN:VEVENT',
-            'BEGIN:VALARM',
-            'ACTION:DISPLAY',
-            'DESCRIPTION:REMINDER',
-            'TRIGGER:-PT24H',
-            'END:VALARM',
+            'TZID:America/New_York'
         );
-        // Build ICS properties - add header
+
         $props = array();
+        $props['UID'] = uniqid();
+        $props['SEQUENCE'] = '0';
+        $props['STATUS'] = 'CONFIRMED';
+        $props['TRANSP'] = 'TRANSPARENT';
+        $props['RRULE'] = 'FREQ=YEARLY;INTERVAL=1;BYMONTH=2;BYMONTHDAY=12';
+        $props['DTSTAMP'] = $this->format_timestamp('now');
+
+        // Build ICS properties - add header
+
         foreach($this->properties as $k => $v) {
             $props[strtoupper($k . ($k === 'url' ? ';VALUE=URI' : ''))] = $v;
         }
         // Set some default values
 
-        $props['DTSTAMP'] = $this->format_timestamp('now');
-        $props['UID'] = uniqid();
+
 
         // Append properties
         foreach ($props as $k => $v) {
@@ -101,17 +105,33 @@ class MT_ICS {
                 $ics_props[] = "$k:$v";
         }
         // Build ICS properties - add footer
+
+        $ics_props[] = 'BEGIN:VALARM';
+        $ics_props[] = 'TRIGGER:-PT24H';
+        $ics_props[] = 'REPEAT:1';
+        $ics_props[] = 'DURATION:PT22H';
+        $ics_props[] = 'ACTION:DISPLAY';
+        $ics_props[] = 'DESCRIPTION:Reminder of Appointment / ACS.';
+        $ics_props[] = 'END:VALARM';
         $ics_props[] = 'END:VEVENT';
         $ics_props[] = 'END:VCALENDAR';
         return $ics_props;
     }
     private function sanitize_val($val, $key = false) {
-        switch($key) {
+        switch($key)
+        {
             case 'dtend':
-            case 'dtstamp':
+                $val = $this->format_timestamp1($val);
+                break;
+
             case 'dtstart':
+                $val = $this->format_timestamp1($val);
+                break;
+
+            case 'dtstamp':
                 $val = $this->format_timestamp($val);
                 break;
+
             default:
                 $val = $this->escape_string($val);
         }
@@ -121,6 +141,12 @@ class MT_ICS {
         //$dt = new DateTime($timestamp);
         //return $dt->format(self::DT_FORMAT);
         return date('Ymd\THis', strtotime('+0 days',strtotime($timestamp)));
+    }
+
+    private function format_timestamp1($timestamp) {
+        //$dt = new DateTime($timestamp);
+        //return $dt->format(self::DT_FORMAT);
+        return date('Ymd', strtotime('+0 days',strtotime($timestamp)));
     }
     private function escape_string($str) {
         return preg_replace('/([\,;])/','\\\$1', $str);

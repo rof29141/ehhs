@@ -334,7 +334,7 @@ class Main extends CI_Controller
                 '<p>Thank you,</p>' .
                 '<p>Advanced Cosmetic Surgery & Laser Center</p>' .
                 '<p>Rookwood Commons Shopping Center</p>' .
-                '<p>3805 Edwards Rd #100</p>' .
+                '<p>3805 Edwards Rd 100</p>' .
                 '<p>Cincinnati, OH 45244</p>' .
                 '<p>Phone: 513-351-FACE(3223)</p>' .
                 '<p>Fax: 513-396-8995</p>' .

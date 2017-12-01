@@ -247,7 +247,7 @@
                                                 <input name="hdn_ical_end_<?php echo $i; ?>" type="hidden"
                                                        value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
                                                 <input name="hdn_ical_addr" type="hidden"
-                                                       value="<?php echo '3805 Edwards Rd #100 Cincinnati, OH 45244'; ?>"/>
+                                                       value="<?php echo '3805 Edwards Rd 100 Cincinnati, OH 45244'; ?>"/>
                                                 <input name="hdn_ical_url" type="hidden"
                                                        value="<?php echo '351face.com'; ?>"/>
                                                 <input name="hdn_ical_title_<?php echo $i; ?>" type="hidden"
@@ -792,7 +792,7 @@ $events = json_encode($events);
                 var email_to = "<?php echo $email;?>";
                 var reply_to_email = '';
                 var reply_to_name = '';
-                var subject = "Please confirm your appointment";
+                var subject = "Please Confirm Your Appointment";
                 var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
                 var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
                 var link_web = '351face.com';
@@ -810,7 +810,7 @@ $events = json_encode($events);
                     '<p>Thank you,</p>' +
                     '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
                     '<p>Rookwood Commons Shopping Center</p>' +
-                    '<p>3805 Edwards Rd #100</p>' +
+                    '<p>3805 Edwards Rd 100</p>' +
                     '<p>Cincinnati, OH 45244</p>' +
                     '<p>Phone: 513-351-FACE(3223)</p>' +
                     '<p>Fax: 513-396-8995</p>' +
@@ -866,7 +866,7 @@ $events = json_encode($events);
                     '<p>Thank you,</p>' +
                     '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
                     '<p>Rookwood Commons Shopping Center</p>' +
-                    '<p>3805 Edwards Rd #100</p>' +
+                    '<p>3805 Edwards Rd 100</p>' +
                     '<p>Cincinnati, OH 45244</p>' +
                     '<p>Phone: 513-351-FACE(3223)</p>' +
                     '<p>Fax: 513-396-8995</p>' +

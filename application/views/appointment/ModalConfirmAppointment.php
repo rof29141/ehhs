@@ -66,7 +66,7 @@ require_once(APPPATH."views/includes/header.php");
                             <div class="form-group pull-right">
                                 <button type="button" id="btn_confirm_app" class="btn btn-success">Confirm Appointment</button>
 
-                                <input name="hdn_ical_addr" type="hidden" value="<?php echo '3805 Edwards Rd #100 Cincinnati, OH 45244';?>"/>
+                                <input name="hdn_ical_addr" type="hidden" value="<?php echo '3805 Edwards Rd 100 Cincinnati, OH 45244';?>"/>
                                 <input name="hdn_ical_title" type="hidden" value="<?php echo $APT_Title;?>"/>
                                 <input name="hdn_bd_user_email" type="hidden" value="<?php echo $bd_user_email;?>"/>
                                 <input name="hdn_ical_date" type="hidden" value="<?php echo $APT_Date;?>"/>
@@ -119,7 +119,7 @@ require_once(APPPATH."views/includes/header.php");
                 '<p>Thank you,</p>' +
                 '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
                 '<p>Rookwood Commons Shopping Center</p>' +
-                '<p>3805 Edwards Rd #100</p>' +
+                '<p>3805 Edwards Rd 100</p>' +
                 '<p>Cincinnati, OH 45244</p>' +
                 '<p>Phone: 513-351-FACE(3223)</p>' +
                 '<p>Fax: 513-396-8995</p>' +
