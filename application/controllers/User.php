@@ -60,4 +60,25 @@ class User extends CI_Controller
             echo 1;
         }
     }
+
+    function GoPersonalInfo($msg="", $success="", $warning="", $error="")
+    {
+        $data['msg']=$msg;
+        $data['success']=$success;
+        $data['warning']=$warning;
+        $data['error']=$error;
+
+        if($this->session->userdata('logged_user_acs'))
+        {
+            $session_data = $this->session->userdata('logged_user_acs');
+
+            $data['id'] = $session_data['id'];
+            $data['user_name'] = $session_data['user_name'];
+            $data['bd_FirstName'] = $session_data['bd_FirstName'];
+            $data['bd_LastName'] = $session_data['bd_LastName'];
+            $data['email'] = $session_data['email'];
+            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
+        }
+        $this->load->view('user/PersonalInfo', $data);
+    }
 }

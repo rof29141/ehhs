@@ -225,7 +225,7 @@ Class M_Main extends CI_Model
                 }
             }
 
-            $data['data'] = $record;//echo json_encode($data);//.' layout: '.$layout. ' id: '.$datas['id'].'  ';//die();
+            $data['data'] = $record;echo json_encode($data);//.' layout: '.$layout. ' id: '.$datas['id'].'  ';//die();
 
             $result = $this->fm->editRecord($datas['id'], $data, $layout);//var_dump($result);
             $return['error']=$this->error($result);
