@@ -10,6 +10,13 @@ class Authentication extends CI_Controller
 
     function index($msg='', $success='', $warning='', $error='')
     {
+        if($this->session->userdata('logged_token'))
+        {
+            $sess_array = $this->session->userdata('logged_token');
+
+            $token = $sess_array['token'];
+            if($token=='')$error='We have a problem with the connection to the server. '.$error;
+        }
         $data['msg']=$msg;
         $data['success']=$success;
         $data['warning']=$warning;

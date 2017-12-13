@@ -33,7 +33,7 @@ Class Auth extends CI_Model
         $query = array ($request1);
         $criteria['query'] = $query;
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);die();
+        $result = $this->fm->findRecords($criteria, $layout);echo json_encode($criteria);var_dump($result);//die();
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -62,11 +62,11 @@ Class Auth extends CI_Model
     {
         $layout='PHP_Patients';
 
-        $request1['bd_user_email'] = '"'.$email.'"';
+        $request1['bd_user_email'] = '=='.$email;
         $query = array ($request1);
-        $criteria['query'] = $query;//echo json_encode($criteria);
+        $criteria['query'] = $query;echo json_encode($criteria);
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $layout);var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
