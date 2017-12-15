@@ -315,5 +315,10 @@ Class M_Main extends CI_Model
 
         return $return;
     }
+
+    function Logout()
+    {
+        $this->fm->logout();
+    }
 }
 ?>

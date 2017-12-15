@@ -51,6 +51,8 @@ class Dashboard extends CI_Controller
 
         $events[] = '[]';
         $error='';
+        $old_start = array();
+        $old_end = array();
         date_default_timezone_set('America/New_York');
 
         $id_service = $_POST['id_service'];
@@ -62,48 +64,48 @@ class Dashboard extends CI_Controller
         {
             for ($s = 0; $s < sizeof($setting['data']); $s++)
             {
-                $weeks_day=7;
-                $number_ServiceStartingDate=0;
+                $parameters['weeks_day']=7;
+                $parameters['number_ServiceStartingDate']=0;
 
-                $setting_id = $setting['data'][$s]['__kp_PRIMARY_KEY'];//id of setting
-                $weeks = $setting['data'][$s]['QtyWeeksRepeat'];//qty of week is posible to make an appointment
-                $unit_time = $setting['data'][$s]['UnitTime'];//qty of units of 15 minutes
-                $hr_start = $setting['data'][$s]['HrStart'];//start time, always should be 1 minute less
-                $hr_end = $setting['data'][$s]['HrEnd'];//end time
-                $app_days = $setting['data'][$s]['AppDays'];//days of the appointment
-                $ServiceStartingDate = $setting['data'][$s]['ServiceStartingDate'];//when the service start
-                $ServiceEndingDate = $setting['data'][$s]['ServiceEndingDate'];//when the service end
-                $RepeatEveryWeeks = $setting['data'][$s]['RepeatEveryWeeks'];//the service is or not in alternative weeks
+                $parameters['setting_id'] = $setting['data'][$s]['__kp_PRIMARY_KEY'];//id of setting
+                $parameters['weeks'] = $setting['data'][$s]['QtyWeeksRepeat'];//qty of week is posible to make an appointment
+                $parameters['unit_time'] = $setting['data'][$s]['UnitTime'];//qty of units of 15 minutes
+                $parameters['hr_start'] = $setting['data'][$s]['HrStart'];//start time, always should be 1 minute less
+                $parameters['hr_end'] = $setting['data'][$s]['HrEnd'];//end time
+                $parameters['app_days'] = $setting['data'][$s]['AppDays'];//days of the appointment
+                $parameters['ServiceStartingDate'] = $setting['data'][$s]['ServiceStartingDate'];//when the service start
+                $parameters['ServiceEndingDate'] = $setting['data'][$s]['ServiceEndingDate'];//when the service end
+                $parameters['RepeatEveryWeeks'] = $setting['data'][$s]['RepeatEveryWeeks'];//the service is or not in alternative weeks
                 $all_appointments = $this->M_Dashboard->GetAppointment(date("m/d/Y"), $id_doctor);
 
-                if($ServiceStartingDate!='')
+                if($parameters['ServiceStartingDate']!='')
                 {
-                    if(new DateTime($ServiceStartingDate)<new DateTime(date("m/d/Y")))
+                    if(new DateTime($parameters['ServiceStartingDate'])<new DateTime(date("m/d/Y")))
                     {
-                        $ServiceStartingDate=date("m/d/Y");
+                        $parameters['ServiceStartingDate']=date("m/d/Y");
                     }
 
-                    $timestamp_ServiceStartingDate = strtotime($ServiceStartingDate);
-                    $number_ServiceStartingDate = date('w', $timestamp_ServiceStartingDate)+1;
+                    $timestamp_ServiceStartingDate = strtotime($parameters['ServiceStartingDate']);
+                    $parameters['number_ServiceStartingDate'] = date('w', $timestamp_ServiceStartingDate)+1;
                 }
 
-                //print $weeks.$unit_time.$hr_start.$hr_end.$app_days!='';
-                if($weeks!='' && $unit_time!='' && $hr_start!='' && $hr_end!='' && $app_days!='')
+                //print $parameters['weeks'].$parameters['unit_time'].$parameters['hr_start'].$parameters['hr_end'].$parameters['app_days']!='';
+                if($parameters['weeks']!='' && $parameters['unit_time']!='' && $parameters['hr_start']!='' && $parameters['hr_end']!='' && $parameters['app_days']!='')
                 {
 
-                    $var = explode(",", $app_days);
+                    $var = explode(",", $parameters['app_days']);
                     $data['last_day'] = end($var);
                     reset($var);
 
-                    $start_same_week=0;
+                    $parameters['start_same_week']=0;
                     if (sizeof($var) != 0)
                     {
                         for ($i = 0; $i < sizeof($var); next($var), $i++)
                         {
-                            $app_day = current($var);
-                            if($number_ServiceStartingDate<=$app_day)
+                            $parameters['app_day'] = current($var);
+                            if($parameters['number_ServiceStartingDate']<=$parameters['app_day'])
                             {
-                                $start_same_week=1;
+                                $parameters['start_same_week']=1;
                             }
                         }
                     }
@@ -113,222 +115,156 @@ class Dashboard extends CI_Controller
                     {
                         for ($i = 0; $i < sizeof($var); next($var), $i++)
                         {
-                            $app_day = current($var);
+                            $parameters['app_day'] = current($var);
 
-                            if ($app_day == 1) $str_day = 'sunday';
-                            if ($app_day == 2) $str_day = 'monday';
-                            if ($app_day == 3) $str_day = 'tuesday';
-                            if ($app_day == 4) $str_day = 'wednesday';
-                            if ($app_day == 5) $str_day = 'thursday';
-                            if ($app_day == 6) $str_day = 'friday';
-                            if ($app_day == 7) $str_day = 'saturday';
-
-                            //print '  $start_same_week: '.$start_same_week.'  $number_ServiceStartingDate: '.$number_ServiceStartingDate.'  $app_day: '.$app_day;//.'  $today: '.$today;
-
-                            if($start_same_week==1 && $number_ServiceStartingDate<$app_day)//if $start_same_week==1 the event start in the same week and if the CURRENT appointment day is > $number_ServiceStartingDate
-                            {
-                                $next = date("Y-m-d", strtotime('next '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//print 'next: '.$next.' ';
-                            }
-                            elseif($start_same_week==1 && $number_ServiceStartingDate==$app_day)//if $start_same_week==1 the event start in the same week and if the CURRENT appointment day is > $number_ServiceStartingDate
-                            {
-                                $next = date("Y-m-d", strtotime($ServiceStartingDate));
-                                //$next = 'no';
-                            }
-                            elseif($start_same_week==1 && $number_ServiceStartingDate==$app_day)//if $start_same_week==1 the event start in the same week and if the CURRENT appointment day is > $number_ServiceStartingDate
-                            {
-                                $next = date("Y-m-d", strtotime($ServiceStartingDate));
-                            }
-                            elseif($start_same_week==1 && $number_ServiceStartingDate>$app_day)
-                            {
-                                $next = date("Y-m-d", strtotime('last '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//print 'last: '.$next.' ';
-                            }
-                            elseif($start_same_week==0)
-                            {
-                                $next = date("Y-m-d", strtotime('next '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//print 'next: '.$next.' ';
-                            }
-
-                            //print $next;
+                            $next=$this->GetNextDay($parameters); //print $next;
 
                             $minutes = 0;
-                            //$app_time = 10 * $unit_time;
-                            $app_time = $unit_time;//print $app_time;
-                            $spaces = floor(1440 / $unit_time);
-                            $color_available = '#009933';
-                            $color_not_available = '#ffff66';
-                            $text_color_not_available = '#000';
-                            $text_color_available = '#fff';
-                            $title_available = ' Available';
-                            $title_not_available = ' Not Available';
+                            //$parameters['app_time'] = 10 * $parameters['unit_time'];
+                            $parameters['app_time'] = $parameters['unit_time'];//print $parameters['app_time'];
+                            $parameters['spaces'] = floor(1440 / $parameters['unit_time']);
+                            $parameters['color_available'] = '#009933';
+                            $parameters['color_not_available'] = '#ffff66';
+                            $parameters['text_color_not_available'] = '#000';
+                            $parameters['text_color_available'] = '#fff';
+                            $parameters['title_available'] = ' Available';
+                            $parameters['title_not_available'] = ' Not Available';
 
-                            for ($d = 0; $d < $weeks; $d++)
+                            for ($d = 0; $d < $parameters['weeks']; $d++)
                             {
-                                if ($RepeatEveryWeeks != '')
-                                    $weeks_day = $RepeatEveryWeeks * 7;
+                                if ($parameters['RepeatEveryWeeks'] != '')
+                                    $parameters['weeks_day'] = $parameters['RepeatEveryWeeks'] * 7;
 
-                                $week = $d * $weeks_day;
-                                $day = $this->GiveDate($next, $week);
+                                $week = $d * $parameters['weeks_day'];
+                                $parameters['day'] = $this->GiveDate($next, $week);
 
-                                if(1)//$day!=date('Y-m-d')
+
+                                $exist_availables = $this->ExistEventsBetweenTimes($parameters['ServiceStartingDate'], $parameters['ServiceEndingDate'], $parameters['day']);
+
+                                if ($exist_availables == 1)
                                 {
-                                    $exist_availables = $this->ExistEventsBetweenTimes($ServiceStartingDate, $ServiceEndingDate, $day);
 
-                                    if ($exist_availables == 1)
+                                    $appointment=$this->FillAppointments($all_appointments, $parameters);
+
+                                    $parameters['event_start_day'] = $parameters['day'] . ' ' . $parameters['hr_start'];
+                                    $parameters['event_end'] = $parameters['day'] . ' ' . $parameters['hr_start'];//if the day doesn't have an appointment in the 3th cicle (for) the events will be filled starting at the beginning of the day
+                                    $parameters['event_end_period'] = $parameters['day'] . ' ' . $parameters['hr_end'];
+                                    $parameters['event_start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($parameters['event_start_day'])));
+
+                                    if (isset($appointment['data'][0]['APT_Date']))//search if exist an appointment in this date and time
                                     {
-                                        //print json_encode($all_appointments).'     ';//die();
+                                        $parameters['real_appointment_start_first'] = date("Y-m-d", strtotime($appointment['data'][0]['APT_Date'])) . ' ' . $appointment['data'][0]['APT_Time'];
 
-                                        $app_today = 0;
-                                        $appointment['data']='';
+                                        $events[]=$this->FirstCicle($parameters);
 
-                                        if (isset($all_appointments['data'][0]['APT_Date']))
+                                        for ($a = 0; $a < sizeof($appointment['data']); $a++)
                                         {
-                                            for ($app = 0; $app < sizeof($all_appointments['data']); $app++)
+                                            $real_appointment_title = $appointment['data'][$a]['APT_Title'];
+
+                                            $real_appointment_start = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_Time'];
+                                            $real_appointment_end = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_TimeEnd'];
+
+                                            $client_rec = $appointment['data'][$a]['_zfk_ClientRec'];
+                                            $TokenConfirmApp = $appointment['data'][$a]['TokenConfirmApp'];
+
+                                            //
+
+                                            if($parameters['event_end']!='')//if(substr($parameters['event_end'],0,10) == '2017-12-20')
                                             {
-                                                if (isset($all_appointments['data'][$app]['APT_Date']))
+                                                $date1 = new DateTime($parameters['event_end']);
+                                                $date2 = new DateTime($real_appointment_start);
+                                                $diff = $date1->diff($date2);
+                                                $minutes = $diff->h * 60 + $diff->i - 1;
+
+                                                if ($minutes >= $parameters['app_time'])
                                                 {
-                                                    if (date("m/d/Y", strtotime($day)) == $all_appointments['data'][$app]['APT_Date'] && $all_appointments['data'][$app]['APT_Time'] >= $hr_start && $all_appointments['data'][$app]['APT_TimeEnd'] <= $hr_end)
-                                                    {
-                                                        $appointment['data'][$app_today] = $all_appointments['data'][$app];
-                                                        $app_today++;
-                                                    }
-                                                }
-                                            }
-                                        } else
-                                        {
-                                            $appointment['data'][$app_today] = '';
-                                        }
+                                                    //print $minutes.' < '.$parameters['hr_end'].'<br>';
 
-                                        $event_start_day = $day . ' ' . $hr_start;
-                                        $event_end = $day . ' ' . $hr_start;//if the day doesn't have an appointment in the 3th cicle (for) the events will be filled starting at the beginning of the day
-                                        $event_end_period = $day . ' ' . $hr_end;
-                                        $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_start_day)));
-
-                                        if (isset($appointment['data'][0]['APT_Date']))//search if exist an appointment in this date and time
-                                        {
-                                            $real_appointment_start_first = date("Y-m-d", strtotime($appointment['data'][0]['APT_Date'])) . ' ' . $appointment['data'][0]['APT_Time'];
-
-                                            for ($e = 0; $e < $spaces; $e++)//1st cicle
-                                            {
-                                                //$event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_start)));
-
-
-                                                $event_start=date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
-                                                $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minutes', strtotime($event_end)));
-
-                                                //print $event_end. '<' .$real_appointment_start_first.'<br>';
-                                                if ($event_end < $real_appointment_start_first)
-                                                {
-                                                    if(new DateTime($event_start)>new DateTime(date("Y-m-d H:i:s")))
-                                                    {
-                                                        $event['id'] = rand(1, 999999999999999);
-                                                        $event['title'] = $title_available;
-                                                        $event['start'] = $event_start;
-                                                        $event['end'] = $event_end;
-                                                        $event['color'] = $color_available;
-                                                        $event['textColor'] = $text_color_available;
-                                                        $event['setting_id'] = $setting_id;
-                                                        $event['confirm'] = 0;
-                                                        $events[] = $event;
-                                                    }
-                                                } else
-                                                {
-                                                    break;
-                                                }
-                                            }
-
-                                            for ($a = 0; $a < sizeof($appointment['data']); $a++)
-                                            {
-                                                $real_appointment_title = $appointment['data'][$a]['APT_Title'];
-
-                                                $real_appointment_start = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_Time'];
-                                                $real_appointment_end = date("Y-m-d", strtotime($appointment['data'][$a]['APT_Date'])) . ' ' . $appointment['data'][$a]['APT_TimeEnd'];
-
-                                                $client_rec = $appointment['data'][$a]['_zfk_ClientRec'];
-                                                $TokenConfirmApp = $appointment['data'][$a]['TokenConfirmApp'];
-
-                                                if ($event_end != '')
-                                                {
-                                                    $date1 = new DateTime($event_end);
-                                                    $date2 = new DateTime($real_appointment_start);
-                                                    $diff = $date1->diff($date2);
-                                                    $minutes = $diff->h * 60 + $diff->i - 1;
-                                                    //print 'real_appointment_start: '.$real_appointment_start.' = '.$event_end.'   minutes: '.$minutes. '  <br><br>';
-                                                }
-
-                                                if ($minutes >= $app_time)
-                                                {
-                                                    $cant_hold = floor($minutes / $app_time);
-                                                    //print '$cant_hold: ' . $cant_hold . ' = ' . $minutes . ' / ' . $app_time . ' <br>';
+                                                    $cant_hold = floor($minutes / $parameters['app_time']);
+                                                    //print '$cant_hold: ' . $cant_hold . ' = ' . $minutes . ' / ' . $parameters['app_time'] . ' <br>';
 
                                                     for ($h = 0; $h < $cant_hold; $h++)//search if exist an appointment in this date and time
                                                     {
-                                                        $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
-                                                        $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minutes', strtotime($event_end)));
+                                                        $parameters['event_start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($parameters['event_end'])));
+                                                        $parameters['event_end'] = date("Y-m-d H:i:s", strtotime('+' . $parameters['app_time'] . ' minutes', strtotime($parameters['event_end'])));
 
-                                                        $event['id'] = rand(1,999999999999999);
-                                                        $event['title'] = $title_available;;
-                                                        $event['start'] = $event_start;
-                                                        $event['end'] = $event_end;
-                                                        $event['color'] = $color_available;
-                                                        $event['textColor'] = $text_color_available;
-                                                        $event['setting_id'] = $setting_id;
-                                                        $event['confirm'] = 0;
-                                                        $events[] = $event;
-                                                        //print $event_start . ' = ' . $event_end . '    ' . $event['title'] . ' <br><br>';
+                                                        //print substr($parameters['event_end'],11).' < '.$parameters['hr_end'].'<br>';
+
+                                                        if(!in_array($parameters['event_start'], $old_start) && !in_array($parameters['event_end'], $old_end) && substr($parameters['event_end'],11) < $parameters['hr_end'])
+                                                        {
+                                                            array_push($old_start, $parameters['event_start']);
+                                                            array_push($old_end, $parameters['event_end']);
+
+                                                            $event['id'] = rand(1, 999999999999999);
+                                                            $event['title'] = $parameters['title_available'];;
+                                                            $event['start'] = $parameters['event_start'];
+                                                            $event['end'] = $parameters['event_end'];
+                                                            $event['color'] = $parameters['color_available'];
+                                                            $event['textColor'] = $parameters['text_color_available'];
+                                                            $event['setting_id'] = $parameters['setting_id'];
+                                                            $event['confirm'] = 0;
+                                                            $events[] = $event;
+                                                            //print substr($parameters['event_start'],0,10);
+                                                        }
                                                     }
                                                 }
-
-                                                $event_start = $real_appointment_start;
-                                                $event_end = $real_appointment_end;
-
-                                                $event['id'] = rand(1,999999999999999);
-                                                $event['title'] = $real_appointment_title;
-                                                $event['start'] = $event_start;
-                                                $event['end'] = $event_end;
-                                                $event['color'] = $color_not_available;
-                                                $event['textColor'] = $text_color_not_available;
-                                                $event['setting_id'] = $setting_id;
-                                                if($TokenConfirmApp!='')
-                                                $event['confirm'] = 'text-danger';
-                                                else
-                                                    $event['confirm'] = 'text-success';
-                                                if($client_rec==$__zkp_Client_Rec)
-                                                $events[] = $event;//--------------------------events unavailables--------------------------
                                             }
-                                        }
 
-                                        for ($e = 0; $e < $spaces; $e++)
+                                            $parameters['event_start'] = $real_appointment_start;
+                                            $parameters['event_end'] = $real_appointment_end;
+
+                                            $event['id'] = rand(1,999999999999999);
+                                            $event['title'] = $real_appointment_title;
+                                            $event['start'] = $parameters['event_start'];
+                                            $event['end'] = $parameters['event_end'];
+                                            $event['color'] = $parameters['color_not_available'];
+                                            $event['textColor'] = $parameters['text_color_not_available'];
+                                            $event['setting_id'] = $parameters['setting_id'];
+                                            if($TokenConfirmApp!='')
+                                            $event['confirm'] = 'text-danger';
+                                            else
+                                                $event['confirm'] = 'text-success';
+                                            if($client_rec==$__zkp_Client_Rec)
+                                            $events[] = $event;//--------------------------events unavailables--------------------------
+                                            //if (substr($parameters['event_start'], 0, 10) == '2017-12-20') print $parameters['event_start'] . ' = ' . $parameters['event_end'] . '    ' . $event['title'] . ' <br><br>';
+                                        }
+                                    }
+
+                                    for ($e = 0; $e < $parameters['spaces']; $e++)
+                                    {
+                                        $parameters['event_start'] = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($parameters['event_end'])));
+                                        $parameters['event_end'] = date("Y-m-d H:i:s", strtotime('+' . $parameters['app_time'] . ' minute', strtotime($parameters['event_end'])));
+
+                                        //print $parameters['event_end'].' - '.$parameters['event_end_period'].'<br>';
+                                        if ($parameters['event_end'] < $parameters['event_end_period'])
                                         {
-                                            $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
-                                            $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_end)));
 
-                                            //print $event_start.' - '.$event_end.'<br>';
-                                            if ($event_end < $event_end_period)
+                                            //print $parameters['event_start'].' - '.date("Y-m-d H:i:s").'<br>';
+                                            if(new DateTime($parameters['event_start'])>new DateTime(date("Y-m-d H:i:s")))
                                             {
-                                                if(new DateTime($event_start)>new DateTime(date("Y-m-d H:i:s")))
-                                                {
-                                                    //print $event_start . ' > ' . date("Y-m-d H:i:s") . '<br>';
+                                                //print $parameters['event_start'] . ' > ' . date("Y-m-d H:i:s") . '<br>';
 
-                                                    //print $event_end . ' < ' . $event_end_period;
-                                                    $event['id'] = rand(1, 999999999999999);
-                                                    $event['title'] = $title_available;
-                                                    $event['start'] = $event_start;
-                                                    $event['end'] = $event_end;
-                                                    $event['color'] = $color_available;
-                                                    $event['textColor'] = $text_color_available;
-                                                    $event['setting_id'] = $setting_id;
-                                                    $event['confirm'] = 0;
-                                                    $events[] = $event;
-                                                }
-                                            } else
-                                                break;
-                                        }
-                                    }//if from ServiceStartingDate
+                                                //print $parameters['event_end'] . ' < ' . $parameters['event_end_period'];
+                                                $event['id'] = rand(1, 999999999999999);
+                                                $event['title'] = $parameters['title_available'];
+                                                $event['start'] = $parameters['event_start'];
+                                                $event['end'] = $parameters['event_end'];
+                                                $event['color'] = $parameters['color_available'];
+                                                $event['textColor'] = $parameters['text_color_available'];
+                                                $event['setting_id'] = $parameters['setting_id'];
+                                                $event['confirm'] = 0;
+                                                $events[] = $event;
+                                            }
+                                        } else
+                                            break;
+                                    }
+                                }//if from ServiceStartingDate
 
-                                }//if from next
+
 
                             }//for from weeks
 
-                        }//for from $app_days
+                        }//for from $parameters['app_days']
 
                     }//if have something
                     else
@@ -370,6 +306,107 @@ class Dashboard extends CI_Controller
             $exist_availables = 1;
 
         return $exist_availables;
+    }
+
+    function GetNextDay($parameters)
+    {
+        if ($parameters['app_day'] == 1) $parameters['str_day'] = 'sunday';
+        if ($parameters['app_day'] == 2) $parameters['str_day'] = 'monday';
+        if ($parameters['app_day'] == 3) $parameters['str_day'] = 'tuesday';
+        if ($parameters['app_day'] == 4) $parameters['str_day'] = 'wednesday';
+        if ($parameters['app_day'] == 5) $parameters['str_day'] = 'thursday';
+        if ($parameters['app_day'] == 6) $parameters['str_day'] = 'friday';
+        if ($parameters['app_day'] == 7) $parameters['str_day'] = 'saturday';
+
+        //print '  $parameters['start_same_week']: '.$parameters['start_same_week'].'  $parameters['number_ServiceStartingDate']: '.$parameters['number_ServiceStartingDate'].'  $parameters['app_day']: '.$parameters['app_day'];//.'  $today: '.$today;
+
+        if($parameters['start_same_week']==1 && $parameters['number_ServiceStartingDate']<$parameters['app_day'])//if $parameters['start_same_week']==1 the event start in the same week and if the CURRENT appointment day is > $parameters['number_ServiceStartingDate']
+        {
+            $next = date("Y-m-d", strtotime('next '.$parameters['str_day'].' '.date("Y-m-d", strtotime($parameters['ServiceStartingDate']))));//print 'next: '.$next.' ';
+        }
+        elseif($parameters['start_same_week']==1 && $parameters['number_ServiceStartingDate']==$parameters['app_day'])//if $parameters['start_same_week']==1 the event start in the same week and if the CURRENT appointment day is > $parameters['number_ServiceStartingDate']
+        {
+            $next = date("Y-m-d", strtotime($parameters['ServiceStartingDate']));
+            //$next = 'no';
+        }
+        elseif($parameters['start_same_week']==1 && $parameters['number_ServiceStartingDate']==$parameters['app_day'])//if $parameters['start_same_week']==1 the event start in the same week and if the CURRENT appointment day is > $parameters['number_ServiceStartingDate']
+        {
+            $next = date("Y-m-d", strtotime($parameters['ServiceStartingDate']));
+        }
+        elseif($parameters['start_same_week']==1 && $parameters['number_ServiceStartingDate']>$parameters['app_day'])
+        {
+            $next = date("Y-m-d", strtotime('last '.$parameters['str_day'].' '.date("Y-m-d", strtotime($parameters['ServiceStartingDate']))));//print 'last: '.$next.' ';
+        }
+        elseif($parameters['start_same_week']==0)
+        {
+            $next = date("Y-m-d", strtotime('next '.$parameters['str_day'].' '.date("Y-m-d", strtotime($parameters['ServiceStartingDate']))));//print 'next: '.$next.' ';
+        }
+
+        return $next;
+    }
+
+    function FillAppointments($all_appointments, $parameters)
+    {
+        $app_today = 0;
+        $appointment['data']='';
+
+        if (isset($all_appointments['data'][0]['APT_Date']))
+        {
+            for ($app = 0; $app < sizeof($all_appointments['data']); $app++)
+            {
+                if (isset($all_appointments['data'][$app]['APT_Date']))
+                {
+                    //if ($all_appointments['data'][$app]['APT_Date'].' - '.$all_appointments['data'][$app]['APT_Time'] == '12/20/2017 - 17:01:00')print $all_appointments['data'][$app]['APT_Date'].' - '.$all_appointments['data'][$app]['APT_Time'].'<br>';
+
+                    if (date("m/d/Y", strtotime($parameters['day'])) == $all_appointments['data'][$app]['APT_Date'] && $all_appointments['data'][$app]['APT_Time'] >= $parameters['hr_start'] && $all_appointments['data'][$app]['APT_TimeEnd'] <= $parameters['hr_end'])
+                    {
+                        $appointment['data'][$app_today] = $all_appointments['data'][$app];
+                        $app_today++;
+                    }
+                }
+            }
+        } else
+        {
+            $appointment['data'][$app_today] = '';
+        }
+
+        return $appointment;
+    }
+
+    function FirstCicle($parameters)
+    {
+        $events=array();
+
+        for ($e = 0; $e < $parameters['spaces']; $e++)//1st cicle
+        {
+            //$parameters['event_end'] = date("Y-m-d H:i:s", strtotime('+' . $parameters['app_time'] . ' minute', strtotime($parameters['event_start'])));
+            $parameters['event_start']=date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($parameters['event_end'])));
+            $parameters['event_end'] = date("Y-m-d H:i:s", strtotime('+' . $parameters['app_time'] . ' minutes', strtotime($parameters['event_end'])));
+
+            //print $parameters['event_end']. '<' .$parameters['real_appointment_start_first'].'<br>';
+            if ($parameters['event_end'] < $parameters['real_appointment_start_first'])
+            {
+                if(new DateTime($parameters['event_start'])>new DateTime(date("Y-m-d H:i:s")))
+                {
+                    //print 'event_start: '.$parameters['event_start'].'<br>';
+
+                    $event['id'] = rand(1, 999999999999999);
+                    $event['title'] = $parameters['title_available'];
+                    $event['start'] = $parameters['event_start'];
+                    $event['end'] = $parameters['event_end'];
+                    $event['color'] = $parameters['color_available'];
+                    $event['textColor'] = $parameters['text_color_available'];
+                    $event['setting_id'] = $parameters['setting_id'];
+                    $event['confirm'] = 0;
+                    $events[] = $event;
+                }
+            } else
+            {
+                break;
+            }
+        }
+
+        return $events;
     }
 
     function ConfirmApp()

@@ -206,7 +206,7 @@ class MacTutorREST extends CI_Model
 		return $result; //error
 	}	
 	
-	function logout ()
+	function logout()
 	{
         $session_data = $this->session->userdata('logged_token');
         $token = $session_data['token'];

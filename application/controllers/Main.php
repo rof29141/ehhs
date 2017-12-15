@@ -39,10 +39,10 @@ class Main extends CI_Controller
 
     function Logout()
     {
-        if($this->session->userdata('logged_user_acs')) {
-
+        if($this->session->userdata('logged_user_acs'))
+        {
+            $this->M_Main->Logout();
             $this->session->unset_userdata('logged_user_acs');
-            $this->session->unset_userdata('logged_token');
         }
 
         redirect('Authentication');

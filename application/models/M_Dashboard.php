@@ -30,9 +30,12 @@ Class M_Dashboard extends CI_Model
         $layout='PHP_Appointment';
         $request1['ProviderRec'] = $id_doctor;
         $request1['CancelWeb'] = '=';
+        $request1['APT_Date'] = '*';
+        $request1['APT_Time'] = '*';
+        $request1['APT_TimeEnd'] = '*';
 
         //$request1['APT_Date'] = '>='.$next;
-        $request1['mt_TimestampStartCal'] = '>='.date("m/d/Y H:i:s");
+        $request1['z_sc_TimestampStartCalc'] = '>='.date("m/d/Y H:i:s");
         //$request1['APT_TimeEnd'] = '<='.$hr_end_day;
         $query = array ($request1);
         $criteria['query'] = $query;
