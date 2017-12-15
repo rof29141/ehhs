@@ -29,7 +29,7 @@ Class M_Main extends CI_Model
     {
         $layout='PHP_Doctors';
 
-        $request1['FirstName'] = "*";//echo $data['id'];
+        $request1['FirstName'] = "*";//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -40,7 +40,7 @@ Class M_Main extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['_zpk_Staff_Rec'] = $result["data"][$i]["fieldData"]["_zpk_Staff_Rec"];
                 $field['FirstName'] = $result["data"][$i]["fieldData"]["FirstName"];
@@ -61,7 +61,7 @@ Class M_Main extends CI_Model
     {
         $layout='PHP_Service';
 
-        $request1['Service'] = "*";//echo $data['id'];
+        $request1['Service'] = "*";//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -79,7 +79,7 @@ Class M_Main extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_SERVICE_ID"];
                 $field['Service'] = $result["data"][$i]["fieldData"]["Service"];
@@ -100,7 +100,7 @@ Class M_Main extends CI_Model
     {
         $layout='PHP_Doctors';
 
-        $request1['_zpk_Staff_Rec'] = $id_doctor;//echo $data['id'];
+        $request1['_zpk_Staff_Rec'] = $id_doctor;//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -111,7 +111,7 @@ Class M_Main extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['_zpk_Staff_Rec'] = $result["data"][$i]["fieldData"]["_zpk_Staff_Rec"];
                 $field['FirstName'] = $result["data"][$i]["fieldData"]["FirstName"];
@@ -132,7 +132,7 @@ Class M_Main extends CI_Model
     {
         $layout='PHP_Service';
 
-        $request1['__kp_SERVICE_ID'] = $id_service;//echo $data['id'];
+        $request1['__kp_SERVICE_ID'] = $id_service;//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -143,7 +143,7 @@ Class M_Main extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_SERVICE_ID"];
                 $field['Service'] = $result["data"][$i]["fieldData"]["Service"];
@@ -164,7 +164,7 @@ Class M_Main extends CI_Model
         $array_dist=array();
         $layout='PHP_Service_Doctor';
 
-        $request1['_kf_ServiceID'] = '=='.$id_service;//echo $data['id'];
+        $request1['_kf_ServiceID'] = '=='.$id_service;//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
@@ -175,7 +175,7 @@ Class M_Main extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 if(!in_array($result["data"][$i]["fieldData"]["_kf_DoctorID"], $array_dist))
                 {
@@ -206,11 +206,11 @@ Class M_Main extends CI_Model
             {
                 if($field!='id'){
                     $record[$field] = $datas[$field];
-                    //echo $field.' = '.$record[$field].'   ';
+                    //print $field.' = '.$record[$field].'   ';
                 }
             }
 
-            $data['data'] = $record;//echo json_encode($data);
+            $data['data'] = $record;//print json_encode($data);
 
             $result = $this->fm->createRecord($data, $layout);//var_dump($result);
             $return['error']=$this->error($result);
@@ -225,7 +225,7 @@ Class M_Main extends CI_Model
                 }
             }
 
-            $data['data'] = $record;echo json_encode($data);//.' layout: '.$layout. ' id: '.$datas['id'].'  ';//die();
+            $data['data'] = $record;//print json_encode($data);//.' layout: '.$layout. ' id: '.$datas['id'].'  ';//die();
 
             $result = $this->fm->editRecord($datas['id'], $data, $layout);//var_dump($result);
             $return['error']=$this->error($result);
@@ -240,9 +240,9 @@ Class M_Main extends CI_Model
             $errors=0;
             $var = explode("-",$datas['ids']);
 
-            if(count($var) != 0)
+            if(sizeof($var) != 0)
             {
-                for ($i = 0; $i < count($var); next($var), $i++)
+                for ($i = 0; $i < sizeof($var); next($var), $i++)
                 {
                     $id = current($var);//print $id.' - ';
 
@@ -277,7 +277,7 @@ Class M_Main extends CI_Model
         }
 
         if($type=='S')
-        {//echo 'criterio'.$data['criteria'];//die();
+        {//print 'criterio'.$data['criteria'];//die();
             $compoundFind =& $fm->newCompoundFindCommand($layout);
             $findreq1 =& $fm->newFindRequest($layout);
             $findreq1->addFindCriterion("name", $data['criteria']);

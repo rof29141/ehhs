@@ -26,53 +26,53 @@ require_once(APPPATH."views/includes/header.php");
 
                             <div class="form-group">
                                 <label>Patient</label>
-                                <input type="text" name="txt_patient" id="txt_patient" class="form-control required" readonly value="<?php if(isset($bd_FirstName) && isset($bd_LastName)) echo $bd_FirstName.' '.$bd_LastName;?>" />
+                                <input type="text" name="txt_patient" id="txt_patient" class="form-control required" readonly value="<?php if(isset($bd_FirstName) && isset($bd_LastName)) print $bd_FirstName.' '.$bd_LastName;?>" />
                             </div>
 
                             <div class="form-group">
                                 <label>Title</label>
-                                <input type="text" name="txt_title" id="txt_title" class="form-control required" readonly value="<?php if(isset($APT_Title)) echo $APT_Title;?>" />
+                                <input type="text" name="txt_title" id="txt_title" class="form-control required" readonly value="<?php if(isset($APT_Title)) print $APT_Title;?>" />
                             </div>
 
                             <div class="form-group">
                                 <label>Service</label>
-                                <input type="text" name="txt_service" id="txt_service" class="form-control required" readonly value="<?php if(isset($Service)) echo $Service;?>" />
-                                <input type="hidden" name="txt_app" id="txt_app" value="<?php if(isset($RecordID)) echo $RecordID;?>" />
+                                <input type="text" name="txt_service" id="txt_service" class="form-control required" readonly value="<?php if(isset($Service)) print $Service;?>" />
+                                <input type="hidden" name="txt_app" id="txt_app" value="<?php if(isset($RecordID)) print $RecordID;?>" />
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="form-group">
-                                        <label>Doctor</label>
-                                        <input type="text" name="txt_doctor" id="txt_doctor" class="form-control required" readonly value="<?php if(isset($FirstName)) echo $FirstName.' '.$LastName;?>" />
+                                        <label>Provider</label>
+                                        <input type="text" name="txt_doctor" id="txt_doctor" class="form-control required" readonly value="<?php if(isset($FirstName)) print $FirstName.' '.$LastName;?>" />
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
-                                    <img class="doc_img" src="<?php echo $Photo;?>"/>
+                                    <img class="doc_img" src="<?php print $Photo;?>"/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Date</label>
-                                <input type="text" name="txt_date" id="txt_date" class="form-control required" readonly value="<?php if(isset($APT_Date)) echo $APT_Date;?>" />
+                                <input type="text" name="txt_date" id="txt_date" class="form-control required" readonly value="<?php if(isset($APT_Date)) print $APT_Date;?>" />
                             </div>
 
                             <div class="form-group">
                                 <label>Time</label>
-                                <input type="text" name="txt_start" id="txt_start" class="form-control required" readonly value="<?php if(isset($APT_Time)) echo $APT_Time;?>" />
+                                <input type="text" name="txt_start" id="txt_start" class="form-control required" readonly value="<?php if(isset($APT_Time)) print $APT_Time;?>" />
                             </div>
 
                             <div class="form-group pull-right">
                                 <button type="button" id="btn_confirm_app" class="btn btn-success">Confirm Appointment</button>
 
-                                <input name="hdn_ical_addr" type="hidden" value="<?php echo '3805 Edwards Rd 100 Cincinnati, OH 45244';?>"/>
-                                <input name="hdn_ical_title" type="hidden" value="<?php echo $APT_Title;?>"/>
-                                <input name="hdn_bd_user_email" type="hidden" value="<?php echo $bd_user_email;?>"/>
-                                <input name="hdn_ical_date" type="hidden" value="<?php echo $APT_Date;?>"/>
-                                <input name="hdn_ical_start" type="hidden" value="<?php echo $APT_Date.' '.$APT_Time;?>"/>
-                                <input name="hdn_ical_end" type="hidden" value="<?php echo $APT_Date.' '.$APT_TimeEnd;?>"/>
-                                <input name="hdn_ical_url" type="hidden" value="<?php echo '351face.com';?>"/>
+                                <input name="hdn_ical_addr" type="hidden" value="<?php print '3805 Edwards Rd 100 Cincinnati, OH 45244';?>"/>
+                                <input name="hdn_ical_title" type="hidden" value="<?php print $APT_Title;?>"/>
+                                <input name="hdn_bd_user_email" type="hidden" value="<?php print $bd_user_email;?>"/>
+                                <input name="hdn_ical_date" type="hidden" value="<?php print $APT_Date;?>"/>
+                                <input name="hdn_ical_start" type="hidden" value="<?php print $APT_Date.' '.$APT_Time;?>"/>
+                                <input name="hdn_ical_end" type="hidden" value="<?php print $APT_Date.' '.$APT_TimeEnd;?>"/>
+                                <input name="hdn_ical_url" type="hidden" value="<?php print '351face.com';?>"/>
                             </div>
 
                         </div>
@@ -100,16 +100,16 @@ require_once(APPPATH."views/includes/header.php");
 
         function SendMail()
         {
-            var from_email = "<?php echo $email_from;?>";
-            var from_name = "<?php echo $email_from_name;?>";
-            var email_to = "<?php echo $email;?>";
+            var from_email = "<?php print $email_from;?>";
+            var from_name = "<?php print $email_from_name;?>";
+            var email_to = "<?php print $email;?>";
             var reply_to_email = '';
             var reply_to_name = '';
             var subject = "Appointment Confirmed";
             var attachments = './assets/images/logo.png';
             var link_web = '351face.com';
             var body = '<h1>Appointment Confirmed</h1>' +
-                '<p>The patient <b><?php echo $bd_FirstName." ".$bd_LastName;?></b> has submited an appointment.' +
+                '<p>The patient <b><?php print $bd_FirstName." ".$bd_LastName;?></b> has submited an appointment.' +
                 '<br>' +
                 '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
                 '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +

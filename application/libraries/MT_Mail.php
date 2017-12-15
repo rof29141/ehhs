@@ -19,13 +19,13 @@ class MT_Mail
         $my_instance->email->reply_to($reply_to_email, $reply_to_name);
         $my_instance->email->to($email_to);
         $my_instance->email->subject($subject);
-        //echo $attachments;
+        //print $attachments;
 
         $attachments = explode("&", $attachments);
 
-        if(count($attachments) != 0)
+        if(sizeof($attachments) != 0)
         {
-            for ($i = 0; $i < count($attachments); next($attachments), $i++)
+            for ($i = 0; $i < sizeof($attachments); next($attachments), $i++)
             {
                 $attachment = current($attachments);
 
@@ -34,13 +34,13 @@ class MT_Mail
                 $body = str_replace("img_cid_" . $i, $img_cid, $body);
             }
         }
-        //echo $body;
+        //print $body;
         $my_instance->email->message($body);
 
         if($my_instance->email->send())
             return 'OK';
         else
-            echo $my_instance->email->print_debugger();
+            print $my_instance->email->print_debugger();
         //return 'ERROR';
     }
 }

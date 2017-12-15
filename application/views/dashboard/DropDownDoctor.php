@@ -1,10 +1,10 @@
 <?php if(isset($data['doctor']['data'])){?>
 <label>Provider</label>
-<select class="my_select2_doc" id="sel_doctor" name="sel_doctor" <?php if(isset($data['id_doctor']) && $data['id_doctor']!=''){echo 'disabled';}?>>
+<select class="my_select2_doc" id="sel_doctor" name="sel_doctor" <?php if(isset($data['id_doctor']) && $data['id_doctor']!=''){print 'disabled';}?>>
     <option value="-1"></option>
-    <?php for ($i=0;$i<count($data['doctor']['data']);$i++){?>
-        <option <?php if(isset($data['id_doctor']) && $data['id_doctor']==$data['doctor']['data'][$i]['_kf_DoctorID']){echo 'selected';}?> value="<?php echo $data['doctor']['data'][$i]['_kf_DoctorID'];?>" title="<?php echo $data['doctor']['data'][$i]['Photo'];?>">
-            <?php echo $data['doctor']['data'][$i]['FirstName'].' '.$data['doctor']['data'][$i]['LastName'];?>
+    <?php for ($i=0;$i<sizeof($data['doctor']['data']);$i++){?>
+        <option <?php if(isset($data['id_doctor']) && $data['id_doctor']==$data['doctor']['data'][$i]['_kf_DoctorID']){print 'selected';}?> value="<?php print $data['doctor']['data'][$i]['_kf_DoctorID'];?>" title="<?php print $data['doctor']['data'][$i]['Photo'];?>">
+            <?php print $data['doctor']['data'][$i]['FirstName'].' '.$data['doctor']['data'][$i]['LastName'];?>
         </option>
     <?php }?>
 </select>
@@ -29,7 +29,7 @@
                 '<span>' + data.text + '</span>'
             );
             if(data.title)$('#doc_photo').html('<img class="doc_img" src="'+data.title+'"/>');
-            else $('#doc_photo').html('<img class="doc_img" src="<?php echo base_url('assets/images/male.png');?>"/>');
+            else $('#doc_photo').html('<img class="doc_img" src="<?php print base_url('assets/images/male.png');?>"/>');
             return $result;
         };
 
@@ -52,7 +52,7 @@
 
         $(function ()
         {
-            var id_doctor = "<?php if(isset($data['id_doctor'])) echo $data['id_doctor'];else echo 'NO_DOC'?>";
+            var id_doctor = "<?php if(isset($data['id_doctor'])) print $data['id_doctor'];else print 'NO_DOC'?>";
 
             if (id_doctor != 'NO_DOC')
             {
@@ -87,4 +87,4 @@
     });
 </script>
 
-<?php }else echo 'NOT_DOCTOR';?>
+<?php }else print 'NOT_DOCTOR';?>

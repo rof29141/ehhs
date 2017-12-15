@@ -5,7 +5,7 @@ require_once(APPPATH."views/includes/header.php");
 ini_set('memory_limit', '2048M');
 ?>
 
-<link href="<?php echo base_url('assets/css/application.css') ?>" rel="stylesheet">
+<link href="<?php print base_url('assets/css/application.css') ?>" rel="stylesheet">
 
 <body>
 

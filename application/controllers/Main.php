@@ -42,6 +42,7 @@ class Main extends CI_Controller
         if($this->session->userdata('logged_user_acs')) {
 
             $this->session->unset_userdata('logged_user_acs');
+            $this->session->unset_userdata('logged_token');
         }
 
         redirect('Authentication');
@@ -74,7 +75,7 @@ class Main extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -92,9 +93,9 @@ class Main extends CI_Controller
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
-            if($data_type=='tableCalendarAlerts')
+            if($data_type==='tableCalendarAlerts')
             {}
-            elseif($data_type=='appointment')
+            elseif($data_type==='appointment')
             {
                 $id_service = $_POST['id_service'];
                 $id_doctor = $_POST['id_doctor'];
@@ -118,12 +119,12 @@ class Main extends CI_Controller
                 $result['ReminderContactBy'] = $_POST['ReminderContactBy'];
 
             }
-            elseif($data_type=='dataprofile')
+            elseif($data_type==='dataprofile')
             {
                 $this->load->model('M_User');
                 $result['user']=$this->M_User->GetProfileUser($data);
             }
-            elseif($data_type=='dropdown_doctor')
+            elseif($data_type==='dropdown_doctor')
             {
                 $id_service = $_POST['id_service'];
                 if(isset($_POST['id_doctor']))$result['id_doctor'] = $_POST['id_doctor'];
@@ -133,22 +134,22 @@ class Main extends CI_Controller
 
                 //if($setting['error']=='0')
                 //{
-                    //echo 'errorrrrrr: '.$setting['error'];
+                    //print 'errorrrrrr: '.$setting['error'];
                     $result['doctor'] = $this->M_Main->GetDoctorsByService($id_service);
                 //}
             }
-            elseif($data_type=='datatableListMyAppointment')
+            elseif($data_type==='datatableListMyAppointment')
             {
                 $id_patient = $data['__zkp_Client_Rec'];
                 $this->load->model('M_Appointment');
                 $result['my_appointments']=$this->M_Appointment->GetAllAppointmentByPatient($id_patient);
             }
-            elseif($data_type=='MyAppointments')
+            elseif($data_type==='MyAppointments')
             {
                 $id_patient = $data['__zkp_Client_Rec'];
                 $this->load->model('M_Appointment');
                 $result['my_all_appointments']=$this->M_Appointment->GetNextAppointmentByPatient($id_patient);
-            }elseif($data_type=='dataPersonalInfo')
+            }elseif($data_type==='dataPersonalInfo')
             {
                 $this->load->model('M_User');
                 $result['user']=$this->M_User->GetPersonalInfo($data);
@@ -158,7 +159,7 @@ class Main extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -183,7 +184,7 @@ class Main extends CI_Controller
             $data['go_view'] = $this->input->post('go_view');
             $data['go_back'] = $this->input->post('go_back');
             $data['id'] = $this->input->post('id');
-            //echo $data['go_ahead'];die();
+            //print $data['go_ahead'];die();
             $this->load->view($data['go_view'], $data);
         }
     }
@@ -210,14 +211,14 @@ class Main extends CI_Controller
                 elseif($field_name=='type')
                     $type=$value;
             }
-            //echo $layout;die();
+            //print $layout;die();
 
             $result=$this->M_Main->Execute($type, $fields, $datas, $layout);
-            echo $result['error'];
+            print $result['error'];
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -232,7 +233,7 @@ class Main extends CI_Controller
                 $value = html_escape($value);
                 $datas[$field_name] = $value;
                 $i++;
-                //echo $field_name . "=" . $value;
+                //print $field_name . "=" . $value;
                 //eval($asignacion);
             }
             elseif($field_name=='layout')
@@ -241,7 +242,7 @@ class Main extends CI_Controller
                 $type=$value;
         }
         $result=$this->M_Main->Execute($type, $fields, $datas, $layout);
-        echo $result['error'];
+        print $result['error'];
     }
 
     function DeleteObject()
@@ -251,13 +252,13 @@ class Main extends CI_Controller
             $layouts = $this->input->post('go_layout');
             $data['ids'] = $this->input->post('id');
 
-            //echo 'lays: '.$layouts.' ids: '.$data['ids'].' ctr_function: '.$ctr_function;die();
+            //print 'lays: '.$layouts.' ids: '.$data['ids'].' ctr_function: '.$ctr_function;die();
 
             $var = explode("-", $layouts);
 
-            if(count($var) != 0)
+            if(sizeof($var) != 0)
             {
-                for ($i = 0; $i < count($var); next($var), $i++)
+                for ($i = 0; $i < sizeof($var); next($var), $i++)
                 {
                     $layout = current($var);//print $layout.' - ';die();
 
@@ -265,24 +266,24 @@ class Main extends CI_Controller
                     {
 
                         $result=$this->M_Main->Execute('DELETE', '', $data, $layout);
-                        echo $result['error'];
+                        print $result['error'];
                     }
                     else
                     {
-                        echo '01';
+                        print '01';
                         //$this->index($ctr_function, '','', 'You have to delete something. The ID is empty.');
                     }
                 }
             }
             else
             {
-                echo '02';
+                print '02';
                 //$this->index($ctr_function, '','', 'You have to delete something. The Layout is empty.');
             }
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -302,7 +303,7 @@ class Main extends CI_Controller
 
         $return=$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
 
-        echo $return;
+        print $return;
     }
 
     function Reminder($id_app='')
@@ -314,7 +315,7 @@ class Main extends CI_Controller
 
             $email = $result['appointment']['data'][0]['bd_user_email'];
 
-            $from_email = EMAIL_FROM;//echo EMAIL_FROM;
+            $from_email = EMAIL_FROM;//print EMAIL_FROM;
             $from_name = EMAIL_FROM_NAME;
             $email_to = $email;
             $reply_to_email = '';

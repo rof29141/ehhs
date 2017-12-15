@@ -31,7 +31,7 @@ class User extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -57,7 +57,7 @@ class User extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 

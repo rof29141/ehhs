@@ -36,7 +36,7 @@
 
         function LoadDataUser()
         {
-            var id=<?php echo $id;?>;
+            var id=<?php print $id;?>;
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 

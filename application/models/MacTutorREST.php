@@ -187,7 +187,7 @@ class MacTutorREST extends CI_Model
 		$url = "https://" . $this->host . "/fmi/rest/api/auth/" . rawurlencode($this->db) ;
 		$payload =  array ("user" => $this->user, "password" => $this->pass, "layout" => $layout);
 
-		$result = $this->callCURL ($url, 'POST', $payload);//echo json_encode($result);
+		$result = $this->callCURL ($url, 'POST', $payload);//print json_encode($result);
 		
 		$this->debug ('login result',$result);
 
@@ -232,7 +232,7 @@ class MacTutorREST extends CI_Model
         $session_data = $this->session->userdata('logged_token');
         $token = $session_data['token'];
 
-		if (is_array ($payload)) $payload = json_encode ($payload);//echo $payload.$url;
+		if (is_array ($payload)) $payload = json_encode ($payload);//print $payload.$url;
 	
 	    $ch = curl_init(); 
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);         //follow redirects
@@ -268,7 +268,7 @@ class MacTutorREST extends CI_Model
         return json_decode($result, true);
     }
 		
-    function __construct($host='mtdev.mactutor.net',$db='ACS_Bridge.fmp12',$layout='PHP_Patients',$user='jem',$pass='admin')
+    function __construct($host=HOST,$db=DB,$layout=LAYOUT,$user=USER,$pass=PASS)
 	{
         if (!empty ($host))$this->host = $host;
         if (!empty ($db)) $this->db = $db;
@@ -283,7 +283,7 @@ class MacTutorREST extends CI_Model
 	{
 		global $debug;
 		if ($debug) {
-			echo "\nDEBUGGING ON: \n";
+			print "\nDEBUGGING ON: \n";
 			print_r ($this->debug_array);
 		}	
 	}

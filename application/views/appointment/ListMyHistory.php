@@ -25,7 +25,7 @@
                                         <div class="row" style="margin-bottom: 10px;">
 
                                             <?php
-                                            for($i=0;$i<count($data['my_appointments']['data']);$i++)
+                                            for($i=0;$i<sizeof($data['my_appointments']['data']);$i++)
                                             {
                                                 if($data['my_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
                                                     $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Today at ' . $data['my_appointments']['data'][$i]['APT_Time'].'</a></div>';
@@ -39,10 +39,10 @@
 
                                                             <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
                                                                 <?php
-                                                                echo '<img class="doc_img" style="width: 70%;" src="';
-                                                                if ($data['my_appointments']['data'][$i]['Photo']) echo $data['my_appointments']['data'][$i]['Photo']; else echo base_url('assets/images/male.png');
-                                                                echo '"/><br><br>';
-                                                                echo $data['my_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_appointments']['data'][$i]['LastName'];
+                                                                print '<img class="doc_img" style="width: 70%;" src="';
+                                                                if ($data['my_appointments']['data'][$i]['Photo']) print $data['my_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
+                                                                print '"/><br><br>';
+                                                                print $data['my_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_appointments']['data'][$i]['LastName'];
                                                                 ?>
                                                             </div>
                                                             <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
@@ -64,26 +64,26 @@
                                                                         '<br><b>Status:</b> '.$status.
                                                                         '<br><br><b>'.$cancel_note.'</b>';
                                                                     ?>
-                                                                    <a target="_blank" href="<?php echo base_url('/Appointment/PrintAppointment/' . $data['my_appointments']['data'][$i]['RecordID']); ?>">
+                                                                    <a target="_blank" href="<?php print base_url('/Appointment/PrintAppointment/' . $data['my_appointments']['data'][$i]['RecordID']); ?>">
                                                                         <span class="entypo-printer"></span>
                                                                     </a>
                                                                     <br>
-                                                                    <a target="_blank" class="chat" data-content="<?php echo $concern;?>">
+                                                                    <a target="_blank" class="chat" data-content="<?php print $concern;?>">
                                                                         <span class="entypo-chat"></span>
                                                                     </a>
                                                                     <br>
-                                                                    <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info;?>">
+                                                                    <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php print $info;?>">
                                                                         <span class="entypo-info2"></span>
                                                                     </a>
                                                                 </div>
 
                                                                 <div class=""
-                                                                     style="text-align:center;font-weight: bold; font-size: 11px;"><?php echo $data['my_appointments']['data'][$i]['APT_Title']; ?></div>
+                                                                     style="text-align:center;font-weight: bold; font-size: 11px;"><?php print $data['my_appointments']['data'][$i]['APT_Title']; ?></div>
                                                                 <br>
                                                                 <div class=""
-                                                                     style="text-align:center;font-weight: bold; font-size: 12px;"><?php echo $data['my_appointments']['data'][$i]['Service']; ?></div>
+                                                                     style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_appointments']['data'][$i]['Service']; ?></div>
                                                                 <br>
-                                                                <?php echo $date;?>
+                                                                <?php print $date;?>
 
                                                                 <br>
 
@@ -103,7 +103,7 @@
                                     </fieldset>
                                     <?php
                                 }
-                                else echo '<div class="text-center"><h3>You don\'t have any appointments.</h3></div>';
+                                else print '<div class="text-center"><h3>You don\'t have any appointments.</h3></div>';
                                 ?>
                             </section>
                         </div>

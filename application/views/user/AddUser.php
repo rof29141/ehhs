@@ -36,8 +36,8 @@
 
         function LoadDataUser()
         {
-            var id_company='<?php echo $id_company;?>';
-            var company_name='<?php echo $company_name;?>';
+            var id_company='<?php print $id_company;?>';
+            var company_name='<?php print $company_name;?>';
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 

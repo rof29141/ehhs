@@ -30,7 +30,7 @@ class Appointment extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -61,7 +61,7 @@ class Appointment extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -69,7 +69,7 @@ class Appointment extends CI_Controller
     {
         if(isset($_POST['id']))
         {
-            echo 'iwygefiywe '.$_POST['id'];
+            print 'iwygefiywe '.$_POST['id'];
             $fm = new Fmp();
             $command = $fm->newPerformScriptCommand('PHP_Appointment', 'SettingsServiceProviderCancelAppt', ''.$_POST['id'].'');
             $command->execute();
@@ -97,7 +97,7 @@ class Appointment extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -119,7 +119,7 @@ class Appointment extends CI_Controller
 
         if (isset($all_appointments['data'][0]['APT_Date']))
         {
-            for ($app = 0; $app < count($all_appointments['data']); $app++)
+            for ($app = 0; $app < sizeof($all_appointments['data']); $app++)
             {
                 if (isset($all_appointments['data'][$app]['APT_Date']))
                 {
@@ -139,7 +139,7 @@ class Appointment extends CI_Controller
         if (isset($appointment['data'][0]['APT_Date']))//search if exist an appointment in this date and time
         {
 
-            for ($a = 0; $a < count($appointment['data']); $a++)
+            for ($a = 0; $a < sizeof($appointment['data']); $a++)
             {
                 $real_appointment_title = $appointment['data'][$a]['APT_Title'];
                 //$real_appointment_title = $title_not_available;
@@ -177,10 +177,10 @@ class Appointment extends CI_Controller
 
         if($error=='')
         {
-            $data['events'] = json_encode($events);//echo $data['events'];//die();
+            $data['events'] = json_encode($events);//print $data['events'];//die();
             $this->load->view('dashboard/CalendarAppointment', $data);
         }
         else
-            echo $error;
-    }
+            print $error;
+    }//not used
 }

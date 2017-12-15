@@ -29,7 +29,7 @@ Class M_User extends CI_Model
     {
         $layout='PHP_Patients';
 
-        $request1['RecordID'] = $data['id'];//echo $data['id'];
+        $request1['RecordID'] = $data['id'];//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
 
@@ -38,7 +38,7 @@ Class M_User extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['bd_FirstName'] = $result["data"][$i]["fieldData"]["bd_FirstName"];
                 $field['bd_LastName'] = $result["data"][$i]["fieldData"]["bd_LastName"];
@@ -62,7 +62,7 @@ Class M_User extends CI_Model
     {
         $layout='PHP_Patients';
 
-        $request1['RecordID'] = $data['id'];//echo $data['id'];
+        $request1['RecordID'] = $data['id'];//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
 
@@ -71,7 +71,7 @@ Class M_User extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['bd_Salutation'] = $result["data"][$i]["fieldData"]["bd_Salutation"];
                 $field['bd_FirstName'] = $result["data"][$i]["fieldData"]["bd_FirstName"];
@@ -135,7 +135,7 @@ Class M_User extends CI_Model
     {
         $layout='PHP_Patients';
 
-        $request1['RecordID'] = "*";//echo $data['id'];
+        $request1['RecordID'] = "*";//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10';
@@ -146,7 +146,7 @@ Class M_User extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['id'] = $result["data"][$i]["fieldData"]["RecordID"];
                 $field['PT_FullName'] = $result["data"][$i]["fieldData"]["PT_FullName"];
@@ -170,7 +170,7 @@ Class M_User extends CI_Model
     {
         $layout='PHP_Patients';
 
-        $request1['RecordID'] = $data['id'];//echo $data['id'];
+        $request1['RecordID'] = $data['id'];//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
 
@@ -179,7 +179,7 @@ Class M_User extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['PT_NameFirst'] = $result["data"][$i]["fieldData"]["PT_NameFirst"];
                 $field['PT_NameLast'] = $result["data"][$i]["fieldData"]["PT_NameLast"];

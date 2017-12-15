@@ -84,6 +84,12 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
+define('HOST', 'mtdev.mactutor.net');
+define('DB', 'ACS_Bridge.fmp12');
+define('LAYOUT', 'PHP_Patients');
+define('USER', 'jem');
+define('PASS', 'admin');
+
 define('EMAIL_FROM', 'dispatch-system@tekexperts.com');
 define('EMAIL_FROM_NAME', 'Advanced Cosmetic Surgery');
 define('EMAIL_FROM_TO', 'raydel@mactutor.net');

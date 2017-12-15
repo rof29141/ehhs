@@ -117,32 +117,32 @@
                             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                 <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                     <label>First Name:</label>
-                                    <input type="text" name="bd_FirstName" id="bd_FirstName" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_FirstName'])) echo $data['user']['data'][0]['bd_FirstName'];?>" />
+                                    <input type="text" name="bd_FirstName" id="bd_FirstName" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_FirstName'])) print $data['user']['data'][0]['bd_FirstName'];?>" />
                                 </div>
 
                                 <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                     <label>Last Name:</label>
-                                    <input type="text" name="bd_LastName" id="bd_LastName" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_LastName'])) echo $data['user']['data'][0]['bd_LastName'];?>" />
+                                    <input type="text" name="bd_LastName" id="bd_LastName" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_LastName'])) print $data['user']['data'][0]['bd_LastName'];?>" />
                                 </div>
 
                                 <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                     <label>Date of Birth:</label>
-                                    <input type="text" name="bd_DateOfBirth" id="bd_DateOfBirth" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_DateOfBirth'])) echo $data['user']['data'][0]['bd_DateOfBirth'];?>" />
+                                    <input type="text" name="bd_DateOfBirth" id="bd_DateOfBirth" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_DateOfBirth'])) print $data['user']['data'][0]['bd_DateOfBirth'];?>" />
                                 </div>
 
                                 <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                     <label>Email address:</label>
-                                    <input type="email" name="bd_user_email" id="bd_user_email" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_user_email'])) echo $data['user']['data'][0]['bd_user_email'];?>" />
+                                    <input type="email" name="bd_user_email" id="bd_user_email" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_user_email'])) print $data['user']['data'][0]['bd_user_email'];?>" />
                                 </div>
 
                                 <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                     <label>Phone:</label>
-                                    <input type="text" name="bd_Phone" id="bd_Phone" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_Phone'])) echo $data['user']['data'][0]['bd_Phone'];?>" />
+                                    <input type="text" name="bd_Phone" id="bd_Phone" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_Phone'])) print $data['user']['data'][0]['bd_Phone'];?>" />
                                 </div>
 
                                 <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                                     <label>Zip:</label>
-                                    <input type="text" name="bd_ZipCode" id="bd_ZipCode" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_ZipCode'])) echo $data['user']['data'][0]['bd_ZipCode'];?>" />
+                                    <input type="text" name="bd_ZipCode" id="bd_ZipCode" class="form-control" datafld="ignore" readonly value="<?php if(isset($data['user']['data'][0]['bd_ZipCode'])) print $data['user']['data'][0]['bd_ZipCode'];?>" />
                                 </div>
                             </div>
 
@@ -178,7 +178,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="1" src="<?php echo base_url('assets/images/survey/Latisse.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="1" src="<?php print base_url('assets/images/survey/Latisse.png');?>">
                                         </div>
                                     </div>
 
@@ -200,7 +200,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="2" src="<?php echo base_url('assets/images/survey/03_tired_eyes@2x.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="2" src="<?php print base_url('assets/images/survey/03_tired_eyes@2x.png');?>">
                                         </div>
                                     </div>
 
@@ -222,7 +222,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="3" src="<?php echo base_url('assets/images/survey/eye_lids.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="3" src="<?php print base_url('assets/images/survey/eye_lids.png');?>">
                                         </div>
                                     </div>
 
@@ -245,7 +245,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="4" src="<?php echo base_url('assets/images/survey/3_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="4" src="<?php print base_url('assets/images/survey/3_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -267,7 +267,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="2" src="<?php echo base_url('assets/images/survey/forehead_ciq.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="2" src="<?php print base_url('assets/images/survey/forehead_ciq.png');?>">
                                         </div>
                                     </div>
 
@@ -289,7 +289,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="6" src="<?php echo base_url('assets/images/survey/crows_feet.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="6" src="<?php print base_url('assets/images/survey/crows_feet.png');?>">
                                         </div>
                                     </div>
 
@@ -312,7 +312,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="7" src="<?php echo base_url('assets/images/survey/1208x-1110-eyes.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="7" src="<?php print base_url('assets/images/survey/1208x-1110-eyes.png');?>">
                                         </div>
                                     </div>
 
@@ -334,7 +334,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="8" src="<?php echo base_url('assets/images/survey/male_fron_lines.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="8" src="<?php print base_url('assets/images/survey/male_fron_lines.png');?>">
                                         </div>
                                     </div>
 
@@ -356,7 +356,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="9" src="<?php echo base_url('assets/images/survey/1208-x-1110-lip-lines.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="9" src="<?php print base_url('assets/images/survey/1208-x-1110-lip-lines.png');?>">
                                         </div>
                                     </div>
 
@@ -379,7 +379,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="10" src="<?php echo base_url('assets/images/survey/34.92_Lips_1110.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="10" src="<?php print base_url('assets/images/survey/34.92_Lips_1110.png');?>">
                                         </div>
                                     </div>
 
@@ -401,7 +401,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="11" src="<?php echo base_url('assets/images/survey/facial_folds.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="11" src="<?php print base_url('assets/images/survey/facial_folds.png');?>">
                                         </div>
                                     </div>
 
@@ -423,7 +423,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="9" src="<?php echo base_url('assets/images/survey/17_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="9" src="<?php print base_url('assets/images/survey/17_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -446,7 +446,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="13" src="<?php echo base_url('assets/images/survey/13_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="13" src="<?php print base_url('assets/images/survey/13_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -468,7 +468,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="14" src="<?php echo base_url('assets/images/survey/18_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="14" src="<?php print base_url('assets/images/survey/18_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -490,7 +490,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="15" src="<?php echo base_url('assets/images/survey/facial_redness.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="15" src="<?php print base_url('assets/images/survey/facial_redness.png');?>">
                                         </div>
                                     </div>
 
@@ -513,7 +513,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="16" src="<?php echo base_url('assets/images/survey/nose.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="16" src="<?php print base_url('assets/images/survey/nose.png');?>">
                                         </div>
                                     </div>
 
@@ -535,7 +535,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="17" src="<?php echo base_url('assets/images/survey/06_jowls_jawline@2x.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="17" src="<?php print base_url('assets/images/survey/06_jowls_jawline@2x.png');?>">
                                         </div>
                                     </div>
 
@@ -557,7 +557,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="18" src="<?php echo base_url('assets/images/survey/facial_sagging.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="18" src="<?php print base_url('assets/images/survey/facial_sagging.png');?>">
                                         </div>
                                     </div>
 
@@ -580,7 +580,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="19" src="<?php echo base_url('assets/images/survey/large-default19.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="19" src="<?php print base_url('assets/images/survey/large-default19.png');?>">
                                         </div>
                                     </div>
 
@@ -602,7 +602,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="20" src="<?php echo base_url('assets/images/survey/large-default20.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="20" src="<?php print base_url('assets/images/survey/large-default20.png');?>">
                                         </div>
                                     </div>
 
@@ -624,7 +624,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="21" src="<?php echo base_url('assets/images/survey/05_turkey_gobbler@2x.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="21" src="<?php print base_url('assets/images/survey/05_turkey_gobbler@2x.png');?>">
                                         </div>
                                     </div>
 
@@ -647,7 +647,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="22" src="<?php echo base_url('assets/images/survey/10_facelift@2x.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="22" src="<?php print base_url('assets/images/survey/10_facelift@2x.png');?>">
                                         </div>
                                     </div>
 
@@ -669,7 +669,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="23" src="<?php echo base_url('assets/images/survey/large-default23.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="23" src="<?php print base_url('assets/images/survey/large-default23.png');?>">
                                         </div>
                                     </div>
 
@@ -691,7 +691,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="24" src="<?php echo base_url('assets/images/survey/14_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="24" src="<?php print base_url('assets/images/survey/14_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -714,7 +714,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="25" src="<?php echo base_url('assets/images/survey/8_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="25" src="<?php print base_url('assets/images/survey/8_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -736,7 +736,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="26" src="<?php echo base_url('assets/images/survey/large-default26.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="26" src="<?php print base_url('assets/images/survey/large-default26.png');?>">
                                         </div>
                                     </div>
 
@@ -758,7 +758,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="27" src="<?php echo base_url('assets/images/survey/11_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="27" src="<?php print base_url('assets/images/survey/11_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -781,7 +781,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="28" src="<?php echo base_url('assets/images/survey/large-default28.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="28" src="<?php print base_url('assets/images/survey/large-default28.png');?>">
                                         </div>
                                     </div>
 
@@ -803,7 +803,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="29" src="<?php echo base_url('assets/images/survey/large-default29.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="29" src="<?php print base_url('assets/images/survey/large-default29.png');?>">
                                         </div>
                                     </div>
 
@@ -825,7 +825,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="30" src="<?php echo base_url('assets/images/survey/1110-x-1208-4.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="30" src="<?php print base_url('assets/images/survey/1110-x-1208-4.png');?>">
                                         </div>
                                     </div>
 
@@ -848,7 +848,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="31" src="<?php echo base_url('assets/images/survey/1110-x1208-34.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="31" src="<?php print base_url('assets/images/survey/1110-x1208-34.png');?>">
                                         </div>
                                     </div>
 
@@ -870,7 +870,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="32" src="<?php echo base_url('assets/images/survey/large-default32.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="32" src="<?php print base_url('assets/images/survey/large-default32.png');?>">
                                         </div>
                                     </div>
 
@@ -892,7 +892,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="33" src="<?php echo base_url('assets/images/survey/large-default33.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="33" src="<?php print base_url('assets/images/survey/large-default33.png');?>">
                                         </div>
                                     </div>
 
@@ -915,7 +915,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="34" src="<?php echo base_url('assets/images/survey/large-default34.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="34" src="<?php print base_url('assets/images/survey/large-default34.png');?>">
                                         </div>
                                     </div>
 
@@ -937,7 +937,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="35" src="<?php echo base_url('assets/images/survey/16_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="35" src="<?php print base_url('assets/images/survey/16_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -959,7 +959,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="36" src="<?php echo base_url('assets/images/survey/large-default36.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="36" src="<?php print base_url('assets/images/survey/large-default36.png');?>">
                                         </div>
                                     </div>
 
@@ -982,7 +982,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="37" src="<?php echo base_url('assets/images/survey/19_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="37" src="<?php print base_url('assets/images/survey/19_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -1004,7 +1004,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="37" src="<?php echo base_url('assets/images/survey/20_1208px.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="37" src="<?php print base_url('assets/images/survey/20_1208px.png');?>">
                                         </div>
                                     </div>
 
@@ -1026,7 +1026,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="38" src="<?php echo base_url('assets/images/survey/Buttocks.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="38" src="<?php print base_url('assets/images/survey/Buttocks.png');?>">
                                         </div>
                                     </div>
 
@@ -1049,7 +1049,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="39" src="<?php echo base_url('assets/images/survey/Hyperhidrosis.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="39" src="<?php print base_url('assets/images/survey/Hyperhidrosis.png');?>">
                                         </div>
                                     </div>
 
@@ -1071,7 +1071,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="40" src="<?php echo base_url('assets/images/survey/Teeth-ba.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="40" src="<?php print base_url('assets/images/survey/Teeth-ba.png');?>">
                                         </div>
                                     </div>
 
@@ -1093,7 +1093,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="41" src="<?php echo base_url('assets/images/survey/image-consulting.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="41" src="<?php print base_url('assets/images/survey/image-consulting.png');?>">
                                         </div>
                                     </div>
 
@@ -1116,7 +1116,7 @@
                                             <div class="text-center text-danger">No interest</div>
                                         </div>
                                         <div class="col-sm-9 col-md-8 col-lg-8 text-center">
-                                            <img style="height: 120px;" class="myImg" id="42" src="<?php echo base_url('assets/images/survey/large-default43.png');?>">
+                                            <img style="height: 120px;" class="myImg" id="42" src="<?php print base_url('assets/images/survey/large-default43.png');?>">
                                         </div>
                                     </div>
 
@@ -1209,7 +1209,7 @@
                                 alertify.error('Error: The element could not be Saved. ' + response);
                             }
                             spinner.stop();
-                            $('#questionnare').html('<div>Thank you for your feedback.</div>');
+                            $('#questionnare').html('<div class="text_center"><h5>Thank you for your feedback.</h5></div>');
                         }
                         else
                             window.location.replace("Authentication");
@@ -1293,7 +1293,7 @@
                         return;
 
                     $('html, body').animate({
-                        scrollTop: $(validator.errorList[0].element).offset().top-100
+                        scrollTop: $(validator.errorList[0].element).offset().top-300
                     }, 2000);
                 }
             });

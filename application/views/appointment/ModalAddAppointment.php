@@ -5,34 +5,34 @@
 
         <div class="form-group">
             <label>Service</label>
-            <input type="text" name="txt_service" id="txt_service" datafld="<?php echo $data['service']['data'][0]['__kp_PRIMARY_KEY'];?>" class="form-control required" readonly value="<?php if(isset($data['service']['data'][0]['Service'])) echo $data['service']['data'][0]['Service'];?>" />
-            <input type="hidden" name="hdn_service" id="hdn_service" value="<?php if(isset($data['service']['data'][0]['ACS_ServiceValueList'])) echo $data['service']['data'][0]['ACS_ServiceValueList'];?>" />
-            <input type="hidden" name="txt_patient" id="txt_patient" value="<?php if(isset($__zkp_Client_Rec)) echo $__zkp_Client_Rec;?>" />
+            <input type="text" name="txt_service" id="txt_service" datafld="<?php print $data['service']['data'][0]['__kp_PRIMARY_KEY'];?>" class="form-control required" readonly value="<?php if(isset($data['service']['data'][0]['Service'])) print $data['service']['data'][0]['Service'];?>" />
+            <input type="hidden" name="hdn_service" id="hdn_service" value="<?php if(isset($data['service']['data'][0]['ACS_ServiceValueList'])) print $data['service']['data'][0]['ACS_ServiceValueList'];?>" />
+            <input type="hidden" name="txt_patient" id="txt_patient" value="<?php if(isset($__zkp_Client_Rec)) print $__zkp_Client_Rec;?>" />
         </div>
 
         <div class="row">
             <div class="col-lg-8">
                 <div class="form-group">
                     <label>Doctor</label>
-                    <input type="text" name="txt_doctor" id="txt_doctor" datafld="<?php echo $data['doctor']['data'][0]['_zpk_Staff_Rec'];?>" class="form-control required" readonly value="<?php if(isset($data['doctor']['data'][0]['_zpk_Staff_Rec'])) echo $data['doctor']['data'][0]['FirstName'].' '.$data['doctor']['data'][0]['LastName'];?>" />
+                    <input type="text" name="txt_doctor" id="txt_doctor" datafld="<?php print $data['doctor']['data'][0]['_zpk_Staff_Rec'];?>" class="form-control required" readonly value="<?php if(isset($data['doctor']['data'][0]['_zpk_Staff_Rec'])) print $data['doctor']['data'][0]['FirstName'].' '.$data['doctor']['data'][0]['LastName'];?>" />
                 </div>
             </div>
 
             <div class="col-lg-4">
-                <img class="doc_img" src="<?php echo $data['doctor']['data'][0]['Photo'];?>"/>
+                <img class="doc_img" src="<?php print $data['doctor']['data'][0]['Photo'];?>"/>
             </div>
         </div>
 
         <div class="form-group">
             <label>Date</label>
-            <input type="text" name="txt_date" id="txt_date" class="form-control required" readonly value="<?php if(isset($data['start'])) echo date('m/d/y', strtotime($data['start']));?>" />
+            <input type="text" name="txt_date" id="txt_date" class="form-control required" readonly value="<?php if(isset($data['start'])) print date('m/d/y', strtotime($data['start']));?>" />
         </div>
 
         <div class="form-group">
             <label>Time</label>
-            <input type="text" name="txt_start" id="txt_start" class="form-control required" readonly value="<?php if(isset($data['start'])) echo substr($data['start'],16,8);?>" />
-            <input type="hidden" name="txt_end" id="txt_end" class="form-control required" readonly value="<?php if(isset($data['end'])) echo substr($data['end'],16,8);?>" />
-            <input type="hidden" name="txt_id_setting" id="txt_id_setting" class="form-control required" readonly value="<?php if(isset($data['setting_id'])) echo $data['setting_id'];?>" />
+            <input type="text" name="txt_start" id="txt_start" class="form-control required" readonly value="<?php if(isset($data['start'])) print substr($data['start'],16,8);?>" />
+            <input type="hidden" name="txt_end" id="txt_end" class="form-control required" readonly value="<?php if(isset($data['end'])) print substr($data['end'],16,8);?>" />
+            <input type="hidden" name="txt_id_setting" id="txt_id_setting" class="form-control required" readonly value="<?php if(isset($data['setting_id'])) print $data['setting_id'];?>" />
         </div>
 
 
@@ -45,27 +45,27 @@
             <div class="col-sm-12 col-md-12 col-lg-12 form-group">
                 <label>Send me an Email</label>
                 <select name="sel_alert" id="sel_alert" class="form-control my_select2">
-                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='-1'){echo 'selected';}?> value="-1"></option>
-                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='30'){echo 'selected';}?> value="30">30 min before</option>
-                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='60'){echo 'selected';}?> value="60">1 hr before</option>
-                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='120'){echo 'selected';}?> value="120">2 hrs before</option>
-                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='1440'){echo 'selected';}?> value="1440">1 day before</option>
-                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='2880'){echo 'selected';}?> value="2880">2 days before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='-1'){print 'selected';}?> value="-1"></option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='30'){print 'selected';}?> value="30">30 min before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='60'){print 'selected';}?> value="60">1 hr before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='120'){print 'selected';}?> value="120">2 hrs before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='1440'){print 'selected';}?> value="1440">1 day before</option>
+                    <option <?php if(isset($data['ReminderEmail']) && $data['ReminderEmail']=='2880'){print 'selected';}?> value="2880">2 days before</option>
                 </select>
             </div>
 
             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                 <label>Personalize your message</label>
-                <textarea class="form-control" id="txt_msg" name="txt_msg"><?php if(isset($data['ReminderMsg']) && $data['ReminderMsg']!='')echo $data['ReminderMsg'];?></textarea>
+                <textarea class="form-control" id="txt_msg" name="txt_msg"><?php if(isset($data['ReminderMsg']) && $data['ReminderMsg']!='')print $data['ReminderMsg'];?></textarea>
             </div>
 
             <div class="col-sm-12 col-md-6 col-lg-6 form-group">
                 <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
                     <legend id="legend_contact" class="mylegend">Contact me by</legend>
 
-                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" <?php if(isset($data['ReminderContactBy']) && $data['ReminderContactBy']=='call'){echo 'checked';}?> value="call"/> Call</label><br>
-                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" <?php if(isset($data['ReminderContactBy']) && $data['ReminderContactBy']=='sms'){echo 'checked';}?> value="sms"/> SMS</label><br>
-                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" <?php if(isset($data['ReminderContactBy']) && $data['ReminderContactBy']=='no'){echo 'checked';}?> value="no"/> Email Only</label><br>
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" <?php if(isset($data['ReminderContactBy']) && $data['ReminderContactBy']=='call'){print 'checked';}?> value="call"/> Call</label><br>
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" <?php if(isset($data['ReminderContactBy']) && $data['ReminderContactBy']=='sms'){print 'checked';}?> value="sms"/> SMS</label><br>
+                    <label><input type="radio" name="rbt_contact" id="rbt_contact" datafld="ignore" <?php if(isset($data['ReminderContactBy']) && $data['ReminderContactBy']=='no'){print 'checked';}?> value="no"/> Email Only</label><br>
 
                 </fieldset>
             </div>
@@ -79,7 +79,7 @@
             <button type="button" id="" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
 
-    <?php }else{echo 'Please, reload the page, exist an appointment in this date and time.';}?>
+    <?php }else{print 'Please, reload the page, exist an appointment in this date and time.';}?>
 </div>
 
 <script type="text/javascript">
@@ -195,16 +195,16 @@
 
         function SendMail(title, token, spinner, id, go_layout)
         {
-            var from_email = "<?php echo $email_from;?>";
-            var from_name = "<?php echo $email_from_name;?>";
-            var email_to = "<?php echo $email;?>";
+            var from_email = "<?php print $email_from;?>";
+            var from_name = "<?php print $email_from_name;?>";
+            var email_to = "<?php print $email;?>";
             var reply_to_email = '';
             var reply_to_name = '';
             var subject = "Please Confirm Your Appointment";
             var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
-            var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
+            var link = "<?php print base_url('/Dashboard/ConfirmApp/');?>" + token;
             var link_web = '351face.com';
-            var body ='<p>Dear <?php echo $bd_FirstName." ".$bd_LastName;?>,</p>' +
+            var body ='<p>Dear <?php print $bd_FirstName." ".$bd_LastName;?>,</p>' +
                 '<p>Thank you for submitting an application for an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
                 '<br>' +
                 '<p>Please click on this link to confirm your appointment details below.</p>' +
@@ -240,7 +240,7 @@
 
         function CancelAppointment(id, go_layout)
         {
-            var email_to = "<?php echo $email;?>";
+            var email_to = "<?php print $email;?>";
 
             $.ajax(
             {

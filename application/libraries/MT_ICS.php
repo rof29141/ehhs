@@ -56,7 +56,7 @@ class MT_ICS {
         if (is_array($key)) {
             foreach ($key as $k => $v) {
                 $this->set($k, $v);
-                //echo $v;
+                //print $v;
             }
         } else {
             if (in_array($key, $this->available_properties)) {

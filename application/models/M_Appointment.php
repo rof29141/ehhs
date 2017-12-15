@@ -41,13 +41,13 @@ Class M_Appointment extends CI_Model
         $sort2['sortOrder'] = 'descend';
         $sort = array ($sort1, $sort2);
         $criteria['sort'] = $sort;
-        //echo json_encode($criteria);
+        //print json_encode($criteria);
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];
@@ -93,13 +93,13 @@ Class M_Appointment extends CI_Model
         $sort2['sortOrder'] = 'ascend';
         $sort = array ($sort1, $sort2);
         $criteria['sort'] = $sort;
-        //echo json_encode($criteria);
+        //print json_encode($criteria);
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];
@@ -132,7 +132,8 @@ Class M_Appointment extends CI_Model
         $request1['_zfk_ClientRec'] = $id_patient;
         $request1['Active?'] = '=='. 1;
         //$request1['TokenConfirmApp'] = '=';
-        $request1['mt_TimestampStartCal'] = '>='.date("m/d/Y H:i:s");
+        //$request1['mt_TimestampStartCal'] = '>='.date("m/d/Y H:i:s");
+        $request1['z_sc_TimestampStartCalc'] = '>='.date("m/d/Y H:i:s");
 
         $query = array ($request1);
         $criteria['query'] = $query;
@@ -144,13 +145,13 @@ Class M_Appointment extends CI_Model
         $sort2['sortOrder'] = 'ascend';
         $sort = array ($sort1, $sort2);
         $criteria['sort'] = $sort;
-        //echo json_encode($criteria);
+        //print json_encode($criteria);
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];
@@ -190,13 +191,13 @@ Class M_Appointment extends CI_Model
         $criteria['query'] = $query;
         $criteria['range'] = '1';
         $criteria['offset'] = '1';
-        //echo json_encode($criteria);
+        //print json_encode($criteria);
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];
@@ -232,13 +233,13 @@ Class M_Appointment extends CI_Model
         $criteria['query'] = $query;
         $criteria['range'] = '1';
         $criteria['offset'] = '1';
-        //echo json_encode($criteria);
+        //print json_encode($criteria);
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];

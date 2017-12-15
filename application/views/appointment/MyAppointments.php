@@ -18,7 +18,7 @@
 
                 if(isset($data['my_all_appointments']['data']))
                 {
-                    $all=count($data['my_all_appointments']['data']);
+                    $all=sizeof($data['my_all_appointments']['data']);
                     ?>
 
                     <fieldset class="myfieldset" style="margin-top: -10px">
@@ -26,7 +26,7 @@
                         <div class="row" style="margin-bottom: 10px;">
 
                         <?php
-                        for($i=0;$i<count($data['my_all_appointments']['data']);$i++)
+                        for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
                         {
                             if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
                                 $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_danger">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
@@ -36,23 +36,23 @@
                                 $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
                             ?>
 
-                            <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php echo $i; ?>">
+                            <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
 
                                 <div style="display: table;width: 100%;height: 90px;">
                                     <div style="display: table-row;">
 
                                         <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
                                             <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
-                                            <img src="<?php echo base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
+                                            <img src="<?php print base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
                                             <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
-                                            <img src="<?php echo base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
+                                            <img src="<?php print base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
                                             <?php }?>
 
                                             <?php
-                                            echo '<img class="doc_img" style="width: 70%;" src="';
-                                            if ($data['my_all_appointments']['data'][$i]['Photo']) echo $data['my_all_appointments']['data'][$i]['Photo']; else echo base_url('assets/images/male.png');
-                                            echo '"/><br><br>';
-                                            echo $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'];
+                                            print '<img class="doc_img" style="width: 70%;" src="';
+                                            if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
+                                            print '"/><br><br>';
+                                            print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'];
                                             ?>
                                         </div>
                                         <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
@@ -131,30 +131,30 @@
                                                     $info.='<br><b>Contact me by:</b> '.$contact_by;
                                                     if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
                                                 ?>
-                                                <a target="_blank" href="<?php echo base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
+                                                <a target="_blank" href="<?php print base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
                                                     <span class="entypo-printer"></span>
                                                 </a>
                                                 <br>
-                                                <a target="_blank" class="chat" data-content="<?php echo $concern;?>">
+                                                <a target="_blank" class="chat" data-content="<?php print $concern;?>">
                                                     <span class="entypo-chat"></span>
                                                 </a>
                                                 <br>
-                                                <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info.'<br><br><b>'.$cancel_note.'</b>';?>">
+                                                <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
                                                     <span class="entypo-info2"></span>
                                                 </a>
                                                 <br>
-                                                <a class="download_ical" id="<?php echo $i;?>">
+                                                <a class="download_ical" id="<?php print $i;?>">
                                                     <span class="brankic-calendar"></span>
                                                 </a>
                                             </div>
 
                                             <div class=""
-                                                 style="text-align:center;font-weight: bold; font-size: 11px;"><?php echo $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
+                                                 style="text-align:center;font-weight: bold; font-size: 11px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
                                             <br>
                                             <div class=""
-                                                 style="text-align:center;font-weight: bold; font-size: 12px;"><?php echo $data['my_all_appointments']['data'][$i]['Service']; ?></div>
+                                                 style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['Service']; ?></div>
                                             <br>
-                                            <?php echo $date;?>
+                                            <?php print $date;?>
 
                                             <br>
 
@@ -193,7 +193,7 @@
                                                     ?>
                                                     <button type="button"
                                                             class="btn btn-xs btn_confirm_app btn-success"
-                                                            id="<?php echo $i; ?>">Confirm
+                                                            id="<?php print $i; ?>">Confirm
                                                     </button>
                                                     <?php
                                                 }
@@ -202,15 +202,15 @@
                                                     $confirm++;
                                                     ?>
                                                     <button type="button" class="btn btn-xs resend_email btn-success"
-                                                            id="<?php echo $i; ?>">Resend email
+                                                            id="<?php print $i; ?>">Resend email
                                                     </button>
                                                     <?php
                                                 }
                                                 if ($cancel_btn == 1)
                                                 {
                                                     ?>
-                                                    <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
-                                                    <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
+                                                    <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php print $i;?>">Reschedule</button>
+                                                    <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php print $i;?>">Cancel</button>
                                                     <?php
                                                 }
                                                 ?>
@@ -218,48 +218,48 @@
                                             </div>
 
                                             <form method="post" action="Dashboard/DownloadiCal"
-                                                  id="frm_next_<?php echo $i; ?>">
+                                                  id="frm_next_<?php print $i; ?>">
 
-                                                <input id="hdn_title_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                <input id="hdn_date_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                <input id="hdn_time_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
-                                                <input id="hdn_doc_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName']; ?>"/>
-                                                <input id="hdn_ser_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['Service']; ?>"/>
-                                                <input id="hdn_tok_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['TokenConfirmApp']; ?>"/>
-                                                <input id="hdn_id_doc_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['ProviderRec']; ?>"/>
-                                                <input id="hdn_id_serv_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['_kf_ServiceID']; ?>"/>
-                                                <input id="hdn_id_zpk_Appointment_Rec<?php echo $i; ?>"
+                                                <input id="hdn_title_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
+                                                <input id="hdn_date_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
+                                                <input id="hdn_time_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
+                                                <input id="hdn_doc_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName']; ?>"/>
+                                                <input id="hdn_ser_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['Service']; ?>"/>
+                                                <input id="hdn_tok_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['TokenConfirmApp']; ?>"/>
+                                                <input id="hdn_id_doc_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['ProviderRec']; ?>"/>
+                                                <input id="hdn_id_serv_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['_kf_ServiceID']; ?>"/>
+                                                <input id="hdn_id_zpk_Appointment_Rec<?php print $i; ?>"
                                                        type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['__zpk_Appointment_Rec']; ?>"/>
-                                                <input id="hdn_id_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['RecordID']; ?>"/>
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['__zpk_Appointment_Rec']; ?>"/>
+                                                <input id="hdn_id_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['RecordID']; ?>"/>
 
-                                                <input name="hdn_ical_start_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
-                                                <input name="hdn_ical_end_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
+                                                <input name="hdn_ical_start_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
+                                                <input name="hdn_ical_end_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
                                                 <input name="hdn_ical_addr" type="hidden"
-                                                       value="<?php echo '3805 Edwards Rd 100 Cincinnati, OH 45244'; ?>"/>
+                                                       value="<?php print '3805 Edwards Rd 100 Cincinnati, OH 45244'; ?>"/>
                                                 <input name="hdn_ical_url" type="hidden"
-                                                       value="<?php echo '351face.com'; ?>"/>
-                                                <input name="hdn_ical_title_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                <input name="hdn_ical_date_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                <input name="hdn_item_<?php echo $i; ?>" type="hidden"
-                                                       value="<?php echo $i; ?>"/>
-                                                <input id="hdn_old_app_<?php echo $i; ?>" type="hidden" value="<?php echo $info; ?>"/>
-                                                <input id="hdn_ReminderEmail_<?php echo $i; ?>" type="hidden" value="<?php echo $data['my_all_appointments']['data'][$i]['ReminderEmail']; ?>"/>
-                                                <input id="hdn_ReminderMsg_<?php echo $i; ?>" type="hidden" value="<?php echo $data['my_all_appointments']['data'][$i]['ReminderMsg']; ?>"/>
-                                                <input id="hdn_ReminderContactBy_<?php echo $i; ?>" type="hidden" value="<?php echo $data['my_all_appointments']['data'][$i]['ReminderContactBy']; ?>"/>
+                                                       value="<?php print '351face.com'; ?>"/>
+                                                <input name="hdn_ical_title_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
+                                                <input name="hdn_ical_date_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
+                                                <input name="hdn_item_<?php print $i; ?>" type="hidden"
+                                                       value="<?php print $i; ?>"/>
+                                                <input id="hdn_old_app_<?php print $i; ?>" type="hidden" value="<?php print $info; ?>"/>
+                                                <input id="hdn_ReminderEmail_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderEmail']; ?>"/>
+                                                <input id="hdn_ReminderMsg_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderMsg']; ?>"/>
+                                                <input id="hdn_ReminderContactBy_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderContactBy']; ?>"/>
 
                                             </form>
                                         </div>
@@ -273,7 +273,7 @@
                     </fieldset>
                     <?php
                 }
-                else echo '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>';
+                else print '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>';
                 ?>
             </section>
         </div>
@@ -292,7 +292,7 @@
                         <div class="row" style="margin-bottom: 10px;">
 
                             <?php
-                            for($i=0;$i<count($data['my_all_appointments']['data']);$i++)
+                            for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
                             {
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']!='')
                                 {
@@ -304,22 +304,22 @@
                                         $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
                                     ?>
 
-                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php echo $i; ?>">
+                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
                                         <div style="display: table;width: 100%;height: 90px;">
                                             <div style="display: table-row;">
 
                                                 <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
                                                     <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
-                                                        <img src="<?php echo base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
+                                                        <img src="<?php print base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
                                                     <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
-                                                        <img src="<?php echo base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
+                                                        <img src="<?php print base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
                                                     <?php }?>
 
                                                     <?php
-                                                    echo '<img class="doc_img" style="width: 70%;" src="';
-                                                    if ($data['my_all_appointments']['data'][$i]['Photo']) echo $data['my_all_appointments']['data'][$i]['Photo']; else echo base_url('assets/images/male.png');
-                                                    echo '"/><br><br>';
-                                                    echo $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'];
+                                                    print '<img class="doc_img" style="width: 70%;" src="';
+                                                    if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
+                                                    print '"/><br><br>';
+                                                    print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'];
                                                     ?>
                                                 </div>
                                                 <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
@@ -398,30 +398,30 @@
                                                         $info.='<br><b>Contact me by:</b> '.$contact_by;
                                                         if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
                                                         ?>
-                                                        <a target="_blank" href="<?php echo base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
+                                                        <a target="_blank" href="<?php print base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
                                                             <span class="entypo-printer"></span>
                                                         </a>
                                                         <br>
-                                                        <a target="_blank" class="chat" data-content="<?php echo $concern;?>">
+                                                        <a target="_blank" class="chat" data-content="<?php print $concern;?>">
                                                             <span class="entypo-chat"></span>
                                                         </a>
                                                         <br>
-                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info.'<br><br><b>'.$cancel_note.'</b>';?>">
+                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
                                                             <span class="entypo-info2"></span>
                                                         </a>
                                                         <br>
-                                                        <a class="download_ical" id="<?php echo $i;?>">
+                                                        <a class="download_ical" id="<?php print $i;?>">
                                                             <span class="brankic-calendar"></span>
                                                         </a>
                                                     </div>
 
                                                     <div class=""
-                                                         style="text-align:center;font-weight: bold; font-size: 11px;"><?php echo $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
+                                                         style="text-align:center;font-weight: bold; font-size: 11px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
                                                     <br>
                                                     <div class=""
-                                                         style="text-align:center;font-weight: bold; font-size: 12px;"><?php echo $data['my_all_appointments']['data'][$i]['Service']; ?></div>
+                                                         style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['Service']; ?></div>
                                                     <br>
-                                                    <?php echo $date;?>
+                                                    <?php print $date;?>
 
                                                     <br>
 
@@ -458,7 +458,7 @@
                                                         {
                                                             ?>
                                                             <button type="button" class="btn btn-xs btn_confirm_app btn-success"
-                                                                    id="<?php echo $i; ?>">Confirm
+                                                                    id="<?php print $i; ?>">Confirm
                                                             </button>
                                                             <?php
                                                         }
@@ -466,15 +466,15 @@
                                                         {
                                                             ?>
                                                             <button type="button" class="btn btn-xs resend_email btn-success"
-                                                                    id="<?php echo $i; ?>">Resend email
+                                                                    id="<?php print $i; ?>">Resend email
                                                             </button>
                                                             <?php
                                                         }
                                                         if ($cancel_btn == 1)
                                                         {
                                                             ?>
-                                                            <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
-                                                            <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
+                                                            <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php print $i;?>">Reschedule</button>
+                                                            <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php print $i;?>">Cancel</button>
                                                             <?php
                                                         }
                                                         ?>
@@ -493,7 +493,7 @@
                     </fieldset>
                     <?php
                 }
-                else echo '<div class="text-center"><h3>You don\'t have any pending appointments.</h3></div>';
+                else print '<div class="text-center"><h3>You don\'t have any pending appointments.</h3></div>';
                 ?>
             </section>
         </div>
@@ -512,7 +512,7 @@
                         <div class="row" style="margin-bottom: 10px;">
 
                             <?php
-                            for($i=0;$i<count($data['my_all_appointments']['data']);$i++)
+                            for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
                             {
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']=='')
                                 {
@@ -524,22 +524,22 @@
                                         $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
                                     ?>
 
-                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php echo $i; ?>">
+                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
                                         <div style="display: table;width: 100%;height: 90px;">
                                             <div style="display: table-row;">
 
                                                 <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
                                                     <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
-                                                        <img src="<?php echo base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
+                                                        <img src="<?php print base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
                                                     <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
-                                                        <img src="<?php echo base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
+                                                        <img src="<?php print base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
                                                     <?php }?>
 
                                                     <?php
-                                                    echo '<img class="doc_img" style="width: 70%;" src="';
-                                                    if ($data['my_all_appointments']['data'][$i]['Photo']) echo $data['my_all_appointments']['data'][$i]['Photo']; else echo base_url('assets/images/male.png');
-                                                    echo '"/><br><br>';
-                                                    echo $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'];
+                                                    print '<img class="doc_img" style="width: 70%;" src="';
+                                                    if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
+                                                    print '"/><br><br>';
+                                                    print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'];
                                                     ?>
                                                 </div>
                                                 <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
@@ -618,31 +618,31 @@
                                                         $info.='<br><b>Contact me by:</b> '.$contact_by;
                                                         if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
                                                         ?>
-                                                        <a target="_blank" href="<?php echo base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
+                                                        <a target="_blank" href="<?php print base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
                                                             <span class="entypo-printer"></span>
                                                         </a>
                                                         <br>
-                                                        <a target="_blank" class="chat" data-content="<?php echo $concern;?>">
+                                                        <a target="_blank" class="chat" data-content="<?php print $concern;?>">
                                                             <span class="entypo-chat"></span>
                                                         </a>
                                                         <br>
-                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $info.'<br><br><b>'.$cancel_note.'</b>';?>">
+                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
                                                             <span class="entypo-info2"></span>
                                                         </a>
                                                         <br>
-                                                        <a class="download_ical" id="<?php echo $i;?>">
+                                                        <a class="download_ical" id="<?php print $i;?>">
                                                             <span class="brankic-calendar"></span>
                                                         </a>
 
                                                     </div>
 
                                                     <div class=""
-                                                         style="text-align:center;font-weight: bold; font-size: 11px;"><?php echo $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
+                                                         style="text-align:center;font-weight: bold; font-size: 11px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
                                                     <br>
                                                     <div class=""
-                                                         style="text-align:center;font-weight: bold; font-size: 12px;"><?php echo $data['my_all_appointments']['data'][$i]['Service']; ?></div>
+                                                         style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['Service']; ?></div>
                                                     <br>
-                                                    <?php echo $date;?>
+                                                    <?php print $date;?>
 
                                                     <br>
 
@@ -681,7 +681,7 @@
                                                             <button type="button"
                                                                     class="btn btn-xs btn_confirm_app btn-success"
                                                                     style="1background-color: #492f91"
-                                                                    id="<?php echo $i; ?>">Confirm
+                                                                    id="<?php print $i; ?>">Confirm
                                                             </button>
                                                             <?php
                                                         }
@@ -690,15 +690,15 @@
                                                             ?>
                                                             <button type="button" class="btn btn-xs resend_email btn-success"
                                                                     style="1background-color: #492f91"
-                                                                    id="<?php echo $i; ?>">Resend email
+                                                                    id="<?php print $i; ?>">Resend email
                                                             </button>
                                                             <?php
                                                         }
                                                         if ($cancel_btn == 1)
                                                         {
                                                             ?>
-                                                            <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php echo $i;?>">Reschedule</button>
-                                                            <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php echo $i;?>">Cancel</button>
+                                                            <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php print $i;?>">Reschedule</button>
+                                                            <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php print $i;?>">Cancel</button>
                                                             <?php
                                                         }
                                                         ?>
@@ -717,7 +717,7 @@
                     </fieldset>
                     <?php
                 }
-                else echo '<div class="text-center"><h3>You don\'t have any confirmed appointments.</h3></div>';
+                else print '<div class="text-center"><h3>You don\'t have any confirmed appointments.</h3></div>';
                 ?>
             </section>
         </div>
@@ -749,7 +749,7 @@ $events[]='';
 
 if(isset($data['my_all_appointments']['data']))
 {
-    for($i=0;$i<count($data['my_all_appointments']['data']);$i++)
+    for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
     {
         $event['id'] = rand(1, 999999999999999);
         $event['title'] = $data['my_all_appointments']['data'][$i]['APT_Title'];
@@ -772,9 +772,9 @@ $events = json_encode($events);
     <script type="text/javascript">
         $(document).ready(function()
         {
-            $('#badge_all').html(<?php echo $all;?>);
-            $('#badge_confirm').html(<?php echo $confirm;?>);
-            $('#badge_pending').html(<?php echo $not_confirm;?>);
+            $('#badge_all').html(<?php print $all;?>);
+            $('#badge_confirm').html(<?php print $confirm;?>);
+            $('#badge_pending').html(<?php print $not_confirm;?>);
 
             $('.btn_confirm_app').on('click', function ()
             {
@@ -787,16 +787,16 @@ $events = json_encode($events);
                 var time=$('#hdn_time_'+i).val();
                 var token=$('#hdn_tok_'+i).val();//alert(token);
 
-                var from_email = "<?php echo $email_from;?>";
-                var from_name = "<?php echo $email_from_name;?>";
-                var email_to = "<?php echo $email;?>";
+                var from_email = "<?php print $email_from;?>";
+                var from_name = "<?php print $email_from_name;?>";
+                var email_to = "<?php print $email;?>";
                 var reply_to_email = '';
                 var reply_to_name = '';
                 var subject = "Please Confirm Your Appointment";
                 var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
-                var link = "<?php echo base_url('/Dashboard/ConfirmApp/');?>" + token;
+                var link = "<?php print base_url('/Dashboard/ConfirmApp/');?>" + token;
                 var link_web = '351face.com';
-                var body ='<p>Dear <?php echo $bd_FirstName." ".$bd_LastName;?>,</p>' +
+                var body ='<p>Dear <?php print $bd_FirstName." ".$bd_LastName;?>,</p>' +
                     '<p>Thank you for submitting an application for an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
                     '<br>' +
                     '<p>Please click on this link to confirm your appointment details below.</p>' +
@@ -845,16 +845,16 @@ $events = json_encode($events);
                 var date=$('#hdn_date_'+i).val();
                 var time=$('#hdn_time_'+i).val();
 
-                var from_email = 'dispatch-system@tekexperts.com';
-                var from_name = 'Advanced Cosmetic Surgery';
-                var email_to = 'raydel@mactutor.net';
+                var from_email = "<?php print $email_from;?>";
+                var from_name = "<?php print $email_from_name;?>";
+                var email_to = "<?php print $email;?>";
                 var reply_to_email = '';
                 var reply_to_name = '';
                 var subject = "Appointment Reminder";
                 var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
                 var link_web = '351face.com';
                 var body = '<h1>Appointment Information</h1>' +
-                    '<p>Dear <?php echo $bd_FirstName." ".$bd_LastName;?>,</p>' +
+                    '<p>Dear <?php print $bd_FirstName." ".$bd_LastName;?>,</p>' +
                     '<p>You have an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
                     '<br>' +
                     '<p><strong>Title: </strong>'+title+'</p>' +
@@ -1016,7 +1016,7 @@ $events = json_encode($events);
                 displayEventTime: true,
                 editable: false,
                 timeFormat: 'hh:mm t',
-                events: <?php echo $events;?>,
+                events: <?php print $events;?>,
 
                 eventRender: function(event, eventElement)
                 {

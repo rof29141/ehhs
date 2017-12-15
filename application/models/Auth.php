@@ -33,14 +33,14 @@ Class Auth extends CI_Model
         $query = array ($request1);
         $criteria['query'] = $query;
 
-        $result = $this->fm->findRecords($criteria, $layout);echo json_encode($criteria);var_dump($result);//die();
+        $result = $this->fm->findRecords($criteria, $layout);//print json_encode($criteria);var_dump($result);//die();
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
-                //echo $password.' - '.$result["data"][$i]["fieldData"]["Password"];die();
+                //print $password.' - '.$result["data"][$i]["fieldData"]["Password"];die();
                 if(password_verify($password, $result["data"][$i]["fieldData"]["bd_pwd"]))
                 {
                     $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
@@ -64,14 +64,14 @@ Class Auth extends CI_Model
 
         $request1['bd_user_email'] = '=='.$email;
         $query = array ($request1);
-        $criteria['query'] = $query;echo json_encode($criteria);
+        $criteria['query'] = $query;print json_encode($criteria);
 
         $result = $this->fm->findRecords($criteria, $layout);var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
                 $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
@@ -95,7 +95,7 @@ Class Auth extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
                 $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
@@ -108,7 +108,7 @@ Class Auth extends CI_Model
 
     function SaveToken($id_usuario, $token)//
     {
-        $layout='PHP_Patients';//echo $id_usuario;
+        $layout='PHP_Patients';print $id_usuario.' - '.$token;
 
         $record['TokenForgotPassword'] = $token;
         $data['data'] = $record;
@@ -134,7 +134,7 @@ Class Auth extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
                 $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];

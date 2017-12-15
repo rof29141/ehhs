@@ -34,7 +34,7 @@ class Dashboard extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -54,13 +54,13 @@ class Dashboard extends CI_Controller
         date_default_timezone_set('America/New_York');
 
         $id_service = $_POST['id_service'];
-        $id_doctor = $_POST['id_doctor'];//echo $id_service.' - '.$id_doctor;
+        $id_doctor = $_POST['id_doctor'];//print $id_service.' - '.$id_doctor;
 
         $setting=$this->M_Dashboard->GetAppointmentSettings($id_service, $id_doctor);
 
         if($setting['error']=='0')
         {
-            for ($s = 0; $s < count($setting['data']); $s++)
+            for ($s = 0; $s < sizeof($setting['data']); $s++)
             {
                 $weeks_day=7;
                 $number_ServiceStartingDate=0;
@@ -87,7 +87,7 @@ class Dashboard extends CI_Controller
                     $number_ServiceStartingDate = date('w', $timestamp_ServiceStartingDate)+1;
                 }
 
-                //echo $weeks.$unit_time.$hr_start.$hr_end.$app_days!='';
+                //print $weeks.$unit_time.$hr_start.$hr_end.$app_days!='';
                 if($weeks!='' && $unit_time!='' && $hr_start!='' && $hr_end!='' && $app_days!='')
                 {
 
@@ -96,9 +96,9 @@ class Dashboard extends CI_Controller
                     reset($var);
 
                     $start_same_week=0;
-                    if (count($var) != 0)
+                    if (sizeof($var) != 0)
                     {
-                        for ($i = 0; $i < count($var); next($var), $i++)
+                        for ($i = 0; $i < sizeof($var); next($var), $i++)
                         {
                             $app_day = current($var);
                             if($number_ServiceStartingDate<=$app_day)
@@ -109,9 +109,9 @@ class Dashboard extends CI_Controller
                     }
                     reset($var);
 
-                    if (count($var) != 0)
+                    if (sizeof($var) != 0)
                     {
-                        for ($i = 0; $i < count($var); next($var), $i++)
+                        for ($i = 0; $i < sizeof($var); next($var), $i++)
                         {
                             $app_day = current($var);
 
@@ -123,11 +123,11 @@ class Dashboard extends CI_Controller
                             if ($app_day == 6) $str_day = 'friday';
                             if ($app_day == 7) $str_day = 'saturday';
 
-                            //echo '  $start_same_week: '.$start_same_week.'  $number_ServiceStartingDate: '.$number_ServiceStartingDate.'  $app_day: '.$app_day;//.'  $today: '.$today;
+                            //print '  $start_same_week: '.$start_same_week.'  $number_ServiceStartingDate: '.$number_ServiceStartingDate.'  $app_day: '.$app_day;//.'  $today: '.$today;
 
                             if($start_same_week==1 && $number_ServiceStartingDate<$app_day)//if $start_same_week==1 the event start in the same week and if the CURRENT appointment day is > $number_ServiceStartingDate
                             {
-                                $next = date("Y-m-d", strtotime('next '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//echo 'next: '.$next.' ';
+                                $next = date("Y-m-d", strtotime('next '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//print 'next: '.$next.' ';
                             }
                             elseif($start_same_week==1 && $number_ServiceStartingDate==$app_day)//if $start_same_week==1 the event start in the same week and if the CURRENT appointment day is > $number_ServiceStartingDate
                             {
@@ -140,18 +140,18 @@ class Dashboard extends CI_Controller
                             }
                             elseif($start_same_week==1 && $number_ServiceStartingDate>$app_day)
                             {
-                                $next = date("Y-m-d", strtotime('last '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//echo 'last: '.$next.' ';
+                                $next = date("Y-m-d", strtotime('last '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//print 'last: '.$next.' ';
                             }
                             elseif($start_same_week==0)
                             {
-                                $next = date("Y-m-d", strtotime('next '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//echo 'next: '.$next.' ';
+                                $next = date("Y-m-d", strtotime('next '.$str_day.' '.date("Y-m-d", strtotime($ServiceStartingDate))));//print 'next: '.$next.' ';
                             }
 
-                            //echo $next;
+                            //print $next;
 
                             $minutes = 0;
                             //$app_time = 10 * $unit_time;
-                            $app_time = $unit_time;//echo $app_time;
+                            $app_time = $unit_time;//print $app_time;
                             $spaces = floor(1440 / $unit_time);
                             $color_available = '#009933';
                             $color_not_available = '#ffff66';
@@ -174,14 +174,14 @@ class Dashboard extends CI_Controller
 
                                     if ($exist_availables == 1)
                                     {
-                                        //echo json_encode($all_appointments).'     ';//die();
+                                        //print json_encode($all_appointments).'     ';//die();
 
                                         $app_today = 0;
                                         $appointment['data']='';
 
                                         if (isset($all_appointments['data'][0]['APT_Date']))
                                         {
-                                            for ($app = 0; $app < count($all_appointments['data']); $app++)
+                                            for ($app = 0; $app < sizeof($all_appointments['data']); $app++)
                                             {
                                                 if (isset($all_appointments['data'][$app]['APT_Date']))
                                                 {
@@ -214,7 +214,7 @@ class Dashboard extends CI_Controller
                                                 $event_start=date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
                                                 $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minutes', strtotime($event_end)));
 
-                                                //echo $event_end. '<' .$real_appointment_start_first.'<br>';
+                                                //print $event_end. '<' .$real_appointment_start_first.'<br>';
                                                 if ($event_end < $real_appointment_start_first)
                                                 {
                                                     if(new DateTime($event_start)>new DateTime(date("Y-m-d H:i:s")))
@@ -235,7 +235,7 @@ class Dashboard extends CI_Controller
                                                 }
                                             }
 
-                                            for ($a = 0; $a < count($appointment['data']); $a++)
+                                            for ($a = 0; $a < sizeof($appointment['data']); $a++)
                                             {
                                                 $real_appointment_title = $appointment['data'][$a]['APT_Title'];
 
@@ -251,13 +251,13 @@ class Dashboard extends CI_Controller
                                                     $date2 = new DateTime($real_appointment_start);
                                                     $diff = $date1->diff($date2);
                                                     $minutes = $diff->h * 60 + $diff->i - 1;
-                                                    //echo 'real_appointment_start: '.$real_appointment_start.' = '.$event_end.'   minutes: '.$minutes. '  <br><br>';
+                                                    //print 'real_appointment_start: '.$real_appointment_start.' = '.$event_end.'   minutes: '.$minutes. '  <br><br>';
                                                 }
 
                                                 if ($minutes >= $app_time)
                                                 {
                                                     $cant_hold = floor($minutes / $app_time);
-                                                    //echo '$cant_hold: ' . $cant_hold . ' = ' . $minutes . ' / ' . $app_time . ' <br>';
+                                                    //print '$cant_hold: ' . $cant_hold . ' = ' . $minutes . ' / ' . $app_time . ' <br>';
 
                                                     for ($h = 0; $h < $cant_hold; $h++)//search if exist an appointment in this date and time
                                                     {
@@ -273,7 +273,7 @@ class Dashboard extends CI_Controller
                                                         $event['setting_id'] = $setting_id;
                                                         $event['confirm'] = 0;
                                                         $events[] = $event;
-                                                        //echo $event_start . ' = ' . $event_end . '    ' . $event['title'] . ' <br><br>';
+                                                        //print $event_start . ' = ' . $event_end . '    ' . $event['title'] . ' <br><br>';
                                                     }
                                                 }
 
@@ -301,14 +301,14 @@ class Dashboard extends CI_Controller
                                             $event_start = date("Y-m-d H:i:s", strtotime('+1 minute', strtotime($event_end)));
                                             $event_end = date("Y-m-d H:i:s", strtotime('+' . $app_time . ' minute', strtotime($event_end)));
 
-                                            //echo $event_start.' - '.$event_end.'<br>';
+                                            //print $event_start.' - '.$event_end.'<br>';
                                             if ($event_end < $event_end_period)
                                             {
                                                 if(new DateTime($event_start)>new DateTime(date("Y-m-d H:i:s")))
                                                 {
-                                                    //echo $event_start . ' > ' . date("Y-m-d H:i:s") . '<br>';
+                                                    //print $event_start . ' > ' . date("Y-m-d H:i:s") . '<br>';
 
-                                                    //echo $event_end . ' < ' . $event_end_period;
+                                                    //print $event_end . ' < ' . $event_end_period;
                                                     $event['id'] = rand(1, 999999999999999);
                                                     $event['title'] = $title_available;
                                                     $event['start'] = $event_start;
@@ -343,11 +343,11 @@ class Dashboard extends CI_Controller
 
         if($error=='')
         {
-            $data['events'] = json_encode($events);//echo $data['events'];//die();
+            $data['events'] = json_encode($events);//print $data['events'];//die();
             $this->load->view('dashboard/CalendarAppointment', $data);
         }
         else
-            echo $error;
+            print $error;
     }
 
     function ExistEventsBetweenTimes($ServiceStartingDate, $ServiceEndingDate, $day)
@@ -355,7 +355,7 @@ class Dashboard extends CI_Controller
         $exist_availables = 0;
         if ($ServiceStartingDate != '' && $ServiceEndingDate != '')
         {
-            //echo $ServiceStartingDate.' <= '.date("m/d/Y", strtotime($day)) && date("m/d/Y", strtotime($day)).' <= '.$ServiceEndingDate.'   ---------  '.$exist_availables.' =====  ';
+            //print $ServiceStartingDate.' <= '.date("m/d/Y", strtotime($day)) && date("m/d/Y", strtotime($day)).' <= '.$ServiceEndingDate.'   ---------  '.$exist_availables.' =====  ';
             if (new DateTime($ServiceStartingDate) <= new DateTime(date("m/d/Y", strtotime($day))) && new DateTime(date("m/d/Y", strtotime($day))) <= new DateTime($ServiceEndingDate))
                 $exist_availables = 1;
         } elseif ($ServiceStartingDate != '' && $ServiceEndingDate == '')
@@ -374,12 +374,12 @@ class Dashboard extends CI_Controller
 
     function ConfirmApp()
     {
-        $data['token']=$this->uri->segment(3);//echo $token;die();
+        $data['token']=$this->uri->segment(3);//print $token;die();
         $token=$data['token'];
 
         $result=$this->M_Dashboard->ValidaTokenApp($token);//var_dump($result);
 
-        //echo $result['error'];
+        //print $result['error'];
         if ($result['error']=='0')
         {
             $data['__zpk_Appointment_Rec'] = $result['__zpk_Appointment_Rec'];
@@ -506,7 +506,7 @@ class Dashboard extends CI_Controller
         $this->load->library('MT_ICS');
         $ics = new MT_ICS($arr_ical);
 
-        echo $ics->to_string();
+        print $ics->to_string();
     }
 
     function GetiCal()
@@ -526,7 +526,7 @@ class Dashboard extends CI_Controller
 
         header('Content-type: text/calendar; charset=utf-8');
         header('Content-Disposition: inline; filename=calendar.ics');
-        echo $calendar;
+        print $calendar;
         exit;
     }
 
@@ -539,7 +539,7 @@ class Dashboard extends CI_Controller
 
         $app = $this->M_Dashboard->GetAppointmentBy($id_service, $id_doctor, $date, $start);
 
-        echo $app['error'];
+        print $app['error'];
     }
 
     function GoToAppointments($view="dashboard/Dashboard", $msg="", $success="", $warning="", $error="")
@@ -577,7 +577,7 @@ class Dashboard extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 }

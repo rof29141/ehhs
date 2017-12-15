@@ -13,7 +13,7 @@ require_once(APPPATH."views/includes/header.php");
     </div>
 
     <div class="container auth">
-        <?php echo form_open('authentication/SaveNewPass', "class='smart-form client-form' name='frm_auth' id='frm_auth' role='form'"); ?>
+        <?php print form_open('authentication/SaveNewPass', "class='smart-form client-form' name='frm_auth' id='frm_auth' role='form'"); ?>
 
         <section>
             <div class="fields">
@@ -30,15 +30,15 @@ require_once(APPPATH."views/includes/header.php");
         </section>
 
         <div class="actions">
-            <input type="hidden" id="inp_token" name="inp_token" value="<?php echo $token; ?>">
-            <input type="hidden" id="inp_id" name="inp_id" value="<?php echo $id; ?>">
+            <input type="hidden" id="inp_token" name="inp_token" value="<?php print $token; ?>">
+            <input type="hidden" id="inp_id" name="inp_id" value="<?php print $id; ?>">
             <button type="submit" id='restore_pass' name='restore_pass'class="btn btn-lg btn-primary btn-block">
                  Reset Password
             </button>
         </div>
 
         <?php require_once(VIEW_URL."includes/hidden.php");?>
-        <?php echo form_close(); ?>
+        <?php print form_close(); ?>
     </div>
 
 </div>

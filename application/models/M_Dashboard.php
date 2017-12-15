@@ -44,14 +44,14 @@ Class M_Dashboard extends CI_Model
         $sort2['fieldName'] = 'APT_Time';
         $sort2['sortOrder'] = 'ascend';
         $sort = array ($sort1, $sort2);
-        $criteria['sort'] = $sort;//echo json_encode($criteria);
+        $criteria['sort'] = $sort;//print json_encode($criteria);
 
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);die();
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['APT_Date'] = $result["data"][$i]["fieldData"]["APT_Date"];
@@ -87,13 +87,13 @@ Class M_Dashboard extends CI_Model
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
         $criteria['offset'] = '1';
-        //echo json_encode($criteria);
+        //print json_encode($criteria);
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
 
@@ -110,19 +110,19 @@ Class M_Dashboard extends CI_Model
     {
         $layout='PHP_Service_Doctor';
 
-        $request1['_kf_ServiceID'] = '=='.$id_service;//echo $data['id'];
-        $request1['_kf_DoctorID'] = '=='.$id_doctor;//echo $data['id'];
+        $request1['_kf_ServiceID'] = '=='.$id_service;//print $data['id'];
+        $request1['_kf_DoctorID'] = '=='.$id_doctor;//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
         $criteria['range'] = '10000';
-        $criteria['offset'] = '1';//echo json_encode($criteria);
+        $criteria['offset'] = '1';//print json_encode($criteria);
 
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
                 $field['QtyWeeksRepeat'] = $result["data"][$i]["fieldData"]["QtyWeeksRepeat"];
@@ -147,16 +147,16 @@ Class M_Dashboard extends CI_Model
     {
         $layout='PHP_Appointment';
 
-        $request1['TokenConfirmApp'] = '"'.$token.'"';
+        $request1['TokenConfirmApp'] = '=='.$token;
         $query = array ($request1);
         $criteria['query'] = $query;
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $layout);//print json_encode($criteria);var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $return['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $return['APT_Date'] = $result["data"][$i]["fieldData"]["APT_Date"];

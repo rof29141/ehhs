@@ -13,7 +13,7 @@ require_once(APPPATH."views/includes/header.php");
     </div>
 
     <fieldset class="container auth">
-        <?php echo form_open('', "class='smart-form client-form' id='frm_auth' role='form' method='post'"); ?>
+        <?php print form_open('', "class='smart-form client-form' id='frm_auth' role='form' method='post'"); ?>
         <div class="fields">
             <strong>Email address</strong>
             <input type="email" class="form-control" name="inp_email" id="inp_email" placeholder="Enter your Email">
@@ -28,12 +28,12 @@ require_once(APPPATH."views/includes/header.php");
 
         <fieldset>
             <div class="text-center">
-                <a href="<?php echo CTR_URL; ?>Authentication">Back to Login</a>
+                <a href="<?php print CTR_URL; ?>Authentication">Back to Login</a>
             </div>
         </fieldset>
 
         <?php require_once(VIEW_URL."includes/hidden.php");?>
-        <?php echo form_close(); ?>
+        <?php print form_close(); ?>
     </div>
 
 </div>
@@ -86,7 +86,7 @@ require_once(APPPATH."views/includes/header.php");
                     }
                     else {
                         alertify.success('Please, check your inbox. Has been sent an email to ' + $('#inp_email').val());
-                        $('#frm_auth').html('<div class="actions"><a style="color:#fff;" href="<?php echo CTR_URL; ?>Authentication"><div class="btn btn-lg btn-primary btn-block">Return to login</div></a></div>');
+                        $('#frm_auth').html('<div class="actions"><a style="color:#fff;" href="<?php print CTR_URL; ?>Authentication"><div class="btn btn-lg btn-primary btn-block">Return to login</div></a></div>');
                     }
                 });
             }

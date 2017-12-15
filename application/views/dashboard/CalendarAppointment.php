@@ -33,7 +33,7 @@
 
     </div>
 
-</div><?php //echo $events;?>
+</div><?php //print $events;?>
 
 
 <script type="text/javascript">
@@ -80,7 +80,7 @@
             displayEventTime: true,
             editable: false,
             timeFormat: 'hh:mm t',
-            events: <?php echo $events;?>,
+            events: <?php print $events;?>,
 
             eventRender: function(event, eventElement)
             {
@@ -110,11 +110,11 @@
         });
 
         var today = new Date().getDay();//0=Sun, 1=Mon, ..., 6=Sat
-        var last_day = '<?php echo $last_day;?>'-1;//last day of the appointments
+        var last_day = '<?php print $last_day;?>'-1;//last day of the appointments
 
         if(today>=last_day){$('#calendar').fullCalendar('next');}
 
-        //alert('<?php echo $events;?>');
+        //alert('<?php print $events;?>');
         function FillModalApp(id_service, id_doctor, start, end, setting_id, calEvent, ReminderEmail, ReminderMsg, ReminderContactBy)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start

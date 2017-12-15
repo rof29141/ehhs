@@ -4,31 +4,31 @@ $position='left';
 require_once(APPPATH."views/includes/header.php");
 ini_set('memory_limit', '2048M');
 ?>
-<link href="<?php echo base_url('assets/css/application.css') ?>" rel="stylesheet">
+<link href="<?php print base_url('assets/css/application.css') ?>" rel="stylesheet">
 <?php
 if(isset($data['my_next_appointments']['data']))
 {
-for($i=0;$i<count($data['my_next_appointments']['data']);$i++)
+for($i=0;$i<sizcount($data['my_next_appointments']['data']);$i++)
 {
 
 ?>
-    <div class="row" style="margin-bottom: 10px;" id="<?php echo $i;?>">
+    <div class="row" style="margin-bottom: 10px;" id="<?php print $i;?>">
         <article class="col-sm-12 col-md-6 col-lg-4">
             <div style="border:1px solid;display: table;width: 100%;height: 90px;">
                 <div style="display: table-row;">
 
                     <div  style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 10px;">
                         <?php
-                            echo '<img class="doc_img" style="width: 80%;" src="'; if($data['my_next_appointments']['data'][$i]['Photo'])echo $data['my_next_appointments']['data'][$i]['Photo'];else echo base_url('assets/images/male.png');echo'"/><br><br>';
-                            echo $data['my_next_appointments']['data'][$i]['FirstName'].' '.$data['my_next_appointments']['data'][$i]['LastName'];
+                            print '<img class="doc_img" style="width: 80%;" src="'; if($data['my_next_appointments']['data'][$i]['Photo'])print $data['my_next_appointments']['data'][$i]['Photo'];else print base_url('assets/images/male.png');echo'"/><br><br>';
+                            print $data['my_next_appointments']['data'][$i]['FirstName'].' '.$data['my_next_appointments']['data'][$i]['LastName'];
                         ?>
                     </div>
                     <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
-                        <div class="" style="text-align:center;font-weight: bold; font-size: 11px;"><?php echo $data['my_next_appointments']['data'][$i]['APT_Title'];?></div>
+                        <div class="" style="text-align:center;font-weight: bold; font-size: 11px;"><?php print $data['my_next_appointments']['data'][$i]['APT_Title'];?></div>
                         <br>
-                        <div class="" style="text-align:center;font-weight: bold; font-size: 12px;"><?php echo $data['my_next_appointments']['data'][$i]['Service'];?></div>
+                        <div class="" style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_next_appointments']['data'][$i]['Service'];?></div>
                         <br>
-                        <div class="" style="text-align:center;font-weight: bold; font-size: 15px;"><?php echo $data['my_next_appointments']['data'][$i]['APT_Date'].' '.$data['my_next_appointments']['data'][$i]['APT_Time'];?></div>
+                        <div class="" style="text-align:center;font-weight: bold; font-size: 15px;"><?php print $data['my_next_appointments']['data'][$i]['APT_Date'].' '.$data['my_next_appointments']['data'][$i]['APT_Time'];?></div>
 
                         <br>
 
@@ -44,7 +44,7 @@ for($i=0;$i<count($data['my_next_appointments']['data']);$i++)
                         ?>
                         <div style="text-align:center;">
                             <div style="text-align: center;padding-left:10px;padding-right:10px;top: 10px;position: relative;display: inline-block;"
-                                 class="note"><?php echo $cancel_note; ?></div>
+                                 class="note"><?php print $cancel_note; ?></div>
                         </div>
 
                     </div>
@@ -53,7 +53,7 @@ for($i=0;$i<count($data['my_next_appointments']['data']);$i++)
         </article>
     </div>
 
-<?php }}else echo '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>' ;?>
+<?php }}else print '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>' ;?>
 
 <script type="text/javascript">
     $(document).ready(function()

@@ -33,7 +33,7 @@ class Survey extends CI_Controller
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 
@@ -91,11 +91,11 @@ class Survey extends CI_Controller
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
             $result=$this->M_Survey->Save($data);
-            echo $result['error'];
+            print $result['error'];
         }
         else
         {
-            echo 1;
+            print 1;
         }
     }
 }

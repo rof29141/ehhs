@@ -1,48 +1,48 @@
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/theme.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/animate.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/brankic.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/entypo.css" />
+<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/theme.css" />
+<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/animate.css" />
+<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/brankic.css" />
+<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/entypo.css" />
 
 <!--
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/ionicons.min.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/datepicker.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/vendor/morris.css" />
+<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/ionicons.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/morris.css" />
 
 -->
 
 
 
 
-<link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/js/alertifyjs/css/alertify.css">
+<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/js/alertifyjs/css/alertify.css">
 
-<script src="<?php echo ASSETS_URL; ?>/js/jquery-3.2.1.min.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/jquery-3.2.1.min.js"></script>
 
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src="<?php echo ASSETS_URL; ?>/js/jquery-validate/jquery.validate.min.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/js/alertifyjs/alertify.js"> </script>
-<script src="<?php echo ASSETS_URL; ?>/js/spin.min.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/jquery-validate/jquery.validate.min.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/alertifyjs/alertify.js"> </script>
+<script src="<?php print ASSETS_URL; ?>/js/spin.min.js"></script>
 
 <!--
-<script src="<?php echo ASSETS_URL; ?>/js/cbx.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/cbx.js"></script>
 
-<script src="<?php echo ASSETS_URL; ?>/js/jquery.fileupload.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/jquery.fileupload.js"></script>
 <link href="https://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
 
 
-<script src="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/vendor/jquery.ui.widget.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.iframe-transport.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.fileupload.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.iframe-transport.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.fileupload.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.fileupload-process.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/vendor/jquery.ui.widget.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.iframe-transport.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.fileupload.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.iframe-transport.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.fileupload.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.fileupload-process.js"></script>
 
-<link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/css/style.css">
-<link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/css/jquery.fileupload.css">
+<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/css/style.css">
+<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/css/jquery.fileupload.css">
 -->
 
 <!--[if lt IE 9]>
@@ -50,13 +50,13 @@
 <![endif]-->
 
 
-<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/datatable/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/datatable/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
 
-<link rel='stylesheet' href='<?php echo ASSETS_URL; ?>/js/fullcalendar-3.5.1/fullcalendar.css' />
+<link rel='stylesheet' href='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/fullcalendar.css' />
 
-<script src='<?php echo ASSETS_URL; ?>/js/fullcalendar-3.5.1/lib/moment.min.js'></script>
-<script src='<?php echo ASSETS_URL; ?>/js/fullcalendar-3.5.1/fullcalendar.js'></script>
+<script src='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/lib/moment.min.js'></script>
+<script src='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/fullcalendar.js'></script>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
@@ -514,7 +514,7 @@
 
     /* Banner */
     #img_logo {
-        background:url(<?php echo $src_logo;?>);
+        background:url(<?php print $src_logo;?>);
         background-size: auto 90px;
         background-repeat: no-repeat;
         width:100%;
@@ -538,7 +538,7 @@
 
     @media only screen and (max-width: 1560px) {
         #img_logo {
-            background:url(<?php echo $src_logo1;?>);
+            background:url(<?php print $src_logo1;?>);
             background-size: auto 48px;
             background-repeat: no-repeat;
             width:100%;
@@ -563,7 +563,7 @@
 
     @media only screen and (max-width: 900px) {
         #img_logo {
-            background:url(<?php echo $src_logo1;?>);
+            background:url(<?php print $src_logo1;?>);
             background-size: auto 48px;
             background-repeat: no-repeat;
             width:100%;

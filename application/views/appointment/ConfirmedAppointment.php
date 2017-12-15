@@ -26,11 +26,11 @@ require_once(APPPATH."views/includes/header.php");
 
                             Thank you for your confirmation.
                             <br>
-                            An email has been sent to <?php echo $email;?>
+                            An email has been sent to <?php print $email;?>
                             <br>
                             <fieldset class="container auth">
                                 <div class="text-center">
-                                    <a class="btn btn-success" href="<?php echo CTR_URL; ?>Authentication">Back to Login</a>
+                                    <a class="btn btn-success" href="<?php print CTR_URL; ?>Authentication">Back to Login</a>
                                 </div>
                             </fieldset>
                         </div>

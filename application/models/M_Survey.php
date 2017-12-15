@@ -29,7 +29,7 @@ Class M_Survey extends CI_Model
     {
         $layout='PHP_Patients';
 
-        $request1['RecordID'] = $data['id'];//echo $data['id'];
+        $request1['RecordID'] = $data['id'];//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
 
@@ -38,7 +38,7 @@ Class M_Survey extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<count($result["data"]);$i++)
+            for($i=0;$i<sizeof($result["data"]);$i++)
             {
                 $field['bd_FirstName'] = $result["data"][$i]["fieldData"]["bd_FirstName"];
                 $field['bd_LastName'] = $result["data"][$i]["fieldData"]["bd_LastName"];
@@ -74,7 +74,7 @@ Class M_Survey extends CI_Model
             $recordID=$result['recordId'];
 
 
-            $request1['RecordID'] = $recordID;//echo $data['id'];
+            $request1['RecordID'] = $recordID;//print $data['id'];
             $query = array ($request1);
             $criteria['query'] = $query;
 
@@ -83,7 +83,7 @@ Class M_Survey extends CI_Model
 
             if($return['error']=='0')
             {
-                for($i=0;$i<count($result["data"]);$i++)
+                for($i=0;$i<sizeof($result["data"]);$i++)
                 {
                     $surveyID = $result["data"][$i]["fieldData"]["__kp_SURVEY_ID"];
                 }
@@ -100,7 +100,7 @@ Class M_Survey extends CI_Model
                             $record1['Answer_Rate'] = $value;
                             $record1['_kf_Survey_ID'] = $surveyID;
                             $data1['data'] = $record1;
-                            //echo json_encode($data1);
+                            //print json_encode($data1);
 
                             $result = $this->fm->createRecord($data1, $layout);//var_dump($result);
                             $return['error'] = $this->error($result);

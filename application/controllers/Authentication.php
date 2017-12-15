@@ -36,7 +36,7 @@ class Authentication extends CI_Controller
     }
 
     function CreateAccount()
-    {//echo $_POST['user_email'];echo $this->input->post('user_email');die();
+    {//print $_POST['user_email'];print $this->input->post('user_email');die();
         $data=array(
             'email'=>$this->input->post('user_email'),
             'password'=>password_hash($this->input->post('password'), PASSWORD_DEFAULT)
@@ -120,10 +120,10 @@ class Authentication extends CI_Controller
         if ($email != '')
         {
             $result = $this->Auth->ValidateEmail($email);//var_dump($result);
-            //echo $result['error'];die();
+            //print $result['error'];die();
 
             if ($result['error']=='0')
-            {//echo var_dump($result['result']);//die();
+            {//print var_dump($result['result']);//die();
                 $from_email = EMAIL_FROM;
                 $from_name = EMAIL_FROM_NAME;
                 $email_to = $email;
@@ -133,7 +133,7 @@ class Authentication extends CI_Controller
                 if($send=='pass')
                 {
                     $id = $result['id'];
-                    $result = $this->generarLinkTemporal($id);//echo '$token: '.$token;die();
+                    $result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
 
                     if ($result['token']) {
                         $token = $result['token'];
@@ -174,8 +174,8 @@ class Authentication extends CI_Controller
                     <div class="fields">
                         <strong>Security Question</strong>
                         <select disabled="disabled" class="form-control my_select2" id="_kf_SecurityQuestion_SN" name="_kf_SecurityQuestion_SN">
-                            <?php for ($i=0;$i<count($result_vl['vl']['data']);$i++){?>
-                            <option  <?php if(isset($result['_kf_SecurityQuestion_SN'])){if($result['_kf_SecurityQuestion_SN']==$result_vl['vl']['data'][$i]['_zhk_RecordSerialNumber']){?> selected <?php }}?>value="<?php echo $result_vl['vl']['data'][$i]['_zhk_RecordSerialNumber'];?>"><?php echo $result_vl['vl']['data'][$i]['Security_Questions'];?></option>
+                            <?php for ($i=0;$i<sizeof($result_vl['vl']['data']);$i++){?>
+                            <option  <?php if(isset($result['_kf_SecurityQuestion_SN'])){if($result['_kf_SecurityQuestion_SN']==$result_vl['vl']['data'][$i]['_zhk_RecordSerialNumber']){?> selected <?php }}?>value="<?php print $result_vl['vl']['data'][$i]['_zhk_RecordSerialNumber'];?>"><?php print $result_vl['vl']['data'][$i]['Security_Questions'];?></option>
                         <?php }?>
                         </select>
                     </div>
@@ -183,10 +183,10 @@ class Authentication extends CI_Controller
                     <?php
                 }
             }
-            else{echo 'WRONG';}
+            else{print 'WRONG';}
 
         }
-        else{echo 'EMPTY';}
+        else{print 'EMPTY';}
     }
 
     function EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body)
@@ -216,7 +216,7 @@ class Authentication extends CI_Controller
 
     function Restore()
     {
-        $data['token']=$this->uri->segment(3);//echo $token;die();
+        $data['token']=$this->uri->segment(3);//print $token;die();
         $token=$data['token'];
 
         $result=$this->Auth->ValidaToken($token);//var_dump($result);

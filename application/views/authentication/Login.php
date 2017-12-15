@@ -13,7 +13,7 @@ require_once(APPPATH."views/includes/header.php");
     </div>
 
     <div class="container auth">
-        <?php echo form_open('authentication/Verify', "class='form-signin' id='frm_auth' role='form'"); ?>
+        <?php print form_open('authentication/Verify', "class='form-signin' id='frm_auth' role='form'"); ?>
             <section>
                 <div class="fields">
                     <strong>User ID</strong>
@@ -38,17 +38,17 @@ require_once(APPPATH."views/includes/header.php");
             <fieldset>
                 <div class="text-center">
                     Forgot
-                    <a href="<?php echo CTR_URL; ?>Authentication/ForgotUser">User ID</a>
+                    <a href="<?php print CTR_URL; ?>Authentication/ForgotUser">User ID</a>
                     or
-                    <a href="<?php echo CTR_URL; ?>Authentication/ForgotPassword">Password?</a>
+                    <a href="<?php print CTR_URL; ?>Authentication/ForgotPassword">Password?</a>
                 </div>
                 <div class="text-center">
-                    <a href="<?php echo CTR_URL; ?>Authentication/ResetPassword">Reset Password</a>
+                    <a href="<?php print CTR_URL; ?>Authentication/ResetPassword">Reset Password</a>
                 </div>
             </fieldset>
 
         <?php require_once(VIEW_URL."includes/hidden.php");?>
-        <?php echo form_close(); ?>
+        <?php print form_close(); ?>
     </div>
 
 </div>
