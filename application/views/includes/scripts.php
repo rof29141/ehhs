@@ -21,7 +21,7 @@
 
 
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="<?php print ASSETS_URL; ?>/js/bootstrap.min.js"></script>
 
 <script src="<?php print ASSETS_URL; ?>/js/jquery-validate/jquery.validate.min.js"></script>
 <script src="<?php print ASSETS_URL; ?>/js/alertifyjs/alertify.js"> </script>
@@ -51,15 +51,15 @@
 
 
 <link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/datatable/datatables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+<script type="text/javascript" src="<?php print ASSETS_URL; ?>/js/datatables.min.js"></script>
 
 <link rel='stylesheet' href='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/fullcalendar.css' />
 
 <script src='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/lib/moment.min.js'></script>
 <script src='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/fullcalendar.js'></script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<link href="<?php print ASSETS_URL; ?>/js/select2/select2.min.css" rel="stylesheet" />
+<script src="<?php print ASSETS_URL; ?>/js/select2/select2.min.js"></script>
 
 
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.0/js/dataTables.buttons.min.js"></script>
@@ -542,9 +542,9 @@
             background-size: auto 48px;
             background-repeat: no-repeat;
             width:100%;
-            height:50px;
+            height:70px;
             margin-right: 5px;
-            margin-left: 25px;
+            margin-left: 5px;
             vertical-align: middle;
         }
 
@@ -567,13 +567,13 @@
             background-size: auto 48px;
             background-repeat: no-repeat;
             width:100%;
-            height:50px;
+            height:70px;
             margin-right: 5px;
             vertical-align: middle;
         }
 
         #banner_img {
-            width:100%;
+            display:table-cell;width:15%;font-size: 24px;vertical-align: middle;
         }
 
         #banner_project {
@@ -581,7 +581,7 @@
         }
 
         #banner_name {
-            display: none;
+            display:table-cell;width:85%;font-size: 14px;vertical-align: middle;
         }
     }
     /* Banner */

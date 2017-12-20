@@ -28,6 +28,8 @@ class Main extends CI_Controller
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
+            $data['data']['rewards']=$this->M_Main->GetRewards($data);
+
             $this->load->view($view, $data);
         }
         else
@@ -258,7 +260,9 @@ class Main extends CI_Controller
 
             if(sizeof($var) != 0)
             {
-                for ($i = 0; $i < sizeof($var); next($var), $i++)
+                $cant=sizeof($var);
+
+                for($i=0;$i<$cant; next($var), $i++)
                 {
                     $layout = current($var);//print $layout.' - ';die();
 

@@ -1,5 +1,5 @@
 <div class="container" >
-    <div class="row" style="margin: 20px;">
+    <div class="row" style="margin-top: 50px;">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
             <fieldset class="myfieldset">
@@ -7,7 +7,7 @@
 
 
 
-                    <section class="col col-12" style="padding: 10px;">
+                    <section class="col col-12" style="padding: 0px;">
 
                         <form class='fill-up validatable' role='form' name='frm' id='frm' action="">
                             <div id="data_profile"></div>

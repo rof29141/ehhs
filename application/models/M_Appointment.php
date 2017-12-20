@@ -29,7 +29,7 @@ Class M_Appointment extends CI_Model
         $layout='PHP_Appointment';
 
         $request1['_zfk_ClientRec'] = $id_patient;
-        //$request1['Active?'] = '=='. 1;
+        $request1['APT_Date'] = '<'. date('m/d/Y');
 
         $query = array ($request1);
         $criteria['query'] = $query;
@@ -47,7 +47,9 @@ Class M_Appointment extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];
@@ -99,7 +101,9 @@ Class M_Appointment extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];
@@ -151,7 +155,9 @@ Class M_Appointment extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];
@@ -197,7 +203,9 @@ Class M_Appointment extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];
@@ -239,7 +247,9 @@ Class M_Appointment extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['TokenConfirmApp'] = $result["data"][$i]["fieldData"]["TokenConfirmApp"];

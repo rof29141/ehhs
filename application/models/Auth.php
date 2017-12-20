@@ -38,7 +38,9 @@ Class Auth extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+
+            for($i=0;$i<$cant;$i++)
             {
                 //print $password.' - '.$result["data"][$i]["fieldData"]["Password"];die();
                 if(password_verify($password, $result["data"][$i]["fieldData"]["bd_pwd"]))
@@ -71,7 +73,9 @@ Class Auth extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+
+            for($i=0;$i<$cant;$i++)
             {
                 $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
                 $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
@@ -95,7 +99,9 @@ Class Auth extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+
+            for($i=0;$i<$cant;$i++)
             {
                 $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
                 $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
@@ -134,7 +140,9 @@ Class Auth extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+
+            for($i=0;$i<$cant;$i++)
             {
                 $return['id'] = $result["data"][$i]["fieldData"]["RecordID"];
                 $return['user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];

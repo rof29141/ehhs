@@ -38,7 +38,9 @@ Class M_Survey extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['bd_FirstName'] = $result["data"][$i]["fieldData"]["bd_FirstName"];
                 $field['bd_LastName'] = $result["data"][$i]["fieldData"]["bd_LastName"];
@@ -83,7 +85,9 @@ Class M_Survey extends CI_Model
 
             if($return['error']=='0')
             {
-                for($i=0;$i<sizeof($result["data"]);$i++)
+                $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
                 {
                     $surveyID = $result["data"][$i]["fieldData"]["__kp_SURVEY_ID"];
                 }

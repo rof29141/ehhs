@@ -66,5 +66,7 @@
                 error.insertAfter(element.parent());
             }
         });
+
+        $('#my_legend_rewards').html('<?php print $data['user']['data'][0]['bd_FirstName'].' '.$data['user']['data'][0]['bd_LastName'];?>');
     });
 </script>

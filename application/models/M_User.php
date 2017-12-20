@@ -3,13 +3,12 @@ Class M_User extends CI_Model
 {
     private $fm;
 
-    function  __construct()
+    function __construct()
     {
         parent::__construct();
         $this->load->model('MacTutorREST');
         $this->fm = new MacTutorREST ();
     }
-
 
     function error($result)
     {
@@ -71,7 +70,9 @@ Class M_User extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['bd_Salutation'] = $result["data"][$i]["fieldData"]["bd_Salutation"];
                 $field['bd_FirstName'] = $result["data"][$i]["fieldData"]["bd_FirstName"];
@@ -200,5 +201,79 @@ Class M_User extends CI_Model
         return $return;
     }
 
+    function GetPersonalInfoSetting()
+    {
+        $layout='PHP_Personal_Info_Template';
+
+        $request1['Template_Status'] = "==". 1;//print $data['id'];
+        $query = array ($request1);
+        $criteria['query'] = $query;
+        $criteria['range'] = '1';
+        $criteria['offset'] = '1';
+
+        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $return['error']=$this->error($result);
+
+        if($return['error']=='0')
+        {
+            for($i=0;$i<sizeof($result["data"]);$i++)
+            {
+                $field['__kp_PERSONAL_INFO_TEMP_ID'] = $result["data"][$i]["fieldData"]["__kp_PERSONAL_INFO_TEMP_ID"];
+                $field['json'] = $result["data"][$i]["fieldData"]["Json"];
+
+                $fields[$i] = $field;
+            }
+
+            $return['data']=$fields;
+        }
+
+        return $return;
+    }
+
+    function GetPrimaryKeyByRecordID($recordID)
+    {
+        $layout='PHP_Patients';
+
+        $request1['RecordID'] = $recordID;//echo $data['id'];
+        $query = array ($request1);
+        $criteria['query'] = $query;
+        $criteria['range'] = '1';
+        $criteria['offset'] = '1';
+
+        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $return['error']=$this->error($result);
+
+        if($return['error']=='0')
+        {
+            for($i=0;$i<count($result["data"]);$i++)
+            {
+                $field['primary_key'] = $result["data"][$i]["fieldData"]["__zkp_Client_Rec"];
+
+                $fields[$i] = $field;
+            }
+
+            $return['data']=$fields;
+        }
+
+        return $return;
+    }
+
+    function SavePersonalInfo($id_patient, $id_survey, $id_question, $id_answer, $id_answer_multiple, $text)
+    {
+        $layout = 'PHP_Personal_Info';
+
+        $record['_kf_PHP_Personal_Info_Temp_ID'] = $id_survey;
+        $record['_kf_Answers'] = $id_answer;
+        $record['_kf_Question'] = $id_question;
+        $record['_kf_Patient_ID'] = $id_patient;
+        $record['_zft_MultipleAnswerIDs'] = $id_answer_multiple;
+        $record['AnswerText'] = $text;
+        $data['data'] = $record;//print json_encode($data);
+
+        $result = $this->fm->createRecord($data, $layout);//var_dump($result);
+        $return['error']=$this->error($result);
+
+        return $return;
+    }
 }
 ?>

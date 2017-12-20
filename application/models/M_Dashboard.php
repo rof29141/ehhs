@@ -54,7 +54,9 @@ Class M_Dashboard extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $field['APT_Date'] = $result["data"][$i]["fieldData"]["APT_Date"];
@@ -96,7 +98,9 @@ Class M_Dashboard extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
 
@@ -125,7 +129,9 @@ Class M_Dashboard extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $field['__kp_PRIMARY_KEY'] = $result["data"][$i]["fieldData"]["__kp_PRIMARY_KEY"];
                 $field['QtyWeeksRepeat'] = $result["data"][$i]["fieldData"]["QtyWeeksRepeat"];
@@ -159,7 +165,9 @@ Class M_Dashboard extends CI_Model
 
         if($return['error']=='0')
         {
-            for($i=0;$i<sizeof($result["data"]);$i++)
+            $cant=sizeof($result["data"]);
+            
+            for($i=0;$i<$cant;$i++)
             {
                 $return['__zpk_Appointment_Rec'] = $result["data"][$i]["fieldData"]["__zpk_Appointment_Rec"];
                 $return['APT_Date'] = $result["data"][$i]["fieldData"]["APT_Date"];
