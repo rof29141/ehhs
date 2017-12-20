@@ -24,7 +24,7 @@ elseif($position=='left')
                 <a onclick="LoadContent('User/ListMyProfileRewards/profile');"><?php print $bd_FirstName.' '.$bd_LastName;?></a>
                 <br><br>
                 <a onclick="LoadContent('User/ListMyProfileRewards/rewards');">
-                    <div style="display: inline-block">Rewards available: </div> <div class="btn-success" style="display:inline-block;padding-top:12px;text-align:center;border-radius: 50%;width: 35px;height: 35px;"><?php print $points;?></div><?php if($points>1)print ' points';else print ' point';?>
+                    <div style="display: inline-block">Rewards available: </div> <div class="btn-success" style="display:inline-block;padding-top:10px;text-align:center;border-radius: 50%;width: 35px;height: 35px;"><?php print $points;?></div><?php if($points>1)print ' points';else print ' point';?>
                 </a>
             </div>
 
