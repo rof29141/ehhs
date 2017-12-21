@@ -161,6 +161,23 @@ class User extends CI_Controller
 
         }
 
+        if($this->session->userdata('logged_user_acs'))
+        {
+            $session_data = $this->session->userdata('logged_user_acs');
+
+            $sess_array = array(
+                'id' => $session_data['id'],
+                'user_name' => $session_data['user_name'],
+                'bd_FirstName' => $session_data['bd_FirstName'],
+                'bd_LastName' => $session_data['bd_LastName'],
+                'email' => $session_data['email'],
+                '__zkp_Client_Rec' => $session_data['__zkp_Client_Rec'],
+                'PersonalContactInformationStatus' => '1',
+            );
+            $this->session->unset_userdata('logged_user_acs');
+            $this->session->set_userdata('logged_user_acs', $sess_array);
+        }
+
         echo $result['error'];
     }
 
@@ -188,10 +205,12 @@ class User extends CI_Controller
             $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
+            $data['PersonalContactInformationStatus'] = $session_data['PersonalContactInformationStatus'];
 
-            $data['personal_info']=$this->M_User->GetPersonalInfoSetting();
+            $data['personal_info'] = $this->M_User->GetPersonalInfoSetting();
+            $this->load->view('user/PersonalInfo', $data);
         }
-        $this->load->view('user/PersonalInfo', $data);
+
     }
 
     function GoPersonalInfoWoutLogin()
@@ -202,7 +221,9 @@ class User extends CI_Controller
 
     function GetViewWoutLogin()
     {
-        $view_url = $_POST['view_url'];
-        $this->load->view($view_url);
+        $view_url1 = $_POST['view_url1'];
+        $view_url2 = $_POST['view_url2'];
+        $this->load->view($view_url1);
+        $this->load->view($view_url2);
     }
 }

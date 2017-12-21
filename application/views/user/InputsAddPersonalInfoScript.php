@@ -48,8 +48,8 @@
                         '&bd_DateOfBirth=' + $('#bd_DateOfBirth').val() + '&bd_Phone=' + $('#bd_Phone').val() + '&bd_Cell=' + $('#bd_Cell').val() +
                         '&bd_Address1=' + $('#bd_Address1').val() + '&bd_Address2=' + $('#bd_Address2').val() + '&bd_City=' + $('#bd_City').val() +
                         '&bd_State=' + $('#bd_State').val() + '&bd_Country=' + $('#bd_Country').val() + '&bd_ZipCode=' + $('#bd_ZipCode').val() +
-                        '&bd_Sex=' + $('#bd_Sex').val() + '&bd_EmployStatus=' + $('#bd_EmployStatus').val() + '&bd_Wrk_Name=' + $('#bd_Wrk_Name').val()+
-                        '&bd_SocialSecurity=' + $('#bd_SocialSecurity').val() + '&bd_PreferredReminderContact_Type=' + cbx_contact_method + '&bd_MaritalStatus=' + $('#bd_MaritalStatus').val()+
+                        '&bd_Sex=' + $("input[name='bd_Sex']:checked").val() + '&bd_EmployStatus=' + $("input[name='bd_EmployStatus']:checked").val() + '&bd_Wrk_Name=' + $('#bd_Wrk_Name').val()+
+                        '&bd_SocialSecurity=' + $('#bd_SocialSecurity').val() + '&bd_PreferredReminderContact_Type=' + cbx_contact_method + '&bd_MaritalStatus=' + $("input[name='bd_MaritalStatus']:checked").val()+
                         '&bd_Wrk_Address=' + $('#bd_Wrk_Address').val() + '&bd_Wrk_ZipCode=' + $('#bd_Wrk_ZipCode').val() + '&bd_Wrk_City=' + $('#bd_Wrk_City').val()+
                         '&bd_Wrk_Country=' + $('#bd_Wrk_Country').val() + '&bd_Wrk_Phone=' + $('#bd_Wrk_Phone').val() + '&bd_PatientReferral=' + $('#bd_PatientReferral').val()+
                         '&bd_StudentStatus=' + $('#bd_StudentStatus').val() + '&bd_ICE_Name1=' + $('#bd_ICE_Name1').val() + '&bd_ICE_Relationship1=' + $('#bd_ICE_Relationship1').val()+
@@ -82,23 +82,24 @@
                                         var primary_key = response;
                                         var layout = 'PHP_Personal_Info';
                                         var type='INSERT';
-                                        var fields_values = $('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize()+'&id_pers_info='+$('#__kp_PERSONAL_INFO_TEMP_ID').val()+'&id_patient='+$('#id').val();
+                                        var fields_values = $('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize()+'&id_pers_info='+$('#__kp_PERSONAL_INFO_TEMP_ID').val()+'&id_patient='+primary_key;
                                         var data = fields_values + '&layout=' + layout + '&type=' + type;
-                                        $('.content-wrapper').empty();
                                         $.ajax({
                                             type: "POST",
                                             dataType: "html",
                                             url: 'User/SavePersonalInfo',
                                             data: data
                                         }).done(function (response, textStatus, jqXHR) {
-                                            if ($.isNumeric(response)) {
+                                            if ($.isNumeric(response))
+                                            {
+                                                $('#personal_info').empty();
+                                                $('#personal_info').html('<div class="text-center col col-12"><h5>Thank you for completing your Personal Information, we will be in touch soon.</h5></div>');
                                                 alertify.success('Data Saved.');
                                             }
                                             else {
                                                 alertify.error('Error: The element could not be Saved. ' + response);
                                             }
                                             spinner.stop();
-                                            LoadContent($('#view').val());
                                         });
                                     }
                                     else {

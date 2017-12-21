@@ -104,6 +104,7 @@ class Authentication extends CI_Controller
                 'bd_LastName' => $result['bd_LastName'],
                 'email' => $result['email'],
                 '__zkp_Client_Rec' => $result['__zkp_Client_Rec'],
+                'PersonalContactInformationStatus' => $result['PersonalContactInformationStatus'],
             );
 
             $this->session->set_userdata('logged_user_acs', $sess_array);

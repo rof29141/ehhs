@@ -32,106 +32,110 @@ ini_set('memory_limit', '2048M');
                 <fieldset class="myfieldset">
                     <legend class="mylegend">Personal Contact Information</legend>
 
-                    <div class="note text-mutted" align="justify">Thank you for completing this form honestly and accurately.  Completing this before your arrival will help save you time and allow us to spend more valuable time with you during your consultation.  We look forward to meeting you soon and are always available at info@351face.com or by phone at (513) 351.3223 (FACE).</div>
+                    <div id="personal_info">
 
-                    <section class="col col-12" style="padding: 0px;">
+                        <div class="note text-mutted" align="justify">Thank you for completing this form honestly and accurately.  Completing this before your arrival will help save you time and allow us to spend more valuable time with you during your consultation.  We look forward to meeting you soon and are always available at info@351face.com or by phone at (513) 351.3223 (FACE).</div>
 
-                        <form name='frm' id='frm' action="">
-                            <div id="data_personal_info"></div>
+                        <section class="col col-12" style="padding: 0px;">
 
-                            <div class="col-sm-12">
-                                <?php
-                                //var_dump($personal_info);
-                                $json=stripslashes(html_entity_decode($personal_info['data'][0]['json']));//echo $json;
-                                $arr_question= json_decode($json, true);
-                                ?>
-                                <input type="hidden" datafld="ignore" name="json" id="json" value="<?php echo $json;?>">
+                            <form name='frm' id='frm' action="">
+                                <div id="data_personal_info"></div>
 
-                                <?php
-                                if(!is_array($arr_question))
-                                {echo 'Conection lost or bad ID.';die();}
-                                foreach($arr_question as $key => $value)
-                                {
-
-                                    ?>
-                                    <input type="hidden" name="__kp_PERSONAL_INFO_TEMP_ID" id="__kp_PERSONAL_INFO_TEMP_ID" value="<?php echo $personal_info['data'][0]['__kp_PERSONAL_INFO_TEMP_ID'];?>">
+                                <div class="col-sm-12">
                                     <?php
+                                    //var_dump($personal_info);
+                                    $json=stripslashes(html_entity_decode($personal_info['data'][0]['json']));//echo $json;
+                                    $arr_question= json_decode($json, true);
+                                    ?>
+                                    <input type="hidden" datafld="ignore" name="json" id="json" value="<?php echo $json;?>">
 
-                                    $i = 1;
-                                    foreach ($value["Questions"] as $key => $valueQuest)
+                                    <?php
+                                    if(!is_array($arr_question))
+                                    {echo 'Conection lost or bad ID.';die();}
+                                    foreach($arr_question as $key => $value)
                                     {
-                                        if($i % 2)
-                                        print '<div class="row">';
+
                                         ?>
-                                            <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-
-
-                                                <?php
-                                                if (empty($valueQuest["Answers"]))
-                                                {
-                                                    ?>
-                                                    <label><?php echo $valueQuest["Question_Name"]; ?></label><br>
-                                                    <input type="text" class="form-control required" name="inp_<?php echo $valueQuest["Question_Id"]; ?>" id="inp_<?php echo $valueQuest["Question_Id"];?>">
-                                                    <br>
-                                                    <?php
-                                                }
-                                                elseif (!empty($valueQuest["Answers"]))
-                                                {
-                                                ?>
-                                                    <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
-                                                        <legend id="legend_contact" class="mylegend"><?php echo $valueQuest["Question_Name"]; ?></legend>
-
-                                                        <?php
-                                                        $j = 0;
-                                                        foreach ($valueQuest["Answers"] as $key_ans => $value_ans)
-                                                        {
-
-                                                            if ($valueQuest["Multichoice"] == '2')
-                                                            {//echo $valueQuest["multichoice"];
-                                                                ?>
-                                                                <label>
-                                                                    <input type="radio" name="rad_<?php echo $valueQuest["Question_Id"];?>" id="rad_<?php echo $valueQuest["Question_Id"];?>" value="<?php echo $value_ans["Answer_Id"];?>" <?php if ($j == 0) echo 'checked'; ?>>
-                                                                    <?php echo $value_ans["Answer_Name"]; ?>
-                                                                </label><br>
-                                                                <?php
-                                                            }
-                                                            else if ($valueQuest["Multichoice"] == '1')
-                                                            {
-                                                                ?>
-                                                                <label>
-                                                                    <input type="checkbox" name="cbx_<?php echo $valueQuest["Question_Id"].'-'.$value_ans["Answer_Id"];?>" id="cbx_<?php echo $valueQuest["Question_Id"].'-'.$value_ans["Answer_Id"];?>">
-                                                                    <?php echo $value_ans["Answer_Name"]; ?>
-                                                                </label><br>
-                                                                <?php
-                                                            }
-                                                            $j++;
-
-
-                                                        }
-                                                        ?>
-
-                                                    </fieldset>
-
-                                                <?php
-                                                }
-                                                ?>
-                                            </div>
+                                        <input type="hidden" name="__kp_PERSONAL_INFO_TEMP_ID" id="__kp_PERSONAL_INFO_TEMP_ID" value="<?php echo $personal_info['data'][0]['__kp_PERSONAL_INFO_TEMP_ID'];?>">
                                         <?php
-                                        $i++;
 
-                                        if($i % 2)
-                                        print '</div>';
+                                        $i = 1;
+                                        foreach ($value["Questions"] as $key => $valueQuest)
+                                        {
+                                            if($i % 2)
+                                            print '<div class="row">';
+                                            ?>
+                                                <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+
+
+                                                    <?php
+                                                    if (empty($valueQuest["Answers"]))
+                                                    {
+                                                        ?>
+                                                        <label><?php echo $valueQuest["Question_Name"]; ?></label><br>
+                                                        <input type="text" class="form-control required" name="inp_<?php echo $valueQuest["Question_Id"]; ?>" id="inp_<?php echo $valueQuest["Question_Id"];?>">
+                                                        <br>
+                                                        <?php
+                                                    }
+                                                    elseif (!empty($valueQuest["Answers"]))
+                                                    {
+                                                    ?>
+                                                        <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
+                                                            <legend id="legend_contact" class="mylegend"><?php echo $valueQuest["Question_Name"]; ?></legend>
+
+                                                            <?php
+                                                            $j = 0;
+                                                            foreach ($valueQuest["Answers"] as $key_ans => $value_ans)
+                                                            {
+
+                                                                if ($valueQuest["Multichoice"] == '2')
+                                                                {//echo $valueQuest["multichoice"];
+                                                                    ?>
+                                                                    <label>
+                                                                        <input type="radio" name="rad_<?php echo $valueQuest["Question_Id"];?>" id="rad_<?php echo $valueQuest["Question_Id"];?>" value="<?php echo $value_ans["Answer_Id"];?>" <?php if ($j == 0) echo 'checked'; ?>>
+                                                                        <?php echo $value_ans["Answer_Name"]; ?>
+                                                                    </label><br>
+                                                                    <?php
+                                                                }
+                                                                else if ($valueQuest["Multichoice"] == '1')
+                                                                {
+                                                                    ?>
+                                                                    <label>
+                                                                        <input type="checkbox" name="cbx_<?php echo $valueQuest["Question_Id"].'-'.$value_ans["Answer_Id"];?>" id="cbx_<?php echo $valueQuest["Question_Id"].'-'.$value_ans["Answer_Id"];?>">
+                                                                        <?php echo $value_ans["Answer_Name"]; ?>
+                                                                    </label><br>
+                                                                    <?php
+                                                                }
+                                                                $j++;
+
+
+                                                            }
+                                                            ?>
+
+                                                        </fieldset>
+
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            $i++;
+
+                                            if($i % 2)
+                                            print '</div>';
+                                        }
                                     }
-                                }
-                                ?>
-                            </div>
+                                    ?>
+                                </div>
 
-                            <div class="col-sm-12 col-md-6 col-lg-6 form-group pull-right">
-                                <button type="button" datafld="PHP_Patients" datatype="UPDATE" id="btn_save_personal_info" class="btn btn-success">Save</button>
-                            </div>
-                        </form>
+                                <div class="col-sm-12 col-md-6 col-lg-6 form-group pull-right">
+                                    <button type="button" datafld="PHP_Patients" datatype="UPDATE" id="btn_save_personal_info" class="btn btn-success">Save</button>
+                                </div>
+                            </form>
 
-                    </section>
+                        </section>
+
+                    </div>
 
                 </fieldset>
 
@@ -153,92 +157,6 @@ ini_set('memory_limit', '2048M');
 <script type="text/javascript">
 
     /*-------------------DO NOT CHANGE THE CODE-------------------*/
-
-    //LoadContent('Appointment');
-
-    function UpdateContent(go_function, go_view, go_back, id='')
-    {
-        $( '.content-wrapper' ).empty();
-        var target = document.getElementById('container');
-        var spinner = new Spinner(opts).spin(target);
-
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: go_function,
-            data:{go_view:go_view, go_back:go_back, id:id}
-        }).done(function(response, textStatus, jqXHR)
-        {
-            if(response!='1')
-            {
-                $('.content-wrapper').html(response);
-                $('#view').val(go_back);
-                spinner.stop();
-            }
-            else
-                window.location.replace("Authentication");
-        }).fail(function(jqHTR, textStatus, thrown)
-        {
-            alertify.error('Something wrong with AJAX:' + textStatus);
-        });
-    }
-
-    function DeleteContent(go_function, go_layout, id)
-    {
-        $( '.content-wrapper' ).empty();
-        var target = document.getElementById('container');
-        var spinner = new Spinner(opts).spin(target);
-
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: go_function,
-            data:{go_layout:go_layout, id:id}
-        }).done(function(response, textStatus, jqXHR)
-        {
-            if(response!='1')
-            {
-                if(response=='0'){alertify.success('Element deleted.');}
-                else if(response=='01'){alertify.warning('You have to delete something. The ID is empty.');}
-                else if(response=='02'){alertify.warning('You have to delete something. The Layout is empty.');}
-                else {alertify.error('Error: The element could not be deleted. '+ response);}
-                spinner.stop();
-                LoadContent($('#view').val());
-            }
-            else
-                window.location.replace("Authentication");
-        }).fail(function(jqHTR, textStatus, thrown)
-        {
-            alertify.error('Something wrong with AJAX:' + textStatus);
-        });
-    }
-
-    function LoadContent(pag)
-    {
-        //$('.content-wrapper').html('');
-        $( '.content-wrapper' ).empty();
-        var target = document.getElementById('container');
-        var spinner = new Spinner(opts).spin(target);
-
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: pag
-        }).done(function(response, textStatus, jqXHR)
-        {
-            if(response!='1')
-            {
-                $('.content-wrapper').html(response);
-                $('#view').val(pag);
-                spinner.stop();
-            }
-            else
-                window.location.replace("Authentication");
-        }).fail(function(jqHTR, textStatus, thrown)
-        {
-            alertify.error('Something wrong with AJAX:' + textStatus);
-        });
-    }
 
     function SaveContent(url, array_inputs)
     {
@@ -287,7 +205,7 @@ ini_set('memory_limit', '2048M');
             $.ajax({
                 url: 'GetViewWoutLogin',
                 type: 'POST',
-                data: {view_url:'user/InputsAddPersonalInfo|user/InputsAddPersonalInfoScriptWoutLogin'}
+                data: {view_url1:'user/InputsAddPersonalInfo',view_url2:'user/InputsAddPersonalInfoScriptWoutLogin'}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)

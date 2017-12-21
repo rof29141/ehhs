@@ -268,6 +268,8 @@ Class M_Main extends CI_Model
 
     function Execute($type='', $fields='', $datas='', $layout='')
     {
+        $return['data']='';
+
         if($type=='INSERT')
         {
             foreach ($fields as $field)
@@ -282,6 +284,9 @@ Class M_Main extends CI_Model
 
             $result = $this->fm->createRecord($data, $layout);//var_dump($result);
             $return['error']=$this->error($result);
+
+            if($return['error']=='0')
+                $return['data']=$result;
         }
 
         if($type=='UPDATE')
@@ -297,6 +302,9 @@ Class M_Main extends CI_Model
 
             $result = $this->fm->editRecord($datas['id'], $data, $layout);//var_dump($result);
             $return['error']=$this->error($result);
+
+            if($return['error']=='0')
+                $return['data']=$result;
         }
 
         if($type=='DELETE')

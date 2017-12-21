@@ -27,6 +27,7 @@ class Main extends CI_Controller
             $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
+            $data['PersonalContactInformationStatus'] = $session_data['PersonalContactInformationStatus'];
 
             $data['data']['rewards']=$this->M_Main->GetRewards($data);
 
@@ -62,6 +63,7 @@ class Main extends CI_Controller
             $data['bd_LastName'] = $session_data['bd_LastName'];
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
+            $data['PersonalContactInformationStatus'] = $session_data['PersonalContactInformationStatus'];
 
             $data['email_from'] = EMAIL_FROM;
             $data['email_from_name'] = EMAIL_FROM_NAME;
@@ -226,7 +228,11 @@ class Main extends CI_Controller
             //print $layout;die();
 
             $result=$this->M_Main->Execute($type, $fields, $datas, $layout);
-            print $result['error'];
+
+            if($result['error']=='0' && $type=='INSERT')
+                print $result['data']['recordId'];
+            else
+                print $result['error'];
         }
         else
         {

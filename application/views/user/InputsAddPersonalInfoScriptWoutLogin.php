@@ -42,20 +42,20 @@
 
 
                     var layout = 'PHP_Patients';
-                    var type='UPDATE';
-                    var fields_values='id='+$('#id').val()+'&bd_user_name=' + $('#bd_user_name').val() + '&bd_Salutation=' + $('#bd_Salutation').val() + '&bd_FirstName=' + $('#bd_FirstName').val() +
+                    var type='INSERT';
+                    var fields_values='bd_user_name=' + $('#bd_user_name').val() + '&bd_Salutation=' + $('#bd_Salutation').val() + '&bd_FirstName=' + $('#bd_FirstName').val() +
                         '&bd_MiddleInitial=' + $('#bd_MiddleInitial').val() + '&bd_LastName=' + $('#bd_LastName').val() + '&bd_user_email=' + $('#bd_user_email').val() +
                         '&bd_DateOfBirth=' + $('#bd_DateOfBirth').val() + '&bd_Phone=' + $('#bd_Phone').val() + '&bd_Cell=' + $('#bd_Cell').val() +
                         '&bd_Address1=' + $('#bd_Address1').val() + '&bd_Address2=' + $('#bd_Address2').val() + '&bd_City=' + $('#bd_City').val() +
                         '&bd_State=' + $('#bd_State').val() + '&bd_Country=' + $('#bd_Country').val() + '&bd_ZipCode=' + $('#bd_ZipCode').val() +
-                        '&bd_Sex=' + $('#bd_Sex').val() + '&bd_EmployStatus=' + $('#bd_EmployStatus').val() + '&bd_Wrk_Name=' + $('#bd_Wrk_Name').val()+
-                        '&bd_SocialSecurity=' + $('#bd_SocialSecurity').val() + '&bd_PreferredReminderContact_Type=' + cbx_contact_method + '&bd_MaritalStatus=' + $('#bd_MaritalStatus').val()+
+                        '&bd_Sex=' + $("input[name='bd_Sex']:checked").val() + '&bd_EmployStatus=' + $("input[name='bd_EmployStatus']:checked").val() + '&bd_Wrk_Name=' + $('#bd_Wrk_Name').val()+
+                        '&bd_SocialSecurity=' + $('#bd_SocialSecurity').val() + '&bd_PreferredReminderContact_Type=' + cbx_contact_method + '&bd_MaritalStatus=' + $("input[name='bd_MaritalStatus']:checked").val()+
                         '&bd_Wrk_Address=' + $('#bd_Wrk_Address').val() + '&bd_Wrk_ZipCode=' + $('#bd_Wrk_ZipCode').val() + '&bd_Wrk_City=' + $('#bd_Wrk_City').val()+
                         '&bd_Wrk_Country=' + $('#bd_Wrk_Country').val() + '&bd_Wrk_Phone=' + $('#bd_Wrk_Phone').val() + '&bd_PatientReferral=' + $('#bd_PatientReferral').val()+
                         '&bd_StudentStatus=' + $('#bd_StudentStatus').val() + '&bd_ICE_Name1=' + $('#bd_ICE_Name1').val() + '&bd_ICE_Relationship1=' + $('#bd_ICE_Relationship1').val()+
                         '&bd_ICE_Phone1=' + $('#bd_ICE_Phone1').val();
 
-                    var url = 'Main/SaveObject';
+                    var url = '../Main/SaveObject';
                     var data = fields_values + '&layout=' + layout + '&type=' + type;
 
                     var target = document.getElementById('container');
@@ -66,38 +66,45 @@
                         dataType: "html",
                         url: url,
                         data: data
-                    }).done(function (response, textStatus, jqXHR) {
-                        if (response != '1') {
-                            if ($.isNumeric(response)) {
-                                var recordID = $('#id').val();
+                    }).done(function (response, textStatus, jqXHR)
+                    {
+                        if (response != '1')
+                        {
+                            if ($.isNumeric(response))
+                            {
+                                var recordID = response;
 
                                 $.ajax({
                                     type: "POST",
                                     dataType: "html",
-                                    url: 'User/GetPrimaryKeyByRecordID',
+                                    url: 'GetPrimaryKeyByRecordID',
                                     data: {recordID: recordID}
-                                }).done(function (response, textStatus, jqXHR) {
-                                    if ($.isNumeric(response)) {
+                                }).done(function (response, textStatus, jqXHR)
+                                {
+                                    if ($.isNumeric(response))
+                                    {
                                         var primary_key = response;
                                         var layout = 'PHP_Personal_Info';
                                         var type='INSERT';
-                                        var fields_values = $('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize()+'&id_pers_info='+$('#__kp_PERSONAL_INFO_TEMP_ID').val()+'&id_patient='+$('#id').val();
+                                        var fields_values = $('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize()+'&id_pers_info='+$('#__kp_PERSONAL_INFO_TEMP_ID').val()+'&id_patient='+primary_key;
                                         var data = fields_values + '&layout=' + layout + '&type=' + type;
-                                        $('.content-wrapper').empty();
+
                                         $.ajax({
                                             type: "POST",
                                             dataType: "html",
-                                            url: 'User/SavePersonalInfo',
+                                            url: 'SavePersonalInfo',
                                             data: data
                                         }).done(function (response, textStatus, jqXHR) {
-                                            if ($.isNumeric(response)) {
+                                            if ($.isNumeric(response))
+                                            {
+                                                $('#personal_info').empty();
+                                                $('#personal_info').html('<div class="text-center col col-12"><h5>Thank you for completing your Personal Information, we will be in touch soon.</h5></div>');
                                                 alertify.success('Data Saved.');
                                             }
                                             else {
                                                 alertify.error('Error: The element could not be Saved. ' + response);
                                             }
                                             spinner.stop();
-                                            LoadContent($('#view').val());
                                         });
                                     }
                                     else {
@@ -137,7 +144,8 @@
             }
         });
 
-        function ValidateFrm() {
+        function ValidateFrm()
+        {
             $.validator.setDefaults(
                 {
                     //errorElement: "span",
@@ -178,19 +186,19 @@
                 });
 
             $("#frm").validate(
+            {
+                ignore: [],
+                focusInvalid: false,
+                invalidHandler: function(form, validator)
                 {
-                    ignore: [],
-                    focusInvalid: false,
-                    invalidHandler: function(form, validator)
-                    {
-                        if (!validator.numberOfInvalids())
-                            return;
+                    if (!validator.numberOfInvalids())
+                        return;
 
-                        $('html, body').animate({
-                            scrollTop: $(validator.errorList[0].element).offset().top-300
-                        }, 1000);
-                    }
-                });
+                    $('html, body').animate({
+                        scrollTop: $(validator.errorList[0].element).offset().top-300
+                    }, 1000);
+                }
+            });
 
             $.validator.addMethod("select", function(value, element, arg)
             {

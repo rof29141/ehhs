@@ -4,7 +4,7 @@
         <div class="col-sm-12 col-md-6 col-lg-6 form-group">
             <label>User ID</label>
             <input datafld="ignore" type="text" name="bd_user_name" id="bd_user_name" class="form-control required"  value="<?php if(isset($data['user']['data'][0]['bd_user_name'])) print $data['user']['data'][0]['bd_user_name'];?>" />
-            <input datafld="ignore" type="hidden" name="id" id="id" class="form-control required"  value="<?php if(isset($data['user']['data'][0]['RecordID'])) print $data['user']['data'][0]['RecordID'];?>" />
+            <input datafld="ignore" type="hidden" name="id" id="id" class="form-control"  value="<?php if(isset($data['user']['data'][0]['RecordID'])) print $data['user']['data'][0]['RecordID'];?>" />
         </div>
 
         <div class="col-sm-12 col-md-6 col-lg-6 form-group">
