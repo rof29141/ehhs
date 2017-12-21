@@ -133,7 +133,7 @@
             $.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'dataPersonalInfo',view_url:'user/InputsAddPersonalInfo'}
+                data: {data_type:'dataPersonalInfo',view_url:'user/InputsAddPersonalInfo|user/InputsAddPersonalInfoScript'}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)

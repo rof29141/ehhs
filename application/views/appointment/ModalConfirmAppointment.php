@@ -37,6 +37,7 @@ require_once(APPPATH."views/includes/header.php");
                             <div class="form-group">
                                 <label>Service</label>
                                 <input type="text" name="txt_service" id="txt_service" class="form-control required" readonly value="<?php if(isset($Service)) print $Service;?>" />
+                                <input type="hidden" name="txt_DocumentsToSign" id="txt_DocumentsToSign" class="form-control required" readonly value="<?php if(isset($DocumentsToSign)) print $DocumentsToSign;?>" />
                                 <input type="hidden" name="txt_app" id="txt_app" value="<?php if(isset($RecordID)) print $RecordID;?>" />
                             </div>
 

@@ -428,6 +428,7 @@ class Dashboard extends CI_Controller
             $data['LastName'] = $result['LastName'];
             $data['Photo'] = $result['Photo'];
             $data['Service'] = $result['Service'];
+            $data['DocumentsToSign'] = $result['DocumentsToSign'];
             $data['email'] = $result['bd_user_email'];
             $data['bd_FirstName'] = $result['bd_FirstName'];
             $data['bd_LastName'] = $result['bd_LastName'];
@@ -478,6 +479,7 @@ class Dashboard extends CI_Controller
             '<p><b>Provider: </b>'.$_POST['txt_doctor'].'</p>'.
             '<p><b>Service: </b>'.$_POST['txt_service'].'</p>'.
             '<br>'.
+            '<p><b>You must read and sign the attached documents.</b></p>'.
             '<p><b>Please arrive 15 minutes prior to your scheduled appointment time at the address listed below.</b></p>'.
             '<br>'.
             '<p>Thank you,</p>'.
@@ -508,10 +510,28 @@ class Dashboard extends CI_Controller
         $this->load->library('MT_Mail');
         $obj_mail = new MT_Mail();
 
-        if (write_file($file, $calendar))
+        if(write_file($file, $calendar))
         {
             $attachments=$attachments.'&'.$file;
         }
+
+        $DocumentsToSign=$_POST['txt_DocumentsToSign'];
+
+        $var = explode("|", $DocumentsToSign);
+
+        $cant=sizeof($var);
+
+        if($cant != 0)
+        {
+            for($i=0;$i<$cant; next($var), $i++)
+            {
+                $doc = './assets/docs/'.current($var);//print $doc;//.' - ';die();
+                $attachments=$attachments.'&'.$doc;
+            }
+        }
+
+        //$file= './assets/docs/Surgery Consents Revised Jan 2017.pdf';
+
 
         $return=$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
 

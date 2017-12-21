@@ -73,7 +73,17 @@ class Main extends CI_Controller
 
             $data['data'] = $this->GetData($data_type);
 
-            $this->load->view($view_url, $data);
+            $var = explode("|", $view_url);
+            $cant=sizeof($var);
+
+            if($cant!= 0)
+            {
+                for($i=0;$i<$cant; next($var), $i++)
+                {
+                    $view_url = current($var);//print $layout.' - ';die();
+                    $this->load->view($view_url, $data);
+                }
+            }
         }
         else
         {

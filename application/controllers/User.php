@@ -61,29 +61,6 @@ class User extends CI_Controller
         }
     }
 
-    function GoPersonalInfo($msg="", $success="", $warning="", $error="")
-    {
-        $data['msg']=$msg;
-        $data['success']=$success;
-        $data['warning']=$warning;
-        $data['error']=$error;
-
-        if($this->session->userdata('logged_user_acs'))
-        {
-            $session_data = $this->session->userdata('logged_user_acs');
-
-            $data['id'] = $session_data['id'];
-            $data['user_name'] = $session_data['user_name'];
-            $data['bd_FirstName'] = $session_data['bd_FirstName'];
-            $data['bd_LastName'] = $session_data['bd_LastName'];
-            $data['email'] = $session_data['email'];
-            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
-
-            $data['personal_info']=$this->M_User->GetPersonalInfoSetting();
-        }
-        $this->load->view('user/PersonalInfo', $data);
-    }
-
     function ListMyProfileRewards($active_fade)
     {
         $view='user/ListMyProfileRewards';
@@ -192,5 +169,40 @@ class User extends CI_Controller
         $primary_key=$this->M_User->GetPrimaryKeyByRecordID($this->input->post('recordID'));
         if($primary_key['error']=='0')
             echo $primary_key['data'][0]['primary_key'];
+    }
+
+    function GoPersonalInfo($msg="", $success="", $warning="", $error="")
+    {
+        $data['msg']=$msg;
+        $data['success']=$success;
+        $data['warning']=$warning;
+        $data['error']=$error;
+
+        if($this->session->userdata('logged_user_acs'))
+        {
+            $session_data = $this->session->userdata('logged_user_acs');
+
+            $data['id'] = $session_data['id'];
+            $data['user_name'] = $session_data['user_name'];
+            $data['bd_FirstName'] = $session_data['bd_FirstName'];
+            $data['bd_LastName'] = $session_data['bd_LastName'];
+            $data['email'] = $session_data['email'];
+            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
+
+            $data['personal_info']=$this->M_User->GetPersonalInfoSetting();
+        }
+        $this->load->view('user/PersonalInfo', $data);
+    }
+
+    function GoPersonalInfoWoutLogin()
+    {
+        $data['personal_info']=$this->M_User->GetPersonalInfoSetting();
+        $this->load->view('user/PersonalInfoWoutLogin', $data);
+    }
+
+    function GetViewWoutLogin()
+    {
+        $view_url = $_POST['view_url'];
+        $this->load->view($view_url);
     }
 }

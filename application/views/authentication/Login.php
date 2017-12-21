@@ -45,6 +45,13 @@ require_once(APPPATH."views/includes/header.php");
                 <div class="text-center">
                     <a href="<?php print CTR_URL; ?>Authentication/ResetPassword">Reset Password</a>
                 </div>
+                <div class="text-center">
+                    <a href="<?php print CTR_URL; ?>User/GoPersonalInfoWoutLogin">
+                        <div class="text-center btn btn-primary">
+                            Personal Contact Information
+                        </div>
+                    </a>
+                </div>
             </fieldset>
 
         <?php require_once(VIEW_URL."includes/hidden.php");?>
