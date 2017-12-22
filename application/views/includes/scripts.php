@@ -664,6 +664,7 @@
     .social ul li .entypo-linkedin {background: #d95232;}
     .social ul li .entypo-video {background: #ae181f;}
     .social ul li .entypo-mail {background: #666666;}
+    .social ul li .brankic-globe2 {background: #492f91;}
 
     .social ul li a:hover {
         background: #000; /* Cambiamos el fondo cuando el usuario pase el mouse */
