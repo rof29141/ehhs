@@ -636,7 +636,7 @@
 
 
 
-
+    /* Social Media */
     .social {
         position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
         right: 0; /* Establecemos la barra en la izquierda */
@@ -665,12 +665,11 @@
     .social ul li .entypo-video {background: #ae181f;}
     .social ul li .entypo-mail {background: #666666;}
 
-
-
     .social ul li a:hover {
         background: #000; /* Cambiamos el fondo cuando el usuario pase el mouse */
         /*padding: 10px 30px; /* Hacemos mas grande el espacio cuando el usuario pase el mouse */
     }
+    /* Social Media */
 
 </style>
 
