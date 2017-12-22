@@ -29,7 +29,8 @@ class Main extends CI_Controller
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
             $data['PersonalContactInformationStatus'] = $session_data['PersonalContactInformationStatus'];
 
-            $data['data']['rewards']=$this->M_Main->GetRewards($data);
+            $this->load->model('M_User');
+            $data['data']['rewards']=$this->M_User->GetRewards($data);
 
             $this->load->view($view, $data);
         }

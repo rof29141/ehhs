@@ -18,7 +18,9 @@ elseif($position=='left')
     <div style="height: 50px;top:0;background-color: #eee;display: table;width: 100%;padding-left: 10px;padding-right: 10px;">
         <div class="container" style="height: 90px; display: table-row">
 
-            <div class="text-left" id="banner_img"><div id="img_logo"></div></div>
+            <div class="text-left" id="banner_img">
+                <div id="img_logo"></div>
+            </div>
             <div class="text-center" id="banner_project"><?php print $project;?></div>
             <div class="text-right" id="banner_name">
                 <a onclick="LoadContent('User/ListMyProfileRewards/profile');"><?php print $bd_FirstName.' '.$bd_LastName;?></a>

@@ -208,64 +208,6 @@ Class M_Main extends CI_Model
         return $return;
     }
 
-    function GetRewards($data)
-    {
-        $layout='PHP_Rewards';
-
-        $request1['ACSClientID'] = $data['__zkp_Client_Rec'];//print $data['id'];
-        $query = array ($request1);
-        $criteria['query'] = $query;
-        $criteria['range'] = '10000';
-        $criteria['offset'] = '1';
-
-        $result = $this->fm->findRecords($criteria, $layout);//echo json_encode($criteria);var_dump($result);
-        $return['error']=$this->error($result);
-
-        if($return['error']=='0')
-        {
-            $cant=sizeof($result["data"]);
-
-            for($i=0;$i<$cant;$i++)
-            {
-                $field['ACSClientID'] = $result["data"][$i]["fieldData"]["ACSClientID"];
-                $field['MemberSerial'] = $result["data"][$i]["fieldData"]["MemberSerial"];
-                $field['SalesOrderNo'] = $result["data"][$i]["fieldData"]["SalesOrderNo"];
-                $field['InvoiceNo'] = $result["data"][$i]["fieldData"]["InvoiceNo"];
-                $field['SubscriptionStatus'] = $result["data"][$i]["fieldData"]["SubscriptionStatus"];
-                $field['SubscribedOn'] = $result["data"][$i]["fieldData"]["SubscribedOn"];
-                $field['SubscriptionExpiryDate'] = $result["data"][$i]["fieldData"]["SubscriptionExpiryDate"];
-                $field['RewardAvailableTotal'] = $result["data"][$i]["fieldData"]["RewardAvailableTotal"];
-                $field['OrderClosedBy'] = $result["data"][$i]["fieldData"]["OrderClosedBy"];
-                $field['RewardTotalEarned'] = $result["data"][$i]["fieldData"]["RewardTotalEarned"];
-                $field['RewardTotalRedeemed'] = $result["data"][$i]["fieldData"]["RewardTotalRedeemed"];
-                $field['RewardTotalExpired'] = $result["data"][$i]["fieldData"]["RewardTotalExpired"];
-
-                $fields[$i] = $field;
-            }
-
-            $return['data']=$fields;
-        }
-
-        $field['ACSClientID'] = 2;
-        $field['MemberSerial'] = '928457';
-        $field['SalesOrderNo'] = '928475';
-        $field['InvoiceNo'] = '983475';
-        $field['SubscriptionStatus'] = '1';
-        $field['SubscribedOn'] = '09/09/2017';
-        $field['SubscriptionExpiryDate'] = '09/09/2018';
-        $field['RewardAvailableTotal'] = '375';
-        $field['OrderClosedBy'] = 'Jeremy Ojeda';
-        $field['RewardTotalEarned'] = '550';
-        $field['RewardTotalRedeemed'] = '150';
-        $field['RewardTotalExpired'] = '25';
-
-        $fields[0] = $field;
-
-        $return['data']=$fields;
-
-        return $return;
-    }
-
     function Execute($type='', $fields='', $datas='', $layout='')
     {
         $return['data']='';

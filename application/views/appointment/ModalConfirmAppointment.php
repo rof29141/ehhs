@@ -162,7 +162,7 @@ require_once(APPPATH."views/includes/header.php");
                 data:array_inputs
             }).done(function(response, textStatus, jqXHR)
             {
-                if(response=='0')
+                if($.isNumeric(response))
                 {
                     SendMail();
                 }

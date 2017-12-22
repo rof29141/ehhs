@@ -16,6 +16,15 @@ ini_set('memory_limit', '2048M');
 
         <div class="content-wrapper" id="container" style="position:relative; top: 80px; background-color: #ffffff;"></div>
 
+        <div class="social">
+            <ul>
+                <li><a href="https://twitter.com/drjonmendelsohn" target="_blank" class="entypo-twitter"></a></li>
+                <li><a href="https://www.facebook.com/351face" target="_blank" class="entypo-facebook"></a></li>
+                <li><a href="http://www.linkedin.com/pub/jon-mendelsohn/9/4a5/405" target="_blank" class="entypo-linkedin"></a></li>
+                <li><a href="https://www.youtube.com/channel/UC2EAnLCK6NE-2YCWHY5QBjw" target="_blank" class="entypo-video"></a></li>
+                <li><a href="mailto:contacto@falconmasters.com" class="entypo-mail"></a></li>
+            </ul>
+        </div>
 
 
 <?php require_once(VIEW_URL."includes/footer_scripts.php");?>
@@ -40,7 +49,7 @@ ini_set('memory_limit', '2048M');
             data:{go_view:go_view, go_back:go_back, id:id}
         }).done(function(response, textStatus, jqXHR)
         {
-            if(response!='1')
+            if(response!='1' && response!='')
             {
                 $('.content-wrapper').html(response);
                 $('#view').val(go_back);
@@ -67,7 +76,7 @@ ini_set('memory_limit', '2048M');
             data:{go_layout:go_layout, id:id}
         }).done(function(response, textStatus, jqXHR)
         {
-            if(response!='1')
+            if(response!='1' && response!='')
             {
                 if(response=='0'){alertify.success('Element deleted.');}
                 else if(response=='01'){alertify.warning('You have to delete something. The ID is empty.');}
@@ -97,7 +106,7 @@ ini_set('memory_limit', '2048M');
             url: pag
         }).done(function(response, textStatus, jqXHR)
         {
-            if(response!='1')
+            if(response!='1' && response!='')
             {
                 $('.content-wrapper').html(response);
                 $('#view').val(pag);
@@ -124,9 +133,9 @@ ini_set('memory_limit', '2048M');
             data:array_inputs
         }).done(function(response, textStatus, jqXHR)
         {
-            if(response!='1')
+            if(response!='1' && response!='')
             {
-                if(response=='0'){alertify.success('Data Saved.');}
+                if($.isNumeric(response)){alertify.success('Data Saved.');}
                 else{alertify.error('Error: The element could not be Saved. '+ response);}
                 spinner.stop();
                 LoadContent($('#view').val());

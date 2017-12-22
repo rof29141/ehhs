@@ -633,6 +633,45 @@
         margin-top: 0 !important;
     }
 
+
+
+
+
+    .social {
+        position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
+        right: 0; /* Establecemos la barra en la izquierda */
+        top: 50%; /* Bajamos la barra 200px de arriba a abajo */
+        z-index: 2000; /* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
+    }
+
+    .social ul {
+        list-style: none;
+    }
+
+    .social ul li a {
+        display: inline-block;
+        color:#fff;
+        background: #000;
+        padding: 10px 15px;
+        text-decoration: none;
+        /*-webkit-transition:all 0ms ease;
+        -o-transition:all 0ms ease;
+        transition:all 0ms ease; /* Establecemos una transición a todas las propiedades */
+    }
+
+    .social ul li .entypo-facebook {background:#3b5998;} /* Establecemos los colores de cada red social, aprovechando su class */
+    .social ul li .entypo-twitter {background: #00abf0;}
+    .social ul li .entypo-linkedin {background: #d95232;}
+    .social ul li .entypo-video {background: #ae181f;}
+    .social ul li .entypo-mail {background: #666666;}
+
+
+
+    .social ul li a:hover {
+        background: #000; /* Cambiamos el fondo cuando el usuario pase el mouse */
+        /*padding: 10px 30px; /* Hacemos mas grande el espacio cuando el usuario pase el mouse */
+    }
+
 </style>
 
 <script type="text/javascript">
@@ -642,3 +681,4 @@
 
     });
 </script>
+

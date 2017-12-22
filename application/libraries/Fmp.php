@@ -62,8 +62,8 @@ class Fmp extends FileMaker {
 		parent::__construct();
 
         $args['database'] = 'ACS_Bridge.fmp12';
-        $args['username'] = 'jem';
-        $args['password'] = 'admin';
+        $args['username'] = USER;
+        $args['password'] = PASS;
         $args['hostspec'] = 'mtdev.mactutor.net';
 
         if (isset($args['database']))

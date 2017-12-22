@@ -171,7 +171,7 @@
             {
                 if(response!='1')
                 {
-                    if(response=='0')
+                    if($.isNumeric(response))
                     {
                         alertify.success('Data Saved.');
 

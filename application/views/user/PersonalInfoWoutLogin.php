@@ -173,7 +173,7 @@ ini_set('memory_limit', '2048M');
         {
             if(response!='1')
             {
-                if(response=='0'){alertify.success('Data Saved.');}
+                if($.isNumeric(response)){alertify.success('Data Saved.');}
                 else{alertify.error('Error: The element could not be Saved. '+ response);}
                 spinner.stop();
                 LoadContent($('#view').val());

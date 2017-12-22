@@ -78,8 +78,7 @@ class User extends CI_Controller
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
-            $this->load->model('M_Main');
-            $data['data']['rewards']=$this->M_Main->GetRewards($data);
+            $data['data']['rewards']=$this->M_User->GetRewards($data);
 
             $this->load->view($view, $data);
         }
@@ -210,7 +209,12 @@ class User extends CI_Controller
             $data['personal_info'] = $this->M_User->GetPersonalInfoSetting();
             $this->load->view('user/PersonalInfo', $data);
         }
-
+        else
+        {
+            $this->load->library('MT_General');
+            $obj_general = new MT_General();
+            $obj_general->Logout();
+        }
     }
 
     function GoPersonalInfoWoutLogin()
