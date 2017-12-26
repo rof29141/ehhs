@@ -62,7 +62,7 @@
                 {
                     var id_service=$('#sel_service').val();
                     var id_doctor=$('#sel_doctor').val();
-                    var start=String(calEvent.start);//alert(start);
+                    var start=String(calEvent.start);alert(start);
                     var end=String(calEvent.end);//alert(end);
                     var setting_id=String(calEvent.setting_id);//alert(setting_id);
 
@@ -86,21 +86,23 @@
             {
                 var view = $('#calendar').fullCalendar('getView');
 
+                var app='<br><br>'+event.title+'<br>'+ String(event.start);
+
                 if (event.confirm=='text-success')
                 {
-                    eventElement.find(".fc-time").append('<div style="float: right;position: relative; font-size: 16px; top:-15px;">' +
-                        '<a data-container="body" data-toggle="popover" data-placement="top" data-content="Appointment confirmed." class="' + event.confirm + '">' +
-                        '<span class="brankic-checkmark"></span></a>' +
-                        '</div>');
+                    eventElement.find(".fc-time").prepend('<div style="float: left;position: relative; font-size: 13px; top:0px;">' +
+                        '<a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<b>Appointment confirmed.</b>'+app+'" class="' + event.confirm + '">' +
+                        '<span class="entypo-info2"></span></a>' +
+                        '</div>&nbsp;');
                     if(view.name=='month')
                         eventElement.find(".fc-content").css({ height: "14px" });
                 }
                 else if(event.confirm=='text-danger')
                 {
-                    eventElement.find(".fc-time").append('<div style="float: right;position: relative; font-size: 15px; top:-15px;">' +
-                        '<a data-container="body" data-toggle="popover" data-placement="top" data-content="Please, Confirm your appintment." class="'+event.confirm+'">' +
-                        '<span class="brankic-warning"></span></a>' +
-                        '</div>');
+                    eventElement.find(".fc-time").prepend('<div style="float: left;position: relative; font-size: 13px; top:0px;">' +
+                        '<a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<b>Please, Confirm your appintment.</b>'+app+'" class="'+event.confirm+'">' +
+                        '<span class="entypo-info2"></span></a>' +
+                        '</div>&nbsp;');
 
                     if(view.name=='month')
                         eventElement.find(".fc-content").css({ height: "14px" });
