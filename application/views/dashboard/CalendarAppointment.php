@@ -62,7 +62,7 @@
                 {
                     var id_service=$('#sel_service').val();
                     var id_doctor=$('#sel_doctor').val();
-                    var start=String(calEvent.start);alert(start);
+                    var start=String(calEvent.start);//alert(start);
                     var end=String(calEvent.end);//alert(end);
                     var setting_id=String(calEvent.setting_id);//alert(setting_id);
 

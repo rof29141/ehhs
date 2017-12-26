@@ -95,16 +95,13 @@ class MT_ICS {
         }
         // Set some default values
 
-
-
-        // Append properties
-        foreach ($props as $k => $v) {
-            if($k=='dtstart' || $k=='dtend')
+        foreach ($props as $k => $v)
+        {
+            if($k=='DTSTART' || $k=='DTEND')
                 $ics_props[] = "$k;TZID=America/New_York:$v";
-                else
+            else
                 $ics_props[] = "$k:$v";
         }
-        // Build ICS properties - add footer
 
         $ics_props[] = 'BEGIN:VALARM';
         $ics_props[] = 'TRIGGER:-PT24H';
@@ -121,11 +118,11 @@ class MT_ICS {
         switch($key)
         {
             case 'dtend':
-                $val = $this->format_timestamp1($val);
+                $val = $this->format_timestamp($val);
                 break;
 
             case 'dtstart':
-                $val = $this->format_timestamp1($val);
+                $val = $this->format_timestamp($val);
                 break;
 
             case 'dtstamp':
