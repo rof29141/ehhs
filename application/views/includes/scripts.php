@@ -315,6 +315,8 @@
         border-radius: 6px 0 6px 6px;
     }
 
+    .navbar-nav>li>a { color: #fff;}
+
     /* Navbar */
 
     .ribbon_left{position:absolute;left:-4px;top:-4px}
@@ -525,28 +527,19 @@
     }
 
     #banner_img {
-        display:table-cell;width:25%;font-size: 24px;vertical-align: middle;
+        display:table-cell;width:25%;font-size: 24px;vertical-align: middle;color: #000;
     }
 
     #banner_project {
-        display:table-cell;width:50%;font-size: 24px;vertical-align: middle;
+        display:table-cell;width:50%;font-size: 24px;vertical-align: middle;color: #000;
     }
 
     #banner_name {
-        display:table-cell;width:25%;font-size: 14px;vertical-align: middle;
+        display:table-cell;width:25%;font-size: 14px;vertical-align: middle;color: #000;
     }
 
     @media only screen and (max-width: 1560px) {
-        #img_logo {
-            background:url(<?php print $src_logo1;?>);
-            background-size: auto 48px;
-            background-repeat: no-repeat;
-            width:100%;
-            height:70px;
-            margin-right: 5px;
-            margin-left: 5px;
-            vertical-align: middle;
-        }
+
 
         #banner_img {
             width:30%;
@@ -675,6 +668,9 @@
         background: #666666; /* Cambiamos el fondo cuando el usuario pase el mouse */
     }
     /* Social Media */
+
+
+
 
 </style>
 

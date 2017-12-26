@@ -2806,6 +2806,7 @@ input[type="button"].btn-block {
   /* line 48, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_navs.scss */
   .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
     background-color: #eeeeee;
+    color: #000;
     border-color: #78808a; }
     /* line 52, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_navs.scss */
     .nav .open > a .caret, .nav .open > a:hover .caret, .nav .open > a:focus .caret {
@@ -3619,7 +3620,7 @@ float:left;}
 
 /* line 7, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_badges.scss */
 .badge {
-
+  display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
   font-size: 12px;
@@ -5418,7 +5419,7 @@ strong, b {
 
 /* line 36, /home/andrei/core-admin-release/core-admin/source/stylesheets/base.scss */
 a {
-  color: #78808a; }
+  color: #000; }
   /* line 40, /home/andrei/core-admin-release/core-admin/source/stylesheets/base.scss */
   a:hover, a:active, a:focus {
     cursor: pointer;

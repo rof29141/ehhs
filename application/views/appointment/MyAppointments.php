@@ -33,7 +33,7 @@
                             elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
                                 $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                             else
-                                $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                $date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                             ?>
 
                             <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
@@ -124,7 +124,7 @@
                                                 $info=
                                                     '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
                                                     '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
-                                                    '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
+                                                    '<br><b>Date and Time:</b> '.date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])).' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
                                                     '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
                                                     '<br><b>Status:</b> '.$status;
                                                     if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
@@ -300,7 +300,7 @@
                                     elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
                                         $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     else
-                                        $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        $date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
@@ -390,7 +390,7 @@
                                                         $info=
                                                             '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
                                                             '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
-                                                            '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
+                                                            '<br><b>Date and Time:</b> '.date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])).' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
                                                             '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
                                                             '<br><b>Status:</b> '.$status;
                                                         if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
@@ -518,7 +518,7 @@
                                     elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
                                         $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     else
-                                        $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        $date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
@@ -608,7 +608,7 @@
                                                         $info=
                                                             '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
                                                             '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
-                                                            '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
+                                                            '<br><b>Date and Time:</b> '.date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])).' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
                                                             '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
                                                             '<br><b>Status:</b> '.$status;
                                                         if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
