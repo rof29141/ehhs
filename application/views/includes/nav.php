@@ -31,7 +31,7 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?php print CTR_URL;?>Main/Logout">Logout <i class="entypo-logout"></i></a></li>
+                <li><a href="<?php print CTR_URL;?>Main/Logout">Logout <i style="vertical-align: middle" class="entypo-logout"></i></a></li>
             </ul>
             <ul class="nav navbar-nav">
                 <?php
@@ -340,9 +340,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <script type="text/javascript">
     $(document).ready(function()

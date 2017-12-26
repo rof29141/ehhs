@@ -26,7 +26,7 @@ elseif($position=='left')
                 <a onclick="LoadContent('User/ListMyProfileRewards/profile');"><?php print $bd_FirstName.' '.$bd_LastName;?></a>
                 <br><br>
                 <a onclick="LoadContent('User/ListMyProfileRewards/rewards');">
-                    <div style="display: inline-block">Rewards available: </div> <div class="btn-success" style="display:inline-block;padding-top:10px;text-align:center;border-radius: 50%;width: 35px;height: 35px;"><?php print $points;?></div><?php if($points>1)print ' points';else print ' point';?>
+                    <div style="display: inline-block">Rewards available: </div> <span class="badge txt-color-white" <?php if($points==0)print 'style="background-color:#D9534F;"';else print 'style="background-color:#5CB85C;';?>><?php print $points;?></span><?php if($points>1 || $points==0)print ' points';else print ' point';?>
                 </a>
             </div>
 
@@ -36,13 +36,4 @@ elseif($position=='left')
 <?php
 }
 ?>
-<div class="social">
-    <ul>
-        <li><a href="https://twitter.com/drjonmendelsohn" target="_blank" class="entypo-twitter"></a></li>
-        <li><a href="https://www.facebook.com/351face" target="_blank" class="entypo-facebook"></a></li>
-        <li><a href="http://www.linkedin.com/pub/jon-mendelsohn/9/4a5/405" target="_blank" class="entypo-linkedin"></a></li>
-        <li><a href="https://www.youtube.com/channel/UC2EAnLCK6NE-2YCWHY5QBjw" target="_blank" class="entypo-video"></a></li>
-        <li><a href="https://351face.com" target="_blank" class="brankic-globe2"></a></li>
-        <li><a href="mailto:info@351face.com" class="entypo-mail"></a></li>
-    </ul>
-</div>
+

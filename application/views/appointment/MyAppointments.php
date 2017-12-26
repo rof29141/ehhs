@@ -29,11 +29,11 @@
                         for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
                         {
                             if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                $date='<span class="badge" style="background-color: #CB201C;">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
+                                $date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                             elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
+                                $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                             else
-                                $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
+                                $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                             ?>
 
                             <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
@@ -64,7 +64,7 @@
                                                 $concern='Hello, I have a concern about an appointment with Id: '
                                                     .$data['my_all_appointments']['data'][$i]['RecordID']. ' '
                                                     .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
-                                                    .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'];
+                                                    .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
 
                                                 switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
                                                 {
@@ -123,7 +123,7 @@
                                                 $info=
                                                     '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
                                                     '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
-                                                    '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'].
+                                                    '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
                                                     '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
                                                     '<br><b>Status:</b> '.$status;
                                                     if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
@@ -226,7 +226,7 @@
                                                 <input id="hdn_date_<?php print $i; ?>" type="hidden"
                                                        value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
                                                 <input id="hdn_time_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
+                                                       value="<?php print date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
                                                 <input id="hdn_doc_<?php print $i; ?>" type="hidden"
                                                        value="<?php print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName']; ?>"/>
                                                 <input id="hdn_ser_<?php print $i; ?>" type="hidden"
@@ -244,7 +244,7 @@
                                                        value="<?php print $data['my_all_appointments']['data'][$i]['RecordID']; ?>"/>
 
                                                 <input name="hdn_ical_start_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']; ?>"/>
+                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
                                                 <input name="hdn_ical_end_<?php print $i; ?>" type="hidden"
                                                        value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
                                                 <input name="hdn_ical_addr" type="hidden"
@@ -298,11 +298,11 @@
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']!='')
                                 {
                                     if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                        $date='<span class="badge" style="background-color: #CB201C;">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
+                                        $date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                        $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
+                                        $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     else
-                                        $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
+                                        $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
@@ -332,7 +332,7 @@
                                                         $concern='Hello, I have a concern about an appointment with Id: '
                                                             .$data['my_all_appointments']['data'][$i]['RecordID']. ' '
                                                             .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
-                                                            .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'];
+                                                            .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
 
                                                         switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
                                                         {
@@ -391,7 +391,7 @@
                                                         $info=
                                                             '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
                                                             '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
-                                                            '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'].
+                                                            '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
                                                             '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
                                                             '<br><b>Status:</b> '.$status;
                                                         if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
@@ -518,11 +518,11 @@
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']=='')
                                 {
                                     if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                        $date='<span class="badge" style="background-color: #CB201C;">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
+                                        $date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                        $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
+                                        $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     else
-                                        $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
+                                        $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
@@ -552,7 +552,7 @@
                                                         $concern='Hello, I have a concern about an appointment with Id: '
                                                             .$data['my_all_appointments']['data'][$i]['RecordID']. ' '
                                                             .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
-                                                            .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'];
+                                                            .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
 
                                                         switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
                                                         {
@@ -611,7 +611,7 @@
                                                         $info=
                                                             '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
                                                             '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
-                                                            '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.$data['my_all_appointments']['data'][$i]['APT_Time'].
+                                                            '<br><b>Date and Time:</b> '.$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
                                                             '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
                                                             '<br><b>Status:</b> '.$status;
                                                         if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
