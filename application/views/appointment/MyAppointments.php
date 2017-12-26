@@ -36,7 +36,7 @@
                                 $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                             ?>
 
-                            <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
+                            <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
 
                                 <div style="display: table;width: 100%;height: 90px;">
                                     <div style="display: table-row;">
@@ -49,10 +49,11 @@
                                             <?php }?>
 
                                             <?php
-                                            print '<img class="doc_img" style="width: 70%;" src="';
+                                            print '<img class="doc_img" style="width: 60%;" src="';
                                             if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
                                             print '"/><br><br>';
-                                            print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'];
+                                            print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'].'<br>'.
+                                            $data['my_all_appointments']['data'][$i]['Service'];
                                             ?>
                                         </div>
                                         <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
@@ -148,12 +149,9 @@
                                                 </a>
                                             </div>
 
-                                            <div class=""
-                                                 style="text-align:center;font-weight: bold; font-size: 11px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
+                                            <div style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
                                             <br>
-                                            <div class=""
-                                                 style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['Service']; ?></div>
-                                            <br>
+
                                             <?php print $date;?>
 
                                             <br><br>
@@ -305,7 +303,7 @@
                                         $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     ?>
 
-                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
+                                    <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
                                         <div style="display: table;width: 100%;height: 90px;">
                                             <div style="display: table-row;">
 
@@ -317,10 +315,11 @@
                                                     <?php }?>
 
                                                     <?php
-                                                    print '<img class="doc_img" style="width: 70%;" src="';
+                                                    print '<img class="doc_img" style="width: 60%;" src="';
                                                     if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
                                                     print '"/><br><br>';
-                                                    print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'];
+                                                    print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'].'<br>'.
+                                                    $data['my_all_appointments']['data'][$i]['Service'];
                                                     ?>
                                                 </div>
                                                 <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
@@ -416,12 +415,9 @@
                                                         </a>
                                                     </div>
 
-                                                    <div class=""
-                                                         style="text-align:center;font-weight: bold; font-size: 11px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
+                                                    <div style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
                                                     <br>
-                                                    <div class=""
-                                                         style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['Service']; ?></div>
-                                                    <br>
+
                                                     <?php print $date;?>
 
                                                     <br><br>
@@ -525,7 +521,7 @@
                                         $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     ?>
 
-                                    <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
+                                    <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
                                         <div style="display: table;width: 100%;height: 90px;">
                                             <div style="display: table-row;">
 
@@ -537,10 +533,11 @@
                                                     <?php }?>
 
                                                     <?php
-                                                    print '<img class="doc_img" style="width: 70%;" src="';
+                                                    print '<img class="doc_img" style="width: 60%;" src="';
                                                     if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
                                                     print '"/><br><br>';
-                                                    print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'];
+                                                    print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'].'<br>'.
+                                                    $data['my_all_appointments']['data'][$i]['Service'];
                                                     ?>
                                                 </div>
                                                 <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
@@ -637,12 +634,9 @@
 
                                                     </div>
 
-                                                    <div class=""
-                                                         style="text-align:center;font-weight: bold; font-size: 11px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
+                                                    <div style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
                                                     <br>
-                                                    <div class=""
-                                                         style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['Service']; ?></div>
-                                                    <br>
+
                                                     <?php print $date;?>
 
                                                     <br><br>
