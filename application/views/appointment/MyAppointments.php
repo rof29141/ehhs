@@ -29,11 +29,11 @@
                         for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
                         {
                             if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_danger">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                $date='<span class="badge" style="background-color: #CB201C;">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
                             elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
                             else
-                                $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
+                                $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
                             ?>
 
                             <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
@@ -156,9 +156,10 @@
                                             <br>
                                             <?php print $date;?>
 
-                                            <br>
+                                            <br><br>
 
                                             <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
+
                                                 <div class="text-danger"
                                                      style="text-align:center;font-weight: bold; font-size: 15px;">
                                                     Status: Pending <span class="brankic-warning"></span>
@@ -297,11 +298,11 @@
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']!='')
                                 {
                                     if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_danger">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                        $date='<span class="badge" style="background-color: #CB201C;">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
                                     elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                        $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
                                     else
-                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
+                                        $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
@@ -423,7 +424,7 @@
                                                     <br>
                                                     <?php print $date;?>
 
-                                                    <br>
+                                                    <br><br>
 
                                                     <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
                                                         <div class="text-danger"
@@ -517,11 +518,11 @@
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']=='')
                                 {
                                     if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_danger">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                        $date='<span class="badge" style="background-color: #CB201C;">Today at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
                                     elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;"><a class="label_warning">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</a></div>';
+                                        $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
                                     else
-                                        $date='<div class="text-center font-weight-bold" style="font-size: 14px;">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</div>';
+                                        $date='<span class="badge">'. $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time'].'</span>';
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-sm-12 col-md-6 col-lg-4" id="card_<?php print $i; ?>">
@@ -644,7 +645,7 @@
                                                     <br>
                                                     <?php print $date;?>
 
-                                                    <br>
+                                                    <br><br>
 
                                                     <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
                                                         <div class="text-danger"
@@ -723,7 +724,7 @@
         </div>
     </div>
 
-    <div class="tab-pane active" id="s4">
+    <div class="tab-pane fade" id="s4">
         <div class="row">
             <section>
 
@@ -731,7 +732,7 @@
                     <legend class="mylegend">All appointments</legend>
                     <div class="row" style="margin-bottom: 10px;">
 
-                        <div class="col-lg-offset-2 col-lg-8">
+                        <div class="col-lg-offset-1 col-lg-10">
                             <div id='calendar' style="margin-top: 10px;"></div>
                         </div>
 
@@ -1016,7 +1017,7 @@ $events = json_encode($events);
                 minTime:'6:00',
                 maxTime:'19:00',
                 allDaySlot:false,
-                slotDuration:'00:30:00',
+                slotDuration:'00:15:00',
                 displayEventTime: true,
                 editable: false,
                 timeFormat: 'hh:mm t',
