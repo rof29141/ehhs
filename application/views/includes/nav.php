@@ -55,7 +55,7 @@
                         ?>
 
                         <li class="dropdown-submenu-top">
-                            <a <?php if($value["URL"]!=''){?>onclick="LoadContent('<?php print $value["URL"] ?>')"<?php }?> class="dropdown-toggle"
+                            <a <?php if($value["URL"]!=''){?>onclick="LoadContent('<?php print $value["URL"] ?>')"<?php }?> data-toggle="dropdown" class="dropdown-toggle"
                                data-toggle="dropdown"><?php print $value["Label"] ?><?
                                 if ($value["menu"] != '') {
                                     ?><b class="caret"></b><?
@@ -340,3 +340,15 @@
         </div>
     </div>
 </div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('.nav a').on('click', function(){
+            $('.navbar-toggle').click() //bootstrap 3.x
+        });
+    });
+</script>
