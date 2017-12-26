@@ -673,7 +673,6 @@
 
     .social ul li a {
         background: #666666; /* Cambiamos el fondo cuando el usuario pase el mouse */
-
     }
     /* Social Media */
 
