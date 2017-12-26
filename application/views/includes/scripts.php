@@ -588,7 +588,7 @@
 
     /* Fieldset */
     .myfieldset {
-        border: 1px solid #d7d7d7;margin: 20px 0px 20px 0px; padding: 20px;
+        border: 1px solid #d7d7d7;margin: 20px 0px 20px 0px; padding-top:20px; padding: 10px;
     }
     .myfieldsetinside {
         border: 1px solid #d7d7d7;margin: 0; padding: 10px;
@@ -634,13 +634,18 @@
     }
 
 
+    /*Badge*/
+    @media only screen and (max-width: 330px) {
+        .badge{display: none;}
+    }
+    /*Badge*/
 
 
     /* Social Media */
     .social {
         position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
         right: 0; /* Establecemos la barra en la izquierda */
-        top: 50%; /* Bajamos la barra 200px de arriba a abajo */
+        top: 200px; /* Bajamos la barra 200px de arriba a abajo */
         z-index: 2000; /* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
     }
 

@@ -2,7 +2,7 @@
     <li class="active"><a data-toggle="tab" href="#s1">All <span class="badge txt-color-white" id="badge_all"></span></a></li>
     <li><a data-toggle="tab" href="#s2">Pending <span class="badge txt-color-white" style="background-color: #d9534f;" id="badge_pending"></span></a></li>
     <li><a data-toggle="tab" href="#s3">Confirmed <span class="badge txt-color-white" style="background-color: #0F9B0F;" id="badge_confirm"></span></a></li>
-    <li><a data-toggle="tab" href="#s4">Calendar <span class="badge txt-color-white" id="badge_cal"></span></a></li>
+    <li><a data-toggle="tab" href="#s4">Calendar <span class="badge txt-color-white" id="badge_all1"></span></a></li>
 </ul>
 
 <div class="tab-content" id="myTabContent1">
@@ -723,17 +723,20 @@
         </div>
     </div>
 
-    <div class="tab-pane fade" id="s4">
+    <div class="tab-pane active" id="s4">
         <div class="row">
             <section>
 
-                <div class="row">
+                <fieldset class="myfieldset" style="margin-top: -10px">
+                    <legend class="mylegend">All appointments</legend>
+                    <div class="row" style="margin-bottom: 10px;">
 
-                    <div class="col-lg-offset-2 col-lg-8">
-                        <div id='calendar' style="margin-top: 10px;"></div>
+                        <div class="col-lg-offset-2 col-lg-8">
+                            <div id='calendar' style="margin-top: 10px;"></div>
+                        </div>
+
                     </div>
-
-                </div>
+                </fieldset>
 
             </section>
         </div>
@@ -773,6 +776,7 @@ $events = json_encode($events);
         $(document).ready(function()
         {
             $('#badge_all').html(<?php print $all;?>);
+            $('#badge_all1').html(<?php print $all;?>);
             $('#badge_confirm').html(<?php print $confirm;?>);
             $('#badge_pending').html(<?php print $not_confirm;?>);
 

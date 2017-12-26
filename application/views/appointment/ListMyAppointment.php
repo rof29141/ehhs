@@ -6,7 +6,7 @@
 
                 <div style="margin-top: -10px;">
 
-                    <section class="col col-12" style="padding-top: 0px;">
+                    <section class="col col-12" style="padding: 0px;">
                         <div id='next_app'></div>
                     </section>
 

@@ -2793,7 +2793,7 @@ input[type="button"].btn-block {
       /* line 24, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_navs.scss */
       .nav > li > a:hover, .nav > li > a:focus {
         text-decoration: none;
-        background-color: #eeeeee; }
+        background-color: #ddd; }
     /* line 31, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_navs.scss */
     .nav > li.disabled > a {
       color: #999999; }
@@ -2830,14 +2830,17 @@ input[type="button"].btn-block {
     margin-bottom: -1px; }
     /* line 89, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_navs.scss */
     .nav-tabs > li > a {
-      margin-right: 2px;
+      margin-right: 1px;
       line-height: 1.42857;
       border: 1px solid transparent;
       border-radius: 4px 4px 0 0;
+      padding: 7px 6px;
+      background-color: #eee;
+      margin-top:2px;
     }
       /* line 94, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_navs.scss */
       .nav-tabs > li > a:hover {
-        border-color: #eeeeee #eeeeee #dddddd; }
+        border-color: #ddd #ddd #dddddd; }
     /* line 103, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_navs.scss */
     .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
       color: #555555;
@@ -3616,7 +3619,7 @@ float:left;}
 
 /* line 7, /home/andrei/core-admin-release/core-admin/source/stylesheets/bootstrap/_badges.scss */
 .badge {
-  display: inline-block;
+
   min-width: 10px;
   padding: 3px 7px;
   font-size: 12px;

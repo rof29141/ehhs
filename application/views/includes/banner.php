@@ -5,7 +5,7 @@ if($position=='center')
 
     <span class="" style="padding: 0px;"><img style="max-width: 300px;margin-right: 5px;" src="<?php print $src_logo;?>" /></span>
     <br><br>
-    <span class="text-center" style="padding: 0px;font-size: 22px;"><?php print $project.'</span><span class="text-center" style="padding: 0px;font-size: 24px;"><br> '.$page_title;?></span>
+    <span class="text-center" style="padding: 0px;font-size: 22px;"></span><span class="text-center" style="padding: 0px;font-size: 24px;"><br> <?php print $page_title;?></span>
 
 
 

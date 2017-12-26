@@ -6,13 +6,31 @@ require_once(APPPATH."views/includes/header.php");
 ?>
 
 <body >
-<div id="wrapper">
+<div id="wrapper" >
 
-    <div class="container text-center" style="margin-top: 90px;">
-        <?php require_once(VIEW_URL."includes/banner.php");?>
+    <div class="social">
+        <ul>
+            <li><a href="https://twitter.com/drjonmendelsohn" target="_blank" class="entypo-twitter"></a></li>
+            <li><a href="https://www.facebook.com/351face" target="_blank" class="entypo-facebook"></a></li>
+            <li><a href="http://www.linkedin.com/pub/jon-mendelsohn/9/4a5/405" target="_blank" class="entypo-linkedin"></a></li>
+            <li><a href="https://www.youtube.com/channel/UC2EAnLCK6NE-2YCWHY5QBjw" target="_blank" class="entypo-video"></a></li>
+            <li><a href="https://351face.com" target="_blank" class="brankic-globe2"></a></li>
+            <li><a href="mailto:info@351face.com" class="entypo-mail"></a></li>
+        </ul>
     </div>
 
-    <div class="container auth">
+    <div class="container text-center col col-lg-12" style="margin-top: 90px;">
+        <span class="" style="padding: 0px;"><img style="max-width: 300px;margin-right: 5px;" src="<?php print $src_logo;?>" /></span>
+    </div>
+
+    <div class="col col-xs-12 col-sm-12 col-md-5 col-lg-4 col-md-offset-1 col-lg-offset-2" style="padding-top: 30px;" align="justify">
+        <p>Advanced Cosmetic Surgery & Laser Center brings out the best in you by providing surgical and non-surgical treatments that achieve your goal of a more refreshing, youthful and beautiful you. Dr. Jon E. Mendelsohn is a double board-certified facial plastic surgeon specializing in both facial plastic surgery and non-surgical facial procedures.</p>
+        <p>You can complete your <a href="<?php print CTR_URL; ?>User/GoPersonalInfoWoutLogin">Personal Contact Information</a> before your arrival will help save you time and allow us to spend more valuable time with you during your consultation.</p>
+
+    </div>
+
+
+    <div class="container auth col  col-md-6 col-lg-6">
         <?php print form_open('authentication/Verify', "class='form-signin' id='frm_auth' role='form'"); ?>
             <section>
                 <div class="fields">
@@ -44,13 +62,6 @@ require_once(APPPATH."views/includes/header.php");
                 </div>
                 <div class="text-center">
                     <a href="<?php print CTR_URL; ?>Authentication/ResetPassword">Reset Password</a>
-                </div>
-                <div class="text-center">
-                    <a href="<?php print CTR_URL; ?>User/GoPersonalInfoWoutLogin">
-                        <div class="text-center btn btn-primary">
-                            Personal Contact Information
-                        </div>
-                    </a>
                 </div>
             </fieldset>
 
