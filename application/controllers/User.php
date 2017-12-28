@@ -209,12 +209,6 @@ class User extends CI_Controller
             $data['personal_info'] = $this->M_User->GetPersonalInfoSetting();
             $this->load->view('user/PersonalInfo', $data);
         }
-        else
-        {
-            $this->load->library('MT_General');
-            $obj_general = new MT_General();
-            $obj_general->Logout();
-        }
     }
 
     function GoPersonalInfoWoutLogin()

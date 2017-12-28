@@ -3,6 +3,7 @@
     <li><a data-toggle="tab" href="#s2">Pending <span class="badge txt-color-white" style="background-color: #d9534f;" id="badge_pending"></span></a></li>
     <li><a data-toggle="tab" href="#s3">Confirmed <span class="badge txt-color-white" style="background-color: #0F9B0F;" id="badge_confirm"></span></a></li>
     <li><a data-toggle="tab" href="#s4">Calendar <span class="badge txt-color-white" id="badge_all1"></span></a></li>
+    <li><a data-toggle="tab" href="#s5">Calendar <span class="badge txt-color-white" id="badge_all1"></span></a></li>
 </ul>
 
 <div class="tab-content" id="myTabContent1">
@@ -24,250 +25,264 @@
                     <fieldset class="myfieldset" style="margin-top: -10px">
                     <legend class="mylegend">All appointments</legend>
                         <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                <ul class="timeline-v1">
 
-                        <?php
-                        for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
-                        {
-                            if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                $date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
-                            elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
-                            else
-                                $date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
-                            ?>
+                                    <?php
+                                    for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
+                                    {
+                                        if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
+                                            $label_date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
+                                            $label_date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        else
+                                            $label_date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
 
-                            <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
+                                        $timeline_date=date('m/d/Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date']));
+                                        $timeline_month=date('F',strtotime($data['my_all_appointments']['data'][$i]['APT_Date']));
 
-                                <div style="display: table;width: 100%;height: 90px;">
-                                    <div style="display: table-row;">
 
-                                        <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
-                                            <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
-                                            <img src="<?php print base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
-                                            <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
-                                            <img src="<?php print base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
-                                            <?php }?>
+                                        if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Pending';else $status='Confirmed';
+                                        $cancel_note = 'To Cancel or Reschedule less than 24 hours, call the office 513-351-FACE(3223)';
 
-                                            <?php
-                                            print '<img class="doc_img" style="width: 60%;" src="';
-                                            if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
-                                            print '"/><br><br>';
-                                            print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'].'<br>'.
-                                            $data['my_all_appointments']['data'][$i]['Service'];
-                                            ?>
-                                        </div>
-                                        <div class="" style="text-align:center; display: table-cell;background-color: #eee;color:#000;padding: 10px;width: 70%;">
-                                            <div style="float: right;position: relative;font-size: 16px;">
-                                                <?php
-                                                if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Pending';else $status='Confirmed';
-                                                $cancel_note = 'To Cancel or Reschedule less than 24 hours, call the office 513-351-FACE(3223)';
+                                        $concern='Hello, I have a concern about an appointment with Id: '
+                                            .$data['my_all_appointments']['data'][$i]['RecordID']. ' '
+                                            .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
+                                            .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
 
-                                                $concern='Hello, I have a concern about an appointment with Id: '
-                                                    .$data['my_all_appointments']['data'][$i]['RecordID']. ' '
-                                                    .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
-                                                    .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
+                                        switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
+                                        {
+                                            case '':
+                                                $send_me_email="Don't reminder";
+                                                break;
+                                            case -1:
+                                                $send_me_email="Don't reminder";
+                                                break;
+                                            case 30:
+                                                $send_me_email="30 min before";
+                                                break;
+                                            case 60:
+                                                $send_me_email="1 hr before";
+                                                break;
+                                            case 120:
+                                                $send_me_email="2 hrs before";
+                                                break;
+                                            case 1440:
+                                                $send_me_email="1 day before";
+                                                break;
+                                            case 2880:
+                                                $send_me_email="2 days before";
+                                                break;
+                                        }
 
-                                                switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
-                                                {
-                                                    case '':
-                                                        $send_me_email="Don't reminder";
-                                                        break;
-                                                    case -1:
-                                                        $send_me_email="Don't reminder";
-                                                        break;
-                                                    case 30:
-                                                        $send_me_email="30 min before";
-                                                        break;
-                                                    case 60:
-                                                        $send_me_email="1 hr before";
-                                                        break;
-                                                    case 120:
-                                                        $send_me_email="2 hrs before";
-                                                        break;
-                                                    case 1440:
-                                                        $send_me_email="1 day before";
-                                                        break;
-                                                    case 2880:
-                                                        $send_me_email="2 days before";
-                                                        break;
-                                                }
+                                        switch ($data['my_all_appointments']['data'][$i]['ReminderContactBy'])
+                                        {
+                                            case '':
+                                                $contact_by="Email only";
+                                                break;
+                                            case 'no':
+                                                $contact_by="Email only";
+                                                break;
+                                            case 'call':
+                                                $contact_by="Call";
+                                                break;
+                                            case 'sms':
+                                                $contact_by="SMS";
+                                                break;
+                                        }
 
-                                                switch ($data['my_all_appointments']['data'][$i]['ReminderContactBy'])
-                                                {
-                                                    case '':
-                                                        $contact_by="Email only";
-                                                        break;
-                                                    case 'no':
-                                                        $contact_by="Email only";
-                                                        break;
-                                                    case 'call':
-                                                        $contact_by="Call";
-                                                        break;
-                                                    case 'sms':
-                                                        $contact_by="SMS";
-                                                        break;
-                                                }
+                                        switch ($data['my_all_appointments']['data'][$i]['ReminderSent'])
+                                        {
+                                            case 1:
+                                                $sent_reminder='Yes';
+                                                break;
+                                            case 0:
+                                                $sent_reminder='No';
+                                                break;
+                                            case '':
+                                                $sent_reminder='No';
+                                                break;
+                                        }
 
-                                                switch ($data['my_all_appointments']['data'][$i]['ReminderSent'])
-                                                {
-                                                    case 1:
-                                                        $sent_reminder='Yes';
-                                                        break;
-                                                    case 0:
-                                                        $sent_reminder='No';
-                                                        break;
-                                                    case '':
-                                                        $sent_reminder='No';
-                                                        break;
-                                                }
+                                        $info=
+                                            '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
+                                            '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
+                                            '<br><b>Date and Time:</b> '.date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])).' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
+                                            '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
+                                            '<br><b>Status:</b> '.$status;
+                                        if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
+                                        if($data['my_all_appointments']['data'][$i]['ReminderMsg']!='')$info.='<br><b>My message:</b> '.$data['my_all_appointments']['data'][$i]['ReminderMsg'];
+                                        $info.='<br><b>Contact me by:</b> '.$contact_by;
+                                        if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
 
-                                                $info=
-                                                    '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
-                                                    '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
-                                                    '<br><b>Date and Time:</b> '.date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])).' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
-                                                    '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
-                                                    '<br><b>Status:</b> '.$status;
-                                                    if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
-                                                    if($data['my_all_appointments']['data'][$i]['ReminderMsg']!='')$info.='<br><b>My message:</b> '.$data['my_all_appointments']['data'][$i]['ReminderMsg'];
-                                                    $info.='<br><b>Contact me by:</b> '.$contact_by;
-                                                    if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
-                                                ?>
-                                                <a target="_blank" href="<?php print base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
-                                                    <span class="entypo-printer"></span>
-                                                </a>
-                                                <br>
-                                                <a target="_blank" class="chat" data-content="<?php print $concern;?>">
-                                                    <span class="entypo-chat"></span>
-                                                </a>
-                                                <br>
-                                                <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
-                                                    <span class="entypo-info2"></span>
-                                                </a>
-                                                <br>
-                                                <a class="download_ical" id="<?php print $i;?>">
-                                                    <span class="brankic-calendar"></span>
-                                                </a>
+                                        date_default_timezone_set('America/New_York');
+                                        $today_timestamp = strtotime('now');
+                                        $date = strtotime($data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']);
+                                        $dif = $date - $today_timestamp;
+
+                                        if ($dif > 86400)
+                                        {
+                                            $cancel_btn = 1;
+                                        } else
+                                        {
+                                            $cancel_btn = 0;
+                                        }
+                                    ?>
+
+                                        <li>
+                                            <div class="timeline-badge primary hidden-xs">
+                                                <i class="entypo-cd" style="color: #0F9B0F;"></i>
+                                                <time class="cbp_tmtime" datetime=""><span><?php print $timeline_date;?></span> <span><?php print $timeline_month;?></span></time>
                                             </div>
+                                            <div class="timeline-panel" style="padding-top: 10px;">
+                                                <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="card_<?php print $i; ?>">
 
-                                            <div style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
-                                            <br>
+                                                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="height:150px;background-color: #ccc;text-align:center;padding: 5px;padding-top:35px;font-size: 10px;">
+                                                        <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
+                                                        <img src="<?php print base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
+                                                        <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
+                                                        <img src="<?php print base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
+                                                        <?php }?>
 
-                                            <?php print $date;?>
+                                                        <?php
+                                                        print '<img class="doc_img" style="width: 60px;" src="';
+                                                        if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
+                                                        print '"/><br><br>';
+                                                        print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'].'<br>'.
+                                                        $data['my_all_appointments']['data'][$i]['Service'];
+                                                        ?>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9" style="text-align:center;background-color: #eee;color:#000;padding: 10px;">
+                                                        <div style="float: right;position: relative;font-size: 16px;">
 
-                                            <br><br>
+                                                            <a target="_blank" href="<?php print base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
+                                                                <span class="entypo-printer"></span>
+                                                            </a>
+                                                            <br>
+                                                            <a target="_blank" class="chat" data-content="<?php print $concern;?>">
+                                                                <span class="entypo-chat"></span>
+                                                            </a>
+                                                            <br>
+                                                            <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
+                                                                <span class="entypo-info2"></span>
+                                                            </a>
+                                                            <br>
+                                                            <a class="download_ical" id="<?php print $i;?>">
+                                                                <span class="brankic-calendar"></span>
+                                                            </a>
+                                                        </div>
 
-                                            <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
+                                                        <div style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
+                                                        <br>
 
-                                                <div class="text-danger"
-                                                     style="text-align:center;font-weight: bold; font-size: 15px;">
-                                                    Status: Pending <span class="brankic-warning"></span>
-                                                </div>
-                                            <?php } else { ?>
-                                                <div class="text-success"
-                                                     style="text-align:center;font-weight: bold; font-size: 15px;">
-                                                    Status: Confirmed <span class="brankic-checkmark"></span>
-                                                </div>
-                                            <?php } ?>
+                                                        <?php print $label_date;?>
 
-                                            <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
-                                            <?php
-                                            date_default_timezone_set('America/New_York');
-                                            $today_timestamp = strtotime('now');
-                                            $date = strtotime($data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']);
-                                            $dif = $date - $today_timestamp;
+                                                        <br><br>
 
-                                            if ($dif > 86400)
-                                            {
-                                                $cancel_btn = 1;
-                                            } else
-                                            {
-                                                $cancel_btn = 0;
-                                            }
-                                            ?>
-                                            <div style="text-align:right;">
-                                                <?php
-                                                if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')
-                                                {
-                                                    $not_confirm++;
-                                                    ?>
-                                                    <button type="button"
-                                                            class="btn btn-xs btn_confirm_app btn-success"
-                                                            id="<?php print $i; ?>">Confirm
-                                                    </button>
-                                                    <?php
-                                                }
-                                                else
-                                                {
-                                                    $confirm++;
-                                                    ?>
-                                                    <button type="button" class="btn btn-xs resend_email btn-success"
-                                                            id="<?php print $i; ?>">Resend email
-                                                    </button>
-                                                    <?php
-                                                }
-                                                if ($cancel_btn == 1)
-                                                {
-                                                    ?>
-                                                    <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php print $i;?>">Reschedule</button>
-                                                    <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php print $i;?>">Cancel</button>
-                                                    <?php
-                                                }
-                                                ?>
+                                                        <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
 
+                                                            <div class="text-danger"
+                                                                 style="text-align:center;font-weight: bold; font-size: 15px;">
+                                                                Status: Pending <span class="brankic-warning"></span>
+                                                            </div>
+                                                        <?php } else { ?>
+                                                            <div class="text-success"
+                                                                 style="text-align:center;font-weight: bold; font-size: 15px;">
+                                                                Status: Confirmed <span class="brankic-checkmark"></span>
+                                                            </div>
+                                                        <?php } ?>
+
+                                                        <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
+
+                                                        <div style="text-align:right;">
+                                                            <?php
+                                                            if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')
+                                                            {
+                                                                $not_confirm++;
+                                                                ?>
+                                                                <button type="button"
+                                                                        class="btn btn-xs btn_confirm_app btn-success"
+                                                                        id="<?php print $i; ?>">Confirm
+                                                                </button>
+                                                                <?php
+                                                            }
+                                                            else
+                                                            {
+                                                                $confirm++;
+                                                                ?>
+                                                                <button type="button" class="btn btn-xs resend_email btn-success"
+                                                                        id="<?php print $i; ?>">Resend email
+                                                                </button>
+                                                                <?php
+                                                            }
+                                                            if ($cancel_btn == 1)
+                                                            {
+                                                                ?>
+                                                                <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php print $i;?>">Reschedule</button>
+                                                                <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php print $i;?>">Cancel</button>
+                                                                <?php
+                                                            }
+                                                            ?>
+
+                                                        </div>
+
+                                                        <form method="post" action="Dashboard/DownloadiCal"
+                                                              id="frm_next_<?php print $i; ?>">
+
+                                                            <input id="hdn_title_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
+                                                            <input id="hdn_date_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
+                                                            <input id="hdn_time_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
+                                                            <input id="hdn_doc_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName']; ?>"/>
+                                                            <input id="hdn_ser_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['Service']; ?>"/>
+                                                            <input id="hdn_tok_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['TokenConfirmApp']; ?>"/>
+                                                            <input id="hdn_id_doc_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['ProviderRec']; ?>"/>
+                                                            <input id="hdn_id_serv_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['_kf_ServiceID']; ?>"/>
+                                                            <input id="hdn_id_zpk_Appointment_Rec<?php print $i; ?>"
+                                                                   type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['__zpk_Appointment_Rec']; ?>"/>
+                                                            <input id="hdn_id_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['RecordID']; ?>"/>
+
+                                                            <input name="hdn_ical_start_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
+                                                            <input name="hdn_ical_end_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
+                                                            <input name="hdn_ical_addr" type="hidden"
+                                                                   value="<?php print '3805 Edwards Rd 100 Cincinnati, OH 45244'; ?>"/>
+                                                            <input name="hdn_ical_url" type="hidden"
+                                                                   value="<?php print '351face.com'; ?>"/>
+                                                            <input name="hdn_ical_title_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
+                                                            <input name="hdn_ical_date_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
+                                                            <input name="hdn_item_<?php print $i; ?>" type="hidden"
+                                                                   value="<?php print $i; ?>"/>
+                                                            <input id="hdn_old_app_<?php print $i; ?>" type="hidden" value="<?php print $info; ?>"/>
+                                                            <input id="hdn_ReminderEmail_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderEmail']; ?>"/>
+                                                            <input id="hdn_ReminderMsg_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderMsg']; ?>"/>
+                                                            <input id="hdn_ReminderContactBy_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderContactBy']; ?>"/>
+
+                                                        </form>
+                                                    </div>
+
+                                                </article>
                                             </div>
+                                        </li>
+                                        <li class="clearfix" style="float: none;"></li>
 
-                                            <form method="post" action="Dashboard/DownloadiCal"
-                                                  id="frm_next_<?php print $i; ?>">
-
-                                                <input id="hdn_title_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                <input id="hdn_date_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                <input id="hdn_time_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
-                                                <input id="hdn_doc_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName']; ?>"/>
-                                                <input id="hdn_ser_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['Service']; ?>"/>
-                                                <input id="hdn_tok_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['TokenConfirmApp']; ?>"/>
-                                                <input id="hdn_id_doc_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['ProviderRec']; ?>"/>
-                                                <input id="hdn_id_serv_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['_kf_ServiceID']; ?>"/>
-                                                <input id="hdn_id_zpk_Appointment_Rec<?php print $i; ?>"
-                                                       type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['__zpk_Appointment_Rec']; ?>"/>
-                                                <input id="hdn_id_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['RecordID']; ?>"/>
-
-                                                <input name="hdn_ical_start_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
-                                                <input name="hdn_ical_end_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
-                                                <input name="hdn_ical_addr" type="hidden"
-                                                       value="<?php print '3805 Edwards Rd 100 Cincinnati, OH 45244'; ?>"/>
-                                                <input name="hdn_ical_url" type="hidden"
-                                                       value="<?php print '351face.com'; ?>"/>
-                                                <input name="hdn_ical_title_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                <input name="hdn_ical_date_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                <input name="hdn_item_<?php print $i; ?>" type="hidden"
-                                                       value="<?php print $i; ?>"/>
-                                                <input id="hdn_old_app_<?php print $i; ?>" type="hidden" value="<?php print $info; ?>"/>
-                                                <input id="hdn_ReminderEmail_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderEmail']; ?>"/>
-                                                <input id="hdn_ReminderMsg_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderMsg']; ?>"/>
-                                                <input id="hdn_ReminderContactBy_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderContactBy']; ?>"/>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                            </article>
-
-                            <?php
-                        }
-                        ?>
+                                    <?php
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
                         </div>
                     </fieldset>
                     <?php
@@ -296,11 +311,11 @@
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']!='')
                                 {
                                     if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                        $date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        $label_date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                        $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        $label_date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     else
-                                        $date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        $label_date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
@@ -418,7 +433,7 @@
                                                     <div style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
                                                     <br>
 
-                                                    <?php print $date;?>
+                                                    <?php print $label_date;?>
 
                                                     <br><br>
 
@@ -514,11 +529,11 @@
                                 if($data['my_all_appointments']['data'][$i]['TokenConfirmApp']=='')
                                 {
                                     if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                        $date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        $label_date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                        $date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        $label_date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     else
-                                        $date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                        $label_date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
@@ -637,7 +652,7 @@
                                                     <div style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
                                                     <br>
 
-                                                    <?php print $date;?>
+                                                    <?php print $label_date;?>
 
                                                     <br><br>
 
@@ -736,6 +751,179 @@
             </section>
         </div>
     </div>
+
+
+
+
+    <div class="tab-pane fade" id="s5">
+        <div class="row">
+            <section>
+
+                <div class="col-md-12">
+                    <ul class="timeline-v1">
+                        <li>
+                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <img class="img-responsive" src="assets/img/timeline/img1.1.jpg" alt=""/>
+                                </div>
+                                <div class="timeline-body text-justify">
+                                    <h2><a href="#">Timeline Heading</a></h2>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
+                                </div>
+                                <div class="timeline-footer">
+                                    <ul class="list-unstyled list-inline blog-info">
+                                        <li><i class="fa fa-clock-o"></i> March 28, 2014</li>
+                                        <li><i class="fa fa-comments-o"></i> <a href="#">7 Comments</a></li>
+                                    </ul>
+                                    <a class="likes" href="#"><i class="fa fa-heart"></i>239</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <img class="img-responsive" src="assets/img/timeline/img1.2.jpg" alt=""/>
+                                </div>
+                                <div class="timeline-body text-justify">
+                                    <h2><a href="#">Timeline Heading</a></h2>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
+                                </div>
+                                <div class="timeline-footer">
+                                    <ul class="list-unstyled list-inline blog-info">
+                                        <li><i class="fa fa-clock-o"></i> March 16, 2014</li>
+                                        <li><i class="fa fa-comments-o"></i> <a href="#">12 Comments</a></li>
+                                    </ul>
+                                    <a class="likes" href="#"><i class="fa fa-heart"></i>87</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-badge primarya"><i class="glyphicon glyphicon-record"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <div class="carousel slide carousel-v1" id="myCarousel">
+                                        <div class="carousel-inner">
+                                            <div class="item active">
+                                                <img class="img-responsive" src="assets/img/timeline/img1.3.jpg" alt=""/>
+                                                <div class="carousel-caption">
+                                                    <p>Facilisis odio, dapibus ac justo acilisis gestinas.</p>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <img class="img-responsive" src="assets/img/timeline/img1.4.jpg" alt=""/>
+                                                <div class="carousel-caption">
+                                                    <p>Mussum ipsum cacilds, vidis litro abertis.</p>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <img class="img-responsive" src="assets/img/timeline/img1.5.jpg" alt=""/>
+                                                <div class="carousel-caption">
+                                                    <p>Justo cras odio apibus ac afilisis lingestas de.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="carousel-arrow">
+                                            <a data-slide="prev" href="#myCarousel" class="left carousel-control">
+                                                <i class="fa fa-angle-left"></i>
+                                            </a>
+                                            <a data-slide="next" href="#myCarousel" class="right carousel-control">
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timeline-body text-justify">
+                                    <h2><a href="#">Timeline Heading</a></h2>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
+                                </div>
+                                <div class="timeline-footer">
+                                    <ul class="list-unstyled list-inline blog-info">
+                                        <li><i class="fa fa-clock-o"></i> November 06, 2014</li>
+                                        <li><i class="fa fa-comments-o"></i> <a href="#">37 Comments</a></li>
+                                    </ul>
+                                    <a class="likes" href="#"><i class="fa fa-heart"></i>121</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <img class="img-responsive" src="assets/img/timeline/img1.4.jpg" alt=""/>
+                                </div>
+                                <div class="timeline-body text-justify">
+                                    <h2><a href="#">Timeline Heading</a></h2>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
+                                </div>
+                                <div class="timeline-footer">
+                                    <ul class="list-unstyled list-inline blog-info">
+                                        <li><i class="fa fa-clock-o"></i> November 02, 2014</li>
+                                        <li><i class="fa fa-comments-o"></i> <a href="#">24 Comments</a></li>
+                                    </ul>
+                                    <a class="likes" href="#"><i class="fa fa-heart"></i>34</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <img class="img-responsive" src="assets/img/timeline/img1.6.jpg" alt=""/>
+                                </div>
+                                <div class="timeline-body text-justify">
+                                    <h2><a href="#">Timeline Heading</a></h2>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
+                                </div>
+                                <div class="timeline-footer primary">
+                                    <ul class="list-unstyled list-inline blog-info">
+                                        <li><i class="fa fa-clock-o"></i> February 26, 2014</li>
+                                        <li><i class="fa fa-comments-o"></i> <a href="#">93 Comments</a></li>
+                                    </ul>
+                                    <a class="likes" href="#"><i class="fa fa-heart"></i>355</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <div class="responsive-video">
+                                        <iframe src="http://player.vimeo.com/video/9679622" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                                    </div>
+                                </div>
+                                <div class="timeline-body">
+                                    <h2><a href="#">Timeline Heading</a></h2>
+                                    <p>I only make it responsive and remove the empty spaces to be more like Facebook timeline!</p>
+                                    <a class="btn-u" href="#">Read More</a>
+                                </div>
+                                <div class="timeline-footer primary">
+                                    <ul class="list-inline">
+                                        <ul class="list-unstyled list-inline blog-info">
+                                            <li><i class="fa fa-clock-o"></i> November 29, 2013</li>
+                                            <li><i class="fa fa-comments-o"></i> <a href="#">162 Comments</a></li>
+                                        </ul>
+                                        <a class="likes" href="#"><i class="fa fa-heart"></i>798</a>
+                                    </ul>
+                                </div>
+                        </li>
+                        <li class="clearfix" style="float: none;"></li>
+                    </ul>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+
+
 
 </div>
 

@@ -22,9 +22,11 @@
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="brankic-list" style="color: #fff; font-size: 28px;top:3px;right:20px;position: absolute;"></span>
+                <a class="navbar-brand" href="#">
+                    <span class="brankic-list" style="color: #fff; font-size: 28px;top:3px;right:20px;position: absolute;"></span>
+                </a>
             </button>
-            <a class="navbar-brand" href="#"></a>
+
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -337,12 +339,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function()
-    {
-        $('.nav a').on('click', function(){
-            $('.navbar-toggle').click() //bootstrap 3.x
-        });
-    });
-</script>

@@ -55,6 +55,9 @@
 
 <link rel='stylesheet' href='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/fullcalendar.css' />
 
+<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/css/features/feature_timeline1.css">
+<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/css/features/feature_timeline2.css">
+
 <script src='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/lib/moment.min.js'></script>
 <script src='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/fullcalendar.js'></script>
 

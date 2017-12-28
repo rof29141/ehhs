@@ -24,7 +24,7 @@ ini_set('memory_limit', '2048M');
 
     /*-------------------DO NOT CHANGE THE CODE-------------------*/
 
-    LoadContent('Appointment');
+    LoadContent('Appointment', 1);
 
     function UpdateContent(go_function, go_view, go_back, id='')
     {
@@ -83,9 +83,9 @@ ini_set('memory_limit', '2048M');
         });
     }
 
-    function LoadContent(pag)
+    function LoadContent(pag, first='')
     {
-        //$('.content-wrapper').html('');
+        if(first!=1)$('.navbar-toggle').click();
         $( '.content-wrapper' ).empty();
         var target = document.getElementById('container');
         var spinner = new Spinner(opts).spin(target);
