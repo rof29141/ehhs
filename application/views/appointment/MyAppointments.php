@@ -3,7 +3,6 @@
     <li><a data-toggle="tab" href="#s2">Pending <span class="badge txt-color-white" style="background-color: #d9534f;" id="badge_pending"></span></a></li>
     <li><a data-toggle="tab" href="#s3">Confirmed <span class="badge txt-color-white" style="background-color: #0F9B0F;" id="badge_confirm"></span></a></li>
     <li><a data-toggle="tab" href="#s4">Calendar <span class="badge txt-color-white" id="badge_all1"></span></a></li>
-    <li><a data-toggle="tab" href="#s5">Calendar <span class="badge txt-color-white" id="badge_all1"></span></a></li>
 </ul>
 
 <div class="tab-content" id="myTabContent1">
@@ -25,7 +24,7 @@
                     <fieldset class="myfieldset" style="margin-top: -10px">
                     <legend class="mylegend">All appointments</legend>
                         <div class="row" style="margin-bottom: 10px;">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <ul class="timeline-v1">
 
                                     <?php
@@ -282,6 +281,167 @@
                                     }
                                     ?>
                                 </ul>
+                            </div>
+
+                            <div class="col-xs-11 col-sm-11 col-md-5 col-lg-5">
+
+                                <div class="bannercontainer">
+                                    <div class="banner">
+                                        <ul>
+                                            <!-- THE FIRST SLIDE -->
+                                            <li data-transition="3dcurtain-vertical" data-slotamount="10" data-masterspeed="300">
+
+                                                <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
+                                                <img width="1px" src="assets/images/slider/revolution/bg1.jpg">
+
+                                                <div class="caption large_text sfb bg-black-opacity"
+                                                     data-x="176"
+                                                     data-y="12"
+                                                     data-speed="300"
+                                                     data-start="800"
+                                                     data-easing="easeOutExpo">
+                                                    Advanced Cosmetic Surgery
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="189"
+                                                     data-y="256"
+                                                     data-speed="600"
+                                                     data-start="1100"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p1.jpg" alt="Image 2">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="0"
+                                                     data-y="272"
+                                                     data-speed="600"
+                                                     data-start="1200"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p2.jpg" alt="Image 3">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="200"
+                                                     data-y="389"
+                                                     data-speed="600"
+                                                     data-start="1300"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p6.jpg" alt="Image 4">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="97"
+                                                     data-y="257"
+                                                     data-speed="300"
+                                                     data-start="1400"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p4.jpg" alt="Image 5">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="14"
+                                                     data-y="402"
+                                                     data-speed="600"
+                                                     data-start="1500"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p5.jpg" alt="Image 6">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="66"
+                                                     data-y="325"
+                                                     data-speed="300"
+                                                     data-start="2000"
+                                                     data-easing="easeOutExpo"  ><img src="assets/images/slider/revolution/p7.jpg" alt="Image 7">
+                                                </div>
+
+                                            </li>
+
+                                            <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-delay="9400" ">
+
+                                                <!-- THE MAIN IMAGE IN THE SECOND SLIDE -->
+                                                <img src="assets/images/slider/revolution/bg2.jpg">
+
+                                                <div class="caption very_big_white lfl stl"
+                                                     data-x="18"
+                                                     data-y="343"
+                                                     data-speed="300"
+                                                     data-start="500"
+                                                     data-easing="easeOutExpo" data-end="8800" data-endspeed="300" data-endeasing="easeInSine">
+                                                    Feel proud to say every day!
+                                                </div>
+
+                                                <div class="caption big_white lfl stl"
+                                                     data-x="18"
+                                                     data-y="390"
+                                                     data-speed="300"
+                                                     data-start="800"
+                                                     data-easing="easeOutExpo" data-end="9100" data-endspeed="300" data-endeasing="easeInSine">
+                                                    “I woke up like this”
+                                                </div>
+
+                                                <div class="caption lft ltb"
+                                                     data-x="600"
+                                                     data-y="5"
+                                                     data-speed="600"
+                                                     data-start="1100"
+                                                     data-easing="easeOutExpo" data-end="7100" data-endspeed="600" data-endeasing="easeInSine">
+                                                    <img width="300px" height="490px" src="assets/images/slider/revolution/s2_p1.jpg" alt="Image 3">
+                                                </div>
+
+                                                <div class="caption bold_green_text sft stb"
+                                                     data-x="610"
+                                                     data-y="290"
+                                                     data-speed="300"
+                                                     data-start="1400"
+                                                     data-easing="easeOutExpo" data-end="7300" data-endspeed="300" data-endeasing="easeInSine">
+                                                    Cheer on your team without <br>the fear of underarm sweat!
+                                                </div>
+
+                                                <div class="caption big_black sfb stb"
+                                                     data-x="610"
+                                                     data-y="320"
+                                                     data-speed="300"
+                                                     data-start="1700"
+                                                     data-easing="easeOutExpo" data-end="7200" data-endspeed="300" data-endeasing="easeInSine">
+
+                                                </div>
+
+                                                <div class="caption lft ltb"
+                                                     data-x="600"
+                                                     data-y="10"
+                                                     data-speed="600"
+                                                     data-start="3600"
+                                                     data-easing="easeOutExpo" data-end="5600" data-endspeed="600" data-endeasing="easeInSine">
+                                                    <img width="300px" height="490px" src="assets/images/slider/revolution/s2_p2.jpg" alt="Image 6">
+                                                </div>
+
+                                                <div class="caption bold_brown_text sft stb"
+                                                     data-x="610"
+                                                     data-y="290"
+                                                     data-speed="300"
+                                                     data-start="3900"
+                                                     data-easing="easeOutExpo" data-end="5800" data-endspeed="300" data-endeasing="easeInSine" >
+                                                    It’s not luck…
+                                                </div>
+
+                                                <div class="caption big_black sfb stb"
+                                                     data-x="610"
+                                                     data-y="320"
+                                                     data-speed="300"
+                                                     data-start="4200"
+                                                     data-easing="easeOutExpo" data-end="5700" data-endspeed="300" data-endeasing="easeInSine">
+                                                    It’s Advanced Cosmetic!
+                                                </div>
+
+
+                                            </li>
+                                        </ul>
+
+                                        <div class="tp-bannertimer tp-bottom"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -752,179 +912,6 @@
         </div>
     </div>
 
-
-
-
-    <div class="tab-pane fade" id="s5">
-        <div class="row">
-            <section>
-
-                <div class="col-md-12">
-                    <ul class="timeline-v1">
-                        <li>
-                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <img class="img-responsive" src="assets/img/timeline/img1.1.jpg" alt=""/>
-                                </div>
-                                <div class="timeline-body text-justify">
-                                    <h2><a href="#">Timeline Heading</a></h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
-                                </div>
-                                <div class="timeline-footer">
-                                    <ul class="list-unstyled list-inline blog-info">
-                                        <li><i class="fa fa-clock-o"></i> March 28, 2014</li>
-                                        <li><i class="fa fa-comments-o"></i> <a href="#">7 Comments</a></li>
-                                    </ul>
-                                    <a class="likes" href="#"><i class="fa fa-heart"></i>239</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <img class="img-responsive" src="assets/img/timeline/img1.2.jpg" alt=""/>
-                                </div>
-                                <div class="timeline-body text-justify">
-                                    <h2><a href="#">Timeline Heading</a></h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
-                                </div>
-                                <div class="timeline-footer">
-                                    <ul class="list-unstyled list-inline blog-info">
-                                        <li><i class="fa fa-clock-o"></i> March 16, 2014</li>
-                                        <li><i class="fa fa-comments-o"></i> <a href="#">12 Comments</a></li>
-                                    </ul>
-                                    <a class="likes" href="#"><i class="fa fa-heart"></i>87</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-badge primarya"><i class="glyphicon glyphicon-record"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <div class="carousel slide carousel-v1" id="myCarousel">
-                                        <div class="carousel-inner">
-                                            <div class="item active">
-                                                <img class="img-responsive" src="assets/img/timeline/img1.3.jpg" alt=""/>
-                                                <div class="carousel-caption">
-                                                    <p>Facilisis odio, dapibus ac justo acilisis gestinas.</p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <img class="img-responsive" src="assets/img/timeline/img1.4.jpg" alt=""/>
-                                                <div class="carousel-caption">
-                                                    <p>Mussum ipsum cacilds, vidis litro abertis.</p>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <img class="img-responsive" src="assets/img/timeline/img1.5.jpg" alt=""/>
-                                                <div class="carousel-caption">
-                                                    <p>Justo cras odio apibus ac afilisis lingestas de.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="carousel-arrow">
-                                            <a data-slide="prev" href="#myCarousel" class="left carousel-control">
-                                                <i class="fa fa-angle-left"></i>
-                                            </a>
-                                            <a data-slide="next" href="#myCarousel" class="right carousel-control">
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-body text-justify">
-                                    <h2><a href="#">Timeline Heading</a></h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
-                                </div>
-                                <div class="timeline-footer">
-                                    <ul class="list-unstyled list-inline blog-info">
-                                        <li><i class="fa fa-clock-o"></i> November 06, 2014</li>
-                                        <li><i class="fa fa-comments-o"></i> <a href="#">37 Comments</a></li>
-                                    </ul>
-                                    <a class="likes" href="#"><i class="fa fa-heart"></i>121</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <img class="img-responsive" src="assets/img/timeline/img1.4.jpg" alt=""/>
-                                </div>
-                                <div class="timeline-body text-justify">
-                                    <h2><a href="#">Timeline Heading</a></h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
-                                </div>
-                                <div class="timeline-footer">
-                                    <ul class="list-unstyled list-inline blog-info">
-                                        <li><i class="fa fa-clock-o"></i> November 02, 2014</li>
-                                        <li><i class="fa fa-comments-o"></i> <a href="#">24 Comments</a></li>
-                                    </ul>
-                                    <a class="likes" href="#"><i class="fa fa-heart"></i>34</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <img class="img-responsive" src="assets/img/timeline/img1.6.jpg" alt=""/>
-                                </div>
-                                <div class="timeline-body text-justify">
-                                    <h2><a href="#">Timeline Heading</a></h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                    <a class="btn-u btn-u-sm" href="#">Read More</a>
-                                </div>
-                                <div class="timeline-footer primary">
-                                    <ul class="list-unstyled list-inline blog-info">
-                                        <li><i class="fa fa-clock-o"></i> February 26, 2014</li>
-                                        <li><i class="fa fa-comments-o"></i> <a href="#">93 Comments</a></li>
-                                    </ul>
-                                    <a class="likes" href="#"><i class="fa fa-heart"></i>355</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <div class="responsive-video">
-                                        <iframe src="http://player.vimeo.com/video/9679622" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-                                    </div>
-                                </div>
-                                <div class="timeline-body">
-                                    <h2><a href="#">Timeline Heading</a></h2>
-                                    <p>I only make it responsive and remove the empty spaces to be more like Facebook timeline!</p>
-                                    <a class="btn-u" href="#">Read More</a>
-                                </div>
-                                <div class="timeline-footer primary">
-                                    <ul class="list-inline">
-                                        <ul class="list-unstyled list-inline blog-info">
-                                            <li><i class="fa fa-clock-o"></i> November 29, 2013</li>
-                                            <li><i class="fa fa-comments-o"></i> <a href="#">162 Comments</a></li>
-                                        </ul>
-                                        <a class="likes" href="#"><i class="fa fa-heart"></i>798</a>
-                                    </ul>
-                                </div>
-                        </li>
-                        <li class="clearfix" style="float: none;"></li>
-                    </ul>
-                </div>
-
-            </section>
-        </div>
-    </div>
-
-
-
-
 </div>
 
 <?php
@@ -958,6 +945,59 @@ $events = json_encode($events);
     <script type="text/javascript">
         $(document).ready(function()
         {
+            if ($.fn.cssOriginal!=undefined)
+                $.fn.css = $.fn.cssOriginal;
+
+            $('.banner').revolution(
+            {
+                delay:5000,
+                startheight:500,
+                startwidth:960,
+
+
+                hideThumbs:200,
+
+                thumbWidth:100,							// Thumb With and Height and Amount (only if navigation Tyope set to thumb !)
+                thumbHeight:50,
+                thumbAmount:5,
+
+                navigationType:"none",				// bullet, thumb, none
+                navigationArrows:"solo",				// nexttobullets, solo (old name verticalcentered), none
+
+                navigationStyle:"navbar",				// round,square,navbar,round-old,square-old,navbar-old, or any from the list in the docu (choose between 50+ different item), custom
+
+
+                navigationHAlign:"center",				// Vertical Align top,center,bottom
+                navigationVAlign:"bottom",					// Horizontal Align left,center,right
+                navigationHOffset:0,
+                navigationVOffset:20,
+
+                soloArrowLeftHalign:"left",
+                soloArrowLeftValign:"bottom",
+                soloArrowLeftHOffset:20,
+                soloArrowLeftVOffset:20,
+
+                soloArrowRightHalign:"right",
+                soloArrowRightValign:"bottom",
+                soloArrowRightHOffset:20,
+                soloArrowRightVOffset:20,
+
+                touchenabled:"on",						// Enable Swipe Function : on/off
+                onHoverStop:"on",						// Stop Banner Timet at Hover on Slide on/off
+
+                stopAtSlide:-1,							// Stop Timer if Slide "x" has been Reached. If stopAfterLoops set to 0, then it stops already in the first Loop at slide X which defined. -1 means do not stop at any slide. stopAfterLoops has no sinn in this case.
+                stopAfterLoops:-1,						// Stop Timer if All slides has been played "x" times. IT will stop at THe slide which is defined via stopAtSlide:x, if set to -1 slide never stop automatic
+
+                hideCaptionAtLimit:0,					// It Defines if a caption should be shown under a Screen Resolution ( Basod on The Width of Browser)
+                hideAllCaptionAtLilmit:0,				// Hide all The Captions if Width of Browser is less then this value
+                hideSliderAtLimit:0,					// Hide the whole slider, and stop also functions if Width of Browser is less than this value
+
+                shadow:0,								//0 = no Shadow, 1,2,3 = 3 Different Art of Shadows  (No Shadow in Fullwidth Version !)
+                fullWidth:"off"							// Turns On or Off the Fullwidth Image Centering in FullWidth Modus
+
+
+            });
+
             $('#badge_all').html(<?php print $all;?>);
             $('#badge_all1').html(<?php print $all;?>);
             $('#badge_confirm').html(<?php print $confirm;?>);
@@ -1241,6 +1281,8 @@ $events = json_encode($events);
                 // TODO: check href of e.target to detect your tab
                 //$("#show_cal:hidden").show();
                 $('#calendar').fullCalendar('render');
-            })
+            });
+
+
         });
     </script>

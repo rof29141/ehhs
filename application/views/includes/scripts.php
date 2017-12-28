@@ -58,6 +58,11 @@
 <link rel="stylesheet" href="<?php print ASSETS_URL; ?>/css/features/feature_timeline1.css">
 <link rel="stylesheet" href="<?php print ASSETS_URL; ?>/css/features/feature_timeline2.css">
 
+<script type="text/javascript" src="<?php print ASSETS_URL; ?>/js/app.js"></script>
+<script type="text/javascript" src="<?php print ASSETS_URL; ?>/js/revolution_slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/css/features/revolution_slider/rs-plugin/css/settings.css">
+
+
 <script src='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/lib/moment.min.js'></script>
 <script src='<?php print ASSETS_URL; ?>/js/fullcalendar-3.5.1/fullcalendar.js'></script>
 
