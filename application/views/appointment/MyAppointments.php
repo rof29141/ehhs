@@ -15,6 +15,7 @@
                 $not_confirm=0;
                 $confirm=0;
                 $all=0;
+                $next_app_date='';
 
                 if(isset($data['my_all_appointments']['data']))
                 {
@@ -30,6 +31,8 @@
                                     <?php
                                     for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
                                     {
+                                        if($i==0 && $next_app_date=='')$next_app_date=date('M j, Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
+
                                         if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
                                             $label_date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
                                         elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
@@ -283,166 +286,223 @@
                                 </ul>
                             </div>
 
-                            <div class="col-xs-11 col-sm-11 col-md-5 col-lg-5">
-
-                                <div class="bannercontainer">
-                                    <div class="banner">
-                                        <ul>
-                                            <!-- THE FIRST SLIDE -->
-                                            <li data-transition="3dcurtain-vertical" data-slotamount="10" data-masterspeed="300">
-
-                                                <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
-                                                <img width="1px" src="assets/images/slider/revolution/bg1.jpg">
-
-                                                <div class="caption large_text sfb bg-black-opacity"
-                                                     data-x="176"
-                                                     data-y="12"
-                                                     data-speed="300"
-                                                     data-start="800"
-                                                     data-easing="easeOutExpo">
-                                                    Advanced Cosmetic Surgery
-                                                </div>
-
-                                                <div class="caption randomrotate"
-                                                     data-x="189"
-                                                     data-y="256"
-                                                     data-speed="600"
-                                                     data-start="1100"
-                                                     data-easing="easeOutExpo">
-                                                    <img class="img-border" src="assets/images/slider/revolution/p1.jpg" alt="Image 2">
-                                                </div>
-
-                                                <div class="caption randomrotate"
-                                                     data-x="0"
-                                                     data-y="272"
-                                                     data-speed="600"
-                                                     data-start="1200"
-                                                     data-easing="easeOutExpo">
-                                                    <img class="img-border" src="assets/images/slider/revolution/p2.jpg" alt="Image 3">
-                                                </div>
-
-                                                <div class="caption randomrotate"
-                                                     data-x="200"
-                                                     data-y="389"
-                                                     data-speed="600"
-                                                     data-start="1300"
-                                                     data-easing="easeOutExpo">
-                                                    <img class="img-border" src="assets/images/slider/revolution/p6.jpg" alt="Image 4">
-                                                </div>
-
-                                                <div class="caption randomrotate"
-                                                     data-x="97"
-                                                     data-y="257"
-                                                     data-speed="300"
-                                                     data-start="1400"
-                                                     data-easing="easeOutExpo">
-                                                    <img class="img-border" src="assets/images/slider/revolution/p4.jpg" alt="Image 5">
-                                                </div>
-
-                                                <div class="caption randomrotate"
-                                                     data-x="14"
-                                                     data-y="402"
-                                                     data-speed="600"
-                                                     data-start="1500"
-                                                     data-easing="easeOutExpo">
-                                                    <img class="img-border" src="assets/images/slider/revolution/p5.jpg" alt="Image 6">
-                                                </div>
-
-                                                <div class="caption randomrotate"
-                                                     data-x="66"
-                                                     data-y="325"
-                                                     data-speed="300"
-                                                     data-start="2000"
-                                                     data-easing="easeOutExpo"  ><img src="assets/images/slider/revolution/p7.jpg" alt="Image 7">
-                                                </div>
-
-                                            </li>
-
-                                            <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-delay="9400" ">
-
-                                                <!-- THE MAIN IMAGE IN THE SECOND SLIDE -->
-                                                <img src="assets/images/slider/revolution/bg2.jpg">
-
-                                                <div class="caption very_big_white lfl stl"
-                                                     data-x="18"
-                                                     data-y="343"
-                                                     data-speed="300"
-                                                     data-start="500"
-                                                     data-easing="easeOutExpo" data-end="8800" data-endspeed="300" data-endeasing="easeInSine">
-                                                    Feel proud to say every day!
-                                                </div>
-
-                                                <div class="caption big_white lfl stl"
-                                                     data-x="18"
-                                                     data-y="390"
-                                                     data-speed="300"
-                                                     data-start="800"
-                                                     data-easing="easeOutExpo" data-end="9100" data-endspeed="300" data-endeasing="easeInSine">
-                                                    “I woke up like this”
-                                                </div>
-
-                                                <div class="caption lft ltb"
-                                                     data-x="600"
-                                                     data-y="5"
-                                                     data-speed="600"
-                                                     data-start="1100"
-                                                     data-easing="easeOutExpo" data-end="7100" data-endspeed="600" data-endeasing="easeInSine">
-                                                    <img width="300px" height="490px" src="assets/images/slider/revolution/s2_p1.jpg" alt="Image 3">
-                                                </div>
-
-                                                <div class="caption bold_green_text sft stb"
-                                                     data-x="610"
-                                                     data-y="290"
-                                                     data-speed="300"
-                                                     data-start="1400"
-                                                     data-easing="easeOutExpo" data-end="7300" data-endspeed="300" data-endeasing="easeInSine">
-                                                    Cheer on your team without <br>the fear of underarm sweat!
-                                                </div>
-
-                                                <div class="caption big_black sfb stb"
-                                                     data-x="610"
-                                                     data-y="320"
-                                                     data-speed="300"
-                                                     data-start="1700"
-                                                     data-easing="easeOutExpo" data-end="7200" data-endspeed="300" data-endeasing="easeInSine">
+                            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+                                <fieldset class="myfieldset" style="margin-top: -10px">
+                                    <legend class="mylegend">Your next appointment is in</legend>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                                        <div class="countdown" id="js-countdown">
+                                            <div class="countdown__item countdown__item--large">
+                                                <div class="countdown__timer js-countdown-days" aria-labelledby="day-countdown">
 
                                                 </div>
 
-                                                <div class="caption lft ltb"
-                                                     data-x="600"
-                                                     data-y="10"
-                                                     data-speed="600"
-                                                     data-start="3600"
-                                                     data-easing="easeOutExpo" data-end="5600" data-endspeed="600" data-endeasing="easeInSine">
-                                                    <img width="300px" height="490px" src="assets/images/slider/revolution/s2_p2.jpg" alt="Image 6">
+                                                <div class="countdown__label" id="day-countdown">Days</div>
+                                            </div>
+
+                                            <div class="countdown__item">
+                                                <div class="countdown__timer js-countdown-hours" aria-labelledby="hour-countdown">
+
                                                 </div>
 
-                                                <div class="caption bold_brown_text sft stb"
-                                                     data-x="610"
-                                                     data-y="290"
-                                                     data-speed="300"
-                                                     data-start="3900"
-                                                     data-easing="easeOutExpo" data-end="5800" data-endspeed="300" data-endeasing="easeInSine" >
-                                                    It’s not luck…
+                                                <div class="countdown__label" id="hour-countdown">Hours</div>
+                                            </div>
+
+                                            <div class="countdown__item">
+                                                <div class="countdown__timer js-countdown-minutes" aria-labelledby="minute-countdown">
+
                                                 </div>
 
-                                                <div class="caption big_black sfb stb"
-                                                     data-x="610"
-                                                     data-y="320"
-                                                     data-speed="300"
-                                                     data-start="4200"
-                                                     data-easing="easeOutExpo" data-end="5700" data-endspeed="300" data-endeasing="easeInSine">
-                                                    It’s Advanced Cosmetic!
+                                                <div class="countdown__label" id="minute-countdown">Minutes</div>
+                                            </div>
+
+                                            <div class="countdown__item">
+                                                <div class="countdown__timer js-countdown-seconds" aria-labelledby="second-countdown">
+
                                                 </div>
 
-
-                                            </li>
-                                        </ul>
-
-                                        <div class="tp-bannertimer tp-bottom"></div>
+                                                <div class="countdown__label" id="second-countdown">Seconds</div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </fieldset>
                             </div>
+
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                                <fieldset class="myfieldset" style="margin-top: -10px">
+                                    <legend class="mylegend">Where you can find us?</legend>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <iframe width="100%" height="225px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.136945070171!2d-84.44422776430045!3d39.14886676372474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b287364d37bb%3A0xf2cae7e0cad59f0!2s3805+Edwards+Rd+%23100%2C+Cincinnati%2C+OH+45209!5e0!3m2!1sen!2sus!4v1514489513158" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-top: 20px;">
+                                <fieldset class="myfieldset" style="margin-top: -10px">
+                                    <legend class="mylegend">Advertisement</legend>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="bannercontainer" >
+                                            <div class="banner" >
+                                                <ul>
+                                                    <!-- THE FIRST SLIDE -->
+                                                    <li data-transition="fade,papercut" data-slotamount="10" data-masterspeed="300" data-target="_blank" data-slideindex="back">
+
+
+                                                    <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
+                                                        <img src="assets/images/slider/revolution/bg1.jpg">
+
+                                                        <div class="caption large_text sfb bg-black-opacity"
+                                                             data-x="196"
+                                                             data-y="12"
+                                                             data-speed="300"
+                                                             data-start="800"
+                                                             data-easing="easeOutExpo">
+                                                            Advanced Cosmetic Surgery
+                                                        </div>
+
+                                                        <div class="caption randomrotate"
+                                                             data-x="209"
+                                                             data-y="256"
+                                                             data-speed="600"
+                                                             data-start="1100"
+                                                             data-easing="easeOutExpo">
+                                                            <img class="img-border" src="assets/images/slider/revolution/p1.jpg" alt="Image 2">
+                                                        </div>
+
+                                                        <div class="caption randomrotate"
+                                                             data-x="20"
+                                                             data-y="272"
+                                                             data-speed="600"
+                                                             data-start="1200"
+                                                             data-easing="easeOutExpo">
+                                                            <img class="img-border" src="assets/images/slider/revolution/p2.jpg" alt="Image 3">
+                                                        </div>
+
+                                                        <div class="caption randomrotate"
+                                                             data-x="220"
+                                                             data-y="389"
+                                                             data-speed="600"
+                                                             data-start="1300"
+                                                             data-easing="easeOutExpo">
+                                                            <img class="img-border" src="assets/images/slider/revolution/p6.jpg" alt="Image 4">
+                                                        </div>
+
+                                                        <div class="caption randomrotate"
+                                                             data-x="117"
+                                                             data-y="257"
+                                                             data-speed="300"
+                                                             data-start="1400"
+                                                             data-easing="easeOutExpo">
+                                                            <img class="img-border" src="assets/images/slider/revolution/p4.jpg" alt="Image 5">
+                                                        </div>
+
+                                                        <div class="caption randomrotate"
+                                                             data-x="34"
+                                                             data-y="402"
+                                                             data-speed="600"
+                                                             data-start="1500"
+                                                             data-easing="easeOutExpo">
+                                                            <img class="img-border" src="assets/images/slider/revolution/p5.jpg" alt="Image 6">
+                                                        </div>
+
+                                                        <div class="caption randomrotate"
+                                                             data-x="86"
+                                                             data-y="325"
+                                                             data-speed="300"
+                                                             data-start="2000"
+                                                             data-easing="easeOutExpo"  ><img src="assets/images/slider/revolution/p7.jpg" alt="Image 7">
+                                                        </div>
+
+                                                    </li>
+
+                                                    <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-target="_blank" data-delay="9400">
+
+                                                        <!-- THE MAIN IMAGE IN THE SECOND SLIDE -->
+                                                        <img src="assets/images/slider/revolution/bg2.jpg">
+
+                                                        <div class="caption very_big_white lfl stl"
+                                                             data-x="38"
+                                                             data-y="343"
+                                                             data-speed="300"
+                                                             data-start="500"
+                                                             data-easing="easeOutExpo" data-end="8800" data-endspeed="300" data-endeasing="easeInSine">
+                                                            Feel proud to say every day!
+                                                        </div>
+
+                                                        <div class="caption big_white lfl stl"
+                                                             data-x="38"
+                                                             data-y="390"
+                                                             data-speed="300"
+                                                             data-start="800"
+                                                             data-easing="easeOutExpo" data-end="9100" data-endspeed="300" data-endeasing="easeInSine">
+                                                            “I woke up like this”
+                                                        </div>
+
+                                                        <div class="caption lft ltb"
+                                                             data-x="600"
+                                                             data-y="0"
+                                                             data-speed="600"
+                                                             data-start="1100"
+                                                             data-easing="easeOutExpo" data-end="7100" data-endspeed="600" data-endeasing="easeInSine">
+                                                            <img src="assets/images/slider/revolution/s2_p1.jpg" alt="Image 3">
+                                                        </div>
+
+                                                        <div class="caption bold_green_text sft stb"
+                                                             data-x="610"
+                                                             data-y="290"
+                                                             data-speed="300"
+                                                             data-start="1400"
+                                                             data-easing="easeOutExpo" data-end="7300" data-endspeed="300" data-endeasing="easeInSine">
+                                                            Cheer on your team without <br>the fear of underarm sweat!
+                                                        </div>
+
+                                                        <div class="caption big_black sfb stb"
+                                                             data-x="610"
+                                                             data-y="320"
+                                                             data-speed="300"
+                                                             data-start="1700"
+                                                             data-easing="easeOutExpo" data-end="7200" data-endspeed="300" data-endeasing="easeInSine">
+
+                                                        </div>
+
+                                                        <div class="caption lft ltb"
+                                                             data-x="600"
+                                                             data-y="0"
+                                                             data-speed="600"
+                                                             data-start="3600"
+                                                             data-easing="easeOutExpo" data-end="5600" data-endspeed="600" data-endeasing="easeInSine">
+                                                            <img src="assets/images/slider/revolution/s2_p2.jpg" alt="Image 6">
+                                                        </div>
+
+                                                        <div class="caption bold_brown_text sft stb"
+                                                             data-x="610"
+                                                             data-y="290"
+                                                             data-speed="300"
+                                                             data-start="3900"
+                                                             data-easing="easeOutExpo" data-end="5800" data-endspeed="300" data-endeasing="easeInSine" >
+                                                            It’s not luck…
+                                                        </div>
+
+                                                        <div class="caption big_black sfb stb"
+                                                             data-x="610"
+                                                             data-y="320"
+                                                             data-speed="300"
+                                                             data-start="4200"
+                                                             data-easing="easeOutExpo" data-end="5700" data-endspeed="300" data-endeasing="easeInSine">
+                                                            It’s Advanced Cosmetic!
+                                                        </div>
+
+
+                                                    </li>
+                                                </ul>
+
+                                                <div class="tp-bannertimer tp-bottom"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+
                         </div>
                     </fieldset>
                     <?php
@@ -1282,6 +1342,50 @@ $events = json_encode($events);
                 //$("#show_cal:hidden").show();
                 $('#calendar').fullCalendar('render');
             });
+
+            const countdown = new Date("<?php print $next_app_date;?>");
+
+            function getRemainingTime(endtime) {
+                const milliseconds = Date.parse(endtime) - Date.parse(new Date());
+                const seconds = Math.floor( (milliseconds/1000) % 60 );
+                const minutes = Math.floor( (milliseconds/1000/60) % 60 );
+                const hours = Math.floor( (milliseconds/(1000*60*60)) % 24 );
+                const days = Math.floor( milliseconds/(1000*60*60*24) );
+
+                return {
+                    'total': milliseconds,
+                    'seconds': seconds,
+                    'minutes': minutes,
+                    'hours': hours,
+                    'days': days,
+                };
+            }
+
+            function initClock(id, endtime) {
+                const counter = document.getElementById(id);
+                const daysItem = counter.querySelector('.js-countdown-days');
+                const hoursItem = counter.querySelector('.js-countdown-hours');
+                const minutesItem = counter.querySelector('.js-countdown-minutes');
+                const secondsItem = counter.querySelector('.js-countdown-seconds');
+
+                function updateClock() {
+                    const time = getRemainingTime(endtime);
+
+                    daysItem.innerHTML = time.days;
+                    hoursItem.innerHTML = ('0' + time.hours).slice(-2);
+                    minutesItem.innerHTML = ('0' + time.minutes).slice(-2);
+                    secondsItem.innerHTML = ('0' + time.seconds).slice(-2);
+
+                    if (time.total <= 0) {
+                        clearInterval(timeinterval);
+                    }
+                }
+
+                updateClock();
+                const timeinterval = setInterval(updateClock, 1000);
+            }
+
+            initClock('js-countdown', countdown);
 
 
         });

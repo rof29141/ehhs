@@ -81,6 +81,64 @@
     .carousel-indicators .active{ background: #31708f; } .content{ margin-top:20px; } .adjust1{ float:left; width:100%; margin-bottom:0; } .adjust2{ margin:0; }
     .carousel-indicators li{ border :1px solid #ccc; background-color: #2c596d;} .carousel-control{ color:#31708f; width:5%; } .carousel-control:hover, .carousel-control:focus{ color:#31708f; } .carousel-control.left, .carousel-control.right { background-image: none; } .media-object{ margin:auto; margin-top:15%; } @media screen and (max-width: 768px) { .media-object{ margin-top:0; } }
 
+    /* Countdown */
+
+    .countdown {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 75%;
+        max-width: 20rem;
+        margin: 0 auto;
+    }
+
+    .countdown__item {
+        display: flex;
+        flex-direction: column;
+        flex: 0 1 auto;
+        min-width: 31%;
+        margin-bottom: 1rem;
+    }
+
+    .countdown__item--large {
+        flex: auto;
+        width: 100%;
+        font-size: 2.75em;
+    }
+
+    .countdown__timer {
+        padding: .25em;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 3px;
+        font-weight: bold;
+        font-size: 2em;
+    }
+
+    .countdown__label {
+        font-size: 1em;
+        padding-top: .40em;
+
+    .countdown__item--large {
+    :before,
+    :after {
+         content: '';
+         display: block;
+         height: 1px;
+         background-image: linear-gradient(
+                 left,
+                 rgba(0, 0, 0, 0),
+                 rgba(0, 0, 0, .4),
+                 rgba(0, 0, 0, 0));
+    }
+
+    }
+    }
+
+
+
+    /* Countdown */
+
     /* Calendar
 
     .fc-time:after{ content: "m"; }*/

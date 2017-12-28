@@ -5393,7 +5393,8 @@ td.visible-print {
   margin: 0px;
   padding: 0px;
   text-decoration: none;
-  outline: none; }
+  outline: none;
+  text-align: center;}
 
 /* line 11, /home/andrei/core-admin-release/core-admin/source/stylesheets/base.scss */
 html {
