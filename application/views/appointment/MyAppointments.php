@@ -132,9 +132,9 @@
                                     ?>
 
                                         <li>
-                                            <div class="timeline-badge primary hidden-xs">
+                                            <div class="timeline-badge primary">
                                                 <i class="entypo-cd" style="color: #0F9B0F;"></i>
-                                                <time class="cbp_tmtime" datetime=""><span><?php print $timeline_date;?></span> <span><?php print $timeline_month;?></span></time>
+                                                <time class="cbp_tmtime hidden-xs" datetime=""><span><?php print $timeline_date;?></span> <span><?php print $timeline_month;?></span></time>
                                             </div>
                                             <div class="timeline-panel" style="padding-top: 10px;">
                                                 <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="card_<?php print $i; ?>">
