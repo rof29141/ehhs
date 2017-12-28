@@ -139,6 +139,8 @@
 
     /* Countdown */
 
+    .slotholder{text-align: center;}
+
     /* Calendar
 
     .fc-time:after{ content: "m"; }*/
