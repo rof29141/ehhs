@@ -69,7 +69,7 @@ class Appointment extends CI_Controller
     {
         if(isset($_POST['id']))
         {
-            print 'iwygefiywe '.$_POST['id'];
+            //print 'iwygefiywe '.$_POST['id'];
             $fm = new Fmp();
             $command = $fm->newPerformScriptCommand('PHP_Appointment', 'SettingsServiceProviderCancelAppt', ''.$_POST['id'].'');
             $command->execute();

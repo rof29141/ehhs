@@ -113,11 +113,13 @@
         border-radius: 3px;
         font-weight: bold;
         font-size: 2em;
+        text-align: center;
     }
 
     .countdown__label {
         font-size: 1em;
         padding-top: .40em;
+        text-align: center;
 
     .countdown__item--large {
     :before,

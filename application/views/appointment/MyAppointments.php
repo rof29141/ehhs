@@ -15,23 +15,25 @@
                 $not_confirm=0;
                 $confirm=0;
                 $all=0;
-                $next_app_date='';
+                $next_app_date=date('M j, Y H:i:s');//echo $next_app_date;
 
                 if(isset($data['my_all_appointments']['data']))
                 {
                     $all=sizeof($data['my_all_appointments']['data']);
                     ?>
 
-                    <fieldset class="myfieldset" style="margin-top: -10px">
-                    <legend class="mylegend">All appointments</legend>
+
                         <div class="row" style="margin-bottom: 10px;">
+
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <ul class="timeline-v1">
+                                <fieldset class="myfieldset" style="margin-top: -10px">
+                                    <legend class="mylegend">All next appointments</legend>
+                                    <ul class="timeline-v1">
 
                                     <?php
                                     for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
                                     {
-                                        if($i==0 && $next_app_date=='')$next_app_date=date('M j, Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
+                                        if($i==0)$next_app_date=date('M j, Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
 
                                         if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
                                             $label_date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
@@ -139,7 +141,7 @@
                                             <div class="timeline-panel" style="padding-top: 10px;">
                                                 <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="card_<?php print $i; ?>">
 
-                                                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="height:150px;background-color: #ccc;text-align:center;padding: 5px;padding-top:35px;font-size: 10px;">
+                                                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="height:150px;background-color: #ccc;text-align:center;padding: 5px;padding-top:18px;font-size: 10px;">
                                                         <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
                                                         <img src="<?php print base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
                                                         <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
@@ -284,9 +286,10 @@
                                     }
                                     ?>
                                 </ul>
+                                </fieldset>
                             </div>
 
-                            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                                 <fieldset class="myfieldset" style="margin-top: -10px">
                                     <legend class="mylegend">Your next appointment is in</legend>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
@@ -327,10 +330,10 @@
                                 </fieldset>
                             </div>
 
-                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                                 <fieldset class="myfieldset" style="margin-top: -10px">
                                     <legend class="mylegend">Where you can find us?</legend>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
                                         <iframe width="100%" height="225px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.136945070171!2d-84.44422776430045!3d39.14886676372474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b287364d37bb%3A0xf2cae7e0cad59f0!2s3805+Edwards+Rd+%23100%2C+Cincinnati%2C+OH+45209!5e0!3m2!1sen!2sus!4v1514489513158" frameborder="0" style="border:0" allowfullscreen></iframe>
                                     </div>
                                 </fieldset>
@@ -339,7 +342,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-top: 20px;">
                                 <fieldset class="myfieldset" style="margin-top: -10px">
                                     <legend class="mylegend">Advertisement</legend>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
                                         <div class="bannercontainer" >
                                             <div class="banner" >
                                                 <ul>
@@ -347,7 +350,7 @@
                                                     <li data-transition="fade,papercut" data-slotamount="10" data-masterspeed="300" data-target="_blank" data-slideindex="back">
 
 
-                                                    <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
+                                                        <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
                                                         <img src="assets/images/slider/revolution/bg1.jpg">
 
                                                         <div class="caption large_text sfb bg-black-opacity"
@@ -502,9 +505,122 @@
                                 </fieldset>
                             </div>
 
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <fieldset class="myfieldset" style="margin-top: -10px">
+                                    <legend class="mylegend">Rewards</legend>
+
+                                    <?php
+                                    if(array_key_exists("data", $data['rewards']))
+                                    {
+                                        $cant = sizeof($data['rewards']['data']);
+                                        for ($i = 0; $i < $cant; $i++)
+                                        {
+                                            $RewardAvailableTotal = $data['rewards']['data'][$i]['RewardAvailableTotal'];
+                                            $RewardTotalEarned = $data['rewards']['data'][$i]['RewardTotalEarned'];
+                                            $RewardTotalRedeemed = $data['rewards']['data'][$i]['RewardTotalRedeemed'];
+                                            $RewardTotalExpired = $data['rewards']['data'][$i]['RewardTotalExpired'];
+
+                                            if($data['rewards']['data'][$i]['MemberSerial']!='')$MemberSerial=$data['rewards']['data'][$i]['MemberSerial'];else $MemberSerial='-';
+                                            if($data['rewards']['data'][$i]['SubscribedOn']!='')$SubscribedOn=$data['rewards']['data'][$i]['SubscribedOn'];else $SubscribedOn='-';
+                                            if($data['rewards']['data'][$i]['SubscriptionExpiryDate']!='')$SubscriptionExpiryDate=$data['rewards']['data'][$i]['SubscriptionExpiryDate'];else $SubscriptionExpiryDate='-';
+                                        }
+                                    }
+                                    else
+                                    {
+                                        $RewardAvailableTotal = '0';
+                                        $RewardTotalEarned = '0';
+                                        $RewardTotalRedeemed = '0';
+                                        $RewardTotalExpired = '0';
+
+                                        $MemberSerial='-';
+                                        $SubscribedOn='-';
+                                        $SubscriptionExpiryDate='-';
+                                    }
+                                    ?>
+
+                                    <article style="text-align: center;font-size: 16px;"
+                                             class="col-sm-6 col-md-6 col-lg-3">
+                                        <fieldset class="myfieldset">
+                                            <legend class="mylegend">Available</legend>
+                                            <div class="btn-success"
+                                                 style="font-size:20px;padding:5px;padding-top:18px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 80px;height: 80px;"><?php if (!isset($RewardAvailableTotal)) $RewardAvailableTotal = 0; elseif ($RewardAvailableTotal == '') $RewardAvailableTotal = 0;
+                                                print $RewardAvailableTotal . '<br>';
+                                                if ($RewardAvailableTotal > 1 || $RewardAvailableTotal == 0) print ' points'; else print ' point'; ?></div>
+                                        </fieldset>
+                                    </article>
+
+                                    <article style="text-align: center;font-size: 16px;"
+                                             class="col-sm-6 col-md-6 col-lg-3">
+                                        <fieldset class="myfieldset">
+                                            <legend class="mylegend">Earned</legend>
+                                            <div class="btn-warning"
+                                                 style="font-size:20px;padding:5px;padding-top:18px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 80px;height: 80px;"><?php if (!isset($RewardTotalEarned)) $RewardTotalEarned = 0; elseif ($RewardTotalEarned == '') $RewardTotalEarned = 0;
+                                                print $RewardTotalEarned . '<br>';
+                                                if ($RewardTotalEarned > 1 || $RewardTotalEarned == 0) print ' points'; else print ' point'; ?></div>
+                                        </fieldset>
+                                    </article>
+
+                                    <article style="text-align: center;font-size: 16px;"
+                                             class="col-sm-6 col-md-6 col-lg-3">
+                                        <fieldset class="myfieldset">
+                                            <legend class="mylegend">Redeemed</legend>
+                                            <div class="btn-info"
+                                                 style="font-size:20px;padding:5px;padding-top:18px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 80px;height: 80px;"><?php if (!isset($RewardTotalRedeemed)) $RewardTotalRedeemed = 0; elseif ($RewardTotalRedeemed == '') $RewardTotalRedeemed = 0;
+                                                print $RewardTotalRedeemed . '<br>';
+                                                if ($RewardTotalRedeemed > 1 || $RewardTotalRedeemed == 0) print ' points'; else print ' point'; ?></div>
+                                        </fieldset>
+                                    </article>
+
+                                    <article style="text-align: center;font-size: 16px;"
+                                             class="col-sm-6 col-md-6 col-lg-3">
+                                        <fieldset class="myfieldset">
+                                            <legend class="mylegend">Expired</legend>
+                                            <div class="btn-danger"
+                                                 style="font-size:20px;padding:5px;padding-top:18px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 80px;height: 80px;"><?php if (!isset($RewardTotalExpired)) $RewardTotalExpired = 0; elseif ($RewardTotalExpired == '') $RewardTotalExpired = 0;
+                                                print $RewardTotalExpired . '<br>';
+                                                if ($RewardTotalExpired > 1 || $RewardTotalExpired == 0) print ' points'; else print ' point'; ?></div>
+                                        </fieldset>
+                                    </article>
+
+                                    <article style="text-align: center;font-size: 16px;"
+                                             class="col-sm-12 col-md-12 col-lg-12">
+                                        <fieldset class="myfieldset">
+                                            <legend class="mylegend">Member information</legend>
+
+                                            <div style="display: table;width: 100%;height: 80px;">
+                                                <div style="display: table-row;">
+
+                                                    <div class=""
+                                                         style="text-align:center;display:table-cell;color:#000;padding: 10px;">
+
+                                                        <div class=""
+                                                             style="text-align:center;font-weight: bold; font-size: 14px;">
+                                                            Member
+                                                            serial: <?php print $MemberSerial; ?></div>
+                                                        <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
+                                                        <br>
+                                                        <div class=""
+                                                             style="text-align:center;font-weight: bold; font-size: 12px;">
+                                                            Subscribed
+                                                            on: <?php print $SubscribedOn; ?></div>
+                                                        <br>
+                                                        <div class=""
+                                                             style="text-align:center;font-weight: bold; font-size: 12px;">
+                                                            Subscription Expiry
+                                                            Date: <?php print $SubscriptionExpiryDate; ?></div>
+                                                        <br>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </article>
+
+                                </fieldset>
+                            </div>
 
                         </div>
-                    </fieldset>
+
                     <?php
                 }
                 else print '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>';
@@ -539,7 +655,7 @@
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
-                                        <div style="display: table;width: 100%;height: 90px;">
+                                        <div style="display: table;width: 100%;height: 80px;">
                                             <div style="display: table-row;">
 
                                                 <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
@@ -757,7 +873,7 @@
                                     ?>
 
                                     <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-6 col-md-4 col-lg-4" id="card_<?php print $i; ?>">
-                                        <div style="display: table;width: 100%;height: 90px;">
+                                        <div style="display: table;width: 100%;height: 80px;">
                                             <div style="display: table-row;">
 
                                                 <div style="display: table-cell;background-color: #ccc;position:relative;vertical-align:middle;text-align:center;width: 30%;padding: 5px;font-size: 10px;">
@@ -1357,7 +1473,7 @@ $events = json_encode($events);
                     'seconds': seconds,
                     'minutes': minutes,
                     'hours': hours,
-                    'days': days,
+                    'days': days
                 };
             }
 
@@ -1370,11 +1486,19 @@ $events = json_encode($events);
 
                 function updateClock() {
                     const time = getRemainingTime(endtime);
-
-                    daysItem.innerHTML = time.days;
-                    hoursItem.innerHTML = ('0' + time.hours).slice(-2);
-                    minutesItem.innerHTML = ('0' + time.minutes).slice(-2);
-                    secondsItem.innerHTML = ('0' + time.seconds).slice(-2);
+                    if(time.days!=0 || time.hours!=0 || time.minutes!=0) {
+                        daysItem.innerHTML = time.days;
+                        hoursItem.innerHTML = ('0' + time.hours).slice(-2);
+                        minutesItem.innerHTML = ('0' + time.minutes).slice(-2);
+                        secondsItem.innerHTML = ('0' + time.seconds).slice(-2);
+                    }
+                    else
+                    {
+                        daysItem.innerHTML = '';
+                        hoursItem.innerHTML = '';
+                        minutesItem.innerHTML = '';
+                        secondsItem.innerHTML = '';
+                    }
 
                     if (time.total <= 0) {
                         clearInterval(timeinterval);

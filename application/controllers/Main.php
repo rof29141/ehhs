@@ -164,6 +164,8 @@ class Main extends CI_Controller
                 $id_patient = $data['__zkp_Client_Rec'];
                 $this->load->model('M_Appointment');
                 $result['my_all_appointments']=$this->M_Appointment->GetNextAppointmentByPatient($id_patient);
+                $this->load->model('M_User');
+                $result['rewards']=$this->M_User->GetRewards($data);//var_dump($data);
             }elseif($data_type==='dataPersonalInfo')
             {
                 $this->load->model('M_User');
