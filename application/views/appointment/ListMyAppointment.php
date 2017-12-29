@@ -1,5 +1,5 @@
 <div class="container" >
-    <div class="row" style="margin-top: 70px;">
+    <div class="row" style="margin-top: 70px;margin-bottom: 40px;">
         <div class="col-lg-12">
             <fieldset class="myfieldset">
                 <legend class="mylegend">Next appointments</legend>
