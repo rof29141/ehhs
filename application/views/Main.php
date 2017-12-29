@@ -147,7 +147,7 @@ ini_set('memory_limit', '2048M');
     {
         $('html, body').animate({
             scrollTop: $('body').offset().top-300
-        }, 2000);
+        }, 1000);
     });
 
 </script>
