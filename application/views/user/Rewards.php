@@ -32,9 +32,9 @@ else
     <fieldset class="myfieldset">
         <legend class="mylegend">Available</legend>
         <div class="btn-success"
-             style="font-size:24px;padding:5px;padding-top:35px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 120px;height: 120px;"><?php if (!isset($RewardAvailableTotal)) $RewardAvailableTotal = 0; elseif ($RewardAvailableTotal == '') $RewardAvailableTotal = 0;
-            print $RewardAvailableTotal . '<br>';
-            if ($RewardAvailableTotal > 1 || $RewardAvailableTotal == 0) print ' points'; else print ' point'; ?></div>
+             style="font-size:24px;padding:5px;padding-top:35px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 120px;height: 120px;"><?php if (!isset($RewardAvailableTotal)) $RewardAvailableTotal = 0; elseif ($RewardAvailableTotal == '') $RewardAvailableTotal = 0;?>
+            <div class="count"><?php print $RewardAvailableTotal . '<br>';?></div>
+            <?php if ($RewardAvailableTotal > 1 || $RewardAvailableTotal == 0) print ' points'; else print ' point'; ?></div>
     </fieldset>
 </article>
 
@@ -43,9 +43,9 @@ else
     <fieldset class="myfieldset">
         <legend class="mylegend">Earned</legend>
         <div class="btn-warning"
-             style="font-size:24px;padding:5px;padding-top:35px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 120px;height: 120px;"><?php if (!isset($RewardTotalEarned)) $RewardTotalEarned = 0; elseif ($RewardTotalEarned == '') $RewardTotalEarned = 0;
-            print $RewardTotalEarned . '<br>';
-            if ($RewardTotalEarned > 1 || $RewardTotalEarned == 0) print ' points'; else print ' point'; ?></div>
+             style="font-size:24px;padding:5px;padding-top:35px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 120px;height: 120px;"><?php if (!isset($RewardTotalEarned)) $RewardTotalEarned = 0; elseif ($RewardTotalEarned == '') $RewardTotalEarned = 0;?>
+            <div class="count"><?php print $RewardTotalEarned . '<br>';?></div>
+            <?php if ($RewardTotalEarned > 1 || $RewardTotalEarned == 0) print ' points'; else print ' point'; ?></div>
     </fieldset>
 </article>
 
@@ -54,9 +54,9 @@ else
     <fieldset class="myfieldset">
         <legend class="mylegend">Redeemed</legend>
         <div class="btn-info"
-             style="font-size:24px;padding:5px;padding-top:35px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 120px;height: 120px;"><?php if (!isset($RewardTotalRedeemed)) $RewardTotalRedeemed = 0; elseif ($RewardTotalRedeemed == '') $RewardTotalRedeemed = 0;
-            print $RewardTotalRedeemed . '<br>';
-            if ($RewardTotalRedeemed > 1 || $RewardTotalRedeemed == 0) print ' points'; else print ' point'; ?></div>
+             style="font-size:24px;padding:5px;padding-top:35px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 120px;height: 120px;"><?php if (!isset($RewardTotalRedeemed)) $RewardTotalRedeemed = 0; elseif ($RewardTotalRedeemed == '') $RewardTotalRedeemed = 0;?>
+            <div class="count"><?php print $RewardTotalRedeemed . '<br>';?></div>
+            <?php if ($RewardTotalRedeemed > 1 || $RewardTotalRedeemed == 0) print ' points'; else print ' point'; ?></div>
     </fieldset>
 </article>
 
@@ -64,10 +64,10 @@ else
          class="col-sm-6 col-md-3 col-lg-2">
     <fieldset class="myfieldset">
         <legend class="mylegend">Expired</legend>
-        <div class="btn-danger"
-             style="font-size:24px;padding:5px;padding-top:35px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 120px;height: 120px;"><?php if (!isset($RewardTotalExpired)) $RewardTotalExpired = 0; elseif ($RewardTotalExpired == '') $RewardTotalExpired = 0;
-            print $RewardTotalExpired . '<br>';
-            if ($RewardTotalExpired > 1 || $RewardTotalExpired == 0) print ' points'; else print ' point'; ?></div>
+        <div class="btn-danger "
+             style="font-size:24px;padding:5px;padding-top:35px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 120px;height: 120px;"><?php if (!isset($RewardTotalExpired)) $RewardTotalExpired = 0; elseif ($RewardTotalExpired == '') $RewardTotalExpired = 0;?>
+            <div class="count"><?php print $RewardTotalExpired . '<br>';?></div>
+            <?php if ($RewardTotalExpired > 1 || $RewardTotalExpired == 0) print ' points'; else print ' point'; ?></div>
     </fieldset>
 </article>
 
@@ -104,3 +104,21 @@ else
         </div>
     </fieldset>
 </article>
+
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('.count').each(function ()
+        {
+            $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+            }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+            $(this).text(Math.ceil(now));
+            }
+            });
+        });
+    });
+</script>

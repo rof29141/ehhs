@@ -27,7 +27,7 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <fieldset class="myfieldset" style="margin-top: -10px">
-                                    <legend class="mylegend">All next appointments</legend>
+                                    <legend class="mylegend">Timeline</legend>
                                     <ul class="timeline-v1">
 
                                     <?php
@@ -447,6 +447,42 @@
                                         </fieldset>
                                     </article>
 
+                                </fieldset>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                                <fieldset class="myfieldset" style="margin-top: -10px;">
+                                    <legend class="mylegend">Add Appointment</legend>
+
+                                    <div align="justify" style="height: 80px;">You can see the availability of any provider and the service, click on any Available space and confirm the Appointment.</div>
+
+                                    <button type="submit" onclick="LoadContent('Dashboard');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                        <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="brankic-calendar2"></span>
+                                    </button>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                                <fieldset class="myfieldset" style="margin-top: -10px;">
+                                    <legend class="mylegend">Take a Survey</legend>
+
+                                    <div align="justify" style="height: 80px;">Please rate each area of interest.</div>
+
+                                    <button type="submit" onclick="LoadContent('Survey');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                        <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-clipboard"></span>
+                                    </button>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                                <fieldset class="myfieldset" style="margin-top: -10px;">
+                                    <legend class="mylegend">Fill Personal Info</legend>
+
+                                    <div align="justify" style="height: 80px;">Filling this form before your arrival will help save you time.</div>
+
+                                    <button type="submit" onclick="LoadContent('User/GoPersonalInfo');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                        <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-text"></span>
+                                    </button>
                                 </fieldset>
                             </div>
 
@@ -1127,7 +1163,6 @@ $events = json_encode($events);
                 startheight:500,
                 startwidth:960,
 
-
                 hideThumbs:200,
 
                 thumbWidth:100,							// Thumb With and Height and Amount (only if navigation Tyope set to thumb !)
@@ -1138,7 +1173,6 @@ $events = json_encode($events);
                 navigationArrows:"solo",				// nexttobullets, solo (old name verticalcentered), none
 
                 navigationStyle:"navbar",				// round,square,navbar,round-old,square-old,navbar-old, or any from the list in the docu (choose between 50+ different item), custom
-
 
                 navigationHAlign:"center",				// Vertical Align top,center,bottom
                 navigationVAlign:"bottom",					// Horizontal Align left,center,right
@@ -1468,7 +1502,8 @@ $events = json_encode($events);
 
             const countdown = new Date("<?php print $next_app_date;?>");
 
-            function getRemainingTime(endtime) {
+            function getRemainingTime(endtime)
+            {
                 const milliseconds = Date.parse(endtime) - Date.parse(new Date());
                 const seconds = Math.floor( (milliseconds/1000) % 60 );
                 const minutes = Math.floor( (milliseconds/1000/60) % 60 );
@@ -1484,7 +1519,8 @@ $events = json_encode($events);
                 };
             }
 
-            function initClock(id, endtime) {
+            function initClock(id, endtime)
+            {
                 const counter = document.getElementById(id);
                 const daysItem = counter.querySelector('.js-countdown-days');
                 const hoursItem = counter.querySelector('.js-countdown-hours');
@@ -1518,6 +1554,9 @@ $events = json_encode($events);
 
             initClock('js-countdown', countdown);
 
-
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e)
+            {
+                $('.banner').revolution();
+            });
         });
     </script>

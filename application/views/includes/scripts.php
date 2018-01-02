@@ -3,52 +3,19 @@
 <link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/brankic.css" />
 <link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/entypo.css" />
 
-<!--
-<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/ionicons.min.css" />
-<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/datepicker.css" />
-<link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/vendor/morris.css" />
-
--->
-
-
-
-
 <link rel="stylesheet" href="<?php print ASSETS_URL; ?>/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?php print ASSETS_URL; ?>/js/alertifyjs/css/alertify.css">
 
 <script src="<?php print ASSETS_URL; ?>/js/jquery-3.2.1.min.js"></script>
-
-
-
 <script src="<?php print ASSETS_URL; ?>/js/bootstrap.min.js"></script>
 
 <script src="<?php print ASSETS_URL; ?>/js/jquery-validate/jquery.validate.min.js"></script>
 <script src="<?php print ASSETS_URL; ?>/js/alertifyjs/alertify.js"> </script>
 <script src="<?php print ASSETS_URL; ?>/js/spin.min.js"></script>
 
-<!--
-<script src="<?php print ASSETS_URL; ?>/js/cbx.js"></script>
-
-<script src="<?php print ASSETS_URL; ?>/js/jquery.fileupload.js"></script>
-<link href="https://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
-
-
-<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/vendor/jquery.ui.widget.js"></script>
-<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.iframe-transport.js"></script>
-<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.fileupload.js"></script>
-<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.iframe-transport.js"></script>
-<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.fileupload.js"></script>
-<script src="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/js/jquery.fileupload-process.js"></script>
-
-<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/css/style.css">
-<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/js/jQuery-File-Upload-9.19.1/css/jquery.fileupload.css">
--->
-
 <!--[if lt IE 9]>
 <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
 <![endif]-->
-
 
 <link rel="stylesheet" type="text/css" href="<?php print ASSETS_URL; ?>/css/datatable/datatables.min.css"/>
 <script type="text/javascript" src="<?php print ASSETS_URL; ?>/js/datatables.min.js"></script>

@@ -515,18 +515,22 @@ class Dashboard extends CI_Controller
             $attachments=$attachments.'&'.$file;
         }
 
-        $DocumentsToSign=$_POST['txt_DocumentsToSign'];
-
-        $var = explode("|", $DocumentsToSign);
-
-        $cant=sizeof($var);
-
-        if($cant != 0)
+        if($_POST['txt_DocumentsToSign'])
         {
-            for($i=0;$i<$cant; next($var), $i++)
+            $DocumentsToSign = $_POST['txt_DocumentsToSign'];
+
+
+            $var = explode("|", $DocumentsToSign);
+
+            $cant = sizeof($var);
+
+            if ($cant != 0)
             {
-                $doc = './assets/docs/'.current($var);//print $doc;//.' - ';die();
-                $attachments=$attachments.'&'.$doc;
+                for ($i = 0; $i < $cant; next($var), $i++)
+                {
+                    $doc = './assets/docs/' . current($var);//print $doc;//.' - ';die();
+                    $attachments = $attachments . '&' . $doc;
+                }
             }
         }
 
