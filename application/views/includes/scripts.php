@@ -674,7 +674,7 @@
     /* Social Media */
     .social {
         position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
-        right: 0; /* Establecemos la barra en la izquierda */
+        left: 0; /* Establecemos la barra en la izquierda */
         top: 200px; /* Bajamos la barra 200px de arriba a abajo */
         z-index: 2000; /* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
     }
@@ -687,7 +687,7 @@
         display: inline-block;
         color:#fff;
         background: #000;
-        padding: 10px 15px;
+        padding: 7px 12px;
         text-decoration: none;
         -webkit-transition:all 500ms ease;
         -o-transition:all 500ms ease;
