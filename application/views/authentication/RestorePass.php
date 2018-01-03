@@ -12,7 +12,7 @@ require_once(APPPATH."views/includes/header.php");
         <?php require_once(VIEW_URL."includes/banner.php");?>
     </div>
 
-    <div class="container auth">
+    <div class="container auth" style="padding-left: 40px;padding-right: 40px;">
         <?php print form_open('authentication/SaveNewPass', "class='smart-form client-form' name='frm_auth' id='frm_auth' role='form'"); ?>
 
         <section>

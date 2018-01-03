@@ -26,7 +26,7 @@
                         <div class="row" style="margin-bottom: 10px;">
 
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <fieldset class="myfieldset" style="margin-top: -10px">
+                                <fieldset class="myfieldset" style="margin-top: -10px;padding: 5px;">
                                     <legend class="mylegend">Timeline</legend>
                                     <ul class="timeline-v1">
 
@@ -133,7 +133,7 @@
                                         }
                                     ?>
 
-                                        <li>
+                                        <li style="margin-block-start:0px;margin-left: 0px;padding-left: 0px;">
                                             <div class="timeline-badge primary">
                                                 <i class="entypo-cd" style="color: #0F9B0F;"></i>
                                                 <time class="cbp_tmtime hidden-xs" datetime=""><span><?php print $timeline_date;?></span> <span><?php print $timeline_month;?></span></time>

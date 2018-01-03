@@ -681,13 +681,15 @@
 
     .social ul {
         list-style: none;
+        padding-left: 0;
+        margin-left: 0;
     }
 
     .social ul li a {
         display: inline-block;
         color:#fff;
         background: #000;
-        padding: 7px 12px;
+        padding: 5px 10px;
         text-decoration: none;
         -webkit-transition:all 500ms ease;
         -o-transition:all 500ms ease;
@@ -703,6 +705,10 @@
 
     .social ul li a {
         background: #666666; /* Cambiamos el fondo cuando el usuario pase el mouse */
+    }
+
+    @media only screen and (max-width: 330px) {
+        .badge{display: none;}
     }
     /* Social Media */
 

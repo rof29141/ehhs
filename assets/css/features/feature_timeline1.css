@@ -206,7 +206,7 @@
 
 @media (max-width: 767px) {
     ul.timeline-v1:before {
-        left: 40px;
+        left: 7px;
     }
 
     ul.timeline-v1 > li {
@@ -217,13 +217,13 @@
       clear: left;
     }
     ul.timeline-v1 > li > .timeline-panel {
-        width: calc(100% - 70px);
-        width: -moz-calc(100% - 70px);
-        width: -webkit-calc(100% - 70px);
+        width: calc(100% - 25px);
+        width: -moz-calc(100% - 25px);
+        width: -webkit-calc(100% - 25px);
     }
 
     ul.timeline-v1 > li > .timeline-badge {
-        left: 28px;
+        left: -5px;
         margin-left: 0;
         top: 16px;
     }

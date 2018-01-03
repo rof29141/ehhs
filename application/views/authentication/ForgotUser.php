@@ -12,7 +12,7 @@ require_once(APPPATH."views/includes/header.php");
         <?php require_once(VIEW_URL."includes/banner.php");?>
     </div>
 
-    <fieldset class="container auth">
+    <fieldset class="container auth" style="padding-left: 40px;padding-right: 40px;">
         <?php print form_open('', "class='smart-form client-form' id='frm_auth' role='form' method='post'"); ?>
         <div class="fields">
             <strong>Email address</strong>
