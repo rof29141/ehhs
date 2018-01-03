@@ -1,17 +1,15 @@
 <div class="container" >
     <div class="row" style="margin-top: 70px;margin-bottom: 40px;">
         <div class="col-lg-12">
-            <fieldset class="myfieldset">
-                <legend class="mylegend">Next appointments</legend>
 
-                <div style="margin-top: -10px;">
+            <div style="margin-top: -10px;">
 
-                    <section class="col col-12" style="padding: 0px;">
-                        <div id='next_app'></div>
-                    </section>
+                <section class="col col-12" style="padding: 0px;">
+                    <div id='next_app'></div>
+                </section>
 
-                </div>
-            </fieldset>
+            </div>
+
         </div>
     </div>
 </div>
