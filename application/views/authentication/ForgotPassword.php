@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-$page_title = "Forgot Password";
+$page_title = "";
 $position='center';
 require_once(APPPATH."views/includes/header.php");
 ?>
@@ -8,31 +8,37 @@ require_once(APPPATH."views/includes/header.php");
 <body>
 <div id="wrapper">
 
-    <div class="container text-center" style="margin-top: 90px;">
+    <div class="container text-center" style="margin-top: 40px;">
         <?php require_once(VIEW_URL."includes/banner.php");?>
     </div>
 
     <fieldset class="container auth" style="padding-left: 40px;padding-right: 40px;">
         <?php print form_open('', "class='smart-form client-form' id='frm_auth' role='form' method='post'"); ?>
-        <div class="fields">
-            <strong>Email address</strong>
-            <input type="email" class="form-control" name="inp_email" id="inp_email" placeholder="Enter your Email">
-        </div>
 
-        <div id="div_sec_question" style="display: none;">
+        <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
+            <legend id="legend_contact" class="mylegend">Forgot Password</legend>
 
-        </div>
-
-        <div class="actions">
-            <button type="button" id="reset_pass" class="btn btn-lg btn-primary btn-block">
-                Send me a link
-            </button>
-        </div>
-
-        <fieldset>
-            <div class="text-center">
-                <a href="<?php print CTR_URL; ?>Authentication">Back to Login</a>
+            <div class="fields">
+                <strong>Email address</strong>
+                <input type="email" class="form-control" name="inp_email" id="inp_email" placeholder="Enter your Email">
             </div>
+
+            <div id="div_sec_question" style="display: none;">
+
+            </div>
+
+            <div class="actions">
+                <button type="button" id="reset_pass" class="btn btn-lg btn-primary btn-block">
+                    Send me a link
+                </button>
+            </div>
+
+            <fieldset>
+                <div class="text-center">
+                    <a href="<?php print CTR_URL; ?>Authentication">Back to Login</a>
+                </div>
+            </fieldset>
+
         </fieldset>
 
         <?php require_once(VIEW_URL."includes/hidden.php");?>

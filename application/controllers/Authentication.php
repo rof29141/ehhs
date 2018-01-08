@@ -17,44 +17,44 @@ class Authentication extends CI_Controller
             $token = $sess_array['token'];
             if($token=='')$error='We have a problem with the connection to the server. '.$error;
         }
-        $data['msg']=$msg;
-        $data['success']=$success;
-        $data['warning']=$warning;
-        $data['error']=$error;//echo$error;die();
+        if($msg=='ACTIVATE')
+        {$data['msg']='';$data['warning']='<h3>Thank you for Signing Up!</h3> <h5>Please check your email to activate your account.</h5>';}
+
+        if(!isset($data['msg']))$data['msg']=$msg;
+        if(!isset($data['success']))$data['success']=$success;
+        if(!isset($data['warning']))$data['warning']=$warning;
+        if(!isset($data['error']))$data['error']=$error;//echo$error;die();
 
         $this->load->view('authentication/Login', $data);
     }
 
-    function ForgotPassword()
-    {
-        $this->load->view('authentication/ForgotPassword');
-    }
-
-    function Register()
-    {
-        $this->load->view('authentication/Register');
-    }
-
     function CreateAccount()
-    {//print $_POST['user_email'];print $this->input->post('user_email');die();
+    {
         $data=array(
-            'email'=>$this->input->post('user_email'),
-            'password'=>password_hash($this->input->post('password'), PASSWORD_DEFAULT)
-        );//var_dump($data);
+            'first'=>$this->input->post('first'),
+            'last'=>$this->input->post('last'),
+            'birth'=>$this->input->post('birth'),
+            'cell'=>$this->input->post('cell'),
+            'email'=>$this->input->post('email'),
+            'user'=>$this->input->post('user'),
+            'pass'=>password_hash($this->input->post('txt_pass'), PASSWORD_DEFAULT),
+            'sec1'=>$this->input->post('sec1'),
+            'sec2'=>$this->input->post('sec2'),
+            'sec3'=>$this->input->post('sec3'),
+            'ans1'=>password_hash($this->input->post('ans1'), PASSWORD_DEFAULT),
+            'ans2'=>password_hash($this->input->post('ans2'), PASSWORD_DEFAULT),
+            'ans3'=>password_hash($this->input->post('ans3'), PASSWORD_DEFAULT)
+        );//echo json_encode($data);
 
         $result=$this->Auth->CreateAccount($data);
 
-        $msg='';
-        $success='';
-        $warning='';
-        $error='';
-
         if($result['error']=='0')
-            $success='Account created.';
+        {
+            $this->ValidateEmail($this->input->post('email'),'activate');
+            echo 'CREATED';
+        }
         else
-            $error=$result['error'];
-
-        $this->index($msg, $success, $warning, $error);
+            echo $result['error'];
     }
 
     function Verify()
@@ -63,8 +63,7 @@ class Authentication extends CI_Controller
         $success='';
         $warning='';
         $error='';
-        
-        $this->load->library('encrypt');
+
         $this->load->library('form_validation');
         $this->form_validation->set_rules('email', 'Email', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -93,7 +92,7 @@ class Authentication extends CI_Controller
     function CheckDatabase($password)
     {
         $username = $this->input->post('email');
-        $result = $this->Auth->Login($username, strip_tags($password));
+        $result = $this->Auth->Login($username, $password);
 
         if ($result['error']=='0')
         {
@@ -105,18 +104,26 @@ class Authentication extends CI_Controller
                 'email' => $result['email'],
                 '__zkp_Client_Rec' => $result['__zkp_Client_Rec'],
                 'PersonalContactInformationStatus' => $result['PersonalContactInformationStatus'],
+                'next_app_date' => $result['next_app_date'],
             );
 
             $this->session->set_userdata('logged_user_acs', $sess_array);
+        }
+        elseif ($result['error']=='ACTIVATE')
+        {
+            $this->ValidateEmail($result['email'],'activate_yet');
+            $result['error'] = 'Sorry, your account doesn\'t have been activate yet. Please check your inbox.';
         }
 
         return $result;
     }
 
-    function ValidateEmail()
+    function ValidateEmail($email='',$send='')
     {
-        $email = strip_tags($_POST['email']);
-        $send = $_POST['send'];
+        $empty='';
+
+        if($email=='')$email = strip_tags($_POST['email']);
+        if($send=='')$send = $_POST['send'];
 
         if ($email != '')
         {
@@ -130,40 +137,63 @@ class Authentication extends CI_Controller
                 $email_to = $email;
                 $reply_to_email = '';
                 $reply_to_name = '';
+                $attachments = './assets/images/logo.png';
 
                 if($send=='pass')
                 {
                     $id = $result['id'];
                     $result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
 
-                    if ($result['token']) {
+                    if ($result['token'])
+                    {
                         $token = $result['token'];
-
 
                         $subject = "Recover Password";
                         $link = base_url('/Authentication/Restore/' . $token);
-                        $body = ' <h1>Password reset code</h1>
-                        <p>Please use this link to reset the password for the account</p>
-                            <p>Here is your link: </p>
-                                <p><a href="' . $link . '"> Reset password</a></p>
-                        <p>If you don\'t recognize the email, you can delete this email.</p>
-                        <p>Thanks,</p>
-                        <p>Beacon Entity Manager</p>';
+                        $body = '
+                            <html>
+                                <head>
+                                    <title>Recover Password</title>'
+                                    .EMAIL_STYLE.
+                                '</head>
+                                <body>
+                                    <h1>Password Reset Request</h1>
+                                    <p>Please click on the button below to reset the password for your account:</p>
+                                    <p><a href="' . $link . '"><button class="btn btn-success">Reset password</button></a></p>
+                                    <p>If you received this email in error, please delete.</p>
+                                    <p>Thanks,</p>'
+                                    .EMAIL_SIGNATURE.
+                                '</body>
+                            </html>';
 
-                        $this-> EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body);
+                        $this->load->library('MT_Mail');
+                        $obj_mail = new MT_Mail();
+
+                        $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
                     }
                 }
                 elseif ($send=='user')
                 {
-
                     $subject = "Recover User ID";
-                    $body = ' <h1>Password reset code</h1>
-                        <p>Your User ID to enter to Beacon Entity Manager is:</p>
-                            <p><h2><strong>'. $result["user_name"] .'</strong></h2></p>
-                        <p>If you don\'t recognize the email, you can delete this email.</p>
-                        <p>Thanks,</p>
-                        <p>Beacon Entity Manager</p>';
-                    $this->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body);
+                    $body = '
+                            <html>
+                                <head>
+                                    <title>Recover User ID</title>
+                                </head>
+                                <body>
+                                    <h1>User ID</h1>
+                                    <p>Your User ID for '.COMPANY.'\'s website is:</p>
+                                        <p><h2><strong>'. $result["user_name"] .'</strong></h2></p>
+                                    <p>If you think you received this email in error, please delete.</p>
+                                    <p>Thanks,</p>'
+                                    .EMAIL_SIGNATURE.
+                                '</body>
+                            </html>';
+
+                    $this->load->library('MT_Mail');
+                    $obj_mail = new MT_Mail();
+
+                    $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
                 }
                 elseif ($send=='sec_question_continue')
                 {
@@ -183,6 +213,117 @@ class Authentication extends CI_Controller
 
                     <?php
                 }
+                elseif ($send=='activate')
+                {
+                    $id = $result['id'];
+                    $result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
+
+                    if ($result['token'])
+                    {
+                        $token = $result['token'];
+
+                        $subject = "Activate Your Account";
+                        $link = base_url('/Authentication/Activate/' . $token);
+                        $body = '
+                            <html>
+                                <head>
+                                    <title>Activate Your Account</title>'
+                                    .EMAIL_STYLE.
+                                '</head>
+                                <body>
+                                    <h1>Thank you for signing up!</h1>
+                                    <p>Please click on the button below to activate your account.</p>
+                                    <p><a href="' . $link . '"><button class="btn btn-success">Activate your account</button></a></p>
+                                    <p>If you received this email in error, please delete.</p>
+                                    <p>Thanks,</p>'
+                                    .EMAIL_SIGNATURE.
+                                '</body>
+                            </html>';
+
+                        $this->load->library('MT_Mail');
+                        $obj_mail = new MT_Mail();
+
+                        $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
+                    }
+                }
+                elseif ($send=='activate_yet')
+                {
+                    $id = $result['id'];
+                    $result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
+
+                    if ($result['token'])
+                    {
+                        $token = $result['token'];
+
+                        $subject = "Activate Your Account";
+                        $link = base_url('/Authentication/Activate/' . $token);
+                        $body = '
+                            <html>
+                                <head>
+                                    <title>Your account doesn\'t have been activate yet</title>'
+                                    .EMAIL_STYLE.
+                                '</head>
+                                <body>
+                                    <h1>Attempted login - Your account is not yet active</h1>
+                                    <p>Please click on the button below to activate your account.</p>
+                                    <p><a href="' . $link . '"><button class="btn btn-success">Activate</button></a></p>
+                                    <p>If you received this email in error, please delete.</p>
+                                    <p>Thanks,</p>'
+                                    .EMAIL_SIGNATURE.
+                                '</body>
+                            </html>';
+
+                        $this->load->library('MT_Mail');
+                        $obj_mail = new MT_Mail();
+
+                        $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
+                    }
+                }
+                elseif ($send=='recover')
+                {
+                    if($result["Sec1"]!='' && $result["Sec2"]!='' && $result["Sec3"]!='')
+                    $this->load->view('authentication/SecurityQuestions', $result);
+                    else
+                    {
+                        print 'SEC_EMPTY';
+                    }
+                }
+                elseif($send=='user_pass')
+                {
+                    $id = $result['id'];
+                    $result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
+
+                    if ($result['token'])
+                    {
+                        $token = $result['token'];
+
+                        $subject = "Credentials to Recover Your Account";
+                        $link = base_url('/Authentication/Restore/' . $token);
+                        $body = '
+                            <html>
+                                <head>
+                                    <title>Recover Account</title>'
+                            .EMAIL_STYLE.
+                            '</head>
+                                <body>
+                                    <h1>You respond well the 3 security questions</h1>
+                                    <p>Your User ID for '.COMPANY.'\'s website is:</p>
+                                    <p><h2><strong>'. $result["user_name"] .'</strong></h2></p>
+                                    <p>Please click on the button below to reset the password for your account:</p>
+                                    <p><a href="' . $link . '"><button class="btn btn-success">Reset password</button></a></p>
+                                    <p>If you received this email in error, please delete.</p>
+                                    <p>Thanks,</p>'
+                            .EMAIL_SIGNATURE.
+                            '</body>
+                            </html>';
+
+                        $this->load->library('MT_Mail');
+                        $obj_mail = new MT_Mail();
+
+                        $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
+                    }
+                }
+
             }
             else{print 'WRONG';}
 
@@ -190,18 +331,57 @@ class Authentication extends CI_Controller
         else{print 'EMPTY';}
     }
 
-    function EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body)
+    function ValidateUserID($user='',$type='')
     {
-        date_default_timezone_set('Etc/UTC');
-        $this->load->library('email');
-        $body = utf8_decode($body);
-        $this->email->set_mailtype("html");
-        $this->email->from($from_email, $from_name);
-        $this->email->reply_to($reply_to_email, $reply_to_name);
-        $this->email->to($email_to);
-        $this->email->subject($subject);
-        $this->email->message($body);
-        $this->email->send();
+        if($user=='')$user = strip_tags($_POST['user']);
+        if($type=='')$type = $_POST['type'];
+
+        if ($user != '')
+        {
+            $result = $this->Auth->ValidateUserID($user);//var_dump($result);
+            //print $result['error'];die();
+
+            if ($result['error']=='0')
+            {
+                if ($type=='recover')
+                {
+                    if($result["Sec1"]!='' && $result["Sec2"]!='' && $result["Sec3"]!='')
+                        $this->load->view('authentication/SecurityQuestions', $result);
+                    else
+                    {
+                        print 'SEC_EMPTY';
+                    }
+                }
+
+            }
+            else{print 'WRONG';}
+
+        }
+        else{print 'EMPTY';}
+    }
+
+    function ValidateSecAnswers($user_email='',$search='', $ans1='',$ans2='',$ans3='')
+    {
+        if($user_email=='')$data['user_email'] = $this->input->post('user_email');
+        if($search=='')$data['search'] = $this->input->post('search');
+        if($ans1=='')$data['ans1'] = strip_tags($this->input->post('ans1'));
+        if($ans2=='')$data['ans2'] = strip_tags($this->input->post('ans2'));
+        if($ans3=='')$data['ans3'] = strip_tags($this->input->post('ans3'));
+
+
+        if($data['user_email'] != '' && $data['search'] != '' && $data['ans1'] != '' && $data['ans2'] != '' && $data['ans3'] != '')
+        {
+            $result = $this->Auth->ValidateSecAnswers($data);//var_dump($result);
+            //print $result['error'];die();
+            if(isset($result['data']) && $result['data']=='OK')
+            {
+                print 'User ID: '.$result['user'].'<br>Temporary Password: '.$result['pass'];
+            }
+            elseif($result['error']!='0')
+                print $result['error'];
+        }
+        else
+            print 'EMPTY';
     }
 
     function GenerarLinkTemporal($idusuario)
@@ -239,6 +419,30 @@ class Authentication extends CI_Controller
         }
     }
 
+    function Activate()
+    {
+        $data['token']=$this->uri->segment(3);//print $token;die();
+        $token=$data['token'];
+
+        $result=$this->Auth->ActivateAccount($token);//var_dump($result);
+
+
+        if ($result['error']=='0')
+        {
+            $data['success']='Thank you for activate your account.';
+            $this->load->view('authentication/Login', $data);
+        }
+        else
+        {
+            $msg='';
+            $success='';
+            $warning='';
+            $error=$result['error'];
+
+            $this->index($msg, $success, $warning, $error);
+        }
+    }
+
     function SaveNewPass()
     {
         $data=array(
@@ -262,14 +466,74 @@ class Authentication extends CI_Controller
         $this->index($msg, $success, $warning, $error);
     }
 
-    function ForgotUser()
+    function GoForgotUser($email='')
     {
-        $this->load->view('authentication/ForgotUser');
+        $data['email']=$email;
+        $this->load->view('authentication/ForgotUser', $data);
     }
 
-    function ResetPassword()
+    function GoForgotPassword()
+    {
+        $this->load->view('authentication/ForgotPassword');
+    }
+
+    function GoResetPassword()
     {
         $this->load->view('authentication/ResetPassword');
+    }
+
+    function GoSignUp()
+    {
+        $this->load->view('authentication/SignUp');
+    }
+
+    function GoRecoverAccount()
+    {
+        $this->load->view('authentication/RecoverAccount');
+    }
+
+    function CheckExistUserID()
+    {
+        $user_id=$this->input->post('user_id');
+
+        $result=$this->Auth->CheckExistUserID($user_id);
+
+        if($result['error']=='0')
+        {
+            echo 'EXIST';
+        }
+        else
+            echo 'NO_EXIST';
+    }
+
+    function CheckExistEmail()
+    {
+        $email=$this->input->post('email');
+
+        $result=$this->Auth->CheckExistEmail($email);
+
+        if($result['error']=='0')
+        {
+            echo 'EXIST';
+        }
+        else
+            echo 'NO_EXIST';
+    }
+
+    function CheckExistUser()
+    {
+        $data['first']=$this->input->post('first');
+        $data['last']=$this->input->post('last');
+        $data['birth']=$this->input->post('birth');
+
+        $result=$this->Auth->CheckExistUser($data);
+
+        if($result['error']=='0')
+        {
+            echo 'EXIST';
+        }
+        else
+            echo 'NO_EXIST';
     }
 
     function ResetNewPass()

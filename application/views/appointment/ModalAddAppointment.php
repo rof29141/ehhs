@@ -204,7 +204,10 @@
             var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
             var link = "<?php print base_url('/Dashboard/ConfirmApp/');?>" + token;
             var link_web = '351face.com';
-            var body ='<p>Dear <?php print $bd_FirstName." ".$bd_LastName;?>,</p>' +
+            var body ='<html><head><title>Confirm Appointment</title>' +
+                '<?php echo EMAIL_STYLE;?>'+
+                '</head><body>' +
+                '<p>Dear <?php print $bd_FirstName." ".$bd_LastName;?>,</p>' +
                 '<p>Thank you for submitting an application for an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
                 '<br>' +
                 '<p>Please click on this link to confirm your appointment details below.</p>' +
@@ -216,14 +219,8 @@
                 '<p><strong>Service: </strong>'+$('#txt_service').val()+'</p>' +
                 '<br>' +
                 '<p>Thank you,</p>' +
-                '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
-                '<p>Rookwood Commons Shopping Center</p>' +
-                '<p>3805 Edwards Rd 100</p>' +
-                '<p>Cincinnati, OH 45244</p>' +
-                '<p>Phone: 513-351-FACE(3223)</p>' +
-                '<p>Fax: 513-396-8995</p>' +
-                '<br>' +
-                '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
+                '<?php echo EMAIL_SIGNATURE;?>' +
+                '</body></html>';
 
             $.ajax(
             {

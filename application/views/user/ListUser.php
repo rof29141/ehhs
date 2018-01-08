@@ -146,10 +146,10 @@
                     }).done(function (response, textStatus, jqXHR) {
                         if (response)
                         {
-                            row.child(response).show();
+                            row.child(response).show(500);
                         }
                         else
-                            row.child('Data can not loaded.').show();
+                            row.child('Data can not loaded.').show(500);
 
                         tr.addClass('shown');
                         spinner.stop();

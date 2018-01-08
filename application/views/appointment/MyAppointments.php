@@ -25,14 +25,15 @@
 
                         <div class="row" style="margin-bottom: 10px;">
 
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="">
+                                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
 
                                 <ul class="timeline-v1">
 
                                 <?php
                                 for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
                                 {
-                                    if($i==0)$next_app_date=date('M j, Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
+                                    //if($i==0)$next_app_date=date('M j, Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
 
                                     if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
                                         $label_date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
@@ -132,13 +133,13 @@
                                     }
                                 ?>
 
-                                    <li style="margin-block-start:0px;margin-left: 0px;padding-left: 0px;">
+                                    <li>
                                         <div class="timeline-badge primary">
                                             <i class="entypo-cd" style="color: #0F9B0F;"></i>
                                             <time class="cbp_tmtime hidden-xs" datetime=""><span><?php print $timeline_date;?></span> <span><?php print $timeline_month;?></span></time>
                                         </div>
-                                        <div class="timeline-panel" style="padding-top: 10px;">
-                                            <article style="padding-bottom: 10px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="card_<?php print $i; ?>">
+                                        <div class="timeline-panel">
+                                            <article style="padding: 5px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="card_<?php print $i; ?>">
 
                                                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="height:150px;background-color: #ccc;text-align:center;padding: 5px;padding-top:18px;font-size: 10px;">
                                                     <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
@@ -166,7 +167,7 @@
                                                             <span class="entypo-chat"></span>
                                                         </a>
                                                         <br>
-                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
+                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="right" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
                                                             <span class="entypo-info2"></span>
                                                         </a>
                                                         <br>
@@ -288,204 +289,7 @@
 
                             </div>
 
-                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                                <fieldset class="myfieldset" style="margin-top: -10px">
-                                    <legend class="mylegend">Your next appointment is in</legend>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-                                        <div class="countdown" id="js-countdown">
-                                            <div class="countdown__item countdown__item--large">
-                                                <div class="countdown__timer js-countdown-days" aria-labelledby="day-countdown">
-
-                                                </div>
-
-                                                <div class="countdown__label" id="day-countdown">Days</div>
-                                            </div>
-
-                                            <div class="countdown__item">
-                                                <div class="countdown__timer js-countdown-hours" aria-labelledby="hour-countdown">
-
-                                                </div>
-
-                                                <div class="countdown__label" id="hour-countdown">Hours</div>
-                                            </div>
-
-                                            <div class="countdown__item">
-                                                <div class="countdown__timer js-countdown-minutes" aria-labelledby="minute-countdown">
-
-                                                </div>
-
-                                                <div class="countdown__label" id="minute-countdown">Minutes</div>
-                                            </div>
-
-                                            <div class="countdown__item">
-                                                <div class="countdown__timer js-countdown-seconds" aria-labelledby="second-countdown">
-
-                                                </div>
-
-                                                <div class="countdown__label" id="second-countdown">Seconds</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                                <fieldset class="myfieldset" style="margin-top: -10px">
-                                    <legend class="mylegend">Where you can find us?</legend>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
-                                        <iframe width="100%" height="225px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.136945070171!2d-84.44422776430045!3d39.14886676372474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b287364d37bb%3A0xf2cae7e0cad59f0!2s3805+Edwards+Rd+%23100%2C+Cincinnati%2C+OH+45209!5e0!3m2!1sen!2sus!4v1514489513158" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                    </div>
-                                </fieldset>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <fieldset class="myfieldset" style="margin-top: -10px">
-                                    <legend class="mylegend">Rewards points</legend>
-
-                                    <?php
-                                    if(array_key_exists("data", $data['rewards']))
-                                    {
-                                        $cant = sizeof($data['rewards']['data']);
-                                        for ($i = 0; $i < $cant; $i++)
-                                        {
-                                            $RewardAvailableTotal = $data['rewards']['data'][$i]['RewardAvailableTotal'];
-                                            $RewardTotalEarned = $data['rewards']['data'][$i]['RewardTotalEarned'];
-                                            $RewardTotalRedeemed = $data['rewards']['data'][$i]['RewardTotalRedeemed'];
-                                            $RewardTotalExpired = $data['rewards']['data'][$i]['RewardTotalExpired'];
-
-                                            if($data['rewards']['data'][$i]['MemberSerial']!='')$MemberSerial=$data['rewards']['data'][$i]['MemberSerial'];else $MemberSerial='-';
-                                            if($data['rewards']['data'][$i]['SubscribedOn']!='')$SubscribedOn=$data['rewards']['data'][$i]['SubscribedOn'];else $SubscribedOn='-';
-                                            if($data['rewards']['data'][$i]['SubscriptionExpiryDate']!='')$SubscriptionExpiryDate=$data['rewards']['data'][$i]['SubscriptionExpiryDate'];else $SubscriptionExpiryDate='-';
-                                        }
-                                    }
-                                    else
-                                    {
-                                        $RewardAvailableTotal = '0';
-                                        $RewardTotalEarned = '0';
-                                        $RewardTotalRedeemed = '0';
-                                        $RewardTotalExpired = '0';
-
-                                        $MemberSerial='-';
-                                        $SubscribedOn='-';
-                                        $SubscriptionExpiryDate='-';
-                                    }
-                                    ?>
-
-                                    <article style="text-align: center;font-size: 16px;"
-                                             class="col-sm-6 col-md-6 col-lg-3">
-                                        <fieldset class="myfieldset">
-                                            <legend class="mylegend">Available</legend>
-
-                                            <div class="btn-success count"
-                                                 style="font-size:30px;padding:5px;padding-top:26px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 80px;height: 80px;"><?php if (!isset($RewardAvailableTotal)) $RewardAvailableTotal = 0; elseif ($RewardAvailableTotal == '') $RewardAvailableTotal = 0;
-                                                print $RewardAvailableTotal;?></div>
-                                        </fieldset>
-                                    </article>
-
-                                    <article style="text-align: center;font-size: 16px;"
-                                             class="col-sm-6 col-md-6 col-lg-3">
-                                        <fieldset class="myfieldset">
-                                            <legend class="mylegend">Earned</legend>
-                                            <div class="btn-warning count"
-                                                 style="font-size:30px;padding:5px;padding-top:26px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 80px;height: 80px;"><?php if (!isset($RewardTotalEarned)) $RewardTotalEarned = 0; elseif ($RewardTotalEarned == '') $RewardTotalEarned = 0;
-                                                print $RewardTotalEarned;?></div>
-                                        </fieldset>
-                                    </article>
-
-                                    <article style="text-align: center;font-size: 16px;"
-                                             class="col-sm-6 col-md-6 col-lg-3">
-                                        <fieldset class="myfieldset">
-                                            <legend class="mylegend">Redeemed</legend>
-                                            <div class="btn-info count"
-                                                 style="font-size:30px;padding:5px;padding-top:26px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 80px;height: 80px;"><?php if (!isset($RewardTotalRedeemed)) $RewardTotalRedeemed = 0; elseif ($RewardTotalRedeemed == '') $RewardTotalRedeemed = 0;
-                                                print $RewardTotalRedeemed;?></div>
-                                        </fieldset>
-                                    </article>
-
-                                    <article style="text-align: center;font-size: 16px;"
-                                             class="col-sm-6 col-md-6 col-lg-3">
-                                        <fieldset class="myfieldset">
-                                            <legend class="mylegend">Expired</legend>
-                                            <div class="btn-danger count"
-                                                 style="font-size:30px;padding:5px;padding-top:26px;margin-left:auto;margin-right:auto;text-align:center;border-radius: 50%;width: 80px;height: 80px;"><?php if (!isset($RewardTotalExpired)) $RewardTotalExpired = 0; elseif ($RewardTotalExpired == '') $RewardTotalExpired = 0;
-                                                print $RewardTotalExpired;?></div>
-                                        </fieldset>
-                                    </article>
-
-                                    <article style="text-align: center;font-size: 16px;"
-                                             class="col-sm-12 col-md-12 col-lg-12">
-                                        <fieldset class="myfieldset">
-                                            <legend class="mylegend">Member information</legend>
-
-                                            <div style="display: table;width: 100%;height: 80px;">
-                                                <div style="display: table-row;">
-
-                                                    <div class=""
-                                                         style="text-align:center;display:table-cell;color:#000;padding: 10px;">
-
-                                                        <div class=""
-                                                             style="text-align:center;font-weight: bold; font-size: 14px;">
-                                                            Member
-                                                            serial: <?php print $MemberSerial; ?></div>
-                                                        <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
-                                                        <br>
-                                                        <div class=""
-                                                             style="text-align:center;font-weight: bold; font-size: 12px;">
-                                                            Subscribed
-                                                            on: <?php print $SubscribedOn; ?></div>
-                                                        <br>
-                                                        <div class=""
-                                                             style="text-align:center;font-weight: bold; font-size: 12px;">
-                                                            Subscription Expiry
-                                                            Date: <?php print $SubscriptionExpiryDate; ?></div>
-                                                        <br>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </article>
-
-                                </fieldset>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                                <fieldset class="myfieldset" style="margin-top: -10px;">
-                                    <legend class="mylegend">Add Appointment</legend>
-
-                                    <div align="justify" style="height: 80px;">You can see the availability of any provider and the service, click on any Available space and confirm the Appointment.</div>
-
-                                    <button type="submit" onclick="LoadContent('Dashboard');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
-                                        <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="brankic-calendar2"></span>
-                                    </button>
-                                </fieldset>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                                <fieldset class="myfieldset" style="margin-top: -10px;">
-                                    <legend class="mylegend">Take a Survey</legend>
-
-                                    <div align="justify" style="height: 80px;">Please rate each area of interest.</div>
-
-                                    <button type="submit" onclick="LoadContent('Survey');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
-                                        <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-clipboard"></span>
-                                    </button>
-                                </fieldset>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                                <fieldset class="myfieldset" style="margin-top: -10px;">
-                                    <legend class="mylegend">Fill Personal Info</legend>
-
-                                    <div align="justify" style="height: 80px;">Filling this form before your arrival will help save you time.</div>
-
-                                    <button type="submit" onclick="LoadContent('User/GoPersonalInfo');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
-                                        <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-text"></span>
-                                    </button>
-                                </fieldset>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="margin-top: 20px;">
+                                <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7" style="margin-top: 20px;">
                                 <fieldset class="myfieldset" style="margin-top: -10px">
                                     <legend class="mylegend">Advertisement</legend>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
@@ -639,8 +443,6 @@
                                                              data-easing="easeOutExpo" data-end="5700" data-endspeed="300" data-endeasing="easeInSine">
                                                             It’s Advanced Cosmetic!
                                                         </div>
-
-
                                                     </li>
                                                 </ul>
 
@@ -650,6 +452,54 @@
                                     </div>
                                 </fieldset>
                             </div>
+                            </div>
+
+
+                                <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                                    <fieldset class="myfieldset" style="margin-top: -10px;">
+                                        <legend class="mylegend">Add Appointment</legend>
+
+                                        <div align="justify" style="height: 80px;">You can see the availability of any provider and the service, click on any Available space and confirm the Appointment.</div>
+
+                                        <button type="submit" onclick="LoadContent('Dashboard');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                            <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="brankic-calendar2"></span>
+                                        </button>
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                                    <fieldset class="myfieldset" style="margin-top: -10px;">
+                                        <legend class="mylegend">Take a Survey</legend>
+
+                                        <div align="justify" style="height: 80px;">Please rate each area of interest.</div>
+
+                                        <button type="submit" onclick="LoadContent('Survey');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                            <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-clipboard"></span>
+                                        </button>
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                                    <fieldset class="myfieldset" style="margin-top: -10px;">
+                                        <legend class="mylegend">Fill Personal Info</legend>
+
+                                        <div align="justify" style="height: 80px;">Filling this form before your arrival will help save you time.</div>
+
+                                        <button type="submit" onclick="LoadContent('User/GoPersonalInfo');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                            <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-text"></span>
+                                        </button>
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <fieldset class="myfieldset" style="margin-top: -10px">
+                                        <legend class="mylegend">Where you can find us?</legend>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
+                                            <iframe width="100%" height="225px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.136945070171!2d-84.44422776430045!3d39.14886676372474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b287364d37bb%3A0xf2cae7e0cad59f0!2s3805+Edwards+Rd+%23100%2C+Cincinnati%2C+OH+45209!5e0!3m2!1sen!2sus!4v1514489513158" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
 
                         </div>
 
@@ -789,7 +639,7 @@
                                                             <span class="entypo-chat"></span>
                                                         </a>
                                                         <br>
-                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
+                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="right" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
                                                             <span class="entypo-info2"></span>
                                                         </a>
                                                         <br>
@@ -1007,7 +857,7 @@
                                                             <span class="entypo-chat"></span>
                                                         </a>
                                                         <br>
-                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
+                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="right" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
                                                             <span class="entypo-info2"></span>
                                                         </a>
                                                         <br>
@@ -1239,10 +1089,12 @@ $events = json_encode($events);
                 var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
                 var link = "<?php print base_url('/Dashboard/ConfirmApp/');?>" + token;
                 var link_web = '351face.com';
-                var body ='<p>Dear <?php print $bd_FirstName." ".$bd_LastName;?>,</p>' +
+                var body = '<html><head><title>Confirm Appointment</title>' +
+                    '<?php echo EMAIL_STYLE;?>' +
+                    '</head><body>' +
+                    '<p>Dear <?php print $bd_FirstName." ".$bd_LastName;?>,</p>' +
                     '<p>Thank you for submitting an application for an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
-                    '<br>' +
-                    '<p>Please click on this link to confirm your appointment details below.</p>' +
+                    '<p>Please click on the button below to confirm your appointment details below.</p>' +
                     '<p><a href="' + link + '"><button class="btn btn-success">Confirm Appointment</button></a></p>' +
                     '<br>' +
                     '<p><strong>Date: </strong>'+date+'</p>' +
@@ -1251,14 +1103,8 @@ $events = json_encode($events);
                     '<p><strong>Service: </strong>'+serv+'</p>' +
                     '<br>' +
                     '<p>Thank you,</p>' +
-                    '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
-                    '<p>Rookwood Commons Shopping Center</p>' +
-                    '<p>3805 Edwards Rd 100</p>' +
-                    '<p>Cincinnati, OH 45244</p>' +
-                    '<p>Phone: 513-351-FACE(3223)</p>' +
-                    '<p>Fax: 513-396-8995</p>' +
-                    '<br>' +
-                    '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
+                    '<?php echo EMAIL_SIGNATURE;?>' +
+                    '</body></html>';
 
                 $.ajax(
                 {
@@ -1296,7 +1142,10 @@ $events = json_encode($events);
                 var subject = "Appointment Reminder";
                 var attachments = './assets/images/logo.png';//&./assets/upload/1111.pdf
                 var link_web = '351face.com';
-                var body = '<h1>Appointment Information</h1>' +
+                var body = '<html><head><title>Appointment Reminder</title>' +
+                    '<?php echo EMAIL_STYLE;?>' +
+                    '</head><body>' +
+                    '<h1>Appointment Information</h1>' +
                     '<p>Dear <?php print $bd_FirstName." ".$bd_LastName;?>,</p>' +
                     '<p>You have an appointment at the <a href="' + link_web + '">Advanced Cosmetic Surgery & Laser Center.</a></p>' +
                     '<br>' +
@@ -1307,20 +1156,8 @@ $events = json_encode($events);
                     '<p><strong>Service: </strong>'+serv+'</p>' +
                     '<br>' +
                     '<p>Thank you,</p>' +
-                    '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
-                    '<p>Rookwood Commons Shopping Center</p>' +
-                    '<p>3805 Edwards Rd 100</p>' +
-                    '<p>Cincinnati, OH 45244</p>' +
-                    '<p>Phone: 513-351-FACE(3223)</p>' +
-                    '<p>Fax: 513-396-8995</p>' +
-                    '<br>' +
-                    //'<video poster="https://www.youtube.com/embed/fIRJu41GQSo" width="100%" height="50%" controls="controls">\n' +
-                    //'<source src="https://www.youtube.com/embed/fIRJu41GQSo" type="video/mp4" />\n' +
-                    //'<a href="https://www.youtube.com/embed/fIRJu41GQSo">\n' +
-                    //'<img src="cid:img_cid_0" width="400" alt="Video" />\n' +
-                    //'</a>\n' +
-                    //'</video>' +
-                    '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
+                    '<?php echo EMAIL_SIGNATURE;?>' +
+                    '</body></html>';
 
 
                 $.ajax(
@@ -1498,60 +1335,6 @@ $events = json_encode($events);
                 //$("#show_cal:hidden").show();
                 $('#calendar').fullCalendar('render');
             });
-
-            const countdown = new Date("<?php print $next_app_date;?>");
-
-            function getRemainingTime(endtime)
-            {
-                const milliseconds = Date.parse(endtime) - Date.parse(new Date());
-                const seconds = Math.floor( (milliseconds/1000) % 60 );
-                const minutes = Math.floor( (milliseconds/1000/60) % 60 );
-                const hours = Math.floor( (milliseconds/(1000*60*60)) % 24 );
-                const days = Math.floor( milliseconds/(1000*60*60*24) );
-
-                return {
-                    'total': milliseconds,
-                    'seconds': seconds,
-                    'minutes': minutes,
-                    'hours': hours,
-                    'days': days
-                };
-            }
-
-            function initClock(id, endtime)
-            {
-                const counter = document.getElementById(id);
-                const daysItem = counter.querySelector('.js-countdown-days');
-                const hoursItem = counter.querySelector('.js-countdown-hours');
-                const minutesItem = counter.querySelector('.js-countdown-minutes');
-                const secondsItem = counter.querySelector('.js-countdown-seconds');
-
-                function updateClock() {
-                    const time = getRemainingTime(endtime);
-                    if(time.days!=0 || time.hours!=0 || time.minutes!=0) {
-                        daysItem.innerHTML = time.days;
-                        hoursItem.innerHTML = ('0' + time.hours).slice(-2);
-                        minutesItem.innerHTML = ('0' + time.minutes).slice(-2);
-                        secondsItem.innerHTML = ('0' + time.seconds).slice(-2);
-                    }
-                    else
-                    {
-                        daysItem.innerHTML = '';
-                        hoursItem.innerHTML = '';
-                        minutesItem.innerHTML = '';
-                        secondsItem.innerHTML = '';
-                    }
-
-                    if (time.total <= 0) {
-                        clearInterval(timeinterval);
-                    }
-                }
-
-                updateClock();
-                const timeinterval = setInterval(updateClock, 1000);
-            }
-
-            initClock('js-countdown', countdown);
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e)
             {

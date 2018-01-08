@@ -18,7 +18,7 @@
                     $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
                 },
                 errorPlacement: function (error, element)
-                {alert('ojn');
+                {//alert('ojn');
                     if(element.parent('.input-group').length)
                     {
                         error.insertAfter(element.parent());
@@ -75,6 +75,8 @@
             $(this).valid();
         });*/
 
+        alertify.defaults.transition = "zoom";
+
         var msg = $("#msg").val();
         if (msg != '' && msg != null) alertify.message(msg);
 
@@ -82,7 +84,7 @@
         if (success != '' && success != null) alertify.success(success);
 
         var warning = $("#warning").val();
-        if (warning != '' && warning != null) alertify.warning(warning);
+        if (warning != '' && warning != null) alertify.alert(warning);
 
         var error = $("#error").val();
         if (error != '' && error != null) alertify.error(error);

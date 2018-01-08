@@ -2,8 +2,9 @@
 
     <?php
     require_once("banner.php");
-    $menu='[{"Label":"My Appointments", "URL":"Appointment", "Service":"", "access":2, "menu":""},
-    {"Label":"New Appointment", "URL":"Dashboard", "Service":"", "access":2, "menu":""},
+    $menu='[{"Label":"Appointments", "URL":"Appointment", "Service":"", "access":2, "menu":""},
+    {"Label":"Add Appointment", "URL":"Dashboard", "Service":"", "access":2, "menu":""},
+    {"Label":"Invoices", "URL":"Invoice", "Service":"", "access":2, "menu":""},
     {"Label":"History", "URL":"Appointment/History", "Service":"", "access":2, "menu":""},
     {"Label":"Survey", "URL":"Survey", "Service":"", "access":2, "menu":""}';
 
@@ -22,9 +23,9 @@
     <div class="container">
         <div class="navbar-header">
 
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" style="float: left;">
                 <a class="navbar-brand" href="#">
-                    <span class="brankic-list" style="color: #fff; font-size: 28px;top:3px;right:20px;position: absolute;"></span>
+                    <span class="brankic-list" style="color: #fff; font-size: 28px;top:3px;left:20px;position: absolute;"></span>
                 </a>
             </button>
 

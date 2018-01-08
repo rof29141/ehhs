@@ -109,7 +109,10 @@ require_once(APPPATH."views/includes/header.php");
             var subject = "Appointment Confirmed";
             var attachments = './assets/images/logo.png';
             var link_web = '351face.com';
-            var body = '<h1>Appointment Confirmed</h1>' +
+            var body = '<html><head><title>Appointment Confirmed</title>' +
+                '<?php echo EMAIL_STYLE;?>'+
+                '</head><body>' +
+                '<h1>Appointment Confirmed</h1>' +
                 '<p>The patient <b><?php print $bd_FirstName." ".$bd_LastName;?></b> has submited an appointment.' +
                 '<br>' +
                 '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
@@ -118,15 +121,8 @@ require_once(APPPATH."views/includes/header.php");
                 '<p><strong>Service: </strong>'+$('#txt_service').val()+'</p>' +
                 '<br>' +
                 '<p>Thank you,</p>' +
-                '<p>Advanced Cosmetic Surgery & Laser Center</p>' +
-                '<p>Rookwood Commons Shopping Center</p>' +
-                '<p>3805 Edwards Rd 100</p>' +
-                '<p>Cincinnati, OH 45244</p>' +
-                '<p>Phone: 513-351-FACE(3223)</p>' +
-                '<p>Fax: 513-396-8995</p>' +
-                '<br>' +
-                '<a href="' + link_web + '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
-
+                '<?php echo EMAIL_SIGNATURE;?>' +
+                '</body></html>';
             $.ajax(
             {
                 url:'../../Main/EnviarEmail',

@@ -47,7 +47,7 @@
 
 .timeline-v1 > li .cbp_tmtime span:last-child {
 	color: #585f69;
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: normal;
 
 }
@@ -83,7 +83,7 @@
 
 .timeline-v2 > li .cbp_tmlabel h2 { 
 	margin-top: 0px;
-	font-size: 21px;
+	font-size: 14px;
 	padding: 0 0 5px;
 	margin-bottom: 10px;
 	text-transform: capitalize;

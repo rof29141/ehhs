@@ -564,7 +564,7 @@
     }
 
     #banner_img {
-        display:table-cell;width:25%;font-size: 24px;vertical-align: middle;color: #000;
+        display:table-cell;width:20%;font-size: 24px;vertical-align: middle;color: #000;
     }
 
     #banner_project {
@@ -572,7 +572,7 @@
     }
 
     #banner_name {
-        display:table-cell;width:25%;font-size: 14px;vertical-align: middle;color: #000;
+        display:table-cell;width:30%;font-size: 14px;vertical-align: middle;color: #000;padding: 10px;
     }
 
     @media only screen and (max-width: 1560px) {
@@ -597,13 +597,13 @@
             background-size: auto 48px;
             background-repeat: no-repeat;
             width:100%;
-            height:70px;
+            height:65px;
             margin-right: 5px;
-            vertical-align: middle;
+            margin-left: 10px;
         }
 
         #banner_img {
-            display:table-cell;width:15%;font-size: 24px;vertical-align: middle;
+            display:table-cell;width:10%;font-size: 20px;vertical-align: middle;
         }
 
         #banner_project {
@@ -611,7 +611,7 @@
         }
 
         #banner_name {
-            display:table-cell;width:85%;font-size: 14px;vertical-align: middle;
+            display:table-cell;width:90%;font-size: 10px;vertical-align: middle;
         }
     }
     /* Banner */

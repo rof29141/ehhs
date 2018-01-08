@@ -14,7 +14,7 @@ ini_set('memory_limit', '2048M');
     <?php require_once(VIEW_URL."includes/nav.php");?>
 
 
-        <div class="content-wrapper" id="container" style="position:relative; top: 80px; background-color: #ffffff;"></div>
+        <div class="content-wrapper" id="container" style="position:relative; top: 80px; background-color: #ffffff;margin: 20px;margin-top: 0px;"></div>
 
 
 <?php require_once(VIEW_URL."includes/footer_scripts.php");?>

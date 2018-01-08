@@ -28,6 +28,7 @@ class Main extends CI_Controller
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
             $data['PersonalContactInformationStatus'] = $session_data['PersonalContactInformationStatus'];
+            $data['next_app_date'] = $session_data['next_app_date'];
 
             $this->load->model('M_User');
             $data['data']['rewards']=$this->M_User->GetRewards($data);
@@ -108,9 +109,7 @@ class Main extends CI_Controller
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
-            if($data_type==='tableCalendarAlerts')
-            {}
-            elseif($data_type==='appointment')
+            if($data_type==='appointment')
             {
                 $id_service = $_POST['id_service'];
                 $id_doctor = $_POST['id_doctor'];
@@ -170,6 +169,17 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['user']=$this->M_User->GetPersonalInfo($data);
+            }
+            elseif($data_type==='dataPersonalInfo')
+            {
+                $this->load->model('M_User');
+                $result['user']=$this->M_User->GetPersonalInfo($data);
+            }
+            elseif($data_type==='datatableListMyInvoice')
+            {
+                $id_patient = $data['__zkp_Client_Rec'];
+                $this->load->model('M_Invoice');
+                $result['my_invoices'] = $this->M_Invoice->GetMyInvoices($id_patient);var_dump($result);
             }
 
             return $result;
@@ -346,7 +356,8 @@ class Main extends CI_Controller
             $subject = "Appointment Reminder";
             $attachments = './assets/images/logo.png';
             $link_web = '351face.com';
-            $body = '<h1>This an Appointment Reminder</h1>' .
+            $body = '<html><head><title>Appointment Reminder</title>'.EMAIL_STYLE.'</head><body>'.
+                '<h1>This an Appointment Reminder</h1>' .
                 '<p>Dear <b>' . $result['appointment']['data'][0]['bd_FirstName'] . ' ' . $result['appointment']['data'][0]['bd_LastName'] . '</b>,</p>' .
                 '<p>You have an appointment at the <a href="' . $link_web . '">Advanced Cosmetic Surgery & Laser Center.</a></p>' .
                 '<br>' .
@@ -359,15 +370,7 @@ class Main extends CI_Controller
                 '<br>' .
                 '<p><b>Please arrive 15 minutes prior to your scheduled appointment time at the address listed below.</b></p>' .
                 '<br>' .
-                '<p>Thank you,</p>' .
-                '<p>Advanced Cosmetic Surgery & Laser Center</p>' .
-                '<p>Rookwood Commons Shopping Center</p>' .
-                '<p>3805 Edwards Rd 100</p>' .
-                '<p>Cincinnati, OH 45244</p>' .
-                '<p>Phone: 513-351-FACE(3223)</p>' .
-                '<p>Fax: 513-396-8995</p>' .
-                '<br>' .
-                '<a href="' . $link_web . '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
+                EMAIL_SIGNATURE.'</body></html>';
 
             $this->load->library('MT_Mail');
             $obj_mail = new MT_Mail();

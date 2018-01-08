@@ -467,7 +467,8 @@ class Dashboard extends CI_Controller
 
 
 
-        $body = '<h1>Thank you for your confirmation</h1>'.
+        $body = '<html><head><title>Appointment Reminder</title>'.EMAIL_STYLE.'</head><body>'.
+            '<h1>Thank you for your confirmation</h1>'.
             '<a href="'.base_url('Dashboard/GetiCal').'?location='.$_POST['hdn_ical_addr'].'&amp;description='.$_POST['hdn_ical_title'].'&amp;dtstart='.$_POST['hdn_ical_start'].'&amp;dtend='.$_POST['hdn_ical_end'].'&amp;summary='.$_POST['hdn_ical_title'].'&amp;url='.$_POST['hdn_ical_url'].'">'.
             '<button class="btn btn-success">Add event to calendar</button>'.
             '</a>'.
@@ -482,15 +483,7 @@ class Dashboard extends CI_Controller
             '<p><b>You must read and sign the attached documents.</b></p>'.
             '<p><b>Please arrive 15 minutes prior to your scheduled appointment time at the address listed below.</b></p>'.
             '<br>'.
-            '<p>Thank you,</p>'.
-            '<p>Advanced Cosmetic Surgery & Laser Center</p>'.
-            '<p>Rookwood Commons Shopping Center</p>'.
-            '<p>3805 Edwards Rd 100</p>'.
-            '<p>Cincinnati, OH 45244</p>'.
-            '<p>Phone: 513-351-FACE(3223)</p>'.
-            '<p>Fax: 513-396-8995</p>'.
-            '<br>'.
-            '<a href="' . $link_web . '"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>';
+            EMAIL_SIGNATURE.'</body></html>';
 
         $arr_ical=array('location' => $_POST['hdn_ical_addr'],
             'description' => $_POST['hdn_ical_title'],

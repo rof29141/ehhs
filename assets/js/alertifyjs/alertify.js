@@ -42,9 +42,9 @@
         startMaximized:false,
         transition:'pulse',
         notifier:{
-            delay:5,
-            position:'bottom-right',
-            closeButton:false
+            delay:12,
+            position:'top-right',
+            closeButton:true
         },
         glossary:{
             title:'',
@@ -56,12 +56,12 @@
             decline: 'Decline',
             close: 'Close',
             maximize: 'Maximize',
-            restore: 'Restore',
+            restore: 'Restore'
         },
         theme:{
             input:'ajs-input',
             ok:'ajs-ok',
-            cancel:'ajs-cancel',
+            cancel:'ajs-cancel'
         }
     };
     

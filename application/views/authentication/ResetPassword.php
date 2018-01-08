@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-$page_title = "Reset Password";
+$page_title = "";
 $position='center';
 require_once(APPPATH."views/includes/header.php");
 ?>
@@ -8,51 +8,57 @@ require_once(APPPATH."views/includes/header.php");
 <body >
 <div id="wrapper">
 
-    <div class="container text-center" style="margin-top: 90px;">
+    <div class="container text-center" style="margin-top: 40px;">
         <?php require_once(VIEW_URL."includes/banner.php");?>
     </div>
 
     <div class="container auth" style="padding-left: 40px;padding-right: 40px;">
         <?php print form_open('authentication/ResetNewPass', "class='form-signin' id='frm_auth' role='form'"); ?>
-            <section>
-                <div class="fields">
-                    <strong>User ID</strong>
-                    <input name="email" class="form-control" type="text" placeholder="Enter your User ID" />
-                </div>
-            </section>
 
-            <section>
-                <div class="fields">
-                    <strong>Password</strong>
-                    <input name="password" class="form-control" type="password" placeholder="Enter your Password" />
-                </div>
-            </section>
+        <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
+            <legend id="legend_contact" class="mylegend">Reset Password</legend>
 
-            <section>
-                <div class="fields">
-                    <strong>New Password</strong>
-                    <input placeholder="Enter your New password"  name="txt_pass" id="txt_pass"  type="password"  value="" class="form-control" >
-                </div>
-            </section>
+                <section>
+                    <div class="fields">
+                        <strong>User ID</strong>
+                        <input name="email" class="form-control" type="text" placeholder="Enter your User ID" />
+                    </div>
+                </section>
 
-            <section>
-                <div class="fields">
-                    <strong>Confirm New Password</strong>
-                    <input  name="txt_pass1" id="txt_pass1"  type="password"  size="15" class="form-control" placeholder="Confirm your password" />
-                </div>
-            </section>
+                <section>
+                    <div class="fields">
+                        <strong>Password</strong>
+                        <input name="password" class="form-control" type="password" placeholder="Enter your Password" />
+                    </div>
+                </section>
 
-            <div class="actions">
-                <button type="submit" class="btn btn-lg btn-primary btn-block">
-                    Change Password
-                </button>
-            </div>
+                <section>
+                    <div class="fields">
+                        <strong>New Password</strong>
+                        <input placeholder="Enter your New password"  name="txt_pass" id="txt_pass"  type="password"  value="" class="form-control" >
+                    </div>
+                </section>
 
-            <fieldset>
-                <div class="text-center">
-                    <a href="<?php print CTR_URL; ?>Authentication">Back to Login</a>
+                <section>
+                    <div class="fields">
+                        <strong>Confirm New Password</strong>
+                        <input  name="txt_pass1" id="txt_pass1"  type="password"  size="15" class="form-control" placeholder="Confirm your password" />
+                    </div>
+                </section>
+
+                <div class="actions">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">
+                        Change Password
+                    </button>
                 </div>
-            </fieldset>
+
+                <fieldset>
+                    <div class="text-center">
+                        <a href="<?php print CTR_URL; ?>Authentication">Back to Login</a>
+                    </div>
+                </fieldset>
+
+        </fieldset>
 
         <?php require_once(VIEW_URL."includes/hidden.php");?>
         <?php print form_close(); ?>

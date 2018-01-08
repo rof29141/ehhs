@@ -2,51 +2,47 @@
     <div class="row" style="margin-top: 70px;">
         <div class="col-lg-12">
 
-            <fieldset class="myfieldset">
-                <legend class="mylegend" id="my_legend_rewards"></legend>
+            <ul class="nav nav-tabs bordered" id="myTab1">
+                <li <?php if($active_fade=='profile')print 'class="active"';?>><a data-toggle="tab" href="#s1">Profile</a></li>
+                <li <?php if($active_fade=='rewards')print 'class="active"';?>><a data-toggle="tab" href="#s2">Rewards</a></li>
+            </ul>
 
-                <ul class="nav nav-tabs bordered" id="myTab1">
-                    <li <?php if($active_fade=='profile')print 'class="active"';?>><a data-toggle="tab" href="#s1">Profile</a></li>
-                    <li <?php if($active_fade=='rewards')print 'class="active"';?>><a data-toggle="tab" href="#s2">Rewards</a></li>
-                </ul>
+            <div class="tab-content" id="myTabContent1">
 
-                <div class="tab-content" id="myTabContent1">
+                <div class="tab-pane <?php if($active_fade=='profile')print 'active';else 'fade';?>" id="s1">
+                    <div class="row">
 
-                    <div class="tab-pane <?php if($active_fade=='profile')print 'active';else 'fade';?>" id="s1">
-                        <div class="row">
+                        <div class="col-lg-4 col-lg-offset-4">
+                            <fieldset class="myfieldset">
+                                <legend class="mylegend">Profile</legend>
 
-                            <div class="col-lg-4 col-lg-offset-4">
-                                <fieldset class="myfieldset">
-                                    <legend class="mylegend">Profile</legend>
+                                <section class="col col-12" style="padding: 0px;">
 
-                                    <section class="col col-12" style="padding: 0px;">
+                                    <form class='fill-up validatable' role='form' name='frm' id='frm' action="">
+                                        <div id="data_profile"></div>
+                                    </form>
 
-                                        <form class='fill-up validatable' role='form' name='frm' id='frm' action="">
-                                            <div id="data_profile"></div>
-                                        </form>
+                                </section>
 
-                                    </section>
-
-                                </fieldset>
-                            </div>
-
+                            </fieldset>
                         </div>
-                    </div>
 
-                    <div class="tab-pane <?php if($active_fade=='rewards')print 'active';else 'fade';?>" id="s2">
-                        <div class="row">
-                            <section>
-
-                                <div class="row" id="reward" style="margin-bottom: 10px;padding: 10px;">
-                                    <?php require_once 'Rewards.php';?>
-                                </div>
-
-                            </section>
-                        </div>
                     </div>
                 </div>
 
-            </fieldset>
+                <div class="tab-pane <?php if($active_fade=='rewards')print 'active';else 'fade';?>" id="s2">
+                    <div class="row">
+                        <section>
+
+                            <div class="row" id="reward" style="margin-bottom: 10px;padding: 10px;">
+                                <?php require_once 'Rewards.php';?>
+                            </div>
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

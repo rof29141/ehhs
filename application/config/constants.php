@@ -90,7 +90,18 @@ define('LAYOUT', 'PHP_Patients');
 define('USER', 'PHP');
 define('PASS', 'acsaccess');
 
+define('COMPANY', 'Advanced Cosmetic Surgery');
 define('EMAIL_FROM', 'dispatch-system@tekexperts.com');
 define('EMAIL_FROM_NAME', 'Advanced Cosmetic Surgery');
 define('EMAIL_FROM_TO', 'raydel@mactutor.net');
 define('EMAIL_FROM_STAFF_TO', 'raydel@mactutor.net');
+$line_height='5px';
+define('EMAIL_SIGNATURE', '<p style="line-height: '.$line_height.'; font-weight: bold;">Advanced Cosmetic Surgery & Laser Center</p>' .
+                                '<p style="line-height: '.$line_height.';">Rookwood Commons Shopping Center</p>' .
+                                '<p style="line-height: '.$line_height.';">3805 Edwards Rd 100</p>' .
+                                '<p style="line-height: '.$line_height.';">Cincinnati, OH 45244</p>' .
+                                '<p style="line-height: '.$line_height.';">Phone: 513-351-FACE(3223)</p>' .
+                                '<p style="line-height: '.$line_height.';">Fax: 513-396-8995</p>' .
+                                '<br>' .
+                                '<a href="351face.com"><img src="cid:img_cid_0" alt="Advanced Cosmetic Surgery & Laser Center" /></a>');
+define('EMAIL_STYLE','<style>.btn.btn-success {padding: 10px 16px;padding-right: 16px;padding-left: 16px;font-size: 18px;line-height: 1.33;border-radius: 6px;border: 1px solid #63a042;background-color: #76b852;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.2);text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);-webkit-transition: all 0.2s linear;-moz-transition: all 0.2s linear;-ms-transition: all 0.2s linear;-o-transition: all 0.2s linear;transition: all 0.2s linear;color: #fff;}.btn-success:hover{color: #fff;background-color: #3276b1;border-color: #285e8e;}</style>');
