@@ -559,7 +559,7 @@
         width:100%;
         height:88px;
         margin-right: 5px;
-        margin-left: 40px;
+        margin-left: 20px;
         vertical-align: middle;
     }
 
@@ -579,11 +579,11 @@
 
 
         #banner_img {
-            width:30%;
+            width:25%;
         }
 
         #banner_project {
-            width:40%;
+            width:45%;
         }
 
         #banner_name {
@@ -696,7 +696,10 @@
         transition:all 50ms ease; /* Establecemos una transición a todas las propiedades */
     }
 
-    .social ul li a:hover {padding: 10px 15px 10px 15px; border-radius: 5px; font-size: 16px;}
+    .btn_social a:hover {padding: 10px 15px 10px 15px; border-radius: 5px; font-size: 16px;}
+
+    .entypo-mail {border-radius: 0px 0px 5px 0px;}
+    .entypo-twitter {border-radius: 0px 5px 0px 0px;}
 
     .entypo-facebook:hover {background:#3b5998;} /* Establecemos los colores de cada red social, aprovechan5 su5lass */
     .entypo-twitter:hover {background: #00abf0;}
@@ -707,7 +710,7 @@
 
     .btn_social:hover {padding: 10px 10px 10px 5px;}
 
-    .social ul li {
+    .btn_social {
 
         -webkit-transition:all 200ms ease;
         -o-transition:all 200ms ease;

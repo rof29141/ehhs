@@ -22,14 +22,14 @@ elseif($position=='left')
                 <div id="img_logo"></div>
             </div>
 
-            <div class="text-center" id="banner_project"><?php print $project;?></div>
+            <div class="text-center" id="banner_project"></div>
 
             <div class="text-right" id="banner_name">
-                <a onclick="LoadContent('User/ListMyProfileRewards/profile');" style="color: #000;"><?php print $bd_FirstName.' '.$bd_LastName;?></a>
+                <a onclick="LoadContent('User/ListMyProfileRewards/profile', 0);" style="color: #000;"><?php print $bd_FirstName.' '.$bd_LastName;?></a>
                 <br><br>
                 <?php if(isset($data['rewards']['data'])){?>
 
-                    <a onclick="LoadContent('User/ListMyProfileRewards/rewards');" style="color: #000;">
+                    <a onclick="LoadContent('User/ListMyProfileRewards/rewards', 0);" style="color: #000;">
                         <div style="display: inline-block">Rewards available: </div> <span class="badge txt-color-white" <?php if($points==0)print 'style="background-color:#D9534F;"';else print 'style="background-color:#5CB85C;';?>><?php print $points;?></span><?php if($points>1 || $points==0)print ' points';else print ' point';?>
                     </a>
                     <br><br>

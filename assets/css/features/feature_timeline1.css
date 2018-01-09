@@ -13,14 +13,14 @@
 	content: " ";
 	width: 3px;
 	background-color: #eee;
-	left: 70%;
+	left: 80%;
 	margin-left: -1.5px;
 }
 
 .timeline-v1 > li {
 	margin-bottom: 40px;
 	position: relative;
-	width: 70%;
+	width: 80%;
 	float: left;
 	clear: left;
 }
@@ -206,7 +206,7 @@
 
 @media (max-width: 767px) {
     ul.timeline-v1:before {
-        left: 40px;
+        left: 10px;
     }
 
     ul.timeline-v1 > li {
@@ -217,13 +217,13 @@
       clear: left;
     }
     ul.timeline-v1 > li > .timeline-panel {
-        width: calc(100% - 70px);
-        width: -moz-calc(100% - 70px);
-        width: -webkit-calc(100% - 70px);
+        width: calc(100% - 30px);
+        width: -moz-calc(100% - 30px);
+        width: -webkit-calc(100% - 30px);
     }
 
     ul.timeline-v1 > li > .timeline-badge {
-        left: 28px;
+        left: -2px;
         margin-left: 0;
         top: 16px;
     }

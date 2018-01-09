@@ -24,7 +24,7 @@ ini_set('memory_limit', '2048M');
 
     /*-------------------DO NOT CHANGE THE CODE-------------------*/
 
-    LoadContent('Appointment', 1);
+    LoadContent('Appointment', 0);
 
     function UpdateContent(go_function, go_view, go_back, id='')
     {
@@ -83,9 +83,10 @@ ini_set('memory_limit', '2048M');
         });
     }
 
-    function LoadContent(pag, first='')
+    function LoadContent(pag, click=1)
     {
-        if(first!=1)$('.navbar-toggle').click();
+        if(click!=0)$('.navbar-toggle').click();
+        
         $( '.content-wrapper' ).empty();
         var target = document.getElementById('container');
         var spinner = new Spinner(opts).spin(target);
@@ -141,13 +142,15 @@ ini_set('memory_limit', '2048M');
         });
     }
 
-    /*-------------------DO NOT CHANGE THE CODE-------------------*/
-
     $(document).ready(function()
     {
         $('html, body').animate({
             scrollTop: $('body').offset().top-300
         }, 1000);
     });
+
+    /*-------------------DO NOT CHANGE THE CODE-------------------*/
+
+
 
 </script>
