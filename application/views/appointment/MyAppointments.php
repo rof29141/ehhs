@@ -459,56 +459,7 @@
 
                     </div>
 
-                    <div class="row"  style="margin-left: 0px; margin-right: 0px;">
-
-                        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                            <fieldset class="myfieldset" style="margin-top: -10px;">
-                                <legend class="mylegend">Add Appointment</legend>
-
-                                <div align="justify" style="height: 80px;">You can see the availability of any provider and the service, click on any Available space and confirm the Appointment.</div>
-
-                                <button type="submit" onclick="LoadContent('Dashboard');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
-                                    <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="brankic-calendar2"></span>
-                                </button>
-                            </fieldset>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                            <fieldset class="myfieldset" style="margin-top: -10px;">
-                                <legend class="mylegend">Take a Survey</legend>
-
-                                <div align="justify" style="height: 80px;">Please rate each area of interest.</div>
-
-                                <button type="submit" onclick="LoadContent('Survey');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
-                                    <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-clipboard"></span>
-                                </button>
-                            </fieldset>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                            <fieldset class="myfieldset" style="margin-top: -10px;">
-                                <legend class="mylegend">Fill Personal Info</legend>
-
-                                <div align="justify" style="height: 80px;">Filling this form before your arrival will help save you time.</div>
-
-                                <button type="submit" onclick="LoadContent('User/GoPersonalInfo');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
-                                    <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-text"></span>
-                                </button>
-                            </fieldset>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <fieldset class="myfieldset" style="margin-top: -10px">
-                                <legend class="mylegend">Where you can find us?</legend>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
-                                    <iframe width="100%" height="225px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.136945070171!2d-84.44422776430045!3d39.14886676372474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b287364d37bb%3A0xf2cae7e0cad59f0!2s3805+Edwards+Rd+%23100%2C+Cincinnati%2C+OH+45209!5e0!3m2!1sen!2sus!4v1514489513158" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                </div>
-                            </fieldset>
-                        </div>
-
-                    </div>
-
-                    <div class="row"  style="margin-left: 0px; margin-right: 0px;">
+                    <div class="row"  style="margin: 20px 0px 10px 0px;">
 
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
                             <iframe width="90%" height="200px;" src="https://www.youtube.com/embed/rlUe7IcCjl8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -520,6 +471,55 @@
 
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">
                             <iframe width="90%" height="200px;" src="https://www.youtube.com/embed/zXFIt8Q5QH8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
+
+                    </div>
+
+                    <div class="row"  style="margin-left: 0px; margin-right: 0px;">
+
+                        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                            <fieldset class="myfieldset">
+                                <legend class="mylegend">Add Appointment</legend>
+
+                                <div align="justify" style="height: 80px;">You can see the availability of any provider and the service, click on any Available space and confirm the Appointment.</div>
+
+                                <button type="submit" onclick="LoadContent('Dashboard');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                    <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="brankic-calendar2"></span>
+                                </button>
+                            </fieldset>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                            <fieldset class="myfieldset">
+                                <legend class="mylegend">Take a Survey</legend>
+
+                                <div align="justify" style="height: 80px;">Please rate each area of interest.</div>
+
+                                <button type="submit" onclick="LoadContent('Survey');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                    <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-clipboard"></span>
+                                </button>
+                            </fieldset>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                            <fieldset class="myfieldset">
+                                <legend class="mylegend">Fill Personal Info</legend>
+
+                                <div align="justify" style="height: 80px;">Filling this form before your arrival will help save you time.</div>
+
+                                <button type="submit" onclick="LoadContent('User/GoPersonalInfo');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                    <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-text"></span>
+                                </button>
+                            </fieldset>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <fieldset class="myfieldset">
+                                <legend class="mylegend">Where you can find us?</legend>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
+                                    <iframe width="100%" height="225px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.136945070171!2d-84.44422776430045!3d39.14886676372474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b287364d37bb%3A0xf2cae7e0cad59f0!2s3805+Edwards+Rd+%23100%2C+Cincinnati%2C+OH+45209!5e0!3m2!1sen!2sus!4v1514489513158" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                </div>
+                            </fieldset>
                         </div>
 
                     </div>
