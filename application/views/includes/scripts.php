@@ -691,17 +691,28 @@
         background: #000;
         padding: 5px 10px;
         text-decoration: none;
-        -webkit-transition:all 500ms ease;
-        -o-transition:all 500ms ease;
-        transition:all 500ms ease; /* Establecemos una transición a todas las propiedades */
+        -webkit-transition:all 50ms ease;
+        -o-transition:all 50ms ease;
+        transition:all 50ms ease; /* Establecemos una transición a todas las propiedades */
     }
 
-    .entypo-facebook:hover {background:#3b5998;padding: 20px 15px 20px 15px;} /* Establecemos los colores de cada red social, aprovechando su class */
-    .entypo-twitter:hover {background: #00abf0;padding: 20px 15px 20px 15px;}
-    .entypo-linkedin:hover {background: #d95232;padding: 20px 15px 20px 15px;}
-    .entypo-video:hover {background: #ae181f;padding: 20px 15px 20px 15px;}
-    .entypo-mail:hover {background: #000;padding: 20px 15px 20px 15px;}
-    .brankic-globe2:hover {background: #492f91;padding: 20px 15px 20px 15px;}
+    .social ul li a:hover {padding: 10px 15px 10px 15px; border-radius: 5px; font-size: 16px;}
+
+    .entypo-facebook:hover {background:#3b5998;} /* Establecemos los colores de cada red social, aprovechan5 su5lass */
+    .entypo-twitter:hover {background: #00abf0;}
+    .entypo-linkedin:hover {background: #d95232;}
+    .entypo-video:hover {background: #ae181f;}
+    .entypo-mail:hover {background: #000;}
+    .brankic-globe2:hover {background: #492f91;}
+
+    .btn_social:hover {padding: 10px 10px 10px 5px;}
+
+    .social ul li {
+
+        -webkit-transition:all 200ms ease;
+        -o-transition:all 200ms ease;
+        transition:all 200ms ease; /* Establecemos una transición a todas las propiedades */
+    }
 
     .social ul li a {
         background: #666666; /* Cambiamos el fondo cuando el usuario pase el mouse */

@@ -10,503 +10,499 @@
     <div class="tab-pane active" id="s1">
         <div class="row">
             <section>
-                <?php
 
-                $not_confirm=0;
-                $confirm=0;
-                $all=0;
-                $next_app_date=date('M j, Y H:i:s');//echo $next_app_date;
-
-                if(isset($data['my_all_appointments']['data']))
-                {
-                    $all=sizeof($data['my_all_appointments']['data']);
-                    ?>
-
-
-                        <div class="row" style="margin-bottom: 10px;">
-
-                            <div class="">
-                                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-
-                                <ul class="timeline-v1">
-
-                                <?php
-                                for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
-                                {
-                                    //if($i==0)$next_app_date=date('M j, Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
-
-                                    if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
-                                        $label_date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
-                                    elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
-                                        $label_date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
-                                    else
-                                        $label_date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
-
-                                    $timeline_date=date('m/d/Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date']));
-                                    $timeline_month=date('F',strtotime($data['my_all_appointments']['data'][$i]['APT_Date']));
-
-
-                                    if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Pending';else $status='Confirmed';
-                                    $cancel_note = 'To Cancel or Reschedule less than 24 hours, call the office 513-351-FACE(3223)';
-
-                                    $concern='Hello, I have a concern about an appointment with Id: '
-                                        .$data['my_all_appointments']['data'][$i]['RecordID']. ' '
-                                        .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
-                                        .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
-
-                                    switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
-                                    {
-                                        case '':
-                                            $send_me_email="Don't reminder";
-                                            break;
-                                        case -1:
-                                            $send_me_email="Don't reminder";
-                                            break;
-                                        case 30:
-                                            $send_me_email="30 min before";
-                                            break;
-                                        case 60:
-                                            $send_me_email="1 hr before";
-                                            break;
-                                        case 120:
-                                            $send_me_email="2 hrs before";
-                                            break;
-                                        case 1440:
-                                            $send_me_email="1 day before";
-                                            break;
-                                        case 2880:
-                                            $send_me_email="2 days before";
-                                            break;
-                                    }
-
-                                    switch ($data['my_all_appointments']['data'][$i]['ReminderContactBy'])
-                                    {
-                                        case '':
-                                            $contact_by="Email only";
-                                            break;
-                                        case 'no':
-                                            $contact_by="Email only";
-                                            break;
-                                        case 'call':
-                                            $contact_by="Call";
-                                            break;
-                                        case 'sms':
-                                            $contact_by="SMS";
-                                            break;
-                                    }
-
-                                    switch ($data['my_all_appointments']['data'][$i]['ReminderSent'])
-                                    {
-                                        case 1:
-                                            $sent_reminder='Yes';
-                                            break;
-                                        case 0:
-                                            $sent_reminder='No';
-                                            break;
-                                        case '':
-                                            $sent_reminder='No';
-                                            break;
-                                    }
-
-                                    $info=
-                                        '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
-                                        '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
-                                        '<br><b>Date and Time:</b> '.date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])).' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
-                                        '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
-                                        '<br><b>Status:</b> '.$status;
-                                    if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
-                                    if($data['my_all_appointments']['data'][$i]['ReminderMsg']!='')$info.='<br><b>My message:</b> '.$data['my_all_appointments']['data'][$i]['ReminderMsg'];
-                                    $info.='<br><b>Contact me by:</b> '.$contact_by;
-                                    if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
-
-                                    date_default_timezone_set('America/New_York');
-                                    $today_timestamp = strtotime('now');
-                                    $date = strtotime($data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']);
-                                    $dif = $date - $today_timestamp;
-
-                                    if ($dif > 86400)
-                                    {
-                                        $cancel_btn = 1;
-                                    } else
-                                    {
-                                        $cancel_btn = 0;
-                                    }
-                                ?>
-
-                                    <li>
-                                        <div class="timeline-badge primary">
-                                            <i class="entypo-cd" style="color: #0F9B0F;"></i>
-                                            <time class="cbp_tmtime hidden-xs" datetime=""><span><?php print $timeline_date;?></span> <span><?php print $timeline_month;?></span></time>
-                                        </div>
-                                        <div class="timeline-panel">
-                                            <article style="padding: 5px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="card_<?php print $i; ?>">
-
-                                                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="height:150px;background-color: #ccc;text-align:center;padding: 5px;padding-top:18px;font-size: 10px;">
-                                                    <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
-                                                    <img src="<?php print base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
-                                                    <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
-                                                    <img src="<?php print base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
-                                                    <?php }?>
-
-                                                    <?php
-                                                    print '<img class="doc_img" style="width: 60px;" src="';
-                                                    if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
-                                                    print '"/><br><br>';
-                                                    print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'].'<br>'.
-                                                    $data['my_all_appointments']['data'][$i]['Service'];
-                                                    ?>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9" style="text-align:center;background-color: #eee;color:#000;padding: 10px;">
-                                                    <div style="float: right;position: relative;font-size: 16px;">
-
-                                                        <a target="_blank" href="<?php print base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
-                                                            <span class="entypo-printer"></span>
-                                                        </a>
-                                                        <br>
-                                                        <a target="_blank" class="chat" data-content="<?php print $concern;?>">
-                                                            <span class="entypo-chat"></span>
-                                                        </a>
-                                                        <br>
-                                                        <a data-container="body" data-toggle="popover" data-html="true" data-placement="right" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
-                                                            <span class="entypo-info2"></span>
-                                                        </a>
-                                                        <br>
-                                                        <a class="download_ical" id="<?php print $i;?>">
-                                                            <span class="brankic-calendar"></span>
-                                                        </a>
-                                                    </div>
-
-                                                    <div style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
-                                                    <br>
-
-                                                    <?php print $label_date;?>
-
-                                                    <br><br>
-
-                                                    <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
-
-                                                        <div class="text-danger"
-                                                             style="text-align:center;font-weight: bold; font-size: 15px;">
-                                                            Status: Pending <span class="brankic-warning"></span>
-                                                        </div>
-                                                    <?php } else { ?>
-                                                        <div class="text-success"
-                                                             style="text-align:center;font-weight: bold; font-size: 15px;">
-                                                            Status: Confirmed <span class="brankic-checkmark"></span>
-                                                        </div>
-                                                    <?php } ?>
-
-                                                    <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
-
-                                                    <div style="text-align:right;">
-                                                        <?php
-                                                        if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')
-                                                        {
-                                                            $not_confirm++;
-                                                            ?>
-                                                            <button type="button"
-                                                                    class="btn btn-xs btn_confirm_app btn-success"
-                                                                    id="<?php print $i; ?>">Confirm
-                                                            </button>
-                                                            <?php
-                                                        }
-                                                        else
-                                                        {
-                                                            $confirm++;
-                                                            ?>
-                                                            <button type="button" class="btn btn-xs resend_email btn-success"
-                                                                    id="<?php print $i; ?>">Resend email
-                                                            </button>
-                                                            <?php
-                                                        }
-                                                        if ($cancel_btn == 1)
-                                                        {
-                                                            ?>
-                                                            <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php print $i;?>">Reschedule</button>
-                                                            <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php print $i;?>">Cancel</button>
-                                                            <?php
-                                                        }
-                                                        ?>
-
-                                                    </div>
-
-                                                    <form method="post" action="Dashboard/DownloadiCal"
-                                                          id="frm_next_<?php print $i; ?>">
-
-                                                        <input id="hdn_title_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                        <input id="hdn_date_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                        <input id="hdn_time_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
-                                                        <input id="hdn_doc_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName']; ?>"/>
-                                                        <input id="hdn_ser_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['Service']; ?>"/>
-                                                        <input id="hdn_tok_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['TokenConfirmApp']; ?>"/>
-                                                        <input id="hdn_id_doc_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['ProviderRec']; ?>"/>
-                                                        <input id="hdn_id_serv_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['_kf_ServiceID']; ?>"/>
-                                                        <input id="hdn_id_zpk_Appointment_Rec<?php print $i; ?>"
-                                                               type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['__zpk_Appointment_Rec']; ?>"/>
-                                                        <input id="hdn_id_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['RecordID']; ?>"/>
-
-                                                        <input name="hdn_ical_start_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
-                                                        <input name="hdn_ical_end_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
-                                                        <input name="hdn_ical_addr" type="hidden"
-                                                               value="<?php print '3805 Edwards Rd 100 Cincinnati, OH 45244'; ?>"/>
-                                                        <input name="hdn_ical_url" type="hidden"
-                                                               value="<?php print '351face.com'; ?>"/>
-                                                        <input name="hdn_ical_title_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
-                                                        <input name="hdn_ical_date_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
-                                                        <input name="hdn_item_<?php print $i; ?>" type="hidden"
-                                                               value="<?php print $i; ?>"/>
-                                                        <input id="hdn_old_app_<?php print $i; ?>" type="hidden" value="<?php print $info; ?>"/>
-                                                        <input id="hdn_ReminderEmail_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderEmail']; ?>"/>
-                                                        <input id="hdn_ReminderMsg_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderMsg']; ?>"/>
-                                                        <input id="hdn_ReminderContactBy_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderContactBy']; ?>"/>
-
-                                                    </form>
-                                                </div>
-
-                                            </article>
-                                        </div>
-                                    </li>
-                                    <li class="clearfix" style="float: none;"></li>
-
-                                <?php
-                                }
-                                ?>
-                            </ul>
-
-                            </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7" style="margin-top: 20px;">
-                                <fieldset class="myfieldset" style="margin-top: -10px">
-                                    <legend class="mylegend">Advertisement</legend>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
-                                        <div class="bannercontainer" >
-                                            <div class="banner" >
-                                                <ul>
-                                                    <!-- THE FIRST SLIDE -->
-                                                    <li data-transition="fade,papercut" data-slotamount="10" data-masterspeed="300" data-target="_blank" data-slideindex="back">
-
-
-                                                        <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
-                                                        <img src="assets/images/slider/revolution/bg1.jpg">
-
-                                                        <div class="caption large_text sfb bg-black-opacity"
-                                                             data-x="196"
-                                                             data-y="12"
-                                                             data-speed="300"
-                                                             data-start="800"
-                                                             data-easing="easeOutExpo">
-                                                            Advanced Cosmetic Surgery
-                                                        </div>
-
-                                                        <div class="caption randomrotate"
-                                                             data-x="209"
-                                                             data-y="256"
-                                                             data-speed="600"
-                                                             data-start="1100"
-                                                             data-easing="easeOutExpo">
-                                                            <img class="img-border" src="assets/images/slider/revolution/p1.jpg" alt="Image 2">
-                                                        </div>
-
-                                                        <div class="caption randomrotate"
-                                                             data-x="20"
-                                                             data-y="272"
-                                                             data-speed="600"
-                                                             data-start="1200"
-                                                             data-easing="easeOutExpo">
-                                                            <img class="img-border" src="assets/images/slider/revolution/p2.jpg" alt="Image 3">
-                                                        </div>
-
-                                                        <div class="caption randomrotate"
-                                                             data-x="220"
-                                                             data-y="389"
-                                                             data-speed="600"
-                                                             data-start="1300"
-                                                             data-easing="easeOutExpo">
-                                                            <img class="img-border" src="assets/images/slider/revolution/p6.jpg" alt="Image 4">
-                                                        </div>
-
-                                                        <div class="caption randomrotate"
-                                                             data-x="117"
-                                                             data-y="257"
-                                                             data-speed="300"
-                                                             data-start="1400"
-                                                             data-easing="easeOutExpo">
-                                                            <img class="img-border" src="assets/images/slider/revolution/p4.jpg" alt="Image 5">
-                                                        </div>
-
-                                                        <div class="caption randomrotate"
-                                                             data-x="34"
-                                                             data-y="402"
-                                                             data-speed="600"
-                                                             data-start="1500"
-                                                             data-easing="easeOutExpo">
-                                                            <img class="img-border" src="assets/images/slider/revolution/p5.jpg" alt="Image 6">
-                                                        </div>
-
-                                                        <div class="caption randomrotate"
-                                                             data-x="86"
-                                                             data-y="325"
-                                                             data-speed="300"
-                                                             data-start="2000"
-                                                             data-easing="easeOutExpo"  ><img src="assets/images/slider/revolution/p7.jpg" alt="Image 7">
-                                                        </div>
-
-                                                    </li>
-
-                                                    <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-target="_blank" data-delay="9400">
-
-                                                        <!-- THE MAIN IMAGE IN THE SECOND SLIDE -->
-                                                        <img src="assets/images/slider/revolution/bg2.jpg">
-
-                                                        <div class="caption very_big_white lfl stl"
-                                                             data-x="38"
-                                                             data-y="343"
-                                                             data-speed="300"
-                                                             data-start="500"
-                                                             data-easing="easeOutExpo" data-end="8800" data-endspeed="300" data-endeasing="easeInSine">
-                                                            Feel proud to say every day!
-                                                        </div>
-
-                                                        <div class="caption big_white lfl stl"
-                                                             data-x="38"
-                                                             data-y="390"
-                                                             data-speed="300"
-                                                             data-start="800"
-                                                             data-easing="easeOutExpo" data-end="9100" data-endspeed="300" data-endeasing="easeInSine">
-                                                            “I woke up like this”
-                                                        </div>
-
-                                                        <div class="caption lft ltb"
-                                                             data-x="600"
-                                                             data-y="0"
-                                                             data-speed="600"
-                                                             data-start="1100"
-                                                             data-easing="easeOutExpo" data-end="7100" data-endspeed="600" data-endeasing="easeInSine">
-                                                            <img src="assets/images/slider/revolution/s2_p1.jpg" alt="Image 3">
-                                                        </div>
-
-                                                        <div class="caption bold_green_text sft stb"
-                                                             data-x="610"
-                                                             data-y="290"
-                                                             data-speed="300"
-                                                             data-start="1400"
-                                                             data-easing="easeOutExpo" data-end="7300" data-endspeed="300" data-endeasing="easeInSine">
-                                                            Cheer on your team without <br>the fear of underarm sweat!
-                                                        </div>
-
-                                                        <div class="caption big_black sfb stb"
-                                                             data-x="610"
-                                                             data-y="320"
-                                                             data-speed="300"
-                                                             data-start="1700"
-                                                             data-easing="easeOutExpo" data-end="7200" data-endspeed="300" data-endeasing="easeInSine">
-
-                                                        </div>
-
-                                                        <div class="caption lft ltb"
-                                                             data-x="600"
-                                                             data-y="0"
-                                                             data-speed="600"
-                                                             data-start="3600"
-                                                             data-easing="easeOutExpo" data-end="5600" data-endspeed="600" data-endeasing="easeInSine">
-                                                            <img src="assets/images/slider/revolution/s2_p2.jpg" alt="Image 6">
-                                                        </div>
-
-                                                        <div class="caption bold_brown_text sft stb"
-                                                             data-x="610"
-                                                             data-y="290"
-                                                             data-speed="300"
-                                                             data-start="3900"
-                                                             data-easing="easeOutExpo" data-end="5800" data-endspeed="300" data-endeasing="easeInSine" >
-                                                            It’s not luck…
-                                                        </div>
-
-                                                        <div class="caption big_black sfb stb"
-                                                             data-x="610"
-                                                             data-y="320"
-                                                             data-speed="300"
-                                                             data-start="4200"
-                                                             data-easing="easeOutExpo" data-end="5700" data-endspeed="300" data-endeasing="easeInSine">
-                                                            It’s Advanced Cosmetic!
-                                                        </div>
-                                                    </li>
-                                                </ul>
-
-                                                <div class="tp-bannertimer tp-bottom"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            </div>
-
-
-                                <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                                    <fieldset class="myfieldset" style="margin-top: -10px;">
-                                        <legend class="mylegend">Add Appointment</legend>
-
-                                        <div align="justify" style="height: 80px;">You can see the availability of any provider and the service, click on any Available space and confirm the Appointment.</div>
-
-                                        <button type="submit" onclick="LoadContent('Dashboard');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
-                                            <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="brankic-calendar2"></span>
-                                        </button>
-                                    </fieldset>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                                    <fieldset class="myfieldset" style="margin-top: -10px;">
-                                        <legend class="mylegend">Take a Survey</legend>
-
-                                        <div align="justify" style="height: 80px;">Please rate each area of interest.</div>
-
-                                        <button type="submit" onclick="LoadContent('Survey');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
-                                            <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-clipboard"></span>
-                                        </button>
-                                    </fieldset>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                                    <fieldset class="myfieldset" style="margin-top: -10px;">
-                                        <legend class="mylegend">Fill Personal Info</legend>
-
-                                        <div align="justify" style="height: 80px;">Filling this form before your arrival will help save you time.</div>
-
-                                        <button type="submit" onclick="LoadContent('User/GoPersonalInfo');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
-                                            <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-text"></span>
-                                        </button>
-                                    </fieldset>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <fieldset class="myfieldset" style="margin-top: -10px">
-                                        <legend class="mylegend">Where you can find us?</legend>
-                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
-                                            <iframe width="100%" height="225px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.136945070171!2d-84.44422776430045!3d39.14886676372474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b287364d37bb%3A0xf2cae7e0cad59f0!2s3805+Edwards+Rd+%23100%2C+Cincinnati%2C+OH+45209!5e0!3m2!1sen!2sus!4v1514489513158" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                        </div>
-                                    </fieldset>
-                                </div>
-
-
-                        </div>
+                <div class="row" style="margin-bottom: 10px;">
 
                     <?php
-                }
-                else print '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>';
-                ?>
+                    $not_confirm=0;
+                    $confirm=0;
+                    $all=0;
+                    $next_app_date=date('M j, Y H:i:s');//echo $next_app_date;
+
+                    if(isset($data['my_all_appointments']['data']))
+                    {
+                        $all=sizeof($data['my_all_appointments']['data']);
+                    ?>
+
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+
+                        <ul class="timeline-v1">
+
+                            <?php
+                            for($i=0;$i<sizeof($data['my_all_appointments']['data']);$i++)
+                            {
+                                //if($i==0)$next_app_date=date('M j, Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
+
+                                if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y'))
+                                    $label_date='<span class="badge" style="background-color: #CB201C;">Today at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day")))
+                                    $label_date='<span class="badge" style="background-color: #FF694E;">Tomorrow at ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+                                else
+                                    $label_date='<span class="badge">'. date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])) . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).'</span>';
+
+                                $timeline_date=date('m/d/Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date']));
+                                $timeline_month=date('F',strtotime($data['my_all_appointments']['data'][$i]['APT_Date']));
+
+
+                                if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')$status='Pending';else $status='Confirmed';
+                                $cancel_note = 'To Cancel or Reschedule less than 24 hours, call the office 513-351-FACE(3223)';
+
+                                $concern='Hello, I have a concern about an appointment with Id: '
+                                    .$data['my_all_appointments']['data'][$i]['RecordID']. ' '
+                                    .$data['my_all_appointments']['data'][$i]['APT_Title']. ' '
+                                    .$data['my_all_appointments']['data'][$i]['APT_Date'].' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time']));
+
+                                switch ($data['my_all_appointments']['data'][$i]['ReminderEmail'])
+                                {
+                                    case '':
+                                        $send_me_email="Don't reminder";
+                                        break;
+                                    case -1:
+                                        $send_me_email="Don't reminder";
+                                        break;
+                                    case 30:
+                                        $send_me_email="30 min before";
+                                        break;
+                                    case 60:
+                                        $send_me_email="1 hr before";
+                                        break;
+                                    case 120:
+                                        $send_me_email="2 hrs before";
+                                        break;
+                                    case 1440:
+                                        $send_me_email="1 day before";
+                                        break;
+                                    case 2880:
+                                        $send_me_email="2 days before";
+                                        break;
+                                }
+
+                                switch ($data['my_all_appointments']['data'][$i]['ReminderContactBy'])
+                                {
+                                    case '':
+                                        $contact_by="Email only";
+                                        break;
+                                    case 'no':
+                                        $contact_by="Email only";
+                                        break;
+                                    case 'call':
+                                        $contact_by="Call";
+                                        break;
+                                    case 'sms':
+                                        $contact_by="SMS";
+                                        break;
+                                }
+
+                                switch ($data['my_all_appointments']['data'][$i]['ReminderSent'])
+                                {
+                                    case 1:
+                                        $sent_reminder='Yes';
+                                        break;
+                                    case 0:
+                                        $sent_reminder='No';
+                                        break;
+                                    case '':
+                                        $sent_reminder='No';
+                                        break;
+                                }
+
+                                $info=
+                                    '<b>Id:</b> '.$data['my_all_appointments']['data'][$i]['RecordID'].
+                                    '<br><b>Title:</b> '.$data['my_all_appointments']['data'][$i]['APT_Title'].
+                                    '<br><b>Date and Time:</b> '.date('M jS Y',strtotime($data['my_all_appointments']['data'][$i]['APT_Date'])).' '.date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])).
+                                    '<br><b>Provider:</b> '.$data['my_all_appointments']['data'][$i]['FirstName'].' '.$data['my_all_appointments']['data'][$i]['LastName'].
+                                    '<br><b>Status:</b> '.$status;
+                                if($send_me_email!='')$info.='<br><b>Send me an Email:</b> '.$send_me_email;
+                                if($data['my_all_appointments']['data'][$i]['ReminderMsg']!='')$info.='<br><b>My message:</b> '.$data['my_all_appointments']['data'][$i]['ReminderMsg'];
+                                $info.='<br><b>Contact me by:</b> '.$contact_by;
+                                if($sent_reminder!='')$info.='<br><b>Sent reminder:</b> '.$sent_reminder;
+
+                                date_default_timezone_set('America/New_York');
+                                $today_timestamp = strtotime('now');
+                                $date = strtotime($data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_Time']);
+                                $dif = $date - $today_timestamp;
+
+                                if ($dif > 86400)
+                                {
+                                    $cancel_btn = 1;
+                                } else
+                                {
+                                    $cancel_btn = 0;
+                                }
+                            ?>
+
+                                <li>
+                                    <div class="timeline-badge primary">
+                                        <i class="entypo-cd" style="color: #0F9B0F;"></i>
+                                        <time class="cbp_tmtime hidden-xs" datetime=""><span><?php print $timeline_date;?></span> <span><?php print $timeline_month;?></span></time>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <article style="padding: 5px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="card_<?php print $i; ?>">
+
+                                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" style="height:150px;background-color: #ccc;text-align:center;padding: 5px;padding-top:18px;font-size: 10px;">
+                                                <?php if($data['my_all_appointments']['data'][$i]['APT_Date']==date('m/d/Y')){?>
+                                                <img src="<?php print base_url('assets/images/ribbon_left_danger.png')?>" class="ribbon_left" alt="">
+                                                <?php }elseif($data['my_all_appointments']['data'][$i]['APT_Date']==date("m/d/Y", strtotime("+1 day"))) {?>
+                                                <img src="<?php print base_url('assets/images/ribbon_left_warning.png')?>" class="ribbon_left" alt="">
+                                                <?php }?>
+
+                                                <?php
+                                                print '<img class="doc_img" style="width: 60px;" src="';
+                                                if ($data['my_all_appointments']['data'][$i]['Photo']) print $data['my_all_appointments']['data'][$i]['Photo']; else print base_url('assets/images/male.png');
+                                                print '"/><br><br>';
+                                                print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName'].'<br>'.
+                                                $data['my_all_appointments']['data'][$i]['Service'];
+                                                ?>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9" style="text-align:center;background-color: #eee;color:#000;padding: 10px;">
+                                                <div style="float: right;position: relative;font-size: 16px;">
+
+                                                    <a target="_blank" href="<?php print base_url('/Appointment/PrintAppointment/' . $data['my_all_appointments']['data'][$i]['RecordID']); ?>">
+                                                        <span class="entypo-printer"></span>
+                                                    </a>
+                                                    <br>
+                                                    <a target="_blank" class="chat" data-content="<?php print $concern;?>">
+                                                        <span class="entypo-chat"></span>
+                                                    </a>
+                                                    <br>
+                                                    <a data-container="body" data-toggle="popover" data-html="true" data-placement="right" data-content="<?php print $info.'<br><br><b>'.$cancel_note.'</b>';?>">
+                                                        <span class="entypo-info2"></span>
+                                                    </a>
+                                                    <br>
+                                                    <a class="download_ical" id="<?php print $i;?>">
+                                                        <span class="brankic-calendar"></span>
+                                                    </a>
+                                                </div>
+
+                                                <div style="text-align:center;font-weight: bold; font-size: 12px;"><?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?></div>
+                                                <br>
+
+                                                <?php print $label_date;?>
+
+                                                <br><br>
+
+                                                <?php if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '') { ?>
+
+                                                    <div class="text-danger"
+                                                         style="text-align:center;font-weight: bold; font-size: 15px;">
+                                                        Status: Pending <span class="brankic-warning"></span>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="text-success"
+                                                         style="text-align:center;font-weight: bold; font-size: 15px;">
+                                                        Status: Confirmed <span class="brankic-checkmark"></span>
+                                                    </div>
+                                                <?php } ?>
+
+                                                <hr style="border-top: 1px solid #8c8b8b;border-bottom: 1px solid #fff;margin-top: 7px; margin-bottom: 0px;">
+
+                                                <div style="text-align:right;">
+                                                    <?php
+                                                    if ($data['my_all_appointments']['data'][$i]['TokenConfirmApp'] != '')
+                                                    {
+                                                        $not_confirm++;
+                                                        ?>
+                                                        <button type="button"
+                                                                class="btn btn-xs btn_confirm_app btn-success"
+                                                                id="<?php print $i; ?>">Confirm
+                                                        </button>
+                                                        <?php
+                                                    }
+                                                    else
+                                                    {
+                                                        $confirm++;
+                                                        ?>
+                                                        <button type="button" class="btn btn-xs resend_email btn-success"
+                                                                id="<?php print $i; ?>">Resend email
+                                                        </button>
+                                                        <?php
+                                                    }
+                                                    if ($cancel_btn == 1)
+                                                    {
+                                                        ?>
+                                                        <button type="button" class="btn btn-xs btn_reschedule btn-warning" id="<?php print $i;?>">Reschedule</button>
+                                                        <button type="button" class="btn btn-xs btn_cancel btn-danger" id="<?php print $i;?>">Cancel</button>
+                                                        <?php
+                                                    }
+                                                    ?>
+
+                                                </div>
+
+                                                <form method="post" action="Dashboard/DownloadiCal"
+                                                      id="frm_next_<?php print $i; ?>">
+
+                                                    <input id="hdn_title_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
+                                                    <input id="hdn_date_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
+                                                    <input id="hdn_time_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
+                                                    <input id="hdn_doc_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['FirstName'] . ' ' . $data['my_all_appointments']['data'][$i]['LastName']; ?>"/>
+                                                    <input id="hdn_ser_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['Service']; ?>"/>
+                                                    <input id="hdn_tok_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['TokenConfirmApp']; ?>"/>
+                                                    <input id="hdn_id_doc_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['ProviderRec']; ?>"/>
+                                                    <input id="hdn_id_serv_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['_kf_ServiceID']; ?>"/>
+                                                    <input id="hdn_id_zpk_Appointment_Rec<?php print $i; ?>"
+                                                           type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['__zpk_Appointment_Rec']; ?>"/>
+                                                    <input id="hdn_id_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['RecordID']; ?>"/>
+
+                                                    <input name="hdn_ical_start_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . date('h:i A',strtotime($data['my_all_appointments']['data'][$i]['APT_Time'])); ?>"/>
+                                                    <input name="hdn_ical_end_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date'] . ' ' . $data['my_all_appointments']['data'][$i]['APT_TimeEnd']; ?>"/>
+                                                    <input name="hdn_ical_addr" type="hidden"
+                                                           value="<?php print '3805 Edwards Rd 100 Cincinnati, OH 45244'; ?>"/>
+                                                    <input name="hdn_ical_url" type="hidden"
+                                                           value="<?php print '351face.com'; ?>"/>
+                                                    <input name="hdn_ical_title_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['APT_Title']; ?>"/>
+                                                    <input name="hdn_ical_date_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $data['my_all_appointments']['data'][$i]['APT_Date']; ?>"/>
+                                                    <input name="hdn_item_<?php print $i; ?>" type="hidden"
+                                                           value="<?php print $i; ?>"/>
+                                                    <input id="hdn_old_app_<?php print $i; ?>" type="hidden" value="<?php print $info; ?>"/>
+                                                    <input id="hdn_ReminderEmail_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderEmail']; ?>"/>
+                                                    <input id="hdn_ReminderMsg_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderMsg']; ?>"/>
+                                                    <input id="hdn_ReminderContactBy_<?php print $i; ?>" type="hidden" value="<?php print $data['my_all_appointments']['data'][$i]['ReminderContactBy']; ?>"/>
+
+                                                </form>
+                                            </div>
+
+                                        </article>
+                                    </div>
+                                </li>
+                                <li class="clearfix" style="float: none;"></li>
+
+                            <?php
+                            }
+                            ?>
+                        </ul>
+
+                    </div>
+
+                    <?php
+                    }
+                    else print '<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 text-center"><h3>You don\'t have any future appointments.</h3></div>';
+                    ?>
+
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7" style="margin-top: 20px;">
+                        <fieldset class="myfieldset" style="margin-top: -10px">
+                            <legend class="mylegend">Advertisement</legend>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
+                                <div class="bannercontainer" >
+                                    <div class="banner" >
+                                        <ul>
+                                            <!-- THE FIRST SLIDE -->
+                                            <li data-transition="fade,papercut" data-slotamount="10" data-masterspeed="300" data-target="_blank" data-slideindex="back">
+
+
+                                                <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
+                                                <img src="assets/images/slider/revolution/bg1.jpg">
+
+                                                <div class="caption large_text sfb bg-black-opacity"
+                                                     data-x="196"
+                                                     data-y="12"
+                                                     data-speed="300"
+                                                     data-start="800"
+                                                     data-easing="easeOutExpo">
+                                                    Advanced Cosmetic Surgery
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="209"
+                                                     data-y="256"
+                                                     data-speed="600"
+                                                     data-start="1100"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p1.jpg" alt="Image 2">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="20"
+                                                     data-y="272"
+                                                     data-speed="600"
+                                                     data-start="1200"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p2.jpg" alt="Image 3">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="220"
+                                                     data-y="389"
+                                                     data-speed="600"
+                                                     data-start="1300"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p6.jpg" alt="Image 4">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="117"
+                                                     data-y="257"
+                                                     data-speed="300"
+                                                     data-start="1400"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p4.jpg" alt="Image 5">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="34"
+                                                     data-y="402"
+                                                     data-speed="600"
+                                                     data-start="1500"
+                                                     data-easing="easeOutExpo">
+                                                    <img class="img-border" src="assets/images/slider/revolution/p5.jpg" alt="Image 6">
+                                                </div>
+
+                                                <div class="caption randomrotate"
+                                                     data-x="86"
+                                                     data-y="325"
+                                                     data-speed="300"
+                                                     data-start="2000"
+                                                     data-easing="easeOutExpo"  ><img src="assets/images/slider/revolution/p7.jpg" alt="Image 7">
+                                                </div>
+
+                                            </li>
+
+                                            <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-target="_blank" data-delay="9400">
+
+                                                <!-- THE MAIN IMAGE IN THE SECOND SLIDE -->
+                                                <img src="assets/images/slider/revolution/bg2.jpg">
+
+                                                <div class="caption very_big_white lfl stl"
+                                                     data-x="38"
+                                                     data-y="343"
+                                                     data-speed="300"
+                                                     data-start="500"
+                                                     data-easing="easeOutExpo" data-end="8800" data-endspeed="300" data-endeasing="easeInSine">
+                                                    Feel proud to say every day!
+                                                </div>
+
+                                                <div class="caption big_white lfl stl"
+                                                     data-x="38"
+                                                     data-y="390"
+                                                     data-speed="300"
+                                                     data-start="800"
+                                                     data-easing="easeOutExpo" data-end="9100" data-endspeed="300" data-endeasing="easeInSine">
+                                                    “I woke up like this”
+                                                </div>
+
+                                                <div class="caption lft ltb"
+                                                     data-x="600"
+                                                     data-y="0"
+                                                     data-speed="600"
+                                                     data-start="1100"
+                                                     data-easing="easeOutExpo" data-end="7100" data-endspeed="600" data-endeasing="easeInSine">
+                                                    <img src="assets/images/slider/revolution/s2_p1.jpg" alt="Image 3">
+                                                </div>
+
+                                                <div class="caption bold_green_text sft stb"
+                                                     data-x="610"
+                                                     data-y="290"
+                                                     data-speed="300"
+                                                     data-start="1400"
+                                                     data-easing="easeOutExpo" data-end="7300" data-endspeed="300" data-endeasing="easeInSine">
+                                                    Cheer on your team without <br>the fear of underarm sweat!
+                                                </div>
+
+                                                <div class="caption big_black sfb stb"
+                                                     data-x="610"
+                                                     data-y="320"
+                                                     data-speed="300"
+                                                     data-start="1700"
+                                                     data-easing="easeOutExpo" data-end="7200" data-endspeed="300" data-endeasing="easeInSine">
+
+                                                </div>
+
+                                                <div class="caption lft ltb"
+                                                     data-x="600"
+                                                     data-y="0"
+                                                     data-speed="600"
+                                                     data-start="3600"
+                                                     data-easing="easeOutExpo" data-end="5600" data-endspeed="600" data-endeasing="easeInSine">
+                                                    <img src="assets/images/slider/revolution/s2_p2.jpg" alt="Image 6">
+                                                </div>
+
+                                                <div class="caption bold_brown_text sft stb"
+                                                     data-x="610"
+                                                     data-y="290"
+                                                     data-speed="300"
+                                                     data-start="3900"
+                                                     data-easing="easeOutExpo" data-end="5800" data-endspeed="300" data-endeasing="easeInSine" >
+                                                    It’s not luck…
+                                                </div>
+
+                                                <div class="caption big_black sfb stb"
+                                                     data-x="610"
+                                                     data-y="320"
+                                                     data-speed="300"
+                                                     data-start="4200"
+                                                     data-easing="easeOutExpo" data-end="5700" data-endspeed="300" data-endeasing="easeInSine">
+                                                    It’s Advanced Cosmetic!
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tp-bannertimer tp-bottom"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                        <fieldset class="myfieldset" style="margin-top: -10px;">
+                            <legend class="mylegend">Add Appointment</legend>
+
+                            <div align="justify" style="height: 80px;">You can see the availability of any provider and the service, click on any Available space and confirm the Appointment.</div>
+
+                            <button type="submit" onclick="LoadContent('Dashboard');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="brankic-calendar2"></span>
+                            </button>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                        <fieldset class="myfieldset" style="margin-top: -10px;">
+                            <legend class="mylegend">Take a Survey</legend>
+
+                            <div align="justify" style="height: 80px;">Please rate each area of interest.</div>
+
+                            <button type="submit" onclick="LoadContent('Survey');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-clipboard"></span>
+                            </button>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
+                        <fieldset class="myfieldset" style="margin-top: -10px;">
+                            <legend class="mylegend">Fill Personal Info</legend>
+
+                            <div align="justify" style="height: 80px;">Filling this form before your arrival will help save you time.</div>
+
+                            <button type="submit" onclick="LoadContent('User/GoPersonalInfo');" class="btn btn-lg btn-success btn-block" style="height: 45px;font-size: 18px;">
+                                <span style="vertical-align: middle;">Go</span> <span style="font-size: 26px;vertical-align: middle" class="entypo-text"></span>
+                            </button>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <fieldset class="myfieldset" style="margin-top: -10px">
+                            <legend class="mylegend">Where you can find us?</legend>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;">
+                                <iframe width="100%" height="225px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.136945070171!2d-84.44422776430045!3d39.14886676372474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b287364d37bb%3A0xf2cae7e0cad59f0!2s3805+Edwards+Rd+%23100%2C+Cincinnati%2C+OH+45209!5e0!3m2!1sen!2sus!4v1514489513158" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                </div>
+
             </section>
         </div>
     </div>

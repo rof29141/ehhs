@@ -31,14 +31,12 @@
                                 ?>
 
                                 <tr id="<?php print "tr" . $i;?>">
-
-                                    <td style="width: 20%"data-goto="<?php print $go_to;?>"><?php print $data[$i]['MNI_Category'];?></td>
-                                    <td style="width: 20%"data-goto="<?php print $go_to;?>"><?php print $data[$i]['MNI_Name'];?></td>
+                                    <td style="width: 25%"data-goto="<?php print $go_to;?>"><?php print $data[$i]['MNI_Category'];?></td>
+                                    <td style="width: 35%"data-goto="<?php print $go_to;?>"><?php print $data[$i]['MNI_Name'];?></td>
                                     <td style="width: 10%"data-goto="<?php print $go_to;?>"><?php print $data[$i]['CPT_Code'];?></td>
                                     <td style="width: 10%"data-goto="<?php print $go_to;?>"><?php print $data[$i]['Qty'];?></td>
                                     <td style="width: 10%"data-goto="<?php print $go_to;?>"><?php print $data[$i]['Rate'];?></td>
                                     <td style="width: 10%"data-goto="<?php print $go_to;?>"><?php print $data[$i]['BIL_Total'];?></td>
-
                                 </tr>
 
                                 <?php

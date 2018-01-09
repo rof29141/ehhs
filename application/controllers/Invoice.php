@@ -39,21 +39,27 @@ class Invoice extends CI_Controller
 
     function GetInvoiceLine()
     {
-        $id_invoice = $this->input->post('id_invoice');
-        $anchor = $this->input->post('anchor');
-        $cat = $this->input->post('cat');
-
-        if($id_invoice!='')
+        if($this->session->userdata('logged_user_acs'))
         {
-            $result = $this->M_Invoice->GetInvoiceLine($id_invoice, $anchor, $cat);
+            $id_invoice = $this->input->post('id_invoice');
+            $anchor = $this->input->post('anchor');
+            $cat = $this->input->post('cat');
 
-            if($result['error']=='0')
+            if ($id_invoice != '')
             {
-                //$data['invoice_detail']=$result['data'];
-                $this->load->view('invoice/InvoiceLine', $result);
+                $result = $this->M_Invoice->GetInvoiceLine($id_invoice, $anchor, $cat);
+
+                if ($result['error'] == '0')
+                {
+                    //$data['invoice_detail']=$result['data'];
+                    $this->load->view('invoice/InvoiceLine', $result);
+                } else
+                    print $result['error'];
             }
-            else
-                print $result['error'];
+        }
+        else
+        {
+            print '<div class="text-center"><h3>Your session is expired.</h3></div>';
         }
     }
 

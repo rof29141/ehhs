@@ -44,7 +44,7 @@ if(isset($data))
                 <td style="width: 7%"data-goto="<?php print $go_to;?>"><?php print $data['my_invoices']['data'][$i]['Tax'];?></td>
                 <td style="width: 7%"data-goto="<?php print $go_to;?>"><?php print $data['my_invoices']['data'][$i]['Total_PostTax'];?></td>
 
-                <td class="text-right">
+                <td class="text-center">
                     <?php if($data['my_invoices']['data'][$i]['HaveLines']){?>
                         <a class="detail-invoice" id="<?php print $data['my_invoices']['data'][$i]['__zkp_Billing_Rec'].'|'.$data['my_invoices']['data'][$i]['Anchor'].'|'.$data['my_invoices']['data'][$i]['MNI_Category_F'];?>" target="_blank"><i class="entypo-info2"></i>
                     <?php }?>
