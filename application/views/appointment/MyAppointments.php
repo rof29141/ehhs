@@ -1020,12 +1020,12 @@ if(isset($data['my_all_appointments']['data']))
 $events = json_encode($events);
 ?>
     <script type="text/javascript">
-        $(document).ready(function()
+        jQuery(document).ready(function()
         {
-            if ($.fn.cssOriginal!=undefined)
-                $.fn.css = $.fn.cssOriginal;
+            if (jQuery.fn.cssOriginal!=undefined)
+                jQuery.fn.css = jQuery.fn.cssOriginal;
 
-            $('.banner').revolution(
+            jQuery('.banner').revolution(
             {
                 delay:5000,
                 startheight:500,
@@ -1071,33 +1071,33 @@ $events = json_encode($events);
                 fullWidth:"off"							// Turns On or Off the Fullwidth Image Centering in FullWidth Modu
             });
 
-            $('.count').each(function () {
-                $(this).prop('Counter',0).animate({
-                    Counter: $(this).text()
+            jQuery('.count').each(function () {
+                jQuery(this).prop('Counter',0).animate({
+                    Counter: jQuery(this).text()
                 }, {
                     duration: 4000,
                     easing: 'swing',
                     step: function (now) {
-                        $(this).text(Math.ceil(now));
+                        jQuery(this).text(Math.ceil(now));
                     }
                 });
             });
 
-            $('#badge_all').html(<?php print $all;?>);
-            $('#badge_all1').html(<?php print $all;?>);
-            $('#badge_confirm').html(<?php print $confirm;?>);
-            $('#badge_pending').html(<?php print $not_confirm;?>);
+            jQuery('#badge_all').html(<?php print $all;?>);
+            jQuery('#badge_all1').html(<?php print $all;?>);
+            jQuery('#badge_confirm').html(<?php print $confirm;?>);
+            jQuery('#badge_pending').html(<?php print $not_confirm;?>);
 
-            $('.btn_confirm_app').on('click', function ()
+            jQuery('.btn_confirm_app').on('click', function ()
             {
-                var i = $(this).attr('id');//alert(i);
+                var i = jQuery(this).attr('id');//alert(i);
 
-                var title=$('#hdn_title_'+i).val();
-                var serv=$('#hdn_ser_'+i).val();
-                var doc=$('#hdn_doc_'+i).val();
-                var date=$('#hdn_date_'+i).val();
-                var time=$('#hdn_time_'+i).val();
-                var token=$('#hdn_tok_'+i).val();//alert(token);
+                var title=jQuery('#hdn_title_'+i).val();
+                var serv=jQuery('#hdn_ser_'+i).val();
+                var doc=jQuery('#hdn_doc_'+i).val();
+                var date=jQuery('#hdn_date_'+i).val();
+                var time=jQuery('#hdn_time_'+i).val();
+                var token=jQuery('#hdn_tok_'+i).val();//alert(token);
 
                 var from_email = "<?php print $email_from;?>";
                 var from_name = "<?php print $email_from_name;?>";
@@ -1125,7 +1125,7 @@ $events = json_encode($events);
                     '<?php echo EMAIL_SIGNATURE;?>' +
                     '</body></html>';
 
-                $.ajax(
+                jQuery.ajax(
                 {
                     url:'Main/EnviarEmail',
                     type:'POST',
@@ -1133,25 +1133,25 @@ $events = json_encode($events);
                 }).done(function(response, textStatus, jqXHR)
                 {
                     if(response == 'WRONG') {
-                        $('#modal').html('Your email is wrong.');
+                        jQuery('#modal').html('Your email is wrong.');
                     }
                     else
                     {
-                        $('#modal').html('A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');
+                        jQuery('#modal').html('A confirmation request email has been sent to ' + email_to+'<br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');
                     }
-                    $('#remoteModal').modal('show');
+                    jQuery('#remoteModal').modal('show');
                 });
             });
 
-            $('.resend_email').on('click', function ()
+            jQuery('.resend_email').on('click', function ()
             {
-                var i = $(this).attr('id');//alert(i);
+                var i = jQuery(this).attr('id');//alert(i);
 
-                var title=$('#hdn_title_'+i).val();
-                var serv=$('#hdn_ser_'+i).val();
-                var doc=$('#hdn_doc_'+i).val();
-                var date=$('#hdn_date_'+i).val();
-                var time=$('#hdn_time_'+i).val();
+                var title=jQuery('#hdn_title_'+i).val();
+                var serv=jQuery('#hdn_ser_'+i).val();
+                var doc=jQuery('#hdn_doc_'+i).val();
+                var date=jQuery('#hdn_date_'+i).val();
+                var time=jQuery('#hdn_time_'+i).val();
 
                 var from_email = "<?php print $email_from;?>";
                 var from_name = "<?php print $email_from_name;?>";
@@ -1179,7 +1179,7 @@ $events = json_encode($events);
                     '</body></html>';
 
 
-                $.ajax(
+                jQuery.ajax(
                 {
                     url:'Main/EnviarEmail',
                     type:'POST',
@@ -1187,35 +1187,35 @@ $events = json_encode($events);
                 }).done(function(response, textStatus, jqXHR)
                 {
                     if(response == 'WRONG') {
-                        $('#modal').html('<div class="text-center">Your email is wrong.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                        jQuery('#modal').html('<div class="text-center">Your email is wrong.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
                     }
                     else
                     {
-                        $('#modal').html('<div class="text-center">A reminder email has been sent to ' + email_to+'</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                        jQuery('#modal').html('<div class="text-center">A reminder email has been sent to ' + email_to+'</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
                     }
-                    $('#modal_title').html('Resend Email');
-                    $('#remoteModal').modal('show');
+                    jQuery('#modal_title').html('Resend Email');
+                    jQuery('#remoteModal').modal('show');
                 });
             });
 
-            $('.download_ical').on('click', function ()
+            jQuery('.download_ical').on('click', function ()
             {
-                var i = $(this).attr('id');//alert(i);
-                $('#frm_next_'+i).submit();
+                var i = jQuery(this).attr('id');//alert(i);
+                jQuery('#frm_next_'+i).submit();
             });
 
-            $('.btn_cancel').on('click', function ()
+            jQuery('.btn_cancel').on('click', function ()
             {
-                var i = $(this).attr('id');//alert(i);
-                var id = $('#hdn_id_zpk_Appointment_Rec'+i).val();
+                var i = jQuery(this).attr('id');//alert(i);
+                var id = jQuery('#hdn_id_zpk_Appointment_Rec'+i).val();
                 var go_layout='PHP_Appointment';
-                var old_app = $('#hdn_old_app_'+i).val();
+                var old_app = jQuery('#hdn_old_app_'+i).val();
 
                 //alertify.set('notifier','position', 'top-center');
                 alertify.defaults.theme.ok = "btn btn-success";
                 alertify.confirm("<div class='text-center'><h4>Are you sure you want to cancel?</h4></div><br><h6>Appointment to cancel:</h6>" + old_app, function()
                 {
-                    $.ajax(
+                    jQuery.ajax(
                     {
                         url:'Appointment/CancelAppointment',
                         type:'POST',
@@ -1226,17 +1226,17 @@ $events = json_encode($events);
                     }).done(function(response, textStatus, jqXHR)
                     {
                         if(response == 'NO_CANCEL') {
-                            $('#modal').html('<div class="text-center">You can not cancel the appointment, please, call the office at 513-351-FACE(3223).</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                            jQuery('#modal').html('<div class="text-center">You can not cancel the appointment, please, call the office at 513-351-FACE(3223).</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
                         }
                         else
                         {
-                            $('#modal').html('<div class="text-center">Your appointment has been canceled.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                            jQuery('#modal').html('<div class="text-center">Your appointment has been canceled.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
                         }
-                        $('#modal_title').html('Cancel Appointment');
-                        $('#remoteModal').modal('show');
-                        //$('#card_'+i).remove();
+                        jQuery('#modal_title').html('Cancel Appointment');
+                        jQuery('#remoteModal').modal('show');
+                        //jQuery('#card_'+i).remove();
 
-                        $("#remoteModal").on("hide.bs.modal", function ()
+                        jQuery("#remoteModal").on("hide.bs.modal", function ()
                         {
                             LoadContent('Appointment');
                         });
@@ -1251,30 +1251,30 @@ $events = json_encode($events);
 
             });
 
-            $('.btn_reschedule').on('click', function ()
+            jQuery('.btn_reschedule').on('click', function ()
             {
-                $('.modal-backdrop').remove();
-                $('body').removeClass("modal-open");
+                jQuery('.modal-backdrop').remove();
+                jQuery('body').removeClass("modal-open");
 
                 var target = document.getElementById('container');
                 var spinner = new Spinner(opts).spin(target);
 
-                var i = $(this).attr('id');//alert(i);
-                var delete_id = $('#hdn_id_zpk_Appointment_Rec'+i).val();//alert(id);
+                var i = jQuery(this).attr('id');//alert(i);
+                var delete_id = jQuery('#hdn_id_zpk_Appointment_Rec'+i).val();//alert(id);
                 var go_layout = 'PHP_Appointment';
-                var id_doc = $('#hdn_id_doc_'+i).val();
-                var id_serv = $('#hdn_id_serv_'+i).val();
-                var old_app = $('#hdn_old_app_'+i).val();
+                var id_doc = jQuery('#hdn_id_doc_'+i).val();
+                var id_serv = jQuery('#hdn_id_serv_'+i).val();
+                var old_app = jQuery('#hdn_old_app_'+i).val();
 
-                var ReminderEmail = $('#hdn_ReminderEmail_'+i).val();
-                var ReminderMsg = $('#hdn_ReminderMsg_'+i).val();
-                var ReminderContactBy = $('#hdn_ReminderContactBy_'+i).val();
+                var ReminderEmail = jQuery('#hdn_ReminderEmail_'+i).val();
+                var ReminderMsg = jQuery('#hdn_ReminderMsg_'+i).val();
+                var ReminderContactBy = jQuery('#hdn_ReminderContactBy_'+i).val();
 
-                $( '.content-wrapper' ).empty();
+                jQuery( '.content-wrapper' ).empty();
 
-                $.post("Dashboard/GoToAppointments", {go_layout:go_layout,delete_id:delete_id,id_doc:id_doc,id_serv:id_serv, old_app:old_app, ReminderEmail:ReminderEmail, ReminderMsg:ReminderMsg, ReminderContactBy:ReminderContactBy}, function(result)
+                jQuery.post("Dashboard/GoToAppointments", {go_layout:go_layout,delete_id:delete_id,id_doc:id_doc,id_serv:id_serv, old_app:old_app, ReminderEmail:ReminderEmail, ReminderMsg:ReminderMsg, ReminderContactBy:ReminderContactBy}, function(result)
                 {
-                    $('.content-wrapper').html(result);
+                    jQuery('.content-wrapper').html(result);
                     alertify.defaults.transition = "slide";
                     alertify.defaults.theme.ok = "btn btn-success";
                     alertify.alert("<div class='text-center'><h4>To reschedule your appointment, click on any available space.</h4></div><br><br><h6>Appointment to reschedule:</h6><br>" + old_app);
@@ -1283,23 +1283,23 @@ $events = json_encode($events);
                 spinner.stop();
             });
 
-            $('.chat').on('click', function ()
+            jQuery('.chat').on('click', function ()
             {
                 Tawk_API.maximize();
 
-                $("textarea#chatTextarea").html('dff');
-                $("textarea#chatTextarea").text('dff');
+                jQuery("textarea#chatTextarea").html('dff');
+                jQuery("textarea#chatTextarea").text('dff');
             });
 
-            $('body').on('click', '[data-toggle="popover"]',function(){
-                $(this).popover('show')
+            jQuery('body').on('click', '[data-toggle="popover"]',function(){
+                jQuery(this).popover('show')
             });
 
-            $('body').on('mouseout', '[data-toggle="popover"]',function(){
-                $(this).popover('hide')
+            jQuery('body').on('mouseout', '[data-toggle="popover"]',function(){
+                jQuery(this).popover('hide')
             });
 
-            $('#calendar').fullCalendar(
+            jQuery('#calendar').fullCalendar(
             {
                 header: {
                     left: 'prev,next today',
@@ -1319,7 +1319,7 @@ $events = json_encode($events);
 
                 eventRender: function(event, eventElement)
                 {
-                    var view = $('#calendar').fullCalendar('getView');
+                    var view = jQuery('#calendar').fullCalendar('getView');
 
                     var app='<br><br>'+event.title+'<br>'+ String(event.start);
 
@@ -1349,15 +1349,15 @@ $events = json_encode($events);
                 }
             });
 
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 // TODO: check href of e.target to detect your tab
-                //$("#show_cal:hidden").show();
-                $('#calendar').fullCalendar('render');
+                //jQuery("#show_cal:hidden").show();
+                jQuery('#calendar').fullCalendar('render');
             });
 
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e)
+            jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e)
             {
-                $('.banner').revolution();
+                jQuery('.banner').revolution();
             });
         });
     </script>

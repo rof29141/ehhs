@@ -53,19 +53,19 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         LoadDataTable_Invoice();
 
         function DataTable_Invoice()
         {
 
-            $('.hasinput').each( function () {
-                var title = $(this).text();
-                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            jQuery('.hasinput').each( function () {
+                var title = jQuery(this).text();
+                jQuery(this).html( '<input type="text" placeholder="Search '+title+'" />' );
             } );
 
-            var datatable_Invoice=$('#data_table_Invoice').DataTable(
+            var datatable_Invoice=jQuery('#data_table_Invoice').DataTable(
                 {
                     dom:
                     "<'mysearch col-xs-12 col-sm-12 col-md-3 col-lg-3'f>" +
@@ -83,7 +83,7 @@
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {data_type:'datatableListMyInvoice',view_url:'invoice/DataTableListInvoice'}
@@ -91,12 +91,12 @@
             {
                 if(response)
                 {
-                    $('#data_table_Invoice').html(response);
+                    jQuery('#data_table_Invoice').html(response);
                     var datatable_Invoice=DataTable_Invoice();
 
-                    var other_btn=$('#other_btn').html();
-                    $('#data_table_Invoice_wrapper').find($('.dt-buttons')).append(other_btn);
-                    $('#other_btn').html('');
+                    var other_btn=jQuery('#other_btn').html();
+                    jQuery('#data_table_Invoice_wrapper').find(jQuery('.dt-buttons')).append(other_btn);
+                    jQuery('#other_btn').html('');
                     spinner.stop();
                 }
             });

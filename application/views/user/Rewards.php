@@ -106,17 +106,17 @@ else
 </article>
 
 <script type="text/javascript">
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $('.count').each(function ()
+        jQuery('.count').each(function ()
         {
-            $(this).prop('Counter',0).animate({
-            Counter: $(this).text()
+            jQuery(this).prop('Counter',0).animate({
+            Counter: jQuery(this).text()
             }, {
             duration: 4000,
             easing: 'swing',
             step: function (now) {
-            $(this).text(Math.ceil(now));
+            jQuery(this).text(Math.ceil(now));
             }
             });
         });

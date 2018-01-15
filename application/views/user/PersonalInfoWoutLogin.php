@@ -160,11 +160,11 @@ ini_set('memory_limit', '2048M');
 
     function SaveContent(url, array_inputs)
     {
-        $( '.content-wrapper' ).empty();
+        jQuery( '.content-wrapper' ).empty();
         var target = document.getElementById('container');
         var spinner = new Spinner(opts).spin(target);
 
-        $.ajax({
+        jQuery.ajax({
             type: "POST",
             dataType: "html",
             url: url,
@@ -173,10 +173,10 @@ ini_set('memory_limit', '2048M');
         {
             if(response!='1')
             {
-                if($.isNumeric(response)){alertify.success('Data Saved.');}
+                if(jQuery.isNumeric(response)){alertify.success('Data Saved.');}
                 else{alertify.error('Error: The element could not be Saved. '+ response);}
                 spinner.stop();
-                LoadContent($('#view').val());
+                LoadContent(jQuery('#view').val());
             }
             else
                 window.location.replace("Authentication");
@@ -188,7 +188,7 @@ ini_set('memory_limit', '2048M');
 
     /*-------------------DO NOT CHANGE THE CODE-------------------*/
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         Load();
 
@@ -202,7 +202,7 @@ ini_set('memory_limit', '2048M');
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'GetViewWoutLogin',
                 type: 'POST',
                 data: {view_url1:'user/InputsAddPersonalInfo',view_url2:'user/InputsAddPersonalInfoScriptWoutLogin'}
@@ -210,7 +210,7 @@ ini_set('memory_limit', '2048M');
             {
                 if(response)
                 {
-                    $('#data_personal_info').html(response);
+                    jQuery('#data_personal_info').html(response);
                     spinner.stop();
                 }
             });

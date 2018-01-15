@@ -38,9 +38,9 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $('#calendar').fullCalendar(
+        jQuery('#calendar').fullCalendar(
         {
             header: {
                 left: 'prev,next today',
@@ -60,15 +60,15 @@
 
                 if(calEvent.title==' Available')
                 {
-                    var id_service=$('#sel_service').val();
-                    var id_doctor=$('#sel_doctor').val();
+                    var id_service=jQuery('#sel_service').val();
+                    var id_doctor=jQuery('#sel_doctor').val();
                     var start=String(calEvent.start);//alert(start);
                     var end=String(calEvent.end);//alert(end);
                     var setting_id=String(calEvent.setting_id);//alert(setting_id);
 
-                    var ReminderEmail=$('#hdn_ReminderEmail').val();
-                    var ReminderMsg=$('#hdn_ReminderMsg').val();
-                    var ReminderContactBy=$('#hdn_ReminderContactBy').val();
+                    var ReminderEmail=jQuery('#hdn_ReminderEmail').val();
+                    var ReminderMsg=jQuery('#hdn_ReminderMsg').val();
+                    var ReminderContactBy=jQuery('#hdn_ReminderContactBy').val();
 
                     for (var i in calEvent) {
                         console.log(i+":"+calEvent[i]);
@@ -84,7 +84,7 @@
 
             eventRender: function(event, eventElement)
             {
-                var view = $('#calendar').fullCalendar('getView');
+                var view = jQuery('#calendar').fullCalendar('getView');
 
                 var app='<br><br>'+event.title+'<br>'+ String(event.start);
 
@@ -114,14 +114,14 @@
         var today = new Date().getDay();//0=Sun, 1=Mon, ..., 6=Sat
         var last_day = '<?php print $last_day;?>'-1;//last day of the appointments
 
-        if(today>=last_day){$('#calendar').fullCalendar('next');}
+        if(today>=last_day){jQuery('#calendar').fullCalendar('next');}
 
         //alert('<?php print $events;?>');
         function FillModalApp(id_service, id_doctor, start, end, setting_id, calEvent, ReminderEmail, ReminderMsg, ReminderContactBy)
         {
             //alert(id_service+' '+id_doctor+' '+start);//, 'id_doctor':id_doctor, 'start':start
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {'data_type':'appointment','view_url':'appointment/ModalAddAppointment','id_service':id_service, 'id_doctor':id_doctor, 'start':start, 'end':end, 'setting_id':setting_id, 'ReminderEmail':ReminderEmail, 'ReminderMsg':ReminderMsg, 'ReminderContactBy':ReminderContactBy}
@@ -129,23 +129,23 @@
             {
                 if(response!='')
                 {//alert(response);
-                    $('#modal').html(response);
-                    $('#remoteModal').modal('show');
-                    $('#hdn_calEvent').val(calEvent);
+                    jQuery('#modal').html(response);
+                    jQuery('#remoteModal').modal('show');
+                    jQuery('#hdn_calEvent').val(calEvent);
 
-                    $('#btn_submit_app').on('click', function ()
+                    jQuery('#btn_submit_app').on('click', function ()
                     {
                         calEvent.title = "Appointment Submited";
                         calEvent.color = "#ffff66";
                         calEvent.textColor = "#000";
-                        $('#calendar').fullCalendar('updateEvent', calEvent);
+                        jQuery('#calendar').fullCalendar('updateEvent', calEvent);
                     });
                 }
             });
         }
 
-        $('[data-toggle="popover"]').on('mouseover mouseout', function(){
-            $(this).popover('toggle')
+        jQuery('[data-toggle="popover"]').on('mouseover mouseout', function(){
+            jQuery(this).popover('toggle')
         });
     });
 </script>

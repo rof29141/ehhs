@@ -1,192 +1,167 @@
-<div class="container" >
-    <div class="row" style="margin-top: 70px;">
-        <div class="col-lg-12">
-            <fieldset class="myfieldset">
-                <legend class="mylegend">Create an Appointment</legend>
 
-                <div class="row">
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <label>Service</label>
-                            <select class="my_select2" id="sel_service" name="sel_service" <?php if(isset($id_serv) && $id_serv!=''){print 'disabled';}?>>
-                                <option value="-1"></option>
-                                <?php $group_service='';
-                                for ($i=0;$i<sizeof($service['data']);$i++)
-                                {
-
-                                    if($service['data'][$i]['GroupService']!=$group_service)
-                                    {
-                                        $group_service=$service['data'][$i]['GroupService'];
-                                    ?>
-                                        <optgroup label="<?php print $service['data'][$i]['GroupService'];?>">
-                                    <?php
-                                    }
-
-                                    ?>
-                                            <option <?php if(isset($id_serv) && $id_serv==$service['data'][$i]['__kp_PRIMARY_KEY']){print 'selected';$desc=$service['data'][$i]['Description'];}?> value="<?php print $service['data'][$i]['__kp_PRIMARY_KEY'];?>"><?php print $service['data'][$i]['Service'];?></option>
-                                    <?php
-
-                                    if($service['data'][$i]['GroupService']!=$group_service)
-                                    {
-                                    ?>
-                                        </optgroup>
-                                    <?php
-                                    }
-                                }?>
-                            </select>
-                            <?php
-                            for ($i=0;$i<sizeof($service['data']);$i++)
-                            {
-                                ?>
-                                <input type="hidden" name="hdn_serv_desc_<?php print $service['data'][$i]['__kp_PRIMARY_KEY'];?>"id="hdn_serv_desc_<?php print $service['data'][$i]['__kp_PRIMARY_KEY'];?>" value="<?php if(isset($service['data'][$i]['Description'])) print $service['data'][$i]['Description'];?>" />
-                                <?php
-                            }
-                            ?>
-                            <div class="note" style="padding-top: 5px;">Please, call to the office at 513-351-FACE(3223) if you don't see the service you need.</div>
-
-                            <div class="note" id="serv_desc" style="padding-top: 5px;color: #000;"><?php if(isset($desc))print $desc;?></div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <div id="drop_down_doc"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-2 col-lg-2">
-                        <div id=doc_photo></div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-2 col-lg-2">
-                        <?php if(isset($old_app))print '<h6>Appointment to reschedule:</h6>'.$old_app;?>
-                    </div>
-                </div>
-
-                <div id='calendar_app'></div>
-
-            </fieldset>
+<!--=== Content Part ===-->
+<div class="container content">
+    <div class="clearfix margin-bottom-30"></div>
+    <div class="shadow-wrapper">
+        <div class="tag-box tag-box-v1 box-shadow shadow-effect-2">
+            <h2>One Template Endless Possibilities</h2>
+            <p>Et harum quidem rerum facilis est et expedita distinctio lorem ipsum dolor sit amet consectetur adipiscing elit. Ut non libero consectetur adipiscing elit magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat.</p>
         </div>
+    </div>
+
+    <div class="clearfix margin-bottom-40"></div>
+
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 
     </div>
-</div>
 
-<form name="frm" id="frm">
-    <input id="hdn_go_layout" type="hidden" value="<?php if(isset($go_layout))print $go_layout;?>"/>
-    <input id="hdn_id" type="hidden" value="<?php if(isset($delete_id))print $delete_id;?>"/>
-    <input id="hdn_old_app" type="hidden" value="<?php if(isset($old_app))print $old_app;?>"/>
-    <input id="hdn_ReminderEmail" type="hidden" value="<?php if(isset($ReminderEmail))print $ReminderEmail;?>"/>
-    <input id="hdn_ReminderMsg" type="hidden" value="<?php if(isset($ReminderMsg))print $ReminderMsg;?>"/>
-    <input id="hdn_ReminderContactBy" type="hidden" value="<?php if(isset($ReminderContactBy))print $ReminderContactBy;?>"/>
-</form>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="auth">
+        <?php require_once APPPATH.'views'.$section_auth;?>
+    </div>
 
-<div class="modal fade" id="remoteModal" tabindex="-1" role="dialog" aria-labelledby="remoteModalLabel" aria-hidden="true" style="display: none;">
-
-    <div class="modal-content" style="align-content: center;">
-
-        <div class="col-lg-4"></div>
-
-        <form method="post" action="" id="frm" name="frm">
-            <div class="col-lg-4" style="top:20px;background-color: #fff;">
-                <fieldset class="myfieldset">
-                    <legend class="mylegend" id="modal_title">Confirm Appointment</legend>
-                        <div display="padding:15px"id="modal"></div>
-                </fieldset>
+    <!-- Service Blocks -->
+    <div class="margin-bottom-5"></div>
+    <div class="row margin-bottom-40">
+        <div class="col-md-3 col-sm-6">
+            <div class="servive-block servive-block-default">
+                <i class="icon-custom rounded-x icon-bg-dark fa fa-lightbulb-o"></i>
+                <h2 class="heading-md">Creative Ideas</h2>
+                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
             </div>
-        </form>
-
-        <div class="col-lg-4"></div>
-
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="servive-block servive-block-default">
+                <i class="icon-custom rounded-x icon-bg-dark fa fa-compress"></i>
+                <h2 class="heading-md">Fully Responsive</h2>
+                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="servive-block servive-block-default">
+                <i class="icon-custom rounded-x icon-bg-dark icon-line icon-rocket"></i>
+                <h2 class="heading-md">Launch Ready</h2>
+                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="servive-block servive-block-default">
+                <i class="icon-custom rounded-x icon-bg-dark icon-line icon-support"></i>
+                <h2 class="heading-md">Dedicated Support</h2>
+                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine usce dapibus elit nondapibus</p>
+            </div>
+        </div>
     </div>
+    <!-- End Service Blokcs -->
 
-</div>
+    <!-- Info Blokcs -->
+    <div class="row margin-bottom-40">
+        <!-- Welcome Block -->
+        <div class="col-md-8 md-margin-bottom-40">
+            <div class="headline"><h2>Welcome To Unify</h2></div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <img class="img-responsive margin-bottom-5" src="<?php print base_url('/assets/unify/img/new/img15.jpg');?>" alt="" />
+                </div>
+                <div class="col-sm-8">
+                    <p>Unify is an incredibly beautiful responsive Bootstrap Template for corporate and creative professionals. It works on all major web browsers, tablets and phone.</p>
+                    <ul class="list-unstyled margin-bottom-5">
+                        <li><i class="fa fa-check color-green"></i> Donec id elit non mi porta gravida</li>
+                        <li><i class="fa fa-check color-green"></i> Corporate and Creative</li>
+                        <li><i class="fa fa-check color-green"></i> Responsive Bootstrap Template</li>
+                        <li><i class="fa fa-check color-green"></i> Corporate and Creative</li>
+                    </ul>
+                </div>
+            </div>
+
+            <blockquote class="hero-unify">
+                <p>Award winning digital agency. We bring a personal and effective approach to every project we work on, which is why. Unify is an incredibly beautiful responsive Bootstrap Template for corporate professionals.</p>
+                <small>CEO, Jack Bour</small>
+            </blockquote>
+        </div><!--/col-md-8-->
+
+        <!-- Posts -->
+        <div class="col-md-4 posts">
+            <div class="headline"><h3>Recent Entries</h3></div>
+            <dl class="dl-horizontal">
+                <dt><a href="#"><img alt="" src="<?php print base_url('/assets/unify/img/sliders/elastislide/6.jpg');?>"></a></dt>
+                <dd>
+                    <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt><a href="#"><img alt="" src="<?php print base_url('/assets/unify/img/sliders/elastislide/10.jpg');?>"></a></dt>
+                <dd>
+                    <p><a href="#">Lorem sequat ipsum dolor lorem sit amet, consectetur adipiscing dolor elit.</a></p>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt><a href="#"><img alt="" src="<?php print base_url('/assets/unify/img/sliders/elastislide/11.jpg');?>"></a></dt>
+                <dd>
+                    <p><a href="#">It works on all major web browsers, tablets and lorem sequat ipsum dolor.</a></p>
+                </dd>
+            </dl>
+        </div>
+    </div><!--/row-->
+    <!-- End Info Blokcs -->
+
+    <!-- Our Clients -->
+    <div class="owl-carousel-style-v2">
+        <div class="headline"><h2>Our Clients</h2></div>
+        <div class="owl-slider-v3">
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/cisco.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/cocacola.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/vadafone.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/walmart.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/shell.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/hp.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/spinworkx.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/motogp.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/everyday.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/aztec.png');?>" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="<?php print base_url('/assets/unify/img/clients/natural.png');?>" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- End Our Clients -->
+</div><!--/container-->
+<!-- End Content Part -->
+
 
 <script type="text/javascript">
+    
+	alertify.defaults.transition = "zoom";
 
-    $(document).ready(function()
-    {
-        $(".my_select2").select2({
-            placeholder: {
-                id: '-1', // the value of the option
-                text: 'Select a Service'
-            }
-        });
+	var msg = '<?php if(isset($msg))print $msg;?>';
+	if (msg != '' && msg != null) alertify.message(msg);
 
-        $('#sel_service').on('change', function ()
-        {
-            $('#drop_down_doc').html('');
-            $('#calendar_app').html('');
-            $('#doc_photo').html('');
+	var success = '<?php if(isset($success))print $success;?>';
+	if (success != '' && success != null) alertify.success(success);
 
-            var id_service = $(this).val();
-            if(id_service!='' && id_service!=0 && id_service!=null)
-            {
-                var desc=$('#hdn_serv_desc_'+ id_service).val();
-                $('#serv_desc').html(desc);
+	var warning = '<?php if(isset($warning))print $warning;?>';
+	if (warning != '' && warning != null) alertify.alert(warning);
 
-                var target = document.getElementById('container');
-                var spinner = new Spinner(opts).spin(target);
-
-                $.ajax({
-                    url: 'Main/LlenarDataTable',
-                    type: 'POST',
-                    data: {data_type: 'dropdown_doctor', view_url: 'dashboard/DropDownDoctor', id_service: id_service}
-                }).done(function (response, textStatus, jqXHR) {
-
-                    if(response=='1')
-                    {
-                        window.location.replace("Authentication");
-                    }
-                    else if(response=='NOT_DOCTOR')
-                    {
-                        alertify.error('Provider not asingned for this service.');
-                    }
-                    else
-                    {
-                        $('#drop_down_doc').html(response);
-                    }
-                    spinner.stop();
-                });
-            }
-        });
-
-        $(function ()
-        {
-            var id_doctor = "<?php if(isset($id_doc)) print $id_doc;else print 'NO_DOC'?>";
-
-            if (id_doctor != 'NO_DOC')
-            {
-                var id_service = "<?php if(isset($id_serv)) print $id_serv;else print 'NO_SERV'?>";
-
-                if (id_service != 'NO_SERV')
-                {
-                    var target = document.getElementById('container');
-                    var spinner = new Spinner(opts).spin(target);
-
-                    $.ajax({
-                        url: 'Main/LlenarDataTable',
-                        type: 'POST',
-                        data: {
-                            data_type: 'dropdown_doctor',
-                            view_url: 'dashboard/DropDownDoctor',
-                            id_service: id_service,
-                            id_doctor: id_doctor
-                        }
-                    }).done(function (response, textStatus, jqXHR) {
-
-                        if (response == '1') {
-                            window.location.replace("Authentication");
-                        }
-                        else if (response == 'NOT_DOCTOR') {
-                            alertify.error('Provider not asingned for this service.');
-                        }
-                        else {
-                            $('#drop_down_doc').html(response);
-                        }
-                        spinner.stop();
-                    });
-                }
-            }
-        });
-    });
+	var error = '<?php if(isset($error))print $error;?>';
+	if (error != '' && error != null) alertify.error(error);
+    
 </script>

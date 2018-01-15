@@ -1,74 +1,42 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-$page_title = "Login";
-$position='center';
-require_once(APPPATH."views/includes/header.php");
-?>
-
-<body >
-<div id="wrapper">
-
-    <div class="container text-center col col-lg-12" style="margin-top: 20px;">
-        <span class="" style="padding: 0px;"><img style="max-width: 300px;margin-right: 5px;" src="<?php print $src_logo;?>" /></span>
+<form class="reg-page" id='frm_auth'>
+    <div class="reg-header">
+        <h2><?php print $language['main_msg_login'];?></h2>
     </div>
 
-    <div class="col col-xs-10 col-sm-5 col-md-5 col-lg-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-3" style="padding-top: 20px;">
+    <div class="input-group margin-bottom-5">
+        <span class="input-group-addon"><i style='font-size:13px;' class="fa fa-user"></i></span>
+        <input type="text" name="user" id="user" placeholder="<?php print $language['main_label_user'];?>" class="form-control">
+    </div>
+    <div class="input-group margin-bottom-5">
+        <span class="input-group-addon" ><i style='font-size:16px;' class="fa fa-lock"></i></span>
+        <input type="password" name="pass" id="pass" placeholder="<?php print $language['main_label_pass'];?>" class="form-control">
+    </div>
 
-        <div class="">
-            <?php print form_open('authentication/Verify', "class='form-signin' id='frm_auth' role='form'"); ?>
-                <section>
-                    <div class="fields">
-                        <strong>User ID</strong>
-                        <input name="email" class="form-control" type="text" placeholder="Enter your User ID" />
-                    </div>
-                </section>
-
-                <section>
-                    <div class="fields">
-                        <strong>Password</strong>
-                        <input name="password" class="form-control" type="password" placeholder="Enter your Password" />
-                    </div>
-                </section>
-
-
-                <div class="actions">
-                    <button type="submit" class="btn btn-lg btn-primary btn-block">
-                        Sign in <span style="vertical-align: middle" class="entypo-login"></span>
-                    </button>
-                </div>
-
-                <fieldset>
-                    <div class="text-center">
-                        Forgot
-                        <a href="<?php print CTR_URL; ?>Authentication/GoForgotUser">User ID</a>
-                        or
-                        <a href="<?php print CTR_URL; ?>Authentication/GoForgotPassword">Password?</a>
-                    </div>
-                    <div class="text-center">
-                        <a href="<?php print CTR_URL; ?>Authentication/GoResetPassword">Reset Password</a>
-                    </div>
-                </fieldset>
-
-            <?php require_once(VIEW_URL."includes/hidden.php");?>
-            <?php print form_close(); ?>
+    <div class="row">
+        <div class="col-md-6">
+            <a onclick="LoadContent('Authentication/GoSignUp', 0, 'auth')">Create account</a>
         </div>
-
+        <div class="col-md-6">
+            <button class="btn-u pull-right" id='btn_login' type="button">Login</button>
+        </div>
     </div>
 
-    <div class="col col-xs-10 col-sm-5 col-md-5 col-lg-3 col-xs-offset-1 col-sm-offset-0 col-md-offset-0 col-lg-offset-0" style="padding-top: 30px;" align="justify">
-        <p>Advanced Cosmetic Surgery & Laser Center brings out the best in you by providing surgical and non-surgical treatments that achieve your goal of a more refreshing, youthful and beautiful you. Dr. Jon E. Mendelsohn is a double board-certified facial plastic surgeon specializing in both facial plastic surgery and non-surgical facial procedures.</p>
-        <p>You can <a href="<?php print CTR_URL; ?>Authentication/GoSignUp">Sign Up</a> or <a href="<?php print CTR_URL; ?>Authentication/GoRecoverAccount">Recover your account</a>. Please complete your <a href="<?php print CTR_URL; ?>User/GoPersonalInfoWoutLogin">Personal Contact Information</a> before your arrival will help save you time and allow us to spend more valuable time with you during your consultation.</p>
+    <hr>
+
+    <div class="text-center">
+        Forgot
+        <a onclick="LoadContent('Authentication/GoForgotUser', 0, 'auth')">User ID</a>
+        or
+        <a onclick="LoadContent('Authentication/GoForgotPassword', 0, 'auth')">Password?</a>
     </div>
-</div>
-
-
-<?php require_once(VIEW_URL."includes/footer.php");?>
-<?php require_once(VIEW_URL."includes/footer_scripts.php");?>
-
+    <div class="text-center">
+        <a onclick="LoadContent('Authentication/GoResetPassword', 0, 'auth')">Reset Password</a>
+    </div>
+</form>
 <script type="text/javascript">
-	$(function() {
+	jQuery(function() {
 
-		$("#frm_auth").validate(
+		jQuery("#frm_auth").validate(
         {
 
 			rules : {
@@ -98,9 +66,37 @@ require_once(APPPATH."views/includes/header.php");
 		});
     });
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
+		jQuery('#btn_login').on('click', function(e)
+        {
+            if(jQuery("#frm_auth").valid())
+            {
+                request=jQuery.ajax({
+                    url:'Authentication/Verify',
+                    type:'POST',
+                    data:'user='+jQuery('#user').val()+'&pass='+jQuery('#pass').val()+'&send=user'
+                });
 
+                request.done(function(response, textStatus, jqXHR)
+                {
+                    if(response == 'LOGGED') 
+					{
+						alertify.success('Welcome.');
+                        jQuery('#auth').html('');
+                    }
+					else if(response=='WRONG_PASS') {
+                        alertify.error('Wrong Password.');
+                    }
+					else if(response=='WRONG_ID') {
+                        alertify.error('Wrong User');
+                    }
+					else if(response) {
+                        alertify.error('Sorry, your account doesn\'t have been activate yet. Has been sent an email to: '+response);
+                    }
+                });
+            }
+        });
     });
 
 </script>

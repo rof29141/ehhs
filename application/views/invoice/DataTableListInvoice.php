@@ -61,11 +61,11 @@ if(isset($data))
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $('.detail-invoice').on('click', function (e)
+        jQuery('.detail-invoice').on('click', function (e)
         {
-            var id_invoice=$(this).attr("id");
+            var id_invoice=jQuery(this).attr("id");
             FillModalApp(id_invoice);
         });
 
@@ -75,7 +75,7 @@ if(isset($data))
             //alert(id_invoice);
             var res=id_invoice.split("|");
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Invoice/GetInvoiceLine',
                 type: 'POST',
                 data: {id_invoice:res[0], anchor:res[1], cat:res[2]}
@@ -83,8 +83,8 @@ if(isset($data))
             {
                 if(response!='')
                 {//alert(response);
-                    $('#modal').html(response);
-                    $('#remoteModal').modal('show');
+                    jQuery('#modal').html(response);
+                    jQuery('#remoteModal').modal('show');
                 }
             });
 

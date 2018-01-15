@@ -39,7 +39,7 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         Load_Appointment();
 
@@ -48,7 +48,7 @@
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {data_type:'MyAppointments',view_url:'appointment/MyAppointments'}
@@ -56,7 +56,7 @@
             {
                 if(response)
                 {
-                    $('#next_app').html(response);
+                    jQuery('#next_app').html(response);
                     spinner.stop();
                 }
             });

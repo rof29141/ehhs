@@ -91,10 +91,10 @@ define('USER', 'PHP');
 define('PASS', 'acsaccess');
 
 define('COMPANY', 'Advanced Cosmetic Surgery');
-define('EMAIL_FROM', 'dispatch-system@tekexperts.com');
-define('EMAIL_FROM_NAME', 'Advanced Cosmetic Surgery');
-define('EMAIL_FROM_TO', 'raydel@mactutor.net');
-define('EMAIL_FROM_STAFF_TO', 'raydel@mactutor.net');
+define('EMAIL_FROM', 'rof29141@gmail.com');
+define('EMAIL_FROM_NAME', 'Esperanza Health');
+define('EMAIL_FROM_TO', 'rof29141@gmail.com');
+define('EMAIL_FROM_STAFF_TO', 'rof29141@gmail.com');
 $line_height='5px';
 define('EMAIL_SIGNATURE', '<p style="line-height: '.$line_height.'; font-weight: bold;">Advanced Cosmetic Surgery & Laser Center</p>' .
                                 '<p style="line-height: '.$line_height.';">Rookwood Commons Shopping Center</p>' .

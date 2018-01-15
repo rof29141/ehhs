@@ -1,5 +1,5 @@
-$(function() {
-$("#product-lookup").typeahead({
+jQuery(function() {
+jQuery("#product-lookup").typeahead({
 hint:true,
 highlight: true,
 //items: 5,
@@ -8,9 +8,9 @@ compareField: "filter",
 autoSelect: false,
 ajax: '/index.php?route=product/product/search&simple=1',
 updater: function(id, text) {
-if($("#product-lookup[data-addtocart]").length && $('body.no-customer').length==0) {
-console.log($(this))
-$(this).addCartByID(id);
+if(jQuery("#product-lookup[data-addtocart]").length && jQuery('body.no-customer').length==0) {
+console.log(jQuery(this))
+jQuery(this).addCartByID(id);
 swal({
 title: 'One moment!',
 html: '<img src="image/leaping-frog-260.gif" class="frog-loader"/><br />Adding item to cart...',
@@ -28,10 +28,10 @@ let productName = split[0];
 let description = split[1];
 console.log(productName);
 console.log(description);
-$("input[name='product_name']").val(productName);
-$("input[name='product_description']").val(description);
+jQuery("input[name='product_name']").val(productName);
+jQuery("input[name='product_description']").val(description);
 
-$("#add-product .btn.hidden").data("id", id).data("num", text).click();
+jQuery("#add-product .btn.hidden").data("id", id).data("num", text).click();
 }
 
 
@@ -40,9 +40,9 @@ return text;
 render: function (items) {
 var that = this, display, isString = typeof that.options.displayField === 'string';
 
-items = $(items).map(function (i, item) {
+items = jQuery(items).map(function (i, item) {
 display = item.num + " - " + item.description;
-i = $(that.options.item).attr('data-value', item[that.options.valueField]);
+i = jQuery(that.options.item).attr('data-value', item[that.options.valueField]);
 i.find('a').html(that.highlighter(display));
 return i[0];
 });
@@ -52,30 +52,30 @@ if(that.autoSelect){
 }
 
 this.$menu.html(items);
-$('.typeahead-spinner').hide();
+jQuery('.typeahead-spinner').hide();
 console.log('these are items', items)
 return this;
 },
 matcher: function(item) {
-$('.typeahead-spinner').hide();
+jQuery('.typeahead-spinner').hide();
 return ~item.toLowerCase().indexOf(this.query.toLowerCase());
 },
 searchFunction: searchProduct
 }).on('keypress', this, function (event) {
-$(this).parent().find('.typeahead-spinner').show();
+jQuery(this).parent().find('.typeahead-spinner').show();
 setTimeout(function(){
-$('.typeahead-spinner').hide();
+jQuery('.typeahead-spinner').hide();
 }, 2000)
 });
 
 
-$('#prodModal').on("hidden.bs.modal", function () {
-//$("#product-lookup").val('');
+jQuery('#prodModal').on("hidden.bs.modal", function () {
+//jQuery("#product-lookup").val('');
 });
 
-$('#product-search-form2 .btn-lookup').click(function(e) {
+jQuery('#product-search-form2 .btn-lookup').click(function(e) {
 e.preventDefault();
-var val = $("#product-search-form2 input[type='product-lookup']").val();
+var val = jQuery("#product-search-form2 input[type='product-lookup']").val();
 if(val) {
 
 window.location = "/index.php?productQuery="+val+"&route=product/product/searchPage";
@@ -84,8 +84,8 @@ window.location = "/index.php?productQuery="+val+"&route=product/product/searchP
 });
 
 /*
-$("#btn_save").click(function() {
-var $this = $(this);
+jQuery("#btn_save").click(function() {
+var $this = jQuery(this);
 
 swal.queue([{
 title: 'Warning',
@@ -100,7 +100,7 @@ cancelButtonClass: 'btn btn-danger',
 allowOutsideClick: false,
 preConfirm: function () {
 return new Promise(function (resolve) {
-$.post('index.php?route=checkout/cart/save')
+jQuery.post('index.php?route=checkout/cart/save')
 .done(function (data) {
 swal.insertQueueStep({
 title: 'Success',
@@ -119,61 +119,61 @@ window.location = "/index.php?route=order/order";
 });
 */
 
-$("#btn_checkout").click(function() {
-var $this = $(this);
-$holder = $('#frm_checkout');
-$('.checkout-error').remove();
+jQuery("#btn_checkout").click(function() {
+var $this = jQuery(this);
+$holder = jQuery('#frm_checkout');
+jQuery('.checkout-error').remove();
 
-total = $('.total-total .price').text();
-if($('input[name=payment_required]').val() == 1 && stripDollar(total) > 0) {
+total = jQuery('.total-total .price').text();
+if(jQuery('input[name=payment_required]').val() == 1 && stripDollar(total) > 0) {
 var payment_valid = true;
-if($('input[name=payment_amount]').val() == "") {
+if(jQuery('input[name=payment_amount]').val() == "") {
 payment_valid = false;
 } else {
-$('#billing-info fieldset:not(.collapse)').find('input:visible.req, select:visible.req').each(function(){
-if($(this).val() == "") {
+jQuery('#billing-info fieldset:not(.collapse)').find('input:visible.req, select:visible.req').each(function(){
+if(jQuery(this).val() == "") {
 payment_valid = false;
 }
 });
 }
 if(payment_valid == false) {
-$('#billing-info .panel-body').prepend('<div class="alert alert-danger checkout-error" role="alert">Payment is required</div>');
+jQuery('#billing-info .panel-body').prepend('<div class="alert alert-danger checkout-error" role="alert">Payment is required</div>');
 return false;
 }
 }
 
-if($('#shipto_new').is(":visible")) {
-$ele = $('#shipto-address');
-$('span[data-name="name"]',$ele).html($('input[name=shipto_new_name]').val());
-$('span[data-name="addressname"]',$ele).html($('input[name=shipto_new_addressname]').val());
-$('span[data-name="address"]',$ele).html($('input[name=shipto_new_address]').val());
-$('span[data-name="city"]',$ele).html($('input[name=shipto_new_city]').val());
-$('span[data-name="statecode"]',$ele).html($('select[name=shipto_new_state]').val());
-$('span[data-name="zip"]',$ele).html($('input[name=shipto_new_name]').val());
-$('span[data-name="countrycode"]',$ele).html($('select[name=shipto_new_country]').val());
+if(jQuery('#shipto_new').is(":visible")) {
+$ele = jQuery('#shipto-address');
+jQuery('span[data-name="name"]',$ele).html(jQuery('input[name=shipto_new_name]').val());
+jQuery('span[data-name="addressname"]',$ele).html(jQuery('input[name=shipto_new_addressname]').val());
+jQuery('span[data-name="address"]',$ele).html(jQuery('input[name=shipto_new_address]').val());
+jQuery('span[data-name="city"]',$ele).html(jQuery('input[name=shipto_new_city]').val());
+jQuery('span[data-name="statecode"]',$ele).html(jQuery('select[name=shipto_new_state]').val());
+jQuery('span[data-name="zip"]',$ele).html(jQuery('input[name=shipto_new_name]').val());
+jQuery('span[data-name="countrycode"]',$ele).html(jQuery('select[name=shipto_new_country]').val());
 
 
-$('input[name="shipto_id"]').val('');
-$('input[name="shipto_name"]').val($('input[name=shipto_new_name]').val());
-$('input[name="shipto_addressname"]').val($('input[name=shipto_new_addressname]').val());
-$('input[name="shipto_address"]').val($('input[name=shipto_new_address]').val());
-$('input[name="shipto_city"]').val($('input[name=shipto_new_city]').val());
-$('input[name="shipto_statecode"]').val($('select[name=shipto_new_state]').val());
-$('input[name="shipto_zip"]').val($('input[name=shipto_new_zip]').val());
-$('input[name="shipto_countrycode"]').val($('select[name=shipto_new_country]').val());
+jQuery('input[name="shipto_id"]').val('');
+jQuery('input[name="shipto_name"]').val(jQuery('input[name=shipto_new_name]').val());
+jQuery('input[name="shipto_addressname"]').val(jQuery('input[name=shipto_new_addressname]').val());
+jQuery('input[name="shipto_address"]').val(jQuery('input[name=shipto_new_address]').val());
+jQuery('input[name="shipto_city"]').val(jQuery('input[name=shipto_new_city]').val());
+jQuery('input[name="shipto_statecode"]').val(jQuery('select[name=shipto_new_state]').val());
+jQuery('input[name="shipto_zip"]').val(jQuery('input[name=shipto_new_zip]').val());
+jQuery('input[name="shipto_countrycode"]').val(jQuery('select[name=shipto_new_country]').val());
 }
 
 var doexport = ($this.data('export') == 1) ? 1 : 0;
 return new Promise(function (resolve) {
-$.ajax({
+jQuery.ajax({
 url: 'index.php?route=checkout/checkout/queue&export='+doexport,
 type: 'post',
-data: $('input[type=\'text\'],input[type=\'number\'], input[type=\'hidden\'], input[type=\'radio\']:checked,  input[type=\'checkbox\']:checked, select, textarea', $holder),
+data: jQuery('input[type=\'text\'],input[type=\'number\'], input[type=\'hidden\'], input[type=\'radio\']:checked,  input[type=\'checkbox\']:checked, select, textarea', $holder),
 dataType: 'json',
 beforeSend: function () {
-//$('#button-cart').button('loading');
-$('#btn_checkout').button('loading');
-$('.checkout-error').remove();
+//jQuery('#button-cart').button('loading');
+jQuery('#btn_checkout').button('loading');
+jQuery('.checkout-error').remove();
 swal({
 title: 'One moment!',
 html: '<img src="image/leaping-frog-260.gif" class="frog-loader"/><br />Saving Order...',
@@ -184,13 +184,13 @@ showConfirmButton: false
 });
 },
 complete: function () {
-// $('#button-cart').button('reset');
-$('#btn_checkout').button('reset');
+// jQuery('#button-cart').button('reset');
+jQuery('#btn_checkout').button('reset');
 },
 success: function (json) {
 swal.close();
 if(json.payment_error) {
-$('#billing-info .panel-body').prepend('<div class="alert alert-danger checkout-error" role="alert">'+json.payment_error+'</div>');
+jQuery('#billing-info .panel-body').prepend('<div class="alert alert-danger checkout-error" role="alert">'+json.payment_error+'</div>');
 } else {
 console.log(json)
 if(doexport == 1) {
@@ -266,27 +266,27 @@ resolve();
 });
 });
 
-$("#shopping_cart #btn_save").click(function() {
-var $this = $(this);
-$.post('index.php?route=checkout/cart/save')
+jQuery("#shopping_cart #btn_save").click(function() {
+var $this = jQuery(this);
+jQuery.post('index.php?route=checkout/cart/save')
 .done(function (data) {
 window.location = "/index.php?route=order/order";
 });
 /*
-$.post('index.php?route=checkout/checkout/save',
+jQuery.post('index.php?route=checkout/checkout/save',
 {
-reqshipdate: $('#reqshipdate').val(),
-customerpo: $('#customerpo').val(),
-vendorpo: $('#vendorpo').val()
+reqshipdate: jQuery('#reqshipdate').val(),
+customerpo: jQuery('#customerpo').val(),
+vendorpo: jQuery('#vendorpo').val()
 })
 */
 
 });
 
 
-$("#shopping_cart #btn_close").click(function() {
-var $this = $(this);
-$.post('index.php?route=checkout/cart/save')
+jQuery("#shopping_cart #btn_close").click(function() {
+var $this = jQuery(this);
+jQuery.post('index.php?route=checkout/cart/save')
 .done(function (data) {
 window.location = "/index.php?route=order/order";
 });
@@ -295,7 +295,7 @@ window.location = "/index.php?route=order/order";
 
 
 
-$("#shopping_cart #btn_empty").click(function() {
+jQuery("#shopping_cart #btn_empty").click(function() {
 cart.empty();
 });
 
@@ -304,7 +304,7 @@ cart.empty();
 
 var start = moment();
 var end = moment();
-$('.datepicker').daterangepicker({
+jQuery('.datepicker').daterangepicker({
 "singleDatePicker": true,
 "startDate": start,
 "endDate": end,
@@ -324,14 +324,14 @@ penColour:"#000000",
 //canvas = document.getElementById('sigpad');
 //canvas.width = 400;
 // canvas.height= 150;
-sigPad = $('.sigPad').signaturePad(sigoptions);
+sigPad = jQuery('.sigPad').signaturePad(sigoptions);
 
 
 
-$('#signatureModal').off().on('shown.bs.modal', function (event) {
+jQuery('#signatureModal').off().on('shown.bs.modal', function (event) {
 
-var $button = $(event.relatedTarget);
-var $modal = $(event.target);
+var $button = jQuery(event.relatedTarget);
+var $modal = jQuery(event.target);
 
 if($button.data('id') == "")
 sigoptions['drawOnly'] = true;
@@ -340,27 +340,27 @@ sigoptions['displayonly'] = true;
 
 
 if($button.data('id') != "") {
-$(".pad")[0].setAttribute('width', parseInt($(".pad").css('width')));
+jQuery(".pad")[0].setAttribute('width', parseInt(jQuery(".pad").css('width')));
 sigPad.regenerate($button.data('sig'));
 
 $modal.find('#signame').val($button.data('signame'));
 $modal.find('#signame').attr('readonly', 'true');
 $modal.find('.date').html($button.data('date'));
 
-$(".viewButton").show();
-$(".editButton").hide();
+jQuery(".viewButton").show();
+jQuery(".editButton").hide();
 }
 
 });
 
 
-$("#sig_submit").on("click", function (event) {
-var form = $(this).parents('form');
+jQuery("#sig_submit").on("click", function (event) {
+var form = jQuery(this).parents('form');
 var output = form.find('.output').val();
 var signame = form.find('#signame').val();
 
 /*
-var oCanvas = $('.sigPad');
+var oCanvas = jQuery('.sigPad');
 strType= "PNG";
 if (strType == "PNG")
 //	var oImg = Canvas2Image.saveAsPNG(oCanvas, true, 300, 150);
@@ -377,11 +377,11 @@ return false;
 */
 
 if(signame == "") {
-$('.sigNameHolder').addClass('has-error');
+jQuery('.sigNameHolder').addClass('has-error');
 return false;
 }
 return new Promise(function (resolve) {
-$.post('index.php?route=common/signature/save',
+jQuery.post('index.php?route=common/signature/save',
 {
 signature: output,
 name: signame,
@@ -395,12 +395,12 @@ text: 'Signature saved',
 type: 'success',
 allowOutsideClick: false
 });
-$("#btn_signature").html("View Signature <i class='fa fa-check-circle' aria-hidden='true'></i>");
-$("#btn_signature").attr('data-id', data['sig']['id']);
-$("#btn_signature").attr('data-signame', data['sig']['name']);
-$("#btn_signature").attr('data-date', data['sig']['date']);
-$("#btn_signature").attr('data-sig', form.find('.output').val());
-$('#signatureModal').modal('hide');
+jQuery("#btn_signature").html("View Signature <i class='fa fa-check-circle' aria-hidden='true'></i>");
+jQuery("#btn_signature").attr('data-id', data['sig']['id']);
+jQuery("#btn_signature").attr('data-signame', data['sig']['name']);
+jQuery("#btn_signature").attr('data-date', data['sig']['date']);
+jQuery("#btn_signature").attr('data-sig', form.find('.output').val());
+jQuery('#signatureModal').modal('hide');
 } else if(data['error']) {
 swal.insertQueueStep({
 title: 'Error',
@@ -436,13 +436,13 @@ if(productSearch.ajax.xhr != null) {
 productSearch.ajax.xhr = null;
 productSearch.ajaxToggleLoadClass(false);
 }
-$("#product-input-search").typeahead('destroy');
-$.get('/index.php?route=product/product/search',
+jQuery("#product-input-search").typeahead('destroy');
+jQuery.get('/index.php?route=product/product/search',
 {'query': query})
 .done(function (data) {
 if(data.length == 1) {
-if($("#product-lookup[data-addtocart]").length && $('body.no-customer').length==0) {
-$("#product-lookup").addCartByID(data[0].id);
+if(jQuery("#product-lookup[data-addtocart]").length && jQuery('body.no-customer').length==0) {
+jQuery("#product-lookup").addCartByID(data[0].id);
 swal({
 title: 'One moment!',
 html: '<img src="image/leaping-frog-260.gif" class="frog-loader"/><br />Adding item to cart...',
@@ -455,7 +455,7 @@ window.setTimeout(function(){
 swal.close();
 } ,1000);
 } else {
-$("#add-product .btn.hidden").data("id", data[0].id).data("num", data[0].num).click();
+jQuery("#add-product .btn.hidden").data("id", data[0].id).data("num", data[0].num).click();
 }
 
 resolve();
@@ -469,8 +469,8 @@ showCancelButton: false,
 showConfirmButton: false
 });
 
-// $("#product-input-search").val(query);
-// $("#product-search-form").submit();
+// jQuery("#product-input-search").val(query);
+// jQuery("#product-search-form").submit();
 swal.close()
 
 swal({
@@ -496,7 +496,7 @@ swal.clickConfirm();
 
 // START: Shopping Cart Page
 function updateCart(key) {
-$row = $('#shopping_cart table#cart_items tr[data-cartid="'+key+'"]');
+$row = jQuery('#shopping_cart table#cart_items tr[data-cartid="'+key+'"]');
 
 var quantity   = $row.find('input[data-type="quantity"]').val();
 var item_type  = $row.find('[data-type="item_type"]').val();
@@ -508,8 +508,8 @@ cart.update(key, quantity, price, item_type);
 }
 
 /*
-$('#shopping_cart table#cart_items').on('blur', 'input', function() {
-var $row = $(this).closest('tr');
+jQuery('#shopping_cart table#cart_items').on('blur', 'input', function() {
+var $row = jQuery(this).closest('tr');
 var key = $row.attr('data-cartid');
 var quantity   = $row.find('input[data-type="quantity"]').val();
 var item_type  = $row.find('[data-type="item_type"]').val();

@@ -83,59 +83,59 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $(".my_select2").select2({
+        jQuery(".my_select2").select2({
             placeholder: {
                 id: '-1', // the value of the option
                 text: 'Select an option'
             }
         });
 
-        $('#btn_submit_app').on('click', function ()
+        jQuery('#btn_submit_app').on('click', function ()
         {
-            if ($("input[name='rbt_contact']:checked").val())
+            if (jQuery("input[name='rbt_contact']:checked").val())
             {
                 var target = document.getElementById('container');
                 var spinner = new Spinner(opts).spin(target);
 
                 var token = Math.floor((Math.random() * 1000000000000000) + 1);
-                var title = $('#txt_doctor').val() + ' / ' + $('#txt_service').val();
+                var title = jQuery('#txt_doctor').val() + ' / ' + jQuery('#txt_service').val();
 
-                var id_service=$('#txt_service').attr('datafld');
-                var ACS_ServiceValueList=$('#hdn_service').val();
-                var id_client=$('#txt_patient').val();
-                var id_doctor=$('#txt_doctor').attr('datafld');
-                var date=$('#txt_date').val();
-                var start=$('#txt_start').val();
-                var end=$('#txt_end').val();
-                var id_settings=$('#txt_id_setting').val();
+                var id_service=jQuery('#txt_service').attr('datafld');
+                var ACS_ServiceValueList=jQuery('#hdn_service').val();
+                var id_client=jQuery('#txt_patient').val();
+                var id_doctor=jQuery('#txt_doctor').attr('datafld');
+                var date=jQuery('#txt_date').val();
+                var start=jQuery('#txt_start').val();
+                var end=jQuery('#txt_end').val();
+                var id_settings=jQuery('#txt_id_setting').val();
 
 
-                var alert=$('#sel_alert').val();
-                var msg=$('#txt_msg').val();
-                var contactby=$("input[name='rbt_contact']:checked").val();
+                var alert=jQuery('#sel_alert').val();
+                var msg=jQuery('#txt_msg').val();
+                var contactby=jQuery("input[name='rbt_contact']:checked").val();
 
                 CheckAvailability(id_service, ACS_ServiceValueList, id_client, id_doctor, date, start, end, title, token, spinner, id_settings, alert, msg, contactby);
             }
             else
             {
-                if($('#legend_contact').css('color')!='rgb(213, 97, 97)')
+                if(jQuery('#legend_contact').css('color')!='rgb(213, 97, 97)')
                 {
-                    $('#fieldset_contact').css('border', '1px solid #A90329');
-                    $('#legend_contact').css('color', '#D56161');
-                    $('<em class="invalid" style="top:-40px;left:10px;position:relative" id="em_contact">The field is required.</em>').insertAfter('#fieldset_contact');
-                    $('html, body').animate({
-                        scrollTop: $('#fieldset_contact').offset().top - 200
+                    jQuery('#fieldset_contact').css('border', '1px solid #A90329');
+                    jQuery('#legend_contact').css('color', '#D56161');
+                    jQuery('<em class="invalid" style="top:-40px;left:10px;position:relative" id="em_contact">The field is required.</em>').insertAfter('#fieldset_contact');
+                    jQuery('html, body').animate({
+                        scrollTop: jQuery('#fieldset_contact').offset().top - 200
                     }, 1000);
                 }
             }
         });
 
-        $("input[name='rbt_contact']").on('change', function () {
-            $('#fieldset_contact').css('border','1px solid #d7d7d7');
-            $('#legend_contact').css('color','#000');
-            $('#em_contact').remove();
+        jQuery("input[name='rbt_contact']").on('change', function () {
+            jQuery('#fieldset_contact').css('border','1px solid #d7d7d7');
+            jQuery('#legend_contact').css('color','#000');
+            jQuery('#em_contact').remove();
         });
 
         function CheckAvailability(id_service, ACS_ServiceValueList, id_patient, id_doctor, date, start, end, title, token, spinner, setting_id, alert, msg, contactby)
@@ -144,14 +144,14 @@
             var url = 'Main/SaveObject';
             var data = array_inputs+'&layout=PHP_Appointment&type=INSERT';
 
-            $.ajax({
+            jQuery.ajax({
                 type: "POST",
                 dataType: "html",
                 url: 'Dashboard/GetAppointmentBy',
                 data:{id_service:id_service, id_doctor:id_doctor, date:date, start:start}
             }).done(function(response, textStatus, jqXHR)
             {
-                if(response=='0'){$('#modal').html('Please, reload the page, exist an appointment in this date and time.');spinner.stop();}
+                if(response=='0'){jQuery('#modal').html('Please, reload the page, exist an appointment in this date and time.');spinner.stop();}
                 else{SaveContentApp(url, data, title, token, spinner);}
 
             }).fail(function(jqHTR, textStatus, thrown)
@@ -162,7 +162,7 @@
 
         function SaveContentApp(url, array_inputs, title, token, spinner)
         {
-            $.ajax({
+            jQuery.ajax({
                 type: "POST",
                 dataType: "html",
                 url: url,
@@ -171,12 +171,12 @@
             {
                 if(response!='1')
                 {
-                    if($.isNumeric(response))
+                    if(jQuery.isNumeric(response))
                     {
                         alertify.success('Data Saved.');
 
-                        var id=$('#hdn_id').val();
-                        var go_layout=$('#hdn_go_layout').val();
+                        var id=jQuery('#hdn_id').val();
+                        var go_layout=jQuery('#hdn_go_layout').val();
 
                         SendMail(title, token, spinner, id, go_layout);
 
@@ -213,24 +213,24 @@
                 '<p>Please click on this link to confirm your appointment details below.</p>' +
                 '<p><a href="' + link + '"><button class="btn btn-success">Confirm Appointment</button></a></p>' +
                 '<br>' +
-                '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
-                '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +
-                '<p><strong>Provider: </strong>'+$('#txt_doctor').val()+'</p>' +
-                '<p><strong>Service: </strong>'+$('#txt_service').val()+'</p>' +
+                '<p><strong>Date: </strong>'+jQuery('#txt_date').val()+'</p>' +
+                '<p><strong>Time: </strong>'+jQuery('#txt_start').val()+'</p>' +
+                '<p><strong>Provider: </strong>'+jQuery('#txt_doctor').val()+'</p>' +
+                '<p><strong>Service: </strong>'+jQuery('#txt_service').val()+'</p>' +
                 '<br>' +
                 '<p>Thank you,</p>' +
                 '<?php echo EMAIL_SIGNATURE;?>' +
                 '</body></html>';
 
-            $.ajax(
+            jQuery.ajax(
             {
                 url:'Main/EnviarEmail',
                 type:'POST',
                 data:{from_email:from_email, from_name:from_name, email_to:email_to, reply_to_email:reply_to_email, reply_to_name:reply_to_name, subject:subject, body:body, attachments:attachments}
             }).done(function(response, textStatus, jqXHR)
             {
-                if(response == 'WRONG') {$('#modal').html('Your email is wrong.');}
-                else if( id=='' && go_layout==''){$('#modal').html('<div class="text-center">A confirmation request email has been sent to ' + email_to+'</div><br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
+                if(response == 'WRONG') {jQuery('#modal').html('Your email is wrong.');}
+                else if( id=='' && go_layout==''){jQuery('#modal').html('<div class="text-center">A confirmation request email has been sent to ' + email_to+'</div><br><fieldset><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div></fieldset>');}
                 spinner.stop();
             });
         }
@@ -239,7 +239,7 @@
         {
             var email_to = "<?php print $email;?>";
 
-            $.ajax(
+            jQuery.ajax(
             {
                 url:'Appointment/CancelAppointment',
                 type:'POST',
@@ -250,17 +250,17 @@
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'NO_CANCEL') {
-                    $('#modal').html('<div class="text-center">You can not reschedule the appointment, please, call the office at 513-351-FACE(3223).</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                    jQuery('#modal').html('<div class="text-center">You can not reschedule the appointment, please, call the office at 513-351-FACE(3223).</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
                 }
                 else
                 {
-                    $('#modal').html('<div class="text-center">A confirmation request email has been sent to ' + email_to + '<br>Your appointment has been rescheduled.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
+                    jQuery('#modal').html('<div class="text-center">A confirmation request email has been sent to ' + email_to + '<br>Your appointment has been rescheduled.</div><br><div class="text-center"><a class="btn btn-default" data-dismiss="modal">Close</a></div>');
                 }
-                $('#modal_title').html('Rescheduled Appointment');
-                $('#remoteModal').modal('show');
+                jQuery('#modal_title').html('Rescheduled Appointment');
+                jQuery('#remoteModal').modal('show');
             });
 
-            $("#remoteModal").on("hide.bs.modal", function ()
+            jQuery("#remoteModal").on("hide.bs.modal", function ()
             {
                 LoadContent('Appointment');
             });

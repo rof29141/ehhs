@@ -121,7 +121,7 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         Load();
 
@@ -135,7 +135,7 @@
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {data_type:'dataPersonalInfo',view_url:'user/InputsAddPersonalInfo|user/InputsAddPersonalInfoScript'}
@@ -143,7 +143,7 @@
             {
                 if(response)
                 {
-                    $('#data_personal_info').html(response);
+                    jQuery('#data_personal_info').html(response);
                     spinner.stop();
                 }
             });

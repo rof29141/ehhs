@@ -34,7 +34,7 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         Load();
 
@@ -49,7 +49,7 @@
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {data_type:'dropdownlistuser',view_url:'user/DropDownHideShow'}
@@ -57,7 +57,7 @@
             {
                 if(response)
                 {
-                    $('#data_table_DropDown').html(response);
+                    jQuery('#data_table_DropDown').html(response);
                     spinner.stop();
                 }
             });
@@ -65,7 +65,7 @@
 
         function DataTable_User()
         {
-            var datatable_User=$('#data_table_User').DataTable(
+            var datatable_User=jQuery('#data_table_User').DataTable(
             {
                 dom:
                     "<'mysearch col-xs-12 col-sm-12 col-md-3 col-lg-3'f>" +
@@ -83,7 +83,7 @@
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {data_type:'datatableListUser',view_url:'user/DataTableListUser'}
@@ -91,15 +91,15 @@
             {
                 if(response)
                 {
-                    $('#data_table_User').html(response);
+                    jQuery('#data_table_User').html(response);
                     var datatable_User=DataTable_User();
                     hide_show(datatable_User);
-                    //var my_btn_table=$('.my_btn_table').html();
-                    //$('#other_btn').append(my_btn_table);
-                    //$('.my_btn_table').html('');
-                    var other_btn=$('#other_btn').html();
-                    $('.dt-buttons').append(other_btn);
-                    $('#other_btn').html('');
+                    //var my_btn_table=jQuery('.my_btn_table').html();
+                    //jQuery('#other_btn').append(my_btn_table);
+                    //jQuery('.my_btn_table').html('');
+                    var other_btn=jQuery('#other_btn').html();
+                    jQuery('.dt-buttons').append(other_btn);
+                    jQuery('#other_btn').html('');
                     spinner.stop();
                     RowDetail(datatable_User);
                 }
@@ -108,38 +108,38 @@
 
         function hide_show(datatable)
         {
-            $('body').on('click', '.toggle-vis', function () {
-                var column = datatable.column($(this).attr('value'));
+            jQuery('body').on('click', '.toggle-vis', function () {
+                var column = datatable.column(jQuery(this).attr('value'));
                 column.visible(!column.visible());
             });
 
-            $('body').on('click', '.toggle-vis1', function () {
-                var column = datatable.column($(this).attr('for'));
+            jQuery('body').on('click', '.toggle-vis1', function () {
+                var column = datatable.column(jQuery(this).attr('for'));
                 column.visible(!column.visible());
             });
         }
 
         function RowDetail(datatable_User)
         {
-            $('body').on('click', '.detail', function ()
+            jQuery('body').on('click', '.detail', function ()
             {
-                var id = $(this).attr('id');
-                var tr = $(this).closest('tr');
+                var id = jQuery(this).attr('id');
+                var tr = jQuery(this).closest('tr');
                 var row = datatable_User.row( tr );
 
                 if(row.child.isShown())
                 {
                     row.child.hide();
                     tr.removeClass('shown');
-                    $(this).find('a').removeClass("entypo-arrow-down4").addClass("entypo-arrow-right4");
+                    jQuery(this).find('a').removeClass("entypo-arrow-down4").addClass("entypo-arrow-right4");
                 }
                 else
                 {
                     var target = document.getElementById('container');
                     var spinner = new Spinner(opts).spin(target);
-                    $(this).find('a').removeClass("entypo-arrow-right4").addClass("entypo-arrow-down4");
+                    jQuery(this).find('a').removeClass("entypo-arrow-right4").addClass("entypo-arrow-down4");
 
-                    $.ajax({
+                    jQuery.ajax({
                         url: 'Main/LlenarDataTable',
                         type: 'POST',
                         data: {data_type: 'detailDataTableUser', view_url: 'user/DetailDataTableUser', id:id}

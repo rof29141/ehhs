@@ -142,19 +142,19 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         LoadDataTable_Appointment();
 
         function DataTable_Appointment()
         {
 
-            $('.hasinput').each( function () {
-                var title = $(this).text();
-                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            jQuery('.hasinput').each( function () {
+                var title = jQuery(this).text();
+                jQuery(this).html( '<input type="text" placeholder="Search '+title+'" />' );
             } );
 
-            var datatable_Appointment=$('#data_table_Appointment').DataTable(
+            var datatable_Appointment=jQuery('#data_table_Appointment').DataTable(
                 {
                     dom:
                     "<'mysearch col-xs-12 col-sm-12 col-md-3 col-lg-3'f>" +
@@ -167,8 +167,8 @@
             return datatable_Appointment;
         }
 
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
-            $($.fn.dataTable.tables(true)).DataTable()
+        jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+            jQuery(jQuery.fn.dataTable.tables(true)).DataTable()
                 .columns.adjust();
         });
 
@@ -177,7 +177,7 @@
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {data_type:'datatableListMyAppointment',view_url:'appointment/DataTableListAppointment'}
@@ -185,32 +185,32 @@
             {
                 if(response)
                 {
-                    $('#data_table_Appointment').html(response);
+                    jQuery('#data_table_Appointment').html(response);
                     var datatable_Appointment=DataTable_Appointment();
 
-                    var other_btn=$('#other_btn').html();
-                    $('#data_table_Appointment_wrapper').find($('.dt-buttons')).append(other_btn);
-                    $('#other_btn').html('');
+                    var other_btn=jQuery('#other_btn').html();
+                    jQuery('#data_table_Appointment_wrapper').find(jQuery('.dt-buttons')).append(other_btn);
+                    jQuery('#other_btn').html('');
                     spinner.stop();
                 }
             });
         }
 
-        $('.chat').on('click', function ()
+        jQuery('.chat').on('click', function ()
         {
             Tawk_API.maximize();
         });
 
-        $('[data-toggle="popover"]').on('mouseover', function(){
-            $(this).popover('show')
+        jQuery('[data-toggle="popover"]').on('mouseover', function(){
+            jQuery(this).popover('show')
         });
 
-        $('[data-toggle="popover"]').on('mouseout', function(){
-            $(this).popover('hide')
+        jQuery('[data-toggle="popover"]').on('mouseout', function(){
+            jQuery(this).popover('hide')
         });
 
-        $('[data-toggle="popover"]').on('click', function(){
-            $(this).popover('toggle')
+        jQuery('[data-toggle="popover"]').on('click', function(){
+            jQuery(this).popover('toggle')
         });
     });
 

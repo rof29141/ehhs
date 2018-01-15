@@ -1,54 +1,32 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-$page_title = "";
-$position='center';
-require_once(APPPATH."views/includes/header.php");
-?>
-
-<body>
-<div id="wrapper">
-
-    <div class="container text-center" style="margin-top: 40px;">
-        <?php require_once(VIEW_URL."includes/banner.php");?>
+<form class="reg-page" id='frm_auth'>
+    <div class="reg-header">
+        <h2>Forgot User</h2>
     </div>
 
-    <fieldset class="container auth" style="padding-left: 40px;padding-right: 40px;">
-        <?php print form_open('', "class='smart-form client-form' id='frm_auth' role='form' method='post'"); ?>
-        <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
-            <legend id="legend_contact" class="mylegend">Forgot User</legend>
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Email address</strong>
+        <input type="email" class="form-control" name="inp_email" id="inp_email" placeholder="Enter your Email" value="<?php if(isset($email))echo $email;?>">
+    </div>
+    
+    <div class="row">
 
-            <div class="fields">
-                <strong>Email address</strong>
-                <input type="email" class="form-control" name="inp_email" id="inp_email" placeholder="Enter your Email" value="<?php if(isset($email))echo $email;?>">
-            </div>
-
-
-            <div class="actions">
-                <button type="button" id="send_user" class="btn btn-lg btn-primary btn-block">
-                    Send me the User ID
-                </button>
-            </div>
-
-            <fieldset>
-                <div class="text-center">
-                    <a href="<?php print CTR_URL; ?>Authentication">Don't have access to this email?</a><br>
-                    <a href="<?php print CTR_URL; ?>Authentication">Back to Login</a>
-                </div>
-            </fieldset>
-        </fieldset>
-
-        <?php require_once(VIEW_URL."includes/hidden.php");?>
-        <?php print form_close(); ?>
+        <div class="col-md-12">
+            <button class="btn-u pull-right" id="send_user" type="button">Send me the User ID</button>
+        </div>
     </div>
 
-</div>
+    <hr>
 
-<?php require_once(VIEW_URL."includes/footer.php");?>
+    <div class="text-center">
+		<a onclick="LoadContent('Authentication/GoRecoverAccount', 0, 'auth')">Don't have access to this email?</a><br>
+        <a onclick="LoadContent('Authentication/GoLogin', 0, 'auth')">Back To Login</a>
+    </div>
+</form>
 
 <script type="text/javascript">
-    $(function()
+    jQuery(function()
     {
-        $("#frm_auth").validate(
+        jQuery("#frm_auth").validate(
         {
             rules : {
                 inp_email : {
@@ -69,16 +47,16 @@ require_once(APPPATH."views/includes/header.php");
     });
 
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $('#send_user').on('click', function(e)
+        jQuery('#send_user').on('click', function(e)
         {
-            if($("#frm_auth").valid())
+            if(jQuery("#frm_auth").valid())
             {
-                request=$.ajax({
-                    url:'ValidateEmail',
+                request=jQuery.ajax({
+                    url:'Authentication/ValidateEmail',
                     type:'POST',
-                    data:'email='+$('#inp_email').val()+'&send=user'
+                    data:'email='+jQuery('#inp_email').val()+'&send=user'
                 });
 
                 request.done(function(response, textStatus, jqXHR)
@@ -90,8 +68,8 @@ require_once(APPPATH."views/includes/header.php");
                         alertify.error('The field email is required.');
                     }
                     else {
-                        alertify.success('Please, check your inbox. Has been sent an email to ' + $('#inp_email').val());
-                        $('#frm_auth').html('<div class="actions"><a style="color:#fff;" href="<?php print CTR_URL; ?>Authentication"><div class="btn btn-lg btn-primary btn-block">Return to login</div></a></div>');
+                        alertify.success('Please, check your inbox. Has been sent an email to ' + jQuery('#inp_email').val());
+                        jQuery('#frm_auth').html('<div class="actions"><a style="color:#fff;" onclick="LoadContent(\'Authentication/GoLogin\', 0, \'auth\')"><div class="btn-u pull-right">Return to login</div></a></div>');
                     }
                 });
             }

@@ -1,81 +1,51 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-$page_title = "";
-$position='center';
-require_once(APPPATH."views/includes/header.php");
-?>
 
-<body >
-<div id="wrapper">
-
-    <div class="container text-center" style="margin-top: 40px;">
-        <?php require_once(VIEW_URL."includes/banner.php");?>
+<form class="reg-page" id='frm_auth'>
+    <div class="reg-header">
+        <h2>Forgot User</h2>
     </div>
 
-    <div class="container auth" style="padding-left: 40px;padding-right: 40px;">
-        <?php print form_open('authentication/ResetNewPass', "class='form-signin' id='frm_auth' role='form'"); ?>
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>User ID</strong>
+        <input name="user" id="user" class="form-control" type="text" placeholder="Enter your User ID" />
+	</div>
+    
+	 <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Password</strong>
+        <input name="password" id="password" class="form-control" type="password" placeholder="Enter your Password" />
+	</div>
+	
+	 <div class="col-md-12 input-group margin-bottom-5">
+        <strong>New Password</strong>
+        <input placeholder="Enter your New password"  name="txt_pass" id="txt_pass"  type="password"  value="" class="form-control" >
+	</div>
+	
+	 <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Confirm New Password</strong>
+        <input  name="txt_pass1" id="txt_pass1"  type="password"  size="15" class="form-control" placeholder="Confirm your password" />
+	</div>
 
-        <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
-            <legend id="legend_contact" class="mylegend">Reset Password</legend>
+    <div class="row">
 
-                <section>
-                    <div class="fields">
-                        <strong>User ID</strong>
-                        <input name="email" class="form-control" type="text" placeholder="Enter your User ID" />
-                    </div>
-                </section>
-
-                <section>
-                    <div class="fields">
-                        <strong>Password</strong>
-                        <input name="password" class="form-control" type="password" placeholder="Enter your Password" />
-                    </div>
-                </section>
-
-                <section>
-                    <div class="fields">
-                        <strong>New Password</strong>
-                        <input placeholder="Enter your New password"  name="txt_pass" id="txt_pass"  type="password"  value="" class="form-control" >
-                    </div>
-                </section>
-
-                <section>
-                    <div class="fields">
-                        <strong>Confirm New Password</strong>
-                        <input  name="txt_pass1" id="txt_pass1"  type="password"  size="15" class="form-control" placeholder="Confirm your password" />
-                    </div>
-                </section>
-
-                <div class="actions">
-                    <button type="submit" class="btn btn-lg btn-primary btn-block">
-                        Change Password
-                    </button>
-                </div>
-
-                <fieldset>
-                    <div class="text-center">
-                        <a href="<?php print CTR_URL; ?>Authentication">Back to Login</a>
-                    </div>
-                </fieldset>
-
-        </fieldset>
-
-        <?php require_once(VIEW_URL."includes/hidden.php");?>
-        <?php print form_close(); ?>
+        <div class="col-md-12">
+            <button class="btn-u pull-right" id="change_pass" type="button">Change Password</button>
+        </div>
     </div>
 
-</div>
+    <hr>
 
-<?php require_once(VIEW_URL."includes/footer.php");?>
+    <div class="text-center">
+        <a onclick="LoadContent('Authentication/GoLogin', 0, 'auth')">Back To Login</a>
+    </div>
+</form>
 
 <script type="text/javascript">
-	$(function() {
+	jQuery(function() {
 
-		$("#frm_auth").validate(
+		jQuery("#frm_auth").validate(
         {
 
 			rules : {
-				email : {
+				user : {
 					required : true
 				},
 				password : {
@@ -93,7 +63,7 @@ require_once(APPPATH."views/includes/header.php");
 			},
 
 			messages : {
-				email : {
+				user : {
 					required : 'Please enter your User ID.'
 				},
 				password : {
@@ -115,9 +85,30 @@ require_once(APPPATH."views/includes/header.php");
 		});
     });
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
+		jQuery('#change_pass').on('click', function(e)
+        {
+            if(jQuery("#frm_auth").valid())
+            {
+                request=jQuery.ajax({
+                    url:'Authentication/ResetNewPass',
+                    type:'POST',
+                    data:'user='+jQuery('#user').val()+'&password='+jQuery('#password').val()+'&txt_pass='+jQuery('#txt_pass').val()
+                });
 
+                request.done(function(response, textStatus, jqXHR)
+                {
+                    if(response == 'OK') {
+						alertify.success('Password changed.');
+                        LoadContent('Authentication/GoLogin', 0, 'auth')
+                    }
+                    else {
+                        alertify.error(response);
+                    }
+                });
+            }
+        });
     });
 
 </script>

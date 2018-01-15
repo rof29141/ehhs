@@ -59,7 +59,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".my_select2").select2();
+    jQuery(document).ready(function() {
+        jQuery(".my_select2").select2();
     });
 </script>

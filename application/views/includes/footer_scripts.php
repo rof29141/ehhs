@@ -1,21 +1,21 @@
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         function ValidateFrm()
         {
-            $.validator.setDefaults(
+            jQuery.validator.setDefaults(
             {
                 //errorElement: "span",
                 //errorClass: "help-block",
                 //	validClass: 'stay',
                 highlight: function (element, errorClass, validClass) {//alert('high');
-                    $(element).addClass(errorClass); //.removeClass(errorClass);
-                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                    jQuery(element).addClass(errorClass); //.removeClass(errorClass);
+                    jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
                 },
                 unhighlight: function (element, errorClass, validClass) {//alert('unhigh');
-                    $(element).removeClass(errorClass); //.addClass(validClass);
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                    jQuery(element).removeClass(errorClass); //.addClass(validClass);
+                    jQuery(element).closest('.form-group').removeClass('has-error').addClass('has-success');
                 },
                 errorPlacement: function (error, element)
                 {//alert('ojn');
@@ -39,7 +39,7 @@
                 }
             });
 
-            $("#frm").validate(
+            jQuery("#frm").validate(
             {
                 ignore: [],
                 focusInvalid: false,
@@ -48,105 +48,93 @@
                     if (!validator.numberOfInvalids())
                         return;
 
-                    $('html, body').animate({
-                        scrollTop: $(validator.errorList[0].element).offset().top-100
+                    jQuery('html, body').animate({
+                        scrollTop: jQuery(validator.errorList[0].element).offset().top-100
                     }, 2000);
                 }
             });
 
-            $.validator.addMethod("select", function(value, element, arg)
+            jQuery.validator.addMethod("select", function(value, element, arg)
             {
                 return arg !== value;
             }, "This field is required. Please, select an option.");
 
-            $("#frm").find('.required').each(function()
+            jQuery("#frm").find('.required').each(function()
             {
-                $(this).rules( "add",{required: true});
+                jQuery(this).rules( "add",{required: true});
             });
 
-            $("#frm").find('.required_select').each(function()
+            jQuery("#frm").find('.required_select').each(function()
             {
-                $(this).rules( "add",{select: "-1"});
+                jQuery(this).rules( "add",{select: "-1"});
             });
         }
 
-        /*$('body').on('change', '.my_select2', function () {
+        /*jQuery('body').on('change', '.my_select2', function () {
             ValidateFrm();
-            $(this).valid();
+            jQuery(this).valid();
         });*/
 
-        alertify.defaults.transition = "zoom";
+     
 
-        var msg = $("#msg").val();
-        if (msg != '' && msg != null) alertify.message(msg);
-
-        var success = $("#success").val();
-        if (success != '' && success != null) alertify.success(success);
-
-        var warning = $("#warning").val();
-        if (warning != '' && warning != null) alertify.alert(warning);
-
-        var error = $("#error").val();
-        if (error != '' && error != null) alertify.error(error);
-
-        $('body').on('change', '#select_all', function ()
+        jQuery('body').on('change', '#select_all', function ()
         {
             var status = this.checked; // "select all" checked status
-            $('.cbx').each(function(){ //iterate all listed checkbox items
+            jQuery('.cbx').each(function(){ //iterate all listed checkbox items
                 this.checked = status; //change ".checkbox" checked status
             });
         });
 
-        $('body').on('change', '#select_all_sub', function ()
+        jQuery('body').on('change', '#select_all_sub', function ()
         {
             var status = this.checked; // "select all" checked status
-            $('.cbx_sub').each(function(){ //iterate all listed checkbox items
+            jQuery('.cbx_sub').each(function(){ //iterate all listed checkbox items
                 this.checked = status; //change ".checkbox" checked status
             });
         });
 
-        $('body').on('click', '#btn_insert', function (e)
+        jQuery('body').on('click', '#btn_insert', function (e)
         {
             var go_function='Main/GoObject';
-            var go_view=$(this).attr("data-goto");
-            var go_back=$('#view').val();
+            var go_view=jQuery(this).attr("data-goto");
+            var go_back=jQuery('#view').val();
 
             UpdateContent(go_function, go_view, go_back);
 
         });
 
-        $('body').on('click', '#btn_update', function (e)
+        jQuery('body').on('click', '#btn_update', function (e)
         {
             var id='';
-            $('.cbx:checked').each(
+            jQuery('.cbx:checked').each(
                 function()
                 {
                     if(id=='')
-                    {id = $(this).val();}
+                    {id = jQuery(this).val();}
                 }
             );
 
-            Update($(this).attr("data-goto"), id);
+            Update(jQuery(this).attr("data-goto"), id);
         });
 
-        $('body').on('click', '#btn_update_sub', function (e)
+        jQuery('body').on('click', '#btn_update_sub', function (e)
         {
             var id='';
-            $('.cbx_sub:checked').each(
+            jQuery('.cbx_sub:checked').each(
                 function()
                 {
                     if(id=='')
-                    {id = $(this).val();}
+                    {id = jQuery(this).val();}
                 }
             );
 
-            Update($(this).attr("data-goto"), id);
+            Update(jQuery(this).attr("data-goto"), id);
         });
 
-        $('body').on('click', '.row_upd', function (e)
+        jQuery('body').on('click', '.row_upd', function (e)
         {
             var id='';
-            var string=$(this).attr("data-goto");
+            var string=jQuery(this).attr("data-goto");
             var result=string.split('-');
 
             Update(result[0],result[1]);
@@ -157,7 +145,7 @@
             if(id)
             {//alert(id);
                 var go_function='Main/GoObject';
-                var go_back=$('#view').val();
+                var go_back=jQuery('#view').val();
 
                 UpdateContent(go_function, go_view, go_back, id);
             }
@@ -165,12 +153,12 @@
                 alertify.error('You have to select a row.');
         }
 
-        $('body').on('click', '#btn_save', function ()
+        jQuery('body').on('click', '#btn_save', function ()
         {
-            if ($("#frm").valid()) {
-                var layout=$('#btn_save').attr('datafld');
-                var type=$('#btn_save').attr('datatype');
-                var array_inputs=$('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize();
+            if (jQuery("#frm").valid()) {
+                var layout=jQuery('#btn_save').attr('datafld');
+                var type=jQuery('#btn_save').attr('datatype');
+                var array_inputs=jQuery('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize();
                 var url = 'Main/SaveObject';
                 var data = array_inputs+'&layout='+layout+'&type='+type;
 
@@ -178,23 +166,23 @@
             }
         });
 
-        $('body').on('click', '#btn_delete', function (e)
+        jQuery('body').on('click', '#btn_delete', function (e)
         {
             var id='';
-            $('.cbx:checked').each(
+            jQuery('.cbx:checked').each(
                 function()
                 {
                     if(id=='')
-                        id = $(this).val();
+                        id = jQuery(this).val();
                     else
-                        id = id + '-' + $(this).val();
+                        id = id + '-' + jQuery(this).val();
                 }
             );
 
             if(id!='')
             {
                 var go_function='Main/DeleteObject';
-                var go_layout=$(this).attr("datafld");
+                var go_layout=jQuery(this).attr("datafld");
 
                 alertify.confirm("Do you confirm the action?", function (e)
                 {
@@ -209,23 +197,23 @@
                 alertify.error('You have to select a row.');
         });
 
-        $('body').on('click', '#btn_delete_sub', function (e)
+        jQuery('body').on('click', '#btn_delete_sub', function (e)
         {
             var id='';
-            $('.cbx_sub:checked').each(
+            jQuery('.cbx_sub:checked').each(
                 function()
                 {
                     if(id=='')
-                        id = $(this).val();
+                        id = jQuery(this).val();
                     else
-                        id = id + '-' + $(this).val();
+                        id = id + '-' + jQuery(this).val();
                 }
             );
 
             if(id!='')
             {
                 var go_function='Main/DeleteObject';
-                var go_layout=$(this).attr("datafld");
+                var go_layout=jQuery(this).attr("datafld");
 
                 alertify.confirm("Do you confirm the action?", function (e)
                 {

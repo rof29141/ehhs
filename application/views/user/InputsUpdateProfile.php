@@ -43,11 +43,11 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $(".my_select2").select2();
+        jQuery(".my_select2").select2();
 
-        $("#frm").validate(
+        jQuery("#frm").validate(
         {
             rules : {
                 bd_user_email: {
@@ -67,6 +67,6 @@
             }
         });
 
-        $('#my_legend_rewards').html('<?php print $data['user']['data'][0]['bd_FirstName'].' '.$data['user']['data'][0]['bd_LastName'];?>');
+        jQuery('#my_legend_rewards').html('<?php print $data['user']['data'][0]['bd_FirstName'].' '.$data['user']['data'][0]['bd_LastName'];?>');
     });
 </script>

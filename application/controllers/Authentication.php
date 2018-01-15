@@ -65,20 +65,24 @@ class Authentication extends CI_Controller
         $error='';
 
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('user', 'Email', 'trim|required');
+        $this->form_validation->set_rules('pass', 'Password', 'trim|required');
 
         if($this->form_validation->run()==1)
         {
-            $result = $this->CheckDatabase($this->input->post('password'));//var_dump($result);
+            $result = $this->CheckDatabase($this->input->post('pass'));//var_dump($result);
 
             if ($result['error']=='0')
             {
-                redirect('Main', 'refresh', '');
-            } else {
-                $error=$result['error'];
-
-                $this->index($msg, $success, $warning, $error);
+                print 'LOGGED';
+            } 
+			elseif($result['error']=='ACTIVATE')
+			{
+                print $result['email'];
+            }
+			else 
+			{
+                print $result['error'];
             }
         }
         else
@@ -91,7 +95,7 @@ class Authentication extends CI_Controller
 
     function CheckDatabase($password)
     {
-        $username = $this->input->post('email');
+        $username = $this->input->post('user');
         $result = $this->Auth->Login($username, $password);
 
         if ($result['error']=='0')
@@ -112,7 +116,8 @@ class Authentication extends CI_Controller
         elseif ($result['error']=='ACTIVATE')
         {
             $this->ValidateEmail($result['email'],'activate_yet');
-            $result['error'] = 'Sorry, your account doesn\'t have been activate yet. Please check your inbox.';
+            //print $return;
+			//$result['error'] = 'Sorry, your account doesn\'t have been activate yet. Please check your inbox.';
         }
 
         return $result;
@@ -149,7 +154,7 @@ class Authentication extends CI_Controller
                         $token = $result['token'];
 
                         $subject = "Recover Password";
-                        $link = base_url('/Authentication/Restore/' . $token);
+                        $link = base_url('Main?c=Authentication&f=Restore&p1=' . $token.'&v=main-view');
                         $body = '
                             <html>
                                 <head>
@@ -215,36 +220,44 @@ class Authentication extends CI_Controller
                 }
                 elseif ($send=='activate')
                 {
-                    $id = $result['id'];
-                    $result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
+                    $Activate_Status = $result['Activate_Status'];
+					if($Activate_Status==1)
+					{
+						return 'ACTIVATED';
+					}
+					else
+					{
+						$id = $result['id'];
+						$result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
 
-                    if ($result['token'])
-                    {
-                        $token = $result['token'];
+						if ($result['token'])
+						{
+							$token = $result['token'];
 
-                        $subject = "Activate Your Account";
-                        $link = base_url('/Authentication/Activate/' . $token);
-                        $body = '
-                            <html>
-                                <head>
-                                    <title>Activate Your Account</title>'
-                                    .EMAIL_STYLE.
-                                '</head>
-                                <body>
-                                    <h1>Thank you for signing up!</h1>
-                                    <p>Please click on the button below to activate your account.</p>
-                                    <p><a href="' . $link . '"><button class="btn btn-success">Activate your account</button></a></p>
-                                    <p>If you received this email in error, please delete.</p>
-                                    <p>Thanks,</p>'
-                                    .EMAIL_SIGNATURE.
-                                '</body>
-                            </html>';
+							$subject = "Activate Your Account";
+							$link = base_url('Main?c=Authentication&f=Activate&p1=' . $token.'&p2=' . $email.'&v=main-view');
+							$body = '
+								<html>
+									<head>
+										<title>Activate Your Account</title>'
+										.EMAIL_STYLE.
+									'</head>
+									<body>
+										<h1>Thank you for signing up!</h1>
+										<p>Please click on the button below to activate your account.</p>
+										<p><a href="' . $link . '"><button class="btn btn-success">Activate your account</button></a></p>
+										<p>If you received this email in error, please delete.</p>
+										<p>Thanks,</p>'
+										.EMAIL_SIGNATURE.
+									'</body>
+								</html>';
 
-                        $this->load->library('MT_Mail');
-                        $obj_mail = new MT_Mail();
+							$this->load->library('MT_Mail');
+							$obj_mail = new MT_Mail();
 
-                        $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
-                    }
+							$obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
+						}
+					}
                 }
                 elseif ($send=='activate_yet')
                 {
@@ -256,7 +269,7 @@ class Authentication extends CI_Controller
                         $token = $result['token'];
 
                         $subject = "Activate Your Account";
-                        $link = base_url('/Authentication/Activate/' . $token);
+                        $link = base_url('Main?c=Authentication&f=Activate&p1=' . $token);
                         $body = '
                             <html>
                                 <head>
@@ -395,52 +408,46 @@ class Authentication extends CI_Controller
         return $result;
     }
 
-    function Restore()
+    function Restore($token='')
     {
-        $data['token']=$this->uri->segment(3);//print $token;die();
-        $token=$data['token'];
+        $data['token']=$token;//print $token;die();
 
         $result=$this->Auth->ValidaToken($token);//var_dump($result);
-
 
         if ($result['error']=='0')
         {
             $data['id'] = $result['id'];
-            $this->load->view('authentication/RestorePass', $data);
+            $data['section_auth'] = '/authentication/RestorePass.php';
         }
         else
         {
-            $msg='';
-            $success='';
-            $warning='';
-            $error=$result['error'];
-
-            $this->index($msg, $success, $warning, $error);
+            $data['error']='Sorry, the token is expired.';
+			$data['section_auth'] = '/authentication/Login.php';
         }
+		$this->load->view('dashboard/Dashboard', $data);
     }
 
-    function Activate()
+    function Activate($token='', $email='')
     {
-        $data['token']=$this->uri->segment(3);//print $token;die();
-        $token=$data['token'];
-
+        $data['section_auth'] = '/authentication/Login.php';
+		$data['token']=$token;//print $token;die();
+        
         $result=$this->Auth->ActivateAccount($token);//var_dump($result);
 
-
-        if ($result['error']=='0')
+		if ($result['error']=='0')
         {
             $data['success']='Thank you for activate your account.';
-            $this->load->view('authentication/Login', $data);
         }
         else
         {
-            $msg='';
-            $success='';
-            $warning='';
-            $error=$result['error'];
-
-            $this->index($msg, $success, $warning, $error);
+            $return=$this->ValidateEmail($email, 'activate');
+			if($return=='ACTIVATED')
+			$data['success']='Your account was activated.';
+			else
+			$data['error']='Sorry, the token is expired. Please, check your inbox. Has been sent an email to: '.$email;
         }
+		//echo $return;
+		$this->load->view('dashboard/Dashboard', $data);
     }
 
     function SaveNewPass()
@@ -459,17 +466,21 @@ class Authentication extends CI_Controller
         $error='';
 
         if($result['error']=='0')
-            $success='Password changed.';
+            print 'OK';
         else
-            $error=$result['error'];
-
-        $this->index($msg, $success, $warning, $error);
+            print $result['error'];
     }
 
     function GoForgotUser($email='')
     {
         $data['email']=$email;
         $this->load->view('authentication/ForgotUser', $data);
+    }
+
+    function GoLogin()
+    {
+        $data['language']=$this->LoadLanguage();
+        $this->load->view('authentication/Login', $data);
     }
 
     function GoForgotPassword()
@@ -541,7 +552,7 @@ class Authentication extends CI_Controller
         $data=array(
             'newpass'=>password_hash($this->input->post('txt_pass'), PASSWORD_DEFAULT),
             'pass'=>$this->input->post('password'),
-            'user'=>$this->input->post('email')
+            'user'=>$this->input->post('user')
         );
 
         $result=$this->Auth->ResetNewPass($data);
@@ -552,16 +563,21 @@ class Authentication extends CI_Controller
         $error='';
 
         if($result['error']=='0')
-            $success='Password changed.';
+            print 'OK';
         else
-            $error=$result['error'];
-
-        $this->index($msg, $success, $warning, $error);
+            print $result['error'];
     }
 
     function GoToServices()
     {
         redirect('Services/GoToServices');
+    }
+
+    function LoadLanguage()
+    {
+        $this->load->library('MT_Language');
+        $obj_lang = new MT_Language();
+        return $obj_lang->LoadLanguage();
     }
 }
 ?>

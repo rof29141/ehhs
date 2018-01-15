@@ -25,7 +25,7 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         Load();
 
@@ -39,7 +39,7 @@
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {data_type:'dataprofile',view_url:'user/InputsUpdateProfile'}
@@ -47,7 +47,7 @@
             {
                 if(response)
                 {
-                    $('#data_profile').html(response);
+                    jQuery('#data_profile').html(response);
                     spinner.stop();
                 }
             });

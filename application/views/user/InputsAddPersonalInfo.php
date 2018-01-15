@@ -228,19 +228,19 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $(".my_select2").select2();
+        jQuery(".my_select2").select2();
 
-        $('.cbx_contact').on('click', function () {
-            $('#fieldset_contact').css('border','1px solid #d7d7d7');
-            $('#legend_contact').css('color','#000');
-            $('#em_contact').remove();
+        jQuery('.cbx_contact').on('click', function () {
+            jQuery('#fieldset_contact').css('border','1px solid #d7d7d7');
+            jQuery('#legend_contact').css('color','#000');
+            jQuery('#em_contact').remove();
 
         });
 
-        $('body').on('change', '.my_select2', function () {
-            $(this).valid();
+        jQuery('body').on('change', '.my_select2', function () {
+            jQuery(this).valid();
         });
     });
 </script>

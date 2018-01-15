@@ -92,11 +92,11 @@ require_once(APPPATH."views/includes/header.php");
 <?php require_once(VIEW_URL."includes/footer.php");?>
 
 <script type="text/javascript">
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $('#btn_confirm_app').on('click', function ()
+        jQuery('#btn_confirm_app').on('click', function ()
         {
-            ConfirmAppointment($('#txt_app').val());
+            ConfirmAppointment(jQuery('#txt_app').val());
         });
 
         function SendMail()
@@ -115,15 +115,15 @@ require_once(APPPATH."views/includes/header.php");
                 '<h1>Appointment Confirmed</h1>' +
                 '<p>The patient <b><?php print $bd_FirstName." ".$bd_LastName;?></b> has submited an appointment.' +
                 '<br>' +
-                '<p><strong>Date: </strong>'+$('#txt_date').val()+'</p>' +
-                '<p><strong>Time: </strong>'+$('#txt_start').val()+'</p>' +
-                '<p><strong>Provider: </strong>'+$('#txt_doctor').val()+'</p>' +
-                '<p><strong>Service: </strong>'+$('#txt_service').val()+'</p>' +
+                '<p><strong>Date: </strong>'+jQuery('#txt_date').val()+'</p>' +
+                '<p><strong>Time: </strong>'+jQuery('#txt_start').val()+'</p>' +
+                '<p><strong>Provider: </strong>'+jQuery('#txt_doctor').val()+'</p>' +
+                '<p><strong>Service: </strong>'+jQuery('#txt_service').val()+'</p>' +
                 '<br>' +
                 '<p>Thank you,</p>' +
                 '<?php echo EMAIL_SIGNATURE;?>' +
                 '</body></html>';
-            $.ajax(
+            jQuery.ajax(
             {
                 url:'../../Main/EnviarEmail',
                 type:'POST',
@@ -131,7 +131,7 @@ require_once(APPPATH."views/includes/header.php");
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response == 'WRONG') {
-                    $('#modal').html('Your email is wrong.');
+                    jQuery('#modal').html('Your email is wrong.');
                 }
                 else
                 {
@@ -151,14 +151,14 @@ require_once(APPPATH."views/includes/header.php");
 
         function SaveContentApp(url, array_inputs)
         {
-            $.ajax({
+            jQuery.ajax({
                 type: "POST",
                 dataType: "html",
                 url: url,
                 data:array_inputs
             }).done(function(response, textStatus, jqXHR)
             {
-                if($.isNumeric(response))
+                if(jQuery.isNumeric(response))
                 {
                     SendMail();
                 }

@@ -57,11 +57,11 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $(".my_select2").select2();
+        jQuery(".my_select2").select2();
 
-        $("#frm").validate(
+        jQuery("#frm").validate(
         {
             rules : {
                 UserEmail: {

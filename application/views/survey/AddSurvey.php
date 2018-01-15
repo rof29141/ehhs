@@ -1138,10 +1138,10 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $('.myImg').on('click', function () {
-            var img = $(this);
+        jQuery('.myImg').on('click', function () {
+            var img = jQuery(this);
             var modal = document.getElementById('myModal');
 
             var modalImg = document.getElementById("img01");
@@ -1158,27 +1158,27 @@
             }
         });
 
-        $('#btn_save_survey').on('click', function ()
+        jQuery('#btn_save_survey').on('click', function ()
         {
             ValidateFrm();
-            if ($("#frm").valid())
+            if (jQuery("#frm").valid())
             {
-                if ($('#cbx_contact_1').is(':checked'))
+                if (jQuery('#cbx_contact_1').is(':checked'))
                     var one='1,';
                 else
                     var one='';
 
-                if ($('#cbx_contact_2').is(':checked'))
+                if (jQuery('#cbx_contact_2').is(':checked'))
                     var two='2,';
                 else
                     var two='';
 
-                if ($('#cbx_contact_3').is(':checked'))
+                if (jQuery('#cbx_contact_3').is(':checked'))
                     var three='3,';
                 else
                     var three='';
 
-                if ($('#cbx_contact_4').is(':checked'))
+                if (jQuery('#cbx_contact_4').is(':checked'))
                     var four='4';
                 else
                     var four='';
@@ -1187,15 +1187,15 @@
                 {
                     var cbx_contact_method = one + two + three + four;
 
-                    var array_inputs = $('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize();
+                    var array_inputs = jQuery('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize();
                     var url = 'Survey/SaveSurvay';
                     var data = array_inputs + '&contact_method=' + cbx_contact_method;
 
-                    //$( '.content-wrapper' ).empty();
+                    //jQuery( '.content-wrapper' ).empty();
                     var target = document.getElementById('container');
                     var spinner = new Spinner(opts).spin(target);
 
-                    $.ajax({
+                    jQuery.ajax({
                         type: "POST",
                         dataType: "html",
                         url: url,
@@ -1209,7 +1209,7 @@
                                 alertify.error('Error: The element could not be Saved. ' + response);
                             }
                             spinner.stop();
-                            $('#questionnare').html('<div class="text_center"><h5>Thank you for your feedback.</h5></div>');
+                            jQuery('#questionnare').html('<div class="text_center"><h5>Thank you for your feedback.</h5></div>');
                         }
                         else
                             window.location.replace("Authentication");
@@ -1219,47 +1219,47 @@
                 }
                 else
                 {
-                    $('#fieldset_contact').css('border','1px solid #A90329');
-                    $('#legend_contact').css('color','#D56161');
-                    $('<em class="invalid" style="top:-50px;position:relative" id="em_contact">The field is required.</em>').insertAfter('#fieldset_contact');
-                    $('html, body').animate({
-                        scrollTop: $('#fieldset_contact').offset().top-200
+                    jQuery('#fieldset_contact').css('border','1px solid #A90329');
+                    jQuery('#legend_contact').css('color','#D56161');
+                    jQuery('<em class="invalid" style="top:-50px;position:relative" id="em_contact">The field is required.</em>').insertAfter('#fieldset_contact');
+                    jQuery('html, body').animate({
+                        scrollTop: jQuery('#fieldset_contact').offset().top-200
                     }, 1000);
                 }
 
             }
         });
 
-        $('.cbx_contact').on('click', function () {
-            $('#fieldset_contact').css('border','1px solid #d7d7d7');
-            $('#legend_contact').css('color','#000');
-            $('#em_contact').remove();
+        jQuery('.cbx_contact').on('click', function () {
+            jQuery('#fieldset_contact').css('border','1px solid #d7d7d7');
+            jQuery('#legend_contact').css('color','#000');
+            jQuery('#em_contact').remove();
 
         });
 
         function ValidateFrm()
         {
-            $.validator.setDefaults(
+            jQuery.validator.setDefaults(
             {
                 //errorElement: "span",
                 //errorClass: "help-block",
                 //	validClass: 'stay',
                 highlight: function (element, errorClass, validClass) {//alert('high');
-                    $(element).addClass(errorClass); //.removeClass(errorClass);
-                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                    jQuery(element).addClass(errorClass); //.removeClass(errorClass);
+                    jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 
-                    $(element).closest('.myfieldset').css('border', '1px solid #A90329');
-                    $(element).closest('.myfieldset').children('legend').css('color', '#D56161');
+                    jQuery(element).closest('.myfieldset').css('border', '1px solid #A90329');
+                    jQuery(element).closest('.myfieldset').children('legend').css('color', '#D56161');
 
                 },
                 unhighlight: function (element, errorClass, validClass) {//alert('unhigh');
 
-                    $(element).closest('.myfieldset').css('border', '1px solid #d7d7d7');
-                    $(element).closest('.myfieldset').children('legend').css('color', '#000');
+                    jQuery(element).closest('.myfieldset').css('border', '1px solid #d7d7d7');
+                    jQuery(element).closest('.myfieldset').children('legend').css('color', '#000');
 
 
-                    $(element).removeClass(errorClass); //.addClass(validClass);
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                    jQuery(element).removeClass(errorClass); //.addClass(validClass);
+                    jQuery(element).closest('.form-group').removeClass('has-error').addClass('has-success');
                 },
                 errorPlacement: function (error, element)
                 {
@@ -1283,7 +1283,7 @@
                 }
             });
 
-            $("#frm").validate(
+            jQuery("#frm").validate(
             {
                 ignore: [],
                 focusInvalid: false,
@@ -1292,25 +1292,25 @@
                     if (!validator.numberOfInvalids())
                         return;
 
-                    $('html, body').animate({
-                        scrollTop: $(validator.errorList[0].element).offset().top-300
+                    jQuery('html, body').animate({
+                        scrollTop: jQuery(validator.errorList[0].element).offset().top-300
                     }, 2000);
                 }
             });
 
-            $.validator.addMethod("select", function(value, element, arg)
+            jQuery.validator.addMethod("select", function(value, element, arg)
             {
                 return arg !== value;
             }, "This field is required. Please, select an option.");
 
-            $("#frm").find('.required').each(function()
+            jQuery("#frm").find('.required').each(function()
             {
-                $(this).rules( "add",{required: true});
+                jQuery(this).rules( "add",{required: true});
             });
 
-            $("#frm").find('.required_select').each(function()
+            jQuery("#frm").find('.required_select').each(function()
             {
-                $(this).rules( "add",{select: "-1"});
+                jQuery(this).rules( "add",{select: "-1"});
             });
         }
 

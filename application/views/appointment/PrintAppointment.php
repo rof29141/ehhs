@@ -59,7 +59,7 @@ if(isset($data['my_next_appointments']['data']))
 else print '<div class="text-center"><h3>You don\'t have any future appointments.</h3></div>' ;?>
 
 <script type="text/javascript">
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         window.print();
     });

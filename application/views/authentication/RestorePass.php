@@ -1,58 +1,38 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-$page_title = "";
-$position='center';
-require_once(APPPATH."views/includes/header.php");
-?>
+<form class="reg-page" id='frm_auth'>
+    <div class="reg-header">
+        <h2>Restore Password</h2>
+    </div>
+	
+	 <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Password</strong>
+		<input placeholder="New password"  name="txt_pass" id="txt_pass"  type="password"  value=""tabindex="1" class="form-control" required>
+	</div>
+	
+	 <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Confirm Password</strong>
+        <input  name="txt_pass1" id="txt_pass1"  type="password" tabindex="2" size="15" class="form-control" required placeholder="Confirm your password" />
+	</div>
 
-<body id="signin" class="clear">
-<div id="wrapper">
+    <div class="row">
 
-    <div class="container text-center" style="margin-top: 40px;">
-        <?php require_once(VIEW_URL."includes/banner.php");?>
+        <div class="col-md-12">
+			<input type="hidden" id="inp_token" name="inp_token" value="<?php print $token; ?>">
+            <input type="hidden" id="inp_id" name="inp_id" value="<?php print $id; ?>">
+            <button class="btn-u pull-right" id='restore_pass' type="button">Reset Password</button>
+        </div>
     </div>
 
-    <div class="container auth" style="padding-left: 40px;padding-right: 40px;">
-        <?php print form_open('authentication/SaveNewPass', "class='smart-form client-form' name='frm_auth' id='frm_auth' role='form'"); ?>
-        <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
-            <legend id="legend_contact" class="mylegend">Restore Password</legend>
+    <hr>
 
-            <section>
-                <div class="fields">
-                    <strong>Password</strong>
-                    <input placeholder="New password"  name="txt_pass" id="txt_pass"  type="password"  value=""tabindex="1" class="form-control" required>
-                </div>
-            </section>
-
-            <section>
-                <div class="fields">
-                    <strong>Confirm Password</strong>
-                    <input  name="txt_pass1" id="txt_pass1"  type="password" tabindex="2" size="15" class="form-control" required placeholder="Confirm your password" />
-                </div>
-            </section>
-
-            <div class="actions">
-                <input type="hidden" id="inp_token" name="inp_token" value="<?php print $token; ?>">
-                <input type="hidden" id="inp_id" name="inp_id" value="<?php print $id; ?>">
-                <button type="submit" id='restore_pass' name='restore_pass'class="btn btn-lg btn-primary btn-block">
-                     Reset Password
-                </button>
-            </div>
-
-        </fieldset>
-
-        <?php require_once(VIEW_URL."includes/hidden.php");?>
-        <?php print form_close(); ?>
+    <div class="text-center">
+        <a onclick="LoadContent('Authentication/GoLogin', 0, 'auth')">Back To Login</a>
     </div>
-
-</div>
-
-<?php require_once(VIEW_URL."includes/footer.php");?>
+</form>
 
 <script type="text/javascript">
-    $(function()
+    jQuery(function()
     {
-        $("#frm_auth").validate({
+        jQuery("#frm_auth").validate({
             // Rules for form validation
             rules: {
                 txt_pass: {
@@ -79,6 +59,29 @@ require_once(APPPATH."views/includes/header.php");
             // Do not change code below
             errorPlacement : function(error, element) {
                 error.insertAfter(element.parent());
+            }
+        });
+		
+		jQuery('#restore_pass').on('click', function(e)
+        {
+            if(jQuery("#frm_auth").valid())
+            {
+                request=jQuery.ajax({
+                    url:'Authentication/SaveNewPass',
+                    type:'POST',
+                    data:'txt_pass='+jQuery('#txt_pass').val()+'&inp_token='+jQuery('#inp_token').val()+'&inp_id='+jQuery('#inp_id').val()
+                });
+
+                request.done(function(response, textStatus, jqXHR)
+                {
+                    if(response == 'OK') {
+						alertify.success('Password changed.');
+                        LoadContent('Authentication/GoLogin', 0, 'auth')
+                    }
+                    else {
+                        alertify.error(response);
+                    }
+                });
             }
         });
     });

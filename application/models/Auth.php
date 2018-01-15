@@ -32,7 +32,8 @@ Class Auth extends CI_Model
         $query = array ($request1);
         $criteria['query'] = $query;
 
-        $result = $this->fm->findRecords($criteria, $layout);//print json_encode($criteria);var_dump($result);//die();
+        $result = $this->fm->findRecords($criteria, $layout);//print json_encode($criteria);
+		json_encode($result);//die();
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -58,14 +59,14 @@ Class Auth extends CI_Model
                         $return['next_app_date1'] = $result["data"][$i]["fieldData"]['_zcd_Next_Appt_Date'];
                     } else
                     {
-                        $return['error'] = 'Password incorrect.';
+                        $return['error'] = 'WRONG_PASS';
                     }
                 }
                 else
                     $return['error'] = 'ACTIVATE';
             }
         }
-        else {$return['error']='User ID incorrect.';}
+        else {$return['error']='WRONG_ID';}
         //var_dump($return);die();
         return $return;
 	}
@@ -92,6 +93,7 @@ Class Auth extends CI_Model
                 $return['Sec1'] = $result["data"][$i]["fieldData"]["Sec1"];
                 $return['Sec2'] = $result["data"][$i]["fieldData"]["Sec2"];
                 $return['Sec3'] = $result["data"][$i]["fieldData"]["Sec3"];
+                $return['Activate_Status'] = $result["data"][$i]["fieldData"]["Activate_Status"];
             }
         }
 
@@ -300,7 +302,7 @@ Class Auth extends CI_Model
         $record['TokenForgotPassword'] = '';//clean the token
         $data['data'] = $record;//var_dump($data);die();
 
-        $result = $this->fm->editRecord($id, $data, $layout);//
+        $result = $this->fm->editRecord($id, $data, $layout);//var_dump($result);die();
         $return['error']=$this->error($result);
 
         return $return;
@@ -312,7 +314,7 @@ Class Auth extends CI_Model
 
         $request1['TokenForgotPassword'] = '=='.$token;
         $query = array ($request1);
-        $criteria['query'] = $query;
+        $criteria['query'] = $query;//echo json_encode($criteria);
 
         $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
         $return['error']=$this->error($result);

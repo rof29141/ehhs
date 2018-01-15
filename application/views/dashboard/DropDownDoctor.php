@@ -11,13 +11,13 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
         function formatData (data)
         {
             if (data.id==0) { return data.text; }
 
-            var $result= $('<span><img class="doctor_img" src="'+data.title+'"/> ' + data.text + '</span>');
+            var $result= jQuery('<span><img class="doctor_img" src="'+data.title+'"/> ' + data.text + '</span>');
             return $result;
         };
 
@@ -25,15 +25,15 @@
         {
             if (data.id==0) { return data.text; }
 
-            var $result= $(
+            var $result= jQuery(
                 '<span>' + data.text + '</span>'
             );
-            if(data.title)$('#doc_photo').html('<img class="doc_img" src="'+data.title+'"/>');
-            else $('#doc_photo').html('<img class="doc_img" src="<?php print base_url('assets/images/male.png');?>"/>');
+            if(data.title)jQuery('#doc_photo').html('<img class="doc_img" src="'+data.title+'"/>');
+            else jQuery('#doc_photo').html('<img class="doc_img" src="<?php print base_url('assets/images/male.png');?>"/>');
             return $result;
         };
 
-        $(".my_select2_doc").select2({
+        jQuery(".my_select2_doc").select2({
             placeholder: {
                 id: '-1', // the value of the option
                 text: 'Select a Provider'
@@ -42,21 +42,21 @@
             templateSelection: formatData1
         });
 
-        $('#sel_doctor').on('change', function ()
+        jQuery('#sel_doctor').on('change', function ()
         {
-            var id_service = $('#sel_service').val();
-            var id_doctor = $(this).val();
+            var id_service = jQuery('#sel_service').val();
+            var id_doctor = jQuery(this).val();
 
             GetAppointments(id_service, id_doctor)
         });
 
-        $(function ()
+        jQuery(function ()
         {
             var id_doctor = "<?php if(isset($data['id_doctor'])) print $data['id_doctor'];else print 'NO_DOC'?>";
 
             if (id_doctor != 'NO_DOC')
             {
-                var id_service = $('#sel_service').val();
+                var id_service = jQuery('#sel_service').val();
 
                 if (id_service != 'NO_SERV')
                 {
@@ -70,7 +70,7 @@
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
-            $.ajax({
+            jQuery.ajax({
                 url: 'Dashboard/GetAppointments',
                 type: 'POST',
                 data: {id_service:id_service,id_doctor:id_doctor}
@@ -80,7 +80,7 @@
                 if(response=='NOT_SETTINGS')
                 {alertify.error('There is not availability for this Service and Provider (settings). Please, call the office at 513-351-FACE(3223).');}
                 else if(response)
-                {$('#calendar_app').html(response);}
+                {jQuery('#calendar_app').html(response);}
                 spinner.stop();
             });
         }

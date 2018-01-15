@@ -1,226 +1,164 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-$page_title = "";
-$position='center';
-require_once(APPPATH."views/includes/header.php");
-?>
-
-<body >
-<div id="wrapper">
-
-    <div class="container text-center" style="margin-top: 40px;">
-        <?php require_once(VIEW_URL."includes/banner.php");?>
+<form class="reg-page" id='frm_auth'>
+    <div class="reg-header">
+        <h2>Forgot User</h2>
     </div>
 
-    <div class="container" style="padding-left: 40px;padding-right: 40px;">
-        <?php print form_open('authentication/CreateAccount', "class='form-signin' id='frm_auth' role='form' autocomplete='on'"); ?>
-            <div class="col col-xs-12 col-lg-6 col-lg-offset-3">
-                <fieldset id="fieldset_contact" class="myfieldset" style="margin-top: 0px;">
-                    <legend id="legend_contact" class="mylegend">Sign Up</legend>
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>First Name</strong>
+        <input name="first" id="first" class="form-control" type="text" placeholder="Enter your First Name" />
+    </div>
+	
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Last Name</strong>
+		<input name="last" id="last" class="form-control" type="text" placeholder="Enter your Last Name" />
+    </div>
+	
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Date of Birth</strong>
+		<input name="birth" id="birth" class="form-control" type="text" style="padding: 0px;padding-left: 8px;"/>
+    </div>
+    
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Cell phone</strong>
+        <input name="cell" class="form-control" type="text" placeholder="Enter your Cell Phone Number" />
+    </div>
+    
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Email</strong>
+        <input name="email" id="email" class="form-control" type="email" placeholder="Enter your Email" autocomplete="off"/>
+    </div>
+    
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>User ID</strong>
+        <input name="user" id="user" class="form-control" type="text" placeholder="Enter a unique User ID" autocomplete="off"/>
+    </div>
+    
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>New Password</strong>
+        <input placeholder="Enter your New Password"  name="txt_pass" id="txt_pass"  type="password"  value="" class="form-control" autocomplete="off">
+    </div>
+    
+    <div class="col-md-12 input-group margin-bottom-5">
+        <strong>Confirm New Password</strong>
+        <input  name="txt_pass1" id="txt_pass1"  type="password"  size="15" class="form-control" placeholder="Confirm your New Password" autocomplete="off"/>
+    </div>
+	
+	<div class="col-md-12 input-group margin-bottom-5">
+		<strong>Security Question 1</strong>
+		<select name="sec1" id="sec1" class="my_select2" style="width: 100%;">
+			<option value="-1"></option>
+			<option value="1">What is the first name of the person you first kissed?</option>
+			<option value="2">What time of the day were you born?</option>
+			<option value="3">In what city or town does your nearest sibling live?</option>
+			<option value="4">What is the last name of the teacher who gave you your first failing grade?</option>
+			<option value="5">What was your childhood nickname?</option>
+			<option value="6">What is the name of your favorite childhood friend?</option>
+			<option value="7">In what city or town did your mother and father meet?</option>
+			<option value="8">What is your favorite team?</option>
+			<option value="9">What is your favorite movie?</option>
+			<option value="10">What was your favorite sport in high school?</option>
+			<option value="12">What was your favorite food as a child?</option>
+			<option value="13">What was the make and model of your first car?</option>
+			<option value="14">What was the name of the hospital where you were born?</option>
+			<option value="15">What was the last name of your third grade teacher?</option>
+		</select>
+	</div>
+	
+	<div class="col-md-12 input-group margin-bottom-5">
+		<strong>Answer 1</strong>
+		<input name="ans1" id="ans1" class="form-control" type="text" placeholder="Enter a Answer 1" autocomplete="off"/>
+	</div>
+	
+    <div class="col-md-12 input-group margin-bottom-5">
+		<strong>Security Question 2</strong>
+		<select name="sec2" id="sec2" class="my_select2" style="width: 100%;">
+			<option value="-1"></option>
+			<option value="1">What is the first name of the person you first kissed?</option>
+			<option value="2">What time of the day were you born?</option>
+			<option value="3">In what city or town does your nearest sibling live?</option>
+			<option value="4">What is the last name of the teacher who gave you your first failing grade?</option>
+			<option value="5">What was your childhood nickname?</option>
+			<option value="6">What is the name of your favorite childhood friend?</option>
+			<option value="7">In what city or town did your mother and father meet?</option>
+			<option value="8">What is your favorite team?</option>
+			<option value="9">What is your favorite movie?</option>
+			<option value="10">What was your favorite sport in high school?</option>
+			<option value="12">What was your favorite food as a child?</option>
+			<option value="13">What was the make and model of your first car?</option>
+			<option value="14">What was the name of the hospital where you were born?</option>
+			<option value="15">What was the last name of your third grade teacher?</option>
+		</select>
+	</div>
+	
+	<div class="col-md-12 input-group margin-bottom-5">
+		<strong>Answer 2</strong>
+		<input name="ans2" id="ans2" class="form-control" type="text" placeholder="Enter a Answer 2" autocomplete="off"/>
+	</div>
+	
+	<div class="col-md-12 input-group margin-bottom-5">
+		<strong>Security Question 3</strong>
+		<select name="sec3" id="sec3" class="my_select2" style="width: 100%;">
+			<option value="-1"></option>
+			<option value="1">What is the first name of the person you first kissed?</option>
+			<option value="2">What time of the day were you born?</option>
+			<option value="3">In what city or town does your nearest sibling live?</option>
+			<option value="4">What is the last name of the teacher who gave you your first failing grade?</option>
+			<option value="5">What was your childhood nickname?</option>
+			<option value="6">What is the name of your favorite childhood friend?</option>
+			<option value="7">In what city or town did your mother and father meet?</option>
+			<option value="8">What is your favorite team?</option>
+			<option value="9">What is your favorite movie?</option>
+			<option value="10">What was your favorite sport in high school?</option>
+			<option value="12">What was your favorite food as a child?</option>
+			<option value="13">What was the make and model of your first car?</option>
+			<option value="14">What was the name of the hospital where you were born?</option>
+			<option value="15">What was the last name of your third grade teacher?</option>
+		</select>
+	</div>
+	
+	<div class="col-md-12 input-group margin-bottom-5">
+		<strong>Answer 3</strong>
+		<input name="ans3" id="ans3" class="form-control" type="text" placeholder="Enter a Answer 3" autocomplete="off"/>
+	</div> 
+    
+    <div class="row">
 
-                    <div class="row">
-                        <div class="col col-xs-12 col-lg-6">
-                            <div class="fields">
-                                <strong>First Name</strong>
-                                <input name="first" id="first" class="form-control" type="text" placeholder="Enter your First Name" />
-                            </div>
-                        </div>
-
-                        <div class="col col-xs-12 col-lg-6">
-                            <div class="fields">
-                                <strong>Last Name</strong>
-                                <input name="last" id="last" class="form-control" type="text" placeholder="Enter your Last Name" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col col-xs-12 col-lg-6">
-                            <div class="fields">
-                                <strong>Date of Birth</strong>
-                                <input name="birth" id="birth" class="form-control" type="text" style="padding: 0px;padding-left: 8px;"/>
-                            </div>
-                        </div>
-
-                        <div class="col col-xs-12 col-lg-6">
-                            <div class="fields">
-                                <strong>Cell phone</strong>
-                                <input name="cell" class="form-control" type="text" placeholder="Enter your Cell Phone Number" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col col-xs-12 col-lg-6">
-                            <div class="fields">
-                                <strong>Email</strong>
-                                <input name="email" id="email" class="form-control" type="email" placeholder="Enter your Email" autocomplete="off"/>
-                            </div>
-                        </div>
-
-                        <div class="col col-xs-12 col-lg-6">
-                            <div class="fields">
-                                <strong>User ID</strong>
-                                <input name="user" id="user" class="form-control" type="text" placeholder="Enter a unique User ID" autocomplete="off"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col col-xs-12 col-lg-6">
-                            <div class="fields">
-                                <strong>New Password</strong>
-                                <input placeholder="Enter your New Password"  name="txt_pass" id="txt_pass"  type="password"  value="" class="form-control" autocomplete="off">
-                            </div>
-                        </div>
-
-                        <div class="col col-xs-12 col-lg-6">
-                            <div class="fields">
-                                <strong>Confirm New Password</strong>
-                                <input  name="txt_pass1" id="txt_pass1"  type="password"  size="15" class="form-control" placeholder="Confirm your New Password" autocomplete="off"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col col-xs-12 col-lg-12">
-                            <div class="fields">
-                                <strong>Security Question 1</strong>
-                                <select name="sec1" id="sec1" class="my_select2" style="width: 100%;">
-                                    <option value="-1"></option>
-                                    <option value="1">What is the first name of the person you first kissed?</option>
-                                    <option value="2">What time of the day were you born?</option>
-                                    <option value="3">In what city or town does your nearest sibling live?</option>
-                                    <option value="4">What is the last name of the teacher who gave you your first failing grade?</option>
-                                    <option value="5">What was your childhood nickname?</option>
-                                    <option value="6">What is the name of your favorite childhood friend?</option>
-                                    <option value="7">In what city or town did your mother and father meet?</option>
-                                    <option value="8">What is your favorite team?</option>
-                                    <option value="9">What is your favorite movie?</option>
-                                    <option value="10">What was your favorite sport in high school?</option>
-                                    <option value="12">What was your favorite food as a child?</option>
-                                    <option value="13">What was the make and model of your first car?</option>
-                                    <option value="14">What was the name of the hospital where you were born?</option>
-                                    <option value="15">What was the last name of your third grade teacher?</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col col-xs-12 col-lg-12">
-                            <div class="fields">
-                                <strong>Answer 1</strong>
-                                <input name="ans1" id="ans1" class="form-control" type="text" placeholder="Enter a Answer 1" autocomplete="off"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col col-xs-12 col-lg-12">
-                            <div class="fields">
-                                <strong>Security Question 2</strong>
-                                <select name="sec2" id="sec2" class="my_select2" style="width: 100%;">
-                                    <option value="-1"></option>
-                                    <option value="1">What is the first name of the person you first kissed?</option>
-                                    <option value="2">What time of the day were you born?</option>
-                                    <option value="3">In what city or town does your nearest sibling live?</option>
-                                    <option value="4">What is the last name of the teacher who gave you your first failing grade?</option>
-                                    <option value="5">What was your childhood nickname?</option>
-                                    <option value="6">What is the name of your favorite childhood friend?</option>
-                                    <option value="7">In what city or town did your mother and father meet?</option>
-                                    <option value="8">What is your favorite team?</option>
-                                    <option value="9">What is your favorite movie?</option>
-                                    <option value="10">What was your favorite sport in high school?</option>
-                                    <option value="12">What was your favorite food as a child?</option>
-                                    <option value="13">What was the make and model of your first car?</option>
-                                    <option value="14">What was the name of the hospital where you were born?</option>
-                                    <option value="15">What was the last name of your third grade teacher?</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col col-xs-12 col-lg-12">
-                            <div class="fields">
-                                <strong>Answer 2</strong>
-                                <input name="ans2" id="ans2" class="form-control" type="text" placeholder="Enter a Answer 2" autocomplete="off"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col col-xs-12 col-lg-12">
-                            <div class="fields">
-                                <strong>Security Question 3</strong>
-                                <select name="sec3" id="sec3" class="my_select2" style="width: 100%;">
-                                    <option value="-1"></option>
-                                    <option value="1">What is the first name of the person you first kissed?</option>
-                                    <option value="2">What time of the day were you born?</option>
-                                    <option value="3">In what city or town does your nearest sibling live?</option>
-                                    <option value="4">What is the last name of the teacher who gave you your first failing grade?</option>
-                                    <option value="5">What was your childhood nickname?</option>
-                                    <option value="6">What is the name of your favorite childhood friend?</option>
-                                    <option value="7">In what city or town did your mother and father meet?</option>
-                                    <option value="8">What is your favorite team?</option>
-                                    <option value="9">What is your favorite movie?</option>
-                                    <option value="10">What was your favorite sport in high school?</option>
-                                    <option value="12">What was your favorite food as a child?</option>
-                                    <option value="13">What was the make and model of your first car?</option>
-                                    <option value="14">What was the name of the hospital where you were born?</option>
-                                    <option value="15">What was the last name of your third grade teacher?</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col col-xs-12 col-lg-12">
-                            <div class="fields">
-                                <strong>Answer 3</strong>
-                                <input name="ans3" id="ans3" class="form-control" type="text" placeholder="Enter a Answer 3" autocomplete="off"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="actions auth">
-                        <button type="button" id="btn_sign_up" class="btn btn-lg btn-primary btn-block">
-                            Sign Up
-                        </button>
-                        <input type="hidden" name="ok_mail" id="ok_mail" value="1">
-                        <input type="hidden" name="ok_user" id="ok_user" value="1">
-                        <input type="hidden" name="no_promp_mail" id="no_promp_mail" value="yes">
-                        <input type="hidden" name="no_promp_user" id="no_promp_user" value="yes">
-                    </div>
-
-                    <fieldset>
-                        <div class="text-center">
-                            <a href="<?php print CTR_URL; ?>Authentication">Back to Login</a>
-                        </div>
-                    </fieldset>
-
-                </fieldset>
-            </div>
-        <?php require_once(VIEW_URL."includes/hidden.php");?>
-        <?php print form_close(); ?>
+        <div class="col-md-12">
+            <button type="button" id="btn_sign_up" class="btn-u pull-right">
+				Sign Up
+			</button>
+			<input type="hidden" name="ok_mail" id="ok_mail" value="1">
+			<input type="hidden" name="ok_user" id="ok_user" value="1">
+			<input type="hidden" name="no_promp_mail" id="no_promp_mail" value="yes">
+			<input type="hidden" name="no_promp_user" id="no_promp_user" value="yes">
+        </div>
     </div>
 
-</div>
+    <hr>
 
-<?php require_once(VIEW_URL."includes/footer.php");?>
+    <div class="text-center">
+		<a onclick="LoadContent('Authentication/GoRecoverAccount', 0, 'auth')">Don't have access to this email?</a><br>
+        <a onclick="LoadContent('Authentication/GoLogin', 0, 'auth')">Back To Login</a>
+    </div>
+</form>
 
 <script type="text/javascript">
 
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $(".my_select2").select2({
+        jQuery(".my_select2").select2({
             placeholder: {
                 id: '-1',
                 text: 'Select an option.'
             }
         });
 
-        $.validator.addMethod("select", function(value, element, arg)
+        jQuery.validator.addMethod("select", function(value, element, arg)
         {
             return arg !== value;
         }, "This field is required. Please, select an option.");
 
-        $("#frm_auth").validate(
+        jQuery("#frm_auth").validate(
         {
             rules :
             {
@@ -245,11 +183,11 @@ require_once(APPPATH."views/includes/header.php");
                 first:{required:'Please enter your First Name'},
                 last:{required:'Please enter your Last Name'},
                 birth:{required:'Please enter your Date of Birth'},
-                cell:{required:'Please enter your Cell Phone number'},
+                cell:{required:'Please enter your Cell Phone Number'},
                 email : {required : 'Please enter your Email address.', email : 'Please enter a VALID Email address'},
                 user : {required : 'Please enter a User ID'},
-                txt_pass: {required: 'Please enter your new password'},
-                txt_pass1: {required : 'Please confirm your password', equalTo : 'Please insert the same password'},
+                txt_pass: {required: 'Please enter your new Password'},
+                txt_pass1: {required : 'Please confirm your Password', equalTo : 'Please insert the same password'},
                 ans1:{required:'Please enter the Answer 1'},
                 ans2:{required:'Please enter the Answer 2'},
                 ans3:{required:'Please enter the Answer 3'}
@@ -267,46 +205,46 @@ require_once(APPPATH."views/includes/header.php");
                 if (!validator.numberOfInvalids())
                     return;
 
-                $('html, body').animate({
-                    scrollTop: $(validator.errorList[0].element).offset().top-100
+                jQuery('html, body').animate({
+                    scrollTop: jQuery(validator.errorList[0].element).offset().top-100
                 }, 2000);
             }
         });
 
-        $('#user').on('keyup click blur', function (e)
+        jQuery('#user').on('keyup click blur', function (e)
         {
             CheckExistUserID();
         });
 
-        $('#email').on('keyup click blur', function (e)
+        jQuery('#email').on('keyup click blur', function (e)
         {
             CheckExistEmail();
         });
 
-        $('#btn_sign_up').on('click', function (e)
+        jQuery('#btn_sign_up').on('click', function (e)
         {
             CheckExistUser();
         });
 
         function CheckExistUserID()
         {
-            var user_id=$('#user').val();
+            var user_id=jQuery('#user').val();
 
             if(user_id.length>3)
             {
-                $.ajax({
+                jQuery.ajax({
                     type: "POST",
                     dataType: "html",
-                    url: 'CheckExistUserID',
+                    url: 'Authentication/CheckExistUserID',
                     data:{user_id:user_id}
                 }).done(function(response, textStatus, jqXHR)
                 {
-                    $('#em_user').empty();
+                    jQuery('#em_user').empty();
 
-                    if(response=='EXIST' && $('#no_promp_user').val()=='yes')
+                    if(response=='EXIST' && jQuery('#no_promp_user').val()=='yes')
                     {
-                        $('<em class="invalid" style="top:0px;position:relative" id="em_user">This User ID already exists.</em>').insertAfter('#user');
-                        $('#ok_user').val('0');
+                        jQuery('<em class="invalid" style="top:0px;position:relative" id="em_user">This User ID already exists.</em>').insertAfter('#user');
+                        jQuery('#ok_user').val('0');
 
                         alertify.defaults.theme.ok = "btn btn-success";
                         alertify.confirm("<div class='text-center'><h4>The user </h4><h3>"+user_id+"</h3><h4>already exists in our database.</h4><br><h3>Are you the owner of this user?</h3><br>If 'Yes', you will be redireted to recover your password.</div>", function()
@@ -316,17 +254,17 @@ require_once(APPPATH."views/includes/header.php");
                         ,function()
                         {
                             alertify.error('Declined.');
-                            $('#no_promp_user').val('no');
+                            jQuery('#no_promp_user').val('no');
                         })
                         .set({labels:{ok:'Yes', cancel: 'No'}});
                     }
-                    else if(response=='EXIST' && $('#no_promp_user').val()=='no')
+                    else if(response=='EXIST' && jQuery('#no_promp_user').val()=='no')
                     {
-                        $('<em class="invalid" style="top:0px;position:relative" id="em_user">This User ID already exists.</em>').insertAfter('#user');
+                        jQuery('<em class="invalid" style="top:0px;position:relative" id="em_user">This User ID already exists.</em>').insertAfter('#user');
                     }
                     else
                     {
-                        $('#ok_user').val('1');
+                        jQuery('#ok_user').val('1');
                     }
                 }).fail(function(jqHTR, textStatus, thrown)
                 {
@@ -337,22 +275,22 @@ require_once(APPPATH."views/includes/header.php");
 
         function CheckExistEmail()
         {
-            var email=$('#email').val();
+            var email=jQuery('#email').val();
 
             if(email.length>12)
             {
-                $.ajax({
+                jQuery.ajax({
                     type: "POST",
                     dataType: "html",
-                    url: 'CheckExistEmail',
+                    url: 'Authentication/CheckExistEmail',
                     data:{email:email}
                 }).done(function(response, textStatus, jqXHR)
                 {
-                    $('#em_email').empty();
+                    jQuery('#em_email').empty();
 
-                    if(response=='EXIST' && $('#no_promp_mail').val()=='yes')
+                    if(response=='EXIST' && jQuery('#no_promp_mail').val()=='yes')
                     {
-                        $('<em class="invalid" style="top:0px;position:relative" id="em_email">This Email already exists.</em>').insertAfter('#email');
+                        jQuery('<em class="invalid" style="top:0px;position:relative" id="em_email">This Email already exists.</em>').insertAfter('#email');
 
                         alertify.defaults.theme.ok = "btn btn-success";
                         alertify.confirm("<div class='text-center'><h4>The email </h4><h3>"+email+"</h3><h4>already exists in our database.</h4><br><h3>Are you the owner of this email?</h3><br>If 'Yes', you will be redireted to recover your User ID.</div>", function()
@@ -362,17 +300,17 @@ require_once(APPPATH."views/includes/header.php");
                         ,function()
                         {
                             alertify.error('Declined.');
-                            $('#no_promp_mail').val('no');
-                            $('#ok_mail').val('0');
+                            jQuery('#no_promp_mail').val('no');
+                            jQuery('#ok_mail').val('0');
                         })
                         .set({labels:{ok:'Yes', cancel: 'No'}});
                     }
-                    else if(response=='EXIST' && $('#no_promp_mail').val()=='no')
+                    else if(response=='EXIST' && jQuery('#no_promp_mail').val()=='no')
                     {
-                        $('<em class="invalid" style="top:0px;position:relative" id="em_email">This Email already exists.</em>').insertAfter('#email');
+                        jQuery('<em class="invalid" style="top:0px;position:relative" id="em_email">This Email already exists.</em>').insertAfter('#email');
                     }
                     else
-                    {$('#ok_mail').val('1');}
+                    {jQuery('#ok_mail').val('1');}
 
                 }).fail(function(jqHTR, textStatus, thrown)
                 {
@@ -383,16 +321,16 @@ require_once(APPPATH."views/includes/header.php");
 
         function CheckExistUser()
         {
-            var first=$('#first').val();
-            var last=$('#last').val();
-            var birth=$('#birth').val();
+            var first=jQuery('#first').val();
+            var last=jQuery('#last').val();
+            var birth=jQuery('#birth').val();
 
-            if($("#frm_auth").valid())
+            if(jQuery("#frm_auth").valid())
             {
-                $.ajax({
+                jQuery.ajax({
                     type: "POST",
                     dataType: "html",
-                    url: 'CheckExistUser',
+                    url: 'Authentication/CheckExistUser',
                     data:{first:first,last:last,birth:birth}
                 }).done(function(response, textStatus, jqXHR)
                 {
@@ -423,26 +361,27 @@ require_once(APPPATH."views/includes/header.php");
 
         function SaveUser()
         {
-            if($('#ok_mail').val()==1 && $('#ok_user').val()==1)
+            if(jQuery('#ok_mail').val()==1 && jQuery('#ok_user').val()==1)
             {
-                var data = $('#frm_auth').find('input[datafld!=ignore], select[datafld!=ignore]').serialize();
+                var data = jQuery('#frm_auth').find('input[datafld!=ignore], select[datafld!=ignore]').serialize();
 
-                $.ajax({
+                jQuery.ajax({
                     type: "POST",
                     dataType: "html",
-                    url: 'CreateAccount',
+                    url: 'Authentication/CreateAccount',
                     data: data
                 }).done(function (response, textStatus, jqXHR) {
                     if (response == 'CREATED') {
-                        window.location.replace("index/ACTIVATE");
+						alertify.success('Thank you for Signing Up! Please check your email to activate your account.');
+                        LoadContent('Authentication/GoLogin', 0, 'auth')
                     }
                 }).fail(function (jqHTR, textStatus, thrown) {
                     alertify.error('Something wrong with AJAX:' + textStatus);
                 });
             }
             else
-                $('html, body').animate({
-                    scrollTop: $('#email').offset().top-200
+                jQuery('html, body').animate({
+                    scrollTop: jQuery('#email').offset().top-200
                 }, 1000);
         }
     });

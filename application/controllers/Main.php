@@ -16,8 +16,14 @@ class Main extends CI_Controller
         $data['warning']=$warning;
         $data['error']=$error;
         $data['view']=$view;
-
-	    if($this->session->userdata('logged_user_acs'))
+		
+		$data['ctr']=$this->input->get('c');
+		$data['func']=$this->input->get('f');
+		$data['param1']=$this->input->get('p1');
+		$data['param2']=$this->input->get('p2');
+		$data['view_area']=$this->input->get('v');
+		
+		if($this->session->userdata('logged_user_acs'))
         {
             $session_data = $this->session->userdata('logged_user_acs');
 
@@ -30,16 +36,17 @@ class Main extends CI_Controller
             $data['PersonalContactInformationStatus'] = $session_data['PersonalContactInformationStatus'];
             $data['next_app_date'] = $session_data['next_app_date'];
 
-            $this->load->model('M_User');
-            $data['data']['rewards']=$this->M_User->GetRewards($data);
+            //$this->load->model('M_User');
+            //$data['data']['rewards']=$this->M_User->GetRewards($data);
+        }
 
-            $this->load->view($view, $data);
-        }
-        else
-        {
-            $data['error']='Your session is expired.';
-            $this->load->view('authentication/Login', $data);
-        }
+        $this->load->library('MT_Language');
+        $obj_lang = new MT_Language();
+        $data['language']=$obj_lang->LoadLanguage();
+
+		$this->load->view("Main", $data);
+		
+		
 	}
 
     function Logout()
@@ -179,7 +186,7 @@ class Main extends CI_Controller
             {
                 $id_patient = $data['__zkp_Client_Rec'];
                 $this->load->model('M_Invoice');
-                $result['my_invoices'] = $this->M_Invoice->GetMyInvoices($id_patient);var_dump($result);
+                $result['my_invoices'] = $this->M_Invoice->GetMyInvoices($id_patient);//var_dump($result);
             }
 
             return $result;
@@ -192,28 +199,12 @@ class Main extends CI_Controller
 
     function GoObject()
     {
-        if($this->session->userdata('logged_user_acs'))
-        {
-            $session_data = $this->session->userdata('logged_user_acs');
-
-            $data['id'] = $session_data['id'];
-            $data['user_name'] = $session_data['user_name'];
-            $data['full_name'] = $session_data['full_name'];
-            $data['title'] = $session_data['title'];
-            $data['client_number'] = $session_data['client_number'];
-            $data['email'] = $session_data['email'];
-            $data['id_company'] = $session_data['id_company'];
-            $data['company_name'] = $session_data['company_name'];
-            $data['company_web'] = $session_data['company_web'];
-            $data['id_privileges'] = $session_data['id_privileges'];
-            $data['menu'] = $session_data['menu'];
-
-            $data['go_view'] = $this->input->post('go_view');
-            $data['go_back'] = $this->input->post('go_back');
-            $data['id'] = $this->input->post('id');
-            //print $data['go_ahead'];die();
-            $this->load->view($data['go_view'], $data);
-        }
+        $data['ctr']=$this->input->get('c');
+        $data['func']=$this->input->get('f');
+        $data['param1']=$this->input->get('p1');
+		$data['view_area']=$this->input->get('v');
+		
+		$this->load->view("Main", $data);
     }
 
     function SaveObject()
@@ -377,6 +368,18 @@ class Main extends CI_Controller
 
             $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
         }
+    }
+
+    function SwitchLanguage($language='')
+    {
+        if($language=='')$language=$this->input->post('language');
+
+        $session_lang = array('lang' => $language);
+        $this->session->set_userdata('language', $session_lang);
+
+        $this->load->library('MT_Language');
+        $obj_lang = new MT_Language();
+        $obj_lang->LoadLanguage();
     }
 }
 
