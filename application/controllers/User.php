@@ -8,7 +8,7 @@ class User extends CI_Controller
         $this->load->model('M_User');
     }
 
-    public function index($view="user/ListMyProfileRewards", $msg="", $success="", $warning="", $error="")
+    public function index($view="user/ListMyProfile", $msg="", $success="", $warning="", $error="")
     {
         $data['msg']=$msg;
         $data['success']=$success;
@@ -16,22 +16,16 @@ class User extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
-            $session_data = $this->session->userdata('logged_user_acs');
-
-            $data['id'] = $session_data['id'];
-            $data['user_name'] = $session_data['user_name'];
-            $data['bd_FirstName'] = $session_data['bd_FirstName'];
-            $data['bd_LastName'] = $session_data['bd_LastName'];
-            $data['email'] = $session_data['email'];
-            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
+            $this->load->helper('SessionVars_helper');
+            $data=GetSessionVars();
 
             $this->load->view($view, $data);
         }
         else
         {
-            print 1;
+            print 'NO_LOGGED';
         }
     }
 
@@ -42,9 +36,9 @@ class User extends CI_Controller
         $data['warning']=$warning;
         $data['error']=$error;
 
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
-            $session_data = $this->session->userdata('logged_user_acs');
+            $session_data = $this->session->userdata('logged_user_ehhs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -67,9 +61,9 @@ class User extends CI_Controller
         $data['view']=$view;
         $data['active_fade']=$active_fade;
 
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
-            $session_data = $this->session->userdata('logged_user_acs');
+            $session_data = $this->session->userdata('logged_user_ehhs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -160,9 +154,9 @@ class User extends CI_Controller
 
         }
 
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
-            $session_data = $this->session->userdata('logged_user_acs');
+            $session_data = $this->session->userdata('logged_user_ehhs');
 
             $sess_array = array(
                 'id' => $session_data['id'],
@@ -173,8 +167,8 @@ class User extends CI_Controller
                 '__zkp_Client_Rec' => $session_data['__zkp_Client_Rec'],
                 'PersonalContactInformationStatus' => '1',
             );
-            $this->session->unset_userdata('logged_user_acs');
-            $this->session->set_userdata('logged_user_acs', $sess_array);
+            $this->session->unset_userdata('logged_user_ehhs');
+            $this->session->set_userdata('logged_user_ehhs', $sess_array);
         }
 
         echo $result['error'];
@@ -194,9 +188,9 @@ class User extends CI_Controller
         $data['warning']=$warning;
         $data['error']=$error;
 
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
-            $session_data = $this->session->userdata('logged_user_acs');
+            $session_data = $this->session->userdata('logged_user_ehhs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];

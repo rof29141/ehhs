@@ -14,7 +14,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <a onclick="LoadContent('Authentication/GoSignUp', 0, 'auth')">Create account</a>
+            <a onclick="LoadContent('Authentication/GoSignUp', 0, 'div_auth')">Create account</a>
         </div>
         <div class="col-md-6">
             <button class="btn-u pull-right" id='btn_login' type="button">Login</button>
@@ -25,12 +25,12 @@
 
     <div class="text-center">
         Forgot
-        <a onclick="LoadContent('Authentication/GoForgotUser', 0, 'auth')">User ID</a>
+        <a onclick="LoadContent('Authentication/GoForgotUser', 0, 'div_auth')">User ID</a>
         or
-        <a onclick="LoadContent('Authentication/GoForgotPassword', 0, 'auth')">Password?</a>
+        <a onclick="LoadContent('Authentication/GoForgotPassword', 0, 'div_auth')">Password?</a>
     </div>
     <div class="text-center">
-        <a onclick="LoadContent('Authentication/GoResetPassword', 0, 'auth')">Reset Password</a>
+        <a onclick="LoadContent('Authentication/GoResetPassword', 0, 'div_auth')">Reset Password</a>
     </div>
 </form>
 <script type="text/javascript">
@@ -72,6 +72,9 @@
         {
             if(jQuery("#frm_auth").valid())
             {
+                var target = document.getElementById('div_auth');
+                var spinner = new Spinner(opts).spin(target);
+
                 request=jQuery.ajax({
                     url:'Authentication/Verify',
                     type:'POST',
@@ -82,8 +85,9 @@
                 {
                     if(response == 'LOGGED') 
 					{
-						alertify.success('Welcome.');
-                        jQuery('#auth').html('');
+						alertify.success('Welcome, Session successfully started.');
+                        jQuery('#div_auth').html('');
+                        RebuildHeader();
                     }
 					else if(response=='WRONG_PASS') {
                         alertify.error('Wrong Password.');
@@ -94,9 +98,27 @@
 					else if(response) {
                         alertify.error('Sorry, your account doesn\'t have been activate yet. Has been sent an email to: '+response);
                     }
+                    spinner.stop();
                 });
             }
         });
+
+		function RebuildHeader()
+        {
+            jQuery( '#div_header' ).empty();
+
+            jQuery.ajax({
+                url:'Main/RebuildHeader',
+                type:'POST'
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#div_header').html(response);
+
+                }
+            });
+        }
     });
 
 </script>

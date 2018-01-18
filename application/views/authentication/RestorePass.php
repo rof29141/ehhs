@@ -25,7 +25,7 @@
     <hr>
 
     <div class="text-center">
-        <a onclick="LoadContent('Authentication/GoLogin', 0, 'auth')">Back To Login</a>
+        <a onclick="LoadContent('Authentication/GoLogin', 0, 'div_auth')">Back To Login</a>
     </div>
 </form>
 
@@ -76,7 +76,7 @@
                 {
                     if(response == 'OK') {
 						alertify.success('Password changed.');
-                        LoadContent('Authentication/GoLogin', 0, 'auth')
+                        LoadContent('Authentication/GoLogin', 0, 'div_auth')
                     }
                     else {
                         alertify.error(response);

@@ -36,7 +36,7 @@
     <hr>
 
     <div class="text-center">
-        <a onclick="LoadContent('Authentication/GoLogin', 0, 'auth')">Back To Login</a>
+        <a onclick="LoadContent('Authentication/GoLogin', 0, 'div_auth')">Back To Login</a>
     </div>
 </form>
 
@@ -137,7 +137,7 @@
                     {
                         alertify.alert("<div class='text-center'><h3>Your new credentials are:</h3><h4>"+response+"</h4><br>You can change your email address for a new one if you don't have access.</div>", function()
                         {
-                            LoadContent('Authentication/GoLogin', 0, 'auth');
+                            LoadContent('Authentication/GoLogin', 0, 'div_auth');
                         });
                     }
                 });

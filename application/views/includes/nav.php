@@ -1,55 +1,10 @@
 
 <!--=== Header ===-->
-<div class="header">
+<div class="header" id="div_header">
 
     <?php require_once 'top_bar.php'?>
+    <?php require_once 'nav_bar.php'?>
 
-    <!-- Navbar -->
-    <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="fa fa-bars"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">
-                    <img id="logo-header" src="<?php print ASSETS_URL; ?>/unify/img/logo1-default.png" alt="Logo">
-                </a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-responsive-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Home -->
-                    <li class="active">
-                        <a href="#" onclick="LoadContent('Dashboard/GoDashboard', 0, 'main-view');" class="dropdown-toggle" data-toggle="dropdown">
-                            Home
-                        </a>
-                    </li>
-                    <!-- End Home -->
-
-                    <!-- Pages -->
-                    <li class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                            Our Business
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" onclick="LoadContent('Dashboard/GoDashboard')">About Us</a></li>
-                            <li><a href="#" onclick="LoadContent('Dashboard/GoDashboard')">About Basic</a></li>
-                            <li><a href="#" onclick="LoadContent('Dashboard/GoDashboard')">About Me</a></li>
-                            <li><a href="#" onclick="LoadContent('Dashboard/GoDashboard')">About Our Team</a></li>
-                        </ul>
-
-                    </li>
-                    <!-- End Pages -->
-
-
-                </ul>
-            </div><!--/navbar-collapse-->
-        </div>
-    </div>
-    <!-- End Navbar -->
 </div>
 <!--=== End Header ===-->
 
@@ -58,10 +13,10 @@
     <div class="fullwidthbanner">
         <ul>
             <!-- THE FIRST SLIDE -->
-            <li data-transition="3dcurtain-vertical" data-slotamount="10" data-masterspeed="300" data-thumb="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/thumbs/thumb1.jpg">
+            <li data-transition="3dcurtain-vertical" data-slotamount="10" data-masterspeed="300" data-thumb="<?php print base_url('assets'); ?>/unify/img/sliders/revolution/thumbs/thumb1.jpg">
 
                 <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
-                <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/bg1.jpg">
+                <img src="<?php print base_url('assets/unify/img/sliders/revolution/bg1.jpg'); ?>">
 
                 <div class="caption large_text sfb bg-black-opacity"
                      data-x="176"
@@ -80,7 +35,7 @@
                      data-speed="600"
                      data-start="1100"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p1.jpg" alt="Image 2">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p1.jpg'); ?>" alt="Image 2">
                 </div>
 
                 <div class="caption randomrotate"
@@ -89,7 +44,7 @@
                      data-speed="600"
                      data-start="1200"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p2.jpg" alt="Image 3">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p2.jpg'); ?>" alt="Image 3">
                 </div>
 
                 <div class="caption randomrotate"
@@ -98,7 +53,7 @@
                      data-speed="600"
                      data-start="1300"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p6.jpg" alt="Image 4">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p6.jpg'); ?>" alt="Image 4">
                 </div>
 
                 <div class="caption randomrotate"
@@ -107,7 +62,7 @@
                      data-speed="300"
                      data-start="1400"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p4.jpg" alt="Image 5">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p4.jpg'); ?>" alt="Image 5">
                 </div>
 
                 <div class="caption randomrotate"
@@ -116,7 +71,7 @@
                      data-speed="600"
                      data-start="1500"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p5.jpg" alt="Image 6">
+                    <img class="img-border" src="<?php print base_url('assets'); ?>/unify/img/sliders/revolution/p5.jpg" alt="Image 6">
                 </div>
 
                 <div class="caption randomrotate"
@@ -125,7 +80,7 @@
                      data-speed="300"
                      data-start="1600"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p3.jpg" alt="Image 7">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p3.jpg'); ?>" alt="Image 7">
                 </div>
 
                 <div class="caption randomrotate"
@@ -134,7 +89,7 @@
                      data-speed="300"
                      data-start="1700"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p4.jpg" alt="Image 8">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p4.jpg'); ?>" alt="Image 8">
                 </div>
 
                 <div class="caption randomrotate"
@@ -143,7 +98,7 @@
                      data-speed="300"
                      data-start="1800"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p8.jpg" alt="Image 9">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p8.jpg'); ?>" alt="Image 9">
                 </div>
 
                 <div class="caption randomrotate"
@@ -152,7 +107,7 @@
                      data-speed="300"
                      data-start="1900"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p10.jpg" alt="Image 10">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p10.jpg'); ?>" alt="Image 10">
                 </div>
 
                 <div class="caption randomrotate"
@@ -161,7 +116,7 @@
                      data-speed="300"
                      data-start="2000"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p5.jpg" alt="Image 11">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p5.jpg'); ?>" alt="Image 11">
                 </div>
 
                 <div class="caption randomrotate"
@@ -170,7 +125,7 @@
                      data-speed="300"
                      data-start="2100"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p9.jpg" alt="Image 12">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p9.jpg'); ?>" alt="Image 12">
                 </div>
 
                 <div class="caption randomrotate"
@@ -179,15 +134,15 @@
                      data-speed="300"
                      data-start="2200"
                      data-easing="easeOutExpo">
-                    <img class="img-border" src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/p7.jpg" alt="Image 13">
+                    <img class="img-border" src="<?php print base_url('assets/unify/img/sliders/revolution/p7.jpg'); ?>" alt="Image 13">
                 </div>
             </li>
 
             <!-- THE SECOND SLIDE -->
-            <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-delay="9400" data-thumb="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/thumbs/thumb2.jpg">
+            <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-delay="9400" data-thumb="<?php print base_url('assets/unify/img/sliders/revolution/thumbs/thumb2.jpg'); ?>">
 
                 <!-- THE MAIN IMAGE IN THE SECOND SLIDE -->
-                <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/bg2.jpg">
+                <img src="<?php print base_url('assets/unify/img/sliders/revolution/bg2.jpg'); ?>">
 
                 <div class="caption very_big_white lfl stl"
                      data-x="18"
@@ -213,7 +168,7 @@
                      data-speed="600"
                      data-start="1100"
                      data-easing="easeOutExpo" data-end="3100" data-endspeed="600" data-endeasing="easeInSine">
-                    <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/drink2.jpg" alt="Image 3">
+                    <img src="<?php print base_url('assets/unify/img/sliders/revolution/drink2.jpg'); ?>" alt="Image 3">
                 </div>
 
                 <div class="caption bold_green_text sft stb"
@@ -240,7 +195,7 @@
                      data-speed="600"
                      data-start="3600"
                      data-easing="easeOutExpo" data-end="5600" data-endspeed="600" data-endeasing="easeInSine">
-                    <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/drink1.jpg" alt="Image 6">
+                    <img src="<?php print base_url('assets/unify/img/sliders/revolution/drink1.jpg'); ?>" alt="Image 6">
                 </div>
 
                 <div class="caption bold_brown_text sft stb"
@@ -267,7 +222,7 @@
                      data-speed="600"
                      data-start="6100"
                      data-easing="easeOutExpo" data-end="8100" data-endspeed="300" data-endeasing="easeInSine">
-                    <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/drink3.jpg" alt="Image 9">
+                    <img src="<?php print base_url('assets/unify/img/sliders/revolution/drink3.jpg'); ?>" alt="Image 9">
                 </div>
 
                 <div class="caption bold_red_text sft stb"
@@ -290,10 +245,10 @@
             </li>
 
             <!-- THE THIRD SLIDE -->
-            <li data-transition="slideleft" data-slotamount="1" data-masterspeed="300" data-thumb="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/thumbs/thumb3.jpg">
+            <li data-transition="slideleft" data-slotamount="1" data-masterspeed="300" data-thumb="<?php print base_url('assets/unify/img/sliders/revolution/thumbs/thumb3.jpg'); ?>">
 
                 <!-- THE MAIN IMAGE IN THE THIRD SLIDE -->
-                <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/bg3.jpg" >
+                <img src="<?php print base_url('assets/unify/img/sliders/revolution/bg3.jpg'); ?>" >
 
                 <div class="caption large_text sft"
                      data-x="10"
@@ -328,7 +283,7 @@
                      data-speed="800"
                      data-start="900"
                      data-easing="easeOutExpo">
-                    <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/imac.png" alt="Image 4">
+                    <img src="<?php print base_url('assets/unify/img/sliders/revolution/imac.png'); ?>" alt="Image 4">
                 </div>
 
                 <div class="caption lfl"
@@ -337,7 +292,7 @@
                      data-speed="600"
                      data-start="1000"
                      data-easing="easeOutExpo">
-                    <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/ipad.png" alt="Image 5">
+                    <img src="<?php print base_url('assets/unify/img/sliders/revolution/ipad.png'); ?>" alt="Image 5">
                 </div>
 
                 <div class="caption lfl"
@@ -346,7 +301,7 @@
                      data-speed="400"
                      data-start="1100"
                      data-easing="easeOutExpo">
-                    <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/iphone.png" alt="Image 6">
+                    <img src="<?php print base_url('assets/unify/img/sliders/revolution/iphone.png'); ?>" alt="Image 6">
                 </div>
 
                 <div class="caption lft"
@@ -355,15 +310,15 @@
                      data-speed="300"
                      data-start="500"
                      data-easing="easeOutExpo">
-                    <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/html5andcss3.png" alt="Image 6">
+                    <img src="<?php print base_url('assets/unify/img/sliders/revolution/html5andcss3.png'); ?>" alt="Image 6">
                 </div>
             </li>
 
             <!-- THE FOURTH SLIDE -->
-            <li data-transition="flyin" data-slotamount="1" data-masterspeed="300" data-thumb="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/thumbs/thumb4.jpg">
+            <li data-transition="flyin" data-slotamount="1" data-masterspeed="300" data-thumb="<?php print base_url('assets/unify/img/sliders/revolution/thumbs/thumb4.jpg'); ?>">
 
                 <!-- THE MAIN IMAGE IN THE FOURTH SLIDE -->
-                <img src="<?php print ASSETS_URL; ?>/unify/img/sliders/revolution/bg4.jpg" >
+                <img src="<?php print base_url('assets/unify/img/sliders/revolution/bg4.jpg'); ?>" >
 
                 <div class="caption lfb boxshadow"
                      data-x="20"

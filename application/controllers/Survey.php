@@ -16,9 +16,9 @@ class Survey extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
-            $session_data = $this->session->userdata('logged_user_acs');
+            $session_data = $this->session->userdata('logged_user_ehhs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -39,7 +39,7 @@ class Survey extends CI_Controller
 
     function SaveSurvay()
     {
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
             $data['Eye']=$this->input->post('rbt_eye');
             $data['Tired Eye']=$this->input->post('rbt_tired_eye');
@@ -87,7 +87,7 @@ class Survey extends CI_Controller
 
             $data['contact_method']=$this->input->post('contact_method');
 
-            $session_data = $this->session->userdata('logged_user_acs');
+            $session_data = $this->session->userdata('logged_user_ehhs');
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
             $result=$this->M_Survey->Save($data);

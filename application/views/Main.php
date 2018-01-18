@@ -21,23 +21,23 @@ ini_set('memory_limit', '2048M');
 <script type="text/javascript">
 
     /*-------------------DO NOT CHANGE THE CODE-------------------*/
-	if('<?php print $ctr?>'!='' && '<?php print $func?>'!='' && '<?php print $view_area?>'!='')
+	if('<?php if(isset($ctr))print $ctr?>'!='' && '<?php if(isset($func))print $func?>'!='' && '<?php if(isset($view_area))print $view_area?>'!='')
 	{
-		var str='<?php print $ctr."/".$func;?>';
+		var str='<?php if(isset($ctr) && isset($func))print $ctr."/".$func;?>';
 		var str=str+'<?php if(isset($param1))print "/".$param1;?>';
 		var str=str+'<?php if(isset($param2))print "/".$param2;?>';
 		
 		//alert(str);
-		LoadContent(str, 0, '<?php print $view_area?>');
+		LoadContent(str, 0, '<?php if(isset($view_area))print $view_area?>');
 	}
 	else
     {
-		LoadContent('Dashboard', 0, 'main-view');
+		LoadContent('Dashboard/GoDashboard', 0, 'main-view');
 	}
 
     function UpdateContent(go_function, go_view, go_back, id='')
     {
-        jQuery( '.content-wrapper' ).empty();
+        jQuery( '.main-view' ).empty();
         var target = document.getElementById('container');
         var spinner = new Spinner(opts).spin(target);
 
@@ -50,7 +50,7 @@ ini_set('memory_limit', '2048M');
         {
             if(response!='1' && response!='')
             {
-                jQuery('.content-wrapper').html(response);
+                jQuery('.main-view').html(response);
                 jQuery('#view').val(go_back);
                 spinner.stop();
             }
@@ -64,7 +64,7 @@ ini_set('memory_limit', '2048M');
 
     function DeleteContent(go_function, go_layout, id)
     {
-        jQuery( '.content-wrapper' ).empty();
+        jQuery( '.main-view' ).empty();
         var target = document.getElementById('container');
         var spinner = new Spinner(opts).spin(target);
 
@@ -96,22 +96,25 @@ ini_set('memory_limit', '2048M');
     {
         //if(click!=0)jQuery('.navbar-toggle').click();
 
-        //var target = document.getElementById('main-view');
-        //var spinner = new Spinner(opts).spin(target);
+        var target = document.getElementById('main-view');
+        var spinner = new Spinner(opts).spin(target);
 		//alert(pag);
+        jQuery('#'+div).empty();
+
         jQuery.ajax({
             type: "POST",
             dataType: "html",
             url: pag
         }).done(function(response, textStatus, jqXHR)
         {//alert(response);
-            if(response!='')
+            if(response!='NO_LOGGED')
             {
-                jQuery('#'+div).empty();
 				jQuery('#'+div).html(response);
                 jQuery('#view').val(pag);
-                //spinner.stop();
+                spinner.stop();
             }
+            else if(response=='NO_LOGGED')
+                alertify.error('You don\'t have access.');
         }).fail(function(jqHTR, textStatus, thrown)
         {
             alertify.error('Something wrong with AJAX:' + textStatus);
@@ -120,7 +123,7 @@ ini_set('memory_limit', '2048M');
 
     function SaveContent(url, array_inputs)
     {
-        jQuery( '.content-wrapper' ).empty();
+        jQuery( '.main-view' ).empty();
         var target = document.getElementById('container');
         var spinner = new Spinner(opts).spin(target);
 
@@ -140,25 +143,6 @@ ini_set('memory_limit', '2048M');
             }
             else
                 window.location.replace("Authentication");
-        }).fail(function(jqHTR, textStatus, thrown)
-        {
-            alertify.error('Something wrong with AJAX:' + textStatus);
-        });
-    }
-
-    function SwitchLanguage(language)
-    {
-        jQuery('.check_lang').hide();
-        jQuery('#check_'+language).show();
-
-        jQuery.ajax({
-            type: "POST",
-            dataType: "html",
-            url: 'Main/SwitchLanguage',
-            data:{language:language}
-        }).done(function(response, textStatus, jqXHR)
-        {
-            window.location.replace("Main");
         }).fail(function(jqHTR, textStatus, thrown)
         {
             alertify.error('Something wrong with AJAX:' + textStatus);

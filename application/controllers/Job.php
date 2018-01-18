@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Invoice extends CI_Controller
+class Job extends CI_Controller
 {
     function  __construct()
     {
         parent::__construct();
-        $this->load->model('M_Invoice');
+        $this->load->model('M_Job');
     }
 
     function index($view="invoice/ListInvoice", $msg="", $success="", $warning="", $error="")

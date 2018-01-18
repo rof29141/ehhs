@@ -18,8 +18,8 @@
     <hr>
 
     <div class="text-center">
-		<a onclick="LoadContent('Authentication/GoRecoverAccount', 0, 'auth')">Don't have access to this email?</a><br>
-        <a onclick="LoadContent('Authentication/GoLogin', 0, 'auth')">Back To Login</a>
+		<a onclick="LoadContent('Authentication/GoRecoverAccount', 0, 'div_auth')">Don't have access to this email?</a><br>
+        <a onclick="LoadContent('Authentication/GoLogin', 0, 'div_auth')">Back To Login</a>
     </div>
 </form>
 

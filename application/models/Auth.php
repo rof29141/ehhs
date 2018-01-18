@@ -392,5 +392,10 @@ Class Auth extends CI_Model
 
         return $return;
     }
+
+    function Logout()
+    {
+        $this->fm->logout();
+    }
 }
 ?>

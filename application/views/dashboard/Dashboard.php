@@ -12,16 +12,45 @@
     <div class="clearfix margin-bottom-40"></div>
 
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-
+        <?php //if($section_left_auth!='')require_once APPPATH.'views'.$section_left_auth;?>
     </div>
 
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="auth">
-        <?php require_once APPPATH.'views'.$section_auth;?>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="div_auth">
+        <?php if($section_auth!='')require_once APPPATH.'views'.$section_auth;?>
     </div>
 
     <!-- Service Blocks -->
     <div class="margin-bottom-5"></div>
     <div class="row margin-bottom-40">
+
+        <div class="col-md-3 col-sm-6">
+            <div class="servive-block servive-block-blue rounded">
+                <i class="icon-custom icon-color-light rounded-x icon-line icon-diamond"></i>
+                <h2 class="heading-md">Blue Box</h2>
+                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine usce dapibus elit nondapibus</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="servive-block servive-block-default">
+                <i class="icon-custom rounded-x icon-bg-dark fa fa-compress"></i>
+                <h2 class="heading-md">Fully Responsive</h2>
+                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="servive-block servive-block-default">
+                <i class="icon-custom rounded-x icon-bg-dark icon-line icon-rocket"></i>
+                <h2 class="heading-md">Launch Ready</h2>
+                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="servive-block servive-block-default">
+                <i class="icon-custom rounded-x icon-bg-dark icon-line icon-support"></i>
+                <h2 class="heading-md">Dedicated Support</h2>
+                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine usce dapibus elit nondapibus</p>
+            </div>
+        </div>
         <div class="col-md-3 col-sm-6">
             <div class="servive-block servive-block-default">
                 <i class="icon-custom rounded-x icon-bg-dark fa fa-lightbulb-o"></i>

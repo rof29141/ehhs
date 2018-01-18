@@ -6,7 +6,6 @@ class Main extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_Main');
-        //$this->output->cache(5);
     }
 
     function index($view="Main", $msg="", $success="", $warning="", $error="")
@@ -22,62 +21,23 @@ class Main extends CI_Controller
 		$data['param1']=$this->input->get('p1');
 		$data['param2']=$this->input->get('p2');
 		$data['view_area']=$this->input->get('v');
-		
-		if($this->session->userdata('logged_user_acs'))
-        {
-            $session_data = $this->session->userdata('logged_user_acs');
 
-            $data['id'] = $session_data['id'];
-            $data['user_name'] = $session_data['user_name'];
-            $data['bd_FirstName'] = $session_data['bd_FirstName'];
-            $data['bd_LastName'] = $session_data['bd_LastName'];
-            $data['email'] = $session_data['email'];
-            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
-            $data['PersonalContactInformationStatus'] = $session_data['PersonalContactInformationStatus'];
-            $data['next_app_date'] = $session_data['next_app_date'];
-
-            //$this->load->model('M_User');
-            //$data['data']['rewards']=$this->M_User->GetRewards($data);
-        }
+        $this->load->helper('SessionVars_helper');
+        $data=GetSessionVars();
 
         $this->load->library('MT_Language');
         $obj_lang = new MT_Language();
         $data['language']=$obj_lang->LoadLanguage();
 
 		$this->load->view("Main", $data);
-		
-		
 	}
-
-    function Logout()
-    {
-        if($this->session->userdata('logged_user_acs'))
-        {
-            $this->M_Main->Logout();
-            $this->session->unset_userdata('logged_user_acs');
-        }
-
-        redirect('Authentication');
-    }
 
     function LlenarDataTable()
     {
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
-            $session_data = $this->session->userdata('logged_user_acs');
-
-            $data['id'] = $session_data['id'];
-            $data['user_name'] = $session_data['user_name'];
-            $data['bd_FirstName'] = $session_data['bd_FirstName'];
-            $data['bd_LastName'] = $session_data['bd_LastName'];
-            $data['email'] = $session_data['email'];
-            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
-            $data['PersonalContactInformationStatus'] = $session_data['PersonalContactInformationStatus'];
-
-            $data['email_from'] = EMAIL_FROM;
-            $data['email_from_name'] = EMAIL_FROM_NAME;
-            $data['email_test_to'] = EMAIL_FROM_TO;
-            $data['email_test_staff_to'] = EMAIL_FROM_STAFF_TO;
+            $this->load->helper('SessionVars_helper');
+            $data=GetSessionVars();
 
             $data_type = $_POST['data_type'];
             $view_url = $_POST['view_url'];
@@ -104,17 +64,11 @@ class Main extends CI_Controller
 
     function GetData($data_type='')
     {
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
             $result='';
-            $session_data = $this->session->userdata('logged_user_acs');
-
-            $data['id'] = $session_data['id'];
-            $data['user_name'] = $session_data['user_name'];
-            $data['bd_FirstName'] = $session_data['bd_FirstName'];
-            $data['bd_LastName'] = $session_data['bd_LastName'];
-            $data['email'] = $session_data['email'];
-            $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
+            $this->load->helper('SessionVars_helper');
+            $data=GetSessionVars();
 
             if($data_type==='appointment')
             {
@@ -207,9 +161,14 @@ class Main extends CI_Controller
 		$this->load->view("Main", $data);
     }
 
+    function GoView($view='')
+    {
+		if($view!='')$this->load->view($view);
+    }
+
     function SaveObject()
     {
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
             $i=0;
             foreach($_POST as $field_name => $value)
@@ -269,7 +228,7 @@ class Main extends CI_Controller
 
     function DeleteObject()
     {
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
             $layouts = $this->input->post('go_layout');
             $data['ids'] = $this->input->post('id');
@@ -380,6 +339,15 @@ class Main extends CI_Controller
         $this->load->library('MT_Language');
         $obj_lang = new MT_Language();
         $obj_lang->LoadLanguage();
+    }
+
+    function RebuildHeader()
+    {
+        $this->load->helper('SessionVars_helper');
+        $data=GetSessionVars();
+
+        $this->load->view('includes/top_bar', $data);
+        $this->load->view('includes/nav_bar', $data);
     }
 }
 

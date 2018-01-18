@@ -111,7 +111,7 @@ class Authentication extends CI_Controller
                 'next_app_date' => $result['next_app_date'],
             );
 
-            $this->session->set_userdata('logged_user_acs', $sess_array);
+            $this->session->set_userdata('logged_user_ehhs', $sess_array);
         }
         elseif ($result['error']=='ACTIVATE')
         {
@@ -578,6 +578,17 @@ class Authentication extends CI_Controller
         $this->load->library('MT_Language');
         $obj_lang = new MT_Language();
         return $obj_lang->LoadLanguage();
+    }
+
+    function Logout()
+    {
+        if($this->session->userdata('logged_user_ehhs'))
+        {
+            $this->session->unset_userdata('logged_user_ehhs');
+            $this->Auth->Logout();
+        }
+
+        redirect('Dashboard/GoDashboard');
     }
 }
 ?>

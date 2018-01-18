@@ -15,9 +15,9 @@ class Appointment extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
-            $session_data = $this->session->userdata('logged_user_acs');
+            $session_data = $this->session->userdata('logged_user_ehhs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -42,9 +42,9 @@ class Appointment extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
-        if($this->session->userdata('logged_user_acs'))
+        if($this->session->userdata('logged_user_ehhs'))
         {
-            $session_data = $this->session->userdata('logged_user_acs');
+            $session_data = $this->session->userdata('logged_user_ehhs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -79,9 +79,9 @@ class Appointment extends CI_Controller
     function PrintAppointment($recordID="")
     {
 
-        if($this->session->userdata('logged_user_acs') && $recordID!='')
+        if($this->session->userdata('logged_user_ehhs') && $recordID!='')
         {
-            $session_data = $this->session->userdata('logged_user_acs');
+            $session_data = $this->session->userdata('logged_user_ehhs');
 
             $data['id'] = $session_data['id'];
             $data['user_name'] = $session_data['user_name'];
@@ -103,7 +103,7 @@ class Appointment extends CI_Controller
 
     function GetMyNextAppointments()
     {
-        $session_data = $this->session->userdata('logged_user_acs');
+        $session_data = $this->session->userdata('logged_user_ehhs');
         $__zkp_Client_Rec = $session_data['__zkp_Client_Rec'];
 
         $events[] = '[]';
