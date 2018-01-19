@@ -16,12 +16,10 @@ class Dashboard extends CI_Controller
         $data['error']=$error;
         $data['view']=$view;
 
-        $this->load->helper('SessionVars_helper');
-        $data=GetSessionVars();
-
-        $this->load->library('MT_Language');
-        $obj_lang = new MT_Language();
-        $data['language']=$obj_lang->LoadLanguage();
+        $this->load->helper('General_Helper');
+        $data['session']=GetSessionVars();
+        $data['language']=LoadLanguage();
+        $data['profile_type']=ProfileType($data['session']['privilegies']);
 
         //echo $data['section_auth'];
 		$this->load->view($view, $data);

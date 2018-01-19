@@ -38,13 +38,25 @@
                 </li>
 
                 <?php
-                if(isset($privilegies) && $privilegies=='worker')
+                if(isset($profile_type['profile_type']) && ($profile_type['profile_type']=='admin' || $profile_type['profile_type']=='asist'))
+                {
+                    ?>
+                    <li class="">
+                        <a onclick="LoadContent('User/GoListUser')" class="dropdown-toggle" data-toggle="dropdown">
+                            Accounts
+                            <span class="badge badge-blue"><?php print $profile_type['available_jobs'];?></span>
+                        </a>
+                    </li>
+                <?php }?>
+
+                <?php
+                if(isset($profile_type['profile_type']))
                 {
                 ?>
                 <li class="">
                     <a onclick="LoadContent('Job/GoAvailableJobs')" class="dropdown-toggle" data-toggle="dropdown">
                         Available Jobs
-                        <span class="badge badge-blue">12</span>
+                        <span class="badge badge-blue"><?php print $profile_type['available_jobs'];?></span>
                     </a>
                 </li>
                 <?php }?>

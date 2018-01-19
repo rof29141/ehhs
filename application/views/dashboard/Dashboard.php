@@ -16,7 +16,7 @@
     </div>
 
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="div_auth">
-        <?php if($section_auth!='')require_once APPPATH.'views'.$section_auth;?>
+        <?php if($session['section_auth']!='')require_once APPPATH.'views'.$session['section_auth'];?>
     </div>
 
     <!-- Service Blocks -->

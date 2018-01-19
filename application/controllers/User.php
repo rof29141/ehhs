@@ -18,8 +18,10 @@ class User extends CI_Controller
 
         if($this->session->userdata('logged_user_ehhs'))
         {
-            $this->load->helper('SessionVars_helper');
-            $data=GetSessionVars();
+            $this->load->helper('General_Helper');
+            $data['session']=GetSessionVars();
+            $data['language']=LoadLanguage();
+            $data['profile_type']=ProfileType($data['session']['privilegies']);
 
             $this->load->view($view, $data);
         }

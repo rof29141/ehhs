@@ -479,7 +479,10 @@ class Authentication extends CI_Controller
 
     function GoLogin()
     {
-        $data['language']=$this->LoadLanguage();
+        $this->load->helper('General_Helper');
+        $data['session']=GetSessionVars();
+        $data['language']=LoadLanguage();
+        $data['profile_type']=ProfileType($data['session']['privilegies']);
         $this->load->view('authentication/Login', $data);
     }
 
@@ -571,13 +574,6 @@ class Authentication extends CI_Controller
     function GoToServices()
     {
         redirect('Services/GoToServices');
-    }
-
-    function LoadLanguage()
-    {
-        $this->load->library('MT_Language');
-        $obj_lang = new MT_Language();
-        return $obj_lang->LoadLanguage();
     }
 
     function Logout()

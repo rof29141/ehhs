@@ -1,10 +1,17 @@
-<?php
-if(!isset($caption_language))
-    $caption_language='english';
+<?php //var_dump($language);
+if(!isset($session['caption_language']))
+    $session['caption_language']='english';
 
-$percent='';
-$badge='<span class="badge badge-red rounded-2x">'.$percent.'</span>';
-$badge='<span class="badge badge-green rounded-2x">100%</span>';
+$badge='';
+
+if(isset($profile_type['percent']) && $profile_type['percent']==100)
+{
+    $badge = '<span class="badge badge-green rounded-2x">100%</span>';
+}
+elseif(isset($profile_type['percent']) && $profile_type['percent']>0)
+{
+    $badge = '<span class="badge badge-red rounded-2x">' . $profile_type['percent'] . '%</span>';
+}
 
 ?>
 <!-- Topbar -->
@@ -16,17 +23,17 @@ $badge='<span class="badge badge-green rounded-2x">100%</span>';
                 <i class="fa fa-globe"></i>
                 <a>Languages</a>
                 <ul class="lenguages">
-                    <li><a onclick="SwitchLanguage('english');">English <i class="fa fa-check check_lang" id="check_english" <?php if($caption_language!='english'){?>style="display: none;"<?php }?>></i></a></li>
-                    <li><a onclick="SwitchLanguage('spanish');">Spanish <i class="fa fa-check check_lang" id="check_spanish" <?php if($caption_language!='spanish'){?>style="display: none;"<?php }?>></i></a></li>
+                    <li><a onclick="SwitchLanguage('english');">English <i class="fa fa-check check_lang" id="check_english" <?php if($session['caption_language']!='english'){?>style="display: none;"<?php }?>></i></a></li>
+                    <li><a onclick="SwitchLanguage('spanish');">Spanish <i class="fa fa-check check_lang" id="check_spanish" <?php if($session['caption_language']!='spanish'){?>style="display: none;"<?php }?>></i></a></li>
                 </ul>
             </li>
 
-            <?php if(isset($user_name) && $user_name!=''){?>
+            <?php if(isset($session['user_name']) && $session['user_name']!=''){?>
                 <li class="topbar-devider"></li>
                 <li id="logout"><a onclick="LoadContent('User');">My Account <?php print $badge;?></a></li>
             <?php }?>
 
-            <?php if(isset($user_name) && $user_name!=''){?>
+            <?php if(isset($session['user_name']) && $session['user_name']!=''){?>
                 <li class="topbar-devider"></li>
                 <li id="logout"><a onclick="Logout('Authentication/Logout');">Logout</a></li>
             <?php }?>
@@ -76,7 +83,7 @@ $badge='<span class="badge badge-green rounded-2x">100%</span>';
                 RebuildHeader(spinner);
             }
             else if(response=='NO_LOGGED')
-                alertify.error('You don\'t have access.');
+                alertify.error('You don\'t have profile_type.');
         }).fail(function(jqHTR, textStatus, thrown)
         {
             alertify.error('Something wrong with AJAX:' + textStatus);

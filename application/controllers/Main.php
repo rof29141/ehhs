@@ -22,12 +22,10 @@ class Main extends CI_Controller
 		$data['param2']=$this->input->get('p2');
 		$data['view_area']=$this->input->get('v');
 
-        $this->load->helper('SessionVars_helper');
-        $data=GetSessionVars();
-
-        $this->load->library('MT_Language');
-        $obj_lang = new MT_Language();
-        $data['language']=$obj_lang->LoadLanguage();
+        $this->load->helper('General_Helper');
+        $data['session']=GetSessionVars();
+        $data['language']=LoadLanguage();
+        $data['profile_type']=ProfileType($data['session']['privilegies']);
 
 		$this->load->view("Main", $data);
 	}
@@ -36,8 +34,10 @@ class Main extends CI_Controller
     {
         if($this->session->userdata('logged_user_ehhs'))
         {
-            $this->load->helper('SessionVars_helper');
-            $data=GetSessionVars();
+            $this->load->helper('General_Helper');
+            $data['session']=GetSessionVars();
+            $data['language']=LoadLanguage();
+            $data['profile_type']=ProfileType($data['session']['privilegies']);
 
             $data_type = $_POST['data_type'];
             $view_url = $_POST['view_url'];
@@ -67,8 +67,11 @@ class Main extends CI_Controller
         if($this->session->userdata('logged_user_ehhs'))
         {
             $result='';
-            $this->load->helper('SessionVars_helper');
-            $data=GetSessionVars();
+
+            $this->load->helper('General_Helper');
+            $data['session']=GetSessionVars();
+            $data['language']=LoadLanguage();
+            $data['profile_type']=ProfileType($data['session']['privilegies']);
 
             if($data_type==='appointment')
             {
@@ -336,15 +339,16 @@ class Main extends CI_Controller
         $session_lang = array('lang' => $language);
         $this->session->set_userdata('language', $session_lang);
 
-        $this->load->library('MT_Language');
-        $obj_lang = new MT_Language();
-        $obj_lang->LoadLanguage();
+        $this->load->helper('General_Helper');
+        LoadLanguage();
     }
 
     function RebuildHeader()
     {
-        $this->load->helper('SessionVars_helper');
-        $data=GetSessionVars();
+        $this->load->helper('General_Helper');
+        $data['session']=GetSessionVars();
+        $data['language']=LoadLanguage();
+        $data['profile_type']=ProfileType($data['session']['privilegies']);
 
         $this->load->view('includes/top_bar', $data);
         $this->load->view('includes/nav_bar', $data);
