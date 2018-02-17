@@ -1,6 +1,6 @@
 <form class="reg-page" id='frm_auth'>
     <div class="reg-header">
-        <h2>Forgot User</h2>
+        <h2>Forgot Username</h2>
     </div>
 
     <div class="col-md-12 input-group margin-bottom-5">
@@ -11,7 +11,7 @@
     <div class="row">
 
         <div class="col-md-12">
-            <button class="btn-u pull-right" id="send_user" type="button">Send me the User ID</button>
+            <button class="btn-u pull-right" id="send_user" type="button">Send me the Username</button>
         </div>
     </div>
 
@@ -69,7 +69,7 @@
                     }
                     else {
                         alertify.success('Please, check your inbox. Has been sent an email to ' + jQuery('#inp_email').val());
-                        jQuery('#frm_auth').html('<div class="actions"><a style="color:#fff;" onclick="LoadContent(\'Authentication/GoLogin\', 0, \'auth\')"><div class="btn-u pull-right">Return to login</div></a></div>');
+                        jQuery('#frm_auth').html('<div class="actions"><a style="color:#fff;" onclick="LoadContent(\'Authentication/GoLogin\', 0, \'div_auth\')"><div class="btn-u pull-right">Return to login</div></a></div>');
                     }
                 });
             }

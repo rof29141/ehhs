@@ -1,7 +1,7 @@
 <div class="col-sm-12">
 
     <div class="form-group">
-        <label>User ID</label>
+        <label>Username</label>
         <input type="text" name="UserName" id="UserName" class="form-control required"  value="<?php if(isset($data['user']['data'][0]['UserName'])) print $data['user']['data'][0]['UserName'];?>" />
     </div>
 

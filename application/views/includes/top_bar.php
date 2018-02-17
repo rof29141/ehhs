@@ -2,7 +2,12 @@
 if(!isset($session['caption_language']))
     $session['caption_language']='english';
 
-$badge='';
+$fill_profile='';$badge='';//var_dump($session['no_filled']);
+
+if($session['no_filled']!='' && array_key_exists("NO_FILLED_PERSON", $session['no_filled']) && isset($profile_type['percent']))
+$fill_profile = '<i class="fa fa-exclamation-triangle" style="color:white;"></i>';
+elseif(isset($session['no_filled']) && array_key_exists("NO_FILLED_PERSON", $session['no_filled']) && !isset($profile_type['percent']))
+$fill_profile = '<i class="fa fa-exclamation-triangle" style="color:red;"></i>';
 
 if(isset($profile_type['percent']) && $profile_type['percent']==100)
 {
@@ -10,8 +15,15 @@ if(isset($profile_type['percent']) && $profile_type['percent']==100)
 }
 elseif(isset($profile_type['percent']) && $profile_type['percent']>0)
 {
-    $badge = '<span class="badge badge-red rounded-2x">' . $profile_type['percent'] . '%</span>';
+    $badge = '<span class="badge badge-red rounded-2x">'.$fill_profile.' '.$profile_type['percent'] . '%</span>';
 }
+elseif(!isset($profile_type['percent']))
+{
+	$badge = $fill_profile;
+}
+
+
+//var_dump($session['no_filled']);
 
 ?>
 <!-- Topbar -->
@@ -28,12 +40,12 @@ elseif(isset($profile_type['percent']) && $profile_type['percent']>0)
                 </ul>
             </li>
 
-            <?php if(isset($session['user_name']) && $session['user_name']!=''){?>
+            <?php if(isset($session['user']) && $session['user']!=''){?>
                 <li class="topbar-devider"></li>
-                <li id="logout"><a onclick="LoadContent('User');">My Account <?php print $badge;?></a></li>
+                <li id="logout"><a onclick="LoadContent('User');">My Account <?php print $badge; //print $badge;?></a></li>
             <?php }?>
 
-            <?php if(isset($session['user_name']) && $session['user_name']!=''){?>
+            <?php if(isset($session['user']) && $session['user']!=''){?>
                 <li class="topbar-devider"></li>
                 <li id="logout"><a onclick="Logout('Authentication/Logout');">Logout</a></li>
             <?php }?>
@@ -60,7 +72,7 @@ elseif(isset($profile_type['percent']) && $profile_type['percent']>0)
             window.location.replace("Main");
         }).fail(function(jqHTR, textStatus, thrown)
         {
-            alertify.error('Something wrong with AJAX:' + textStatus);
+            alertify.error('Something is wrong with AJAX:' + textStatus);
         });
     }
 
@@ -86,7 +98,7 @@ elseif(isset($profile_type['percent']) && $profile_type['percent']>0)
                 alertify.error('You don\'t have profile_type.');
         }).fail(function(jqHTR, textStatus, thrown)
         {
-            alertify.error('Something wrong with AJAX:' + textStatus);
+            alertify.error('Something is wrong with AJAX:' + textStatus);
         });
     }
 

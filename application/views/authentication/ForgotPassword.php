@@ -7,7 +7,7 @@
 
     <div class="col-md-12 input-group margin-bottom-5">
         <strong>Email address</strong>
-        <input type="email" class="form-control" name="inp_email" id="inp_email" placeholder="Enter your Email">
+        <input type="email" class="form-control" name="inp_email" id="inp_email" placeholder="Enter your Email" value="<?php if(isset($email))echo $email;?>">
     </div>
     
     <div class="row">
@@ -66,7 +66,7 @@
                     }
                     else {
                         alertify.success('Please, check your inbox. Has been sent an email to ' + jQuery('#inp_email').val());
-                        jQuery('#frm_auth').html('<div class="actions"><a style="color:#fff;" onclick="LoadContent(\'Authentication/GoLogin\', 0, \'auth\')"><div class="btn-u pull-right">Return to login</div></a></div>');
+                        jQuery('#frm_auth').html('<div class="actions"><a style="color:#fff;" onclick="LoadContent(\'Authentication/GoLogin\', 0, \'div_auth\')"><div class="btn-u pull-right">Return to login</div></a></div>');
                     }
                 });
             }

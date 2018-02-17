@@ -1,75 +1,84 @@
 <script type="text/javascript">
+	function ValidateFrm(frm)
+	{
+		jQuery.validator.setDefaults(
+		{
+			//errorElement: "span",
+			//errorClass: "help-block",
+			//	validClass: 'stay',
+			highlight: function (element, errorClass, validClass) {//alert(element.name);
+				jQuery(element).addClass(errorClass); //.removeClass(errorClass);
+				jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+				
+				jQuery(element).parent().parent().parent().last().removeClass('has-success').addClass('has-error');
+				
+			},
+			unhighlight: function (element, errorClass, validClass) {///alert('unhigh');
+				jQuery(element).removeClass(errorClass); //.addClass(validClass);
+				jQuery(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+			},
+			errorPlacement: function (error, element)
+			{//alert('ojn');
+				if(element.parent('.input-group').length)
+				{
+					error.insertAfter(element.parent());
+				}
+				else if(element.hasClass('my_select2'))
+				{
+					error.insertAfter(element.next('span'));
+					//error.insertAfter(element.parent());
+				}
+
+				else if(element.hasClass('error_fieldset'))
+				{
+					error.insertAfter(element.next('span'));
+				}
+				else if(element.hasClass('required_file'))
+				{//alert(element.name);
+					//error.insertAfter(element.next('div'));
+					error.insertAfter(element.parent().parent().parent());
+				}
+				else
+				{
+					error.insertAfter(element);
+				}
+			}
+		});
+
+		jQuery("#"+frm).validate(
+		{
+			ignore: [],
+			focusInvalid: false,
+			invalidHandler: function(form, validator) {
+
+				if (!validator.numberOfInvalids())
+					return;
+
+				jQuery('html, body').animate({
+					scrollTop: jQuery(validator.errorList[0].element).offset().top-100
+				}, 2000);
+			}
+		});
+
+		jQuery.validator.addMethod("select", function(value, element, arg)
+		{
+			return arg !== value;
+		}, "This field is required. Please, select an option.");
+
+		jQuery("#"+frm).find('.required').each(function()
+		{
+			jQuery(this).rules( "add",{required: true});
+		});
+
+		jQuery("#"+frm).find('.required_select').each(function()
+		{
+			jQuery(this).rules( "add",{select: "-1"});
+		});
+	}
 
     jQuery(document).ready(function()
     {
-        function ValidateFrm()
-        {
-            jQuery.validator.setDefaults(
-            {
-                //errorElement: "span",
-                //errorClass: "help-block",
-                //	validClass: 'stay',
-                highlight: function (element, errorClass, validClass) {//alert('high');
-                    jQuery(element).addClass(errorClass); //.removeClass(errorClass);
-                    jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                },
-                unhighlight: function (element, errorClass, validClass) {//alert('unhigh');
-                    jQuery(element).removeClass(errorClass); //.addClass(validClass);
-                    jQuery(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-                },
-                errorPlacement: function (error, element)
-                {//alert('ojn');
-                    if(element.parent('.input-group').length)
-                    {
-                        error.insertAfter(element.parent());
-                    }
-                    else if(element.hasClass('my_select2'))
-                    {
-                        error.insertAfter(element.next('fieldset'));
-                    }
-
-                    else if(element.hasClass('error_fieldset'))
-                    {
-                        error.insertAfter(element.next('span'));
-                    }
-                    else
-                    {
-                        error.insertAfter(element);
-                    }
-                }
-            });
-
-            jQuery("#frm").validate(
-            {
-                ignore: [],
-                focusInvalid: false,
-                invalidHandler: function(form, validator) {
-
-                    if (!validator.numberOfInvalids())
-                        return;
-
-                    jQuery('html, body').animate({
-                        scrollTop: jQuery(validator.errorList[0].element).offset().top-100
-                    }, 2000);
-                }
-            });
-
-            jQuery.validator.addMethod("select", function(value, element, arg)
-            {
-                return arg !== value;
-            }, "This field is required. Please, select an option.");
-
-            jQuery("#frm").find('.required').each(function()
-            {
-                jQuery(this).rules( "add",{required: true});
-            });
-
-            jQuery("#frm").find('.required_select').each(function()
-            {
-                jQuery(this).rules( "add",{select: "-1"});
-            });
-        }
-
+        
         /*jQuery('body').on('change', '.my_select2', function () {
             ValidateFrm();
             jQuery(this).valid();
@@ -156,11 +165,11 @@
         jQuery('body').on('click', '#btn_save', function ()
         {
             if (jQuery("#frm").valid()) {
-                var layout=jQuery('#btn_save').attr('datafld');
+                var table=jQuery('#btn_save').attr('datafld');
                 var type=jQuery('#btn_save').attr('datatype');
                 var array_inputs=jQuery('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize();
                 var url = 'Main/SaveObject';
-                var data = array_inputs+'&layout='+layout+'&type='+type;
+                var data = array_inputs+'&table='+table+'&type='+type;
 
                 SaveContent(url, data);
             }
@@ -182,11 +191,11 @@
             if(id!='')
             {
                 var go_function='Main/DeleteObject';
-                var go_layout=jQuery(this).attr("datafld");
+                var go_table=jQuery(this).attr("datafld");
 
                 alertify.confirm("Do you confirm the action?", function (e)
                 {
-                    DeleteContent(go_function, go_layout, id);
+                    DeleteContent(go_function, go_table, id);
                 }
                 ,function()
                 {
@@ -213,11 +222,11 @@
             if(id!='')
             {
                 var go_function='Main/DeleteObject';
-                var go_layout=jQuery(this).attr("datafld");
+                var go_table=jQuery(this).attr("datafld");
 
                 alertify.confirm("Do you confirm the action?", function (e)
                 {
-                    DeleteContent(go_function, go_layout, id);
+                    DeleteContent(go_function, go_table, id);
                 }
                 ,function()
                 {

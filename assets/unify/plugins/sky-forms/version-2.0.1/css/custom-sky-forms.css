@@ -8,7 +8,6 @@
 /**/
 .sky-form {
   box-shadow: none;
-  border: 1px solid #eee;
 }
 
 .sky-form header {
@@ -61,7 +60,7 @@
 /**/
 /* file inputs */
 /**/
-.sky-form .input-file .button {
+.sky-form .input-file .button{
   height: 32px;
   top: 1px;
   right: 1px;
@@ -96,7 +95,7 @@
 }
 
 .sky-form .button {
-  background: #72c02c;
+  background: #3498db;
 }
 
 /**/

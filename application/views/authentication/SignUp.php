@@ -1,26 +1,6 @@
 <form class="reg-page" id='frm_auth'>
     <div class="reg-header">
-        <h2>Forgot User</h2>
-    </div>
-
-    <div class="col-md-12 input-group margin-bottom-5">
-        <strong>First Name</strong>
-        <input name="first" id="first" class="form-control" type="text" placeholder="Enter your First Name" />
-    </div>
-	
-    <div class="col-md-12 input-group margin-bottom-5">
-        <strong>Last Name</strong>
-		<input name="last" id="last" class="form-control" type="text" placeholder="Enter your Last Name" />
-    </div>
-	
-    <div class="col-md-12 input-group margin-bottom-5">
-        <strong>Date of Birth</strong>
-		<input name="birth" id="birth" class="form-control" type="text" style="padding: 0px;padding-left: 8px;"/>
-    </div>
-    
-    <div class="col-md-12 input-group margin-bottom-5">
-        <strong>Cell phone</strong>
-        <input name="cell" class="form-control" type="text" placeholder="Enter your Cell Phone Number" />
+        <h2>Create Account</h2>
     </div>
     
     <div class="col-md-12 input-group margin-bottom-5">
@@ -29,8 +9,8 @@
     </div>
     
     <div class="col-md-12 input-group margin-bottom-5">
-        <strong>User ID</strong>
-        <input name="user" id="user" class="form-control" type="text" placeholder="Enter a unique User ID" autocomplete="off"/>
+        <strong>Username</strong>
+        <input name="user" id="user" class="form-control" type="text" placeholder="Enter a unique Username" autocomplete="off"/>
     </div>
     
     <div class="col-md-12 input-group margin-bottom-5">
@@ -42,6 +22,15 @@
         <strong>Confirm New Password</strong>
         <input  name="txt_pass1" id="txt_pass1"  type="password"  size="15" class="form-control" placeholder="Confirm your New Password" autocomplete="off"/>
     </div>
+	
+	<div class="col-md-12 input-group margin-bottom-5">
+		<strong>Worker or Patient?</strong>
+		<select name="rol" id="rol" class="my_select2" style="width: 100%;">
+			<option value="-1"></option>
+			<option selected value="worker">Worker</option>
+			<option value="patient">Patient</option>
+		</select>
+	</div>
 	
 	<div class="col-md-12 input-group margin-bottom-5">
 		<strong>Security Question 1</strong>
@@ -162,10 +151,6 @@
         {
             rules :
             {
-                first:{required:true},
-                last:{required:true},
-                birth:{required:true},
-                cell:{required:true},
                 email : {required : true,email : true},
                 user : {required : true},
                 txt_pass: {required: true},
@@ -180,12 +165,8 @@
 
             messages :
             {
-                first:{required:'Please enter your First Name'},
-                last:{required:'Please enter your Last Name'},
-                birth:{required:'Please enter your Date of Birth'},
-                cell:{required:'Please enter your Cell Phone Number'},
                 email : {required : 'Please enter your Email address.', email : 'Please enter a VALID Email address'},
-                user : {required : 'Please enter a User ID'},
+                user : {required : 'Please enter a Username'},
                 txt_pass: {required: 'Please enter your new Password'},
                 txt_pass1: {required : 'Please confirm your Password', equalTo : 'Please insert the same password'},
                 ans1:{required:'Please enter the Answer 1'},
@@ -223,12 +204,13 @@
 
         jQuery('#btn_sign_up').on('click', function (e)
         {
-            CheckExistUser();
+            CheckExistEmail();CheckExistUserID();SaveUser();;
         });
 
         function CheckExistUserID()
         {
             var user_id=jQuery('#user').val();
+			var email=jQuery('#email').val();
 
             if(user_id.length>3)
             {
@@ -243,13 +225,13 @@
 
                     if(response=='EXIST' && jQuery('#no_promp_user').val()=='yes')
                     {
-                        jQuery('<em class="invalid" style="top:0px;position:relative" id="em_user">This User ID already exists.</em>').insertAfter('#user');
+                        jQuery('<em class="invalid" style="top:0px;position:relative" id="em_user">This Username already exists.</em>').insertAfter('#user');
                         jQuery('#ok_user').val('0');
 
                         alertify.defaults.theme.ok = "btn btn-success";
-                        alertify.confirm("<div class='text-center'><h4>The user </h4><h3>"+user_id+"</h3><h4>already exists in our database.</h4><br><h3>Are you the owner of this user?</h3><br>If 'Yes', you will be redireted to recover your password.</div>", function()
+                        alertify.confirm("<div class='text-center'><h4>The username </h4><h3>"+user_id+"</h3><h4>already exists in our database.</h4><br><h3>Are you the owner of this user?</h3><br>If 'Yes', you will be redireted to recover your password.</div>", function()
                         {
-                            window.location.replace("GoForgotPassword");
+                            LoadContent('Authentication/GoForgotPassword/'+encodeURI(email), 0, 'div_auth');
                         }
                         ,function()
                         {
@@ -260,7 +242,7 @@
                     }
                     else if(response=='EXIST' && jQuery('#no_promp_user').val()=='no')
                     {
-                        jQuery('<em class="invalid" style="top:0px;position:relative" id="em_user">This User ID already exists.</em>').insertAfter('#user');
+                        jQuery('<em class="invalid" style="top:0px;position:relative" id="em_user">This Username already exists.</em>').insertAfter('#user');
                     }
                     else
                     {
@@ -268,7 +250,7 @@
                     }
                 }).fail(function(jqHTR, textStatus, thrown)
                 {
-                    alertify.error('Something wrong with AJAX:' + textStatus);
+                    alertify.error('Something is wrong with AJAX:' + textStatus);
                 });
             }
         }
@@ -293,9 +275,9 @@
                         jQuery('<em class="invalid" style="top:0px;position:relative" id="em_email">This Email already exists.</em>').insertAfter('#email');
 
                         alertify.defaults.theme.ok = "btn btn-success";
-                        alertify.confirm("<div class='text-center'><h4>The email </h4><h3>"+email+"</h3><h4>already exists in our database.</h4><br><h3>Are you the owner of this email?</h3><br>If 'Yes', you will be redireted to recover your User ID.</div>", function()
+                        alertify.confirm("<div class='text-center'><h4>The email address</h4><h3>"+email+"</h3><h4>already exists in our database.</h4><br><h3>Are you the owner of this email?</h3><br>If 'Yes', you will be redireted to recover your Password.</div>", function()
                         {
-                            window.location.replace("GoForgotUser/"+encodeURI(email));
+                            LoadContent('Authentication/GoForgotPassword/'+encodeURI(email), 0, 'div_auth');
                         }
                         ,function()
                         {
@@ -314,47 +296,7 @@
 
                 }).fail(function(jqHTR, textStatus, thrown)
                 {
-                    alertify.error('Something wrong with AJAX:' + textStatus);
-                });
-            }
-        }
-
-        function CheckExistUser()
-        {
-            var first=jQuery('#first').val();
-            var last=jQuery('#last').val();
-            var birth=jQuery('#birth').val();
-
-            if(jQuery("#frm_auth").valid())
-            {
-                jQuery.ajax({
-                    type: "POST",
-                    dataType: "html",
-                    url: 'Authentication/CheckExistUser',
-                    data:{first:first,last:last,birth:birth}
-                }).done(function(response, textStatus, jqXHR)
-                {
-                    if(response=='EXIST')
-                    {
-                        alertify.defaults.theme.ok = "btn btn-success";
-                        alertify.confirm("<div class='text-center'><h4>It looks like you may already exist in our database.</h4><h3>Are you a previous client of Advanced Cosmetic Surgery?</h3><br>If 'Yes', you will be redireted to answer some security questions.</div>", function()
-                        {
-                            window.location.replace("GoRecoverAccount");
-                        }
-                        ,function()
-                        {
-                            alertify.error('Declined.');
-                            CheckExistEmail();CheckExistUserID();SaveUser();
-                        }).set({labels:{ok:'Yes', cancel: 'No'}});
-                    }
-                    else
-                    {
-                        CheckExistEmail();CheckExistUserID();SaveUser();
-                    }
-
-                }).fail(function(jqHTR, textStatus, thrown)
-                {
-                    alertify.error('Something wrong with AJAX:' + textStatus);
+                    alertify.error('Something is wrong with AJAX:' + textStatus);
                 });
             }
         }
@@ -376,7 +318,7 @@
                         LoadContent('Authentication/GoLogin', 0, 'div_auth')
                     }
                 }).fail(function (jqHTR, textStatus, thrown) {
-                    alertify.error('Something wrong with AJAX:' + textStatus);
+                    alertify.error('Something is wrong with AJAX:' + textStatus);
                 });
             }
             else

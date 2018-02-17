@@ -41,7 +41,7 @@
                     var cbx_contact_method = one + two + three + four + five + six;
 
 
-                    var layout = 'PHP_Patients';
+                    var table = 'PHP_Patients';
                     var type='UPDATE';
                     var fields_values='id='+jQuery('#id').val()+'&bd_user_name=' + jQuery('#bd_user_name').val() + '&bd_Salutation=' + jQuery('#bd_Salutation').val() + '&bd_FirstName=' + jQuery('#bd_FirstName').val() +
                         '&bd_MiddleInitial=' + jQuery('#bd_MiddleInitial').val() + '&bd_LastName=' + jQuery('#bd_LastName').val() + '&bd_user_email=' + jQuery('#bd_user_email').val() +
@@ -56,7 +56,7 @@
                         '&bd_ICE_Phone1=' + jQuery('#bd_ICE_Phone1').val();
 
                     var url = 'Main/SaveObject';
-                    var data = fields_values + '&layout=' + layout + '&type=' + type;
+                    var data = fields_values + '&table=' + table + '&type=' + type;
 
                     var target = document.getElementById('container');
                     var spinner = new Spinner(opts).spin(target);
@@ -80,10 +80,10 @@
                                 {
                                     if (jQuery.isNumeric(response)) {
                                         var primary_key = response;
-                                        var layout = 'PHP_Personal_Info';
+                                        var table = 'PHP_Personal_Info';
                                         var type='INSERT';
                                         var fields_values = jQuery('#frm').find('input[datafld!=ignore], select[datafld!=ignore]').serialize()+'&id_pers_info='+jQuery('#__kp_PERSONAL_INFO_TEMP_ID').val()+'&id_patient='+primary_key;
-                                        var data = fields_values + '&layout=' + layout + '&type=' + type;
+                                        var data = fields_values + '&table=' + table + '&type=' + type;
                                         jQuery.ajax({
                                             type: "POST",
                                             dataType: "html",
@@ -109,7 +109,7 @@
 
 
                                 }).fail(function (jqHTR, textStatus, thrown) {
-                                    alertify.error('Something wrong with AJAX:' + textStatus);
+                                    alertify.error('Something is wrong with AJAX:' + textStatus);
                                 });
 
                             }
@@ -123,7 +123,7 @@
                         else
                             window.location.replace("Authentication");
                     }).fail(function (jqHTR, textStatus, thrown) {
-                        alertify.error('Something wrong with AJAX:' + textStatus);
+                        alertify.error('Something is wrong with AJAX:' + textStatus);
                     });
 
                 }

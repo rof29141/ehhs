@@ -1,13 +1,9 @@
 <?php
 Class M_Dashboard extends CI_Model
 {
-    private $fm;
-
     function  __construct()
     {
         parent::__construct();
-        $this->load->model('MacTutorREST');
-        $this->fm = new MacTutorREST ();
     }
 
 
@@ -27,7 +23,7 @@ Class M_Dashboard extends CI_Model
 
     function GetAppointment($next, $id_doctor)
     {
-        $layout='PHP_Appointment';
+        $table='PHP_Appointment';
         $request1['ProviderRec'] = $id_doctor;
         $request1['CancelWeb'] = '=';
         $request1['APT_Date'] = '*';
@@ -49,7 +45,7 @@ Class M_Dashboard extends CI_Model
         $sort = array ($sort1, $sort2);
         $criteria['sort'] = $sort;//print json_encode($criteria);
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);die();
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);die();
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -80,7 +76,7 @@ Class M_Dashboard extends CI_Model
 
     function GetAppointmentBy($id_service, $id_doctor, $date, $time)
     {
-        $layout='PHP_Appointment';
+        $table='PHP_Appointment';
 
         $request1['_kf_ServiceID'] = $id_service;
         $request1['ProviderRec'] = $id_doctor;
@@ -93,7 +89,7 @@ Class M_Dashboard extends CI_Model
         $criteria['range'] = '10000';
         $criteria['offset'] = '1';
         //print json_encode($criteria);
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -115,7 +111,7 @@ Class M_Dashboard extends CI_Model
 
     function GetAppointmentSettings($id_service, $id_doctor)
     {
-        $layout='PHP_Service_Doctor';
+        $table='PHP_Service_Doctor';
 
         $request1['_kf_ServiceID'] = '=='.$id_service;//print $data['id'];
         $request1['_kf_DoctorID'] = '=='.$id_doctor;//print $data['id'];
@@ -124,7 +120,7 @@ Class M_Dashboard extends CI_Model
         $criteria['range'] = '10000';
         $criteria['offset'] = '1';//print json_encode($criteria);
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -154,13 +150,13 @@ Class M_Dashboard extends CI_Model
 
     function ValidaTokenApp($token)
     {
-        $layout='PHP_Appointment';
+        $table='PHP_Appointment';
 
         $request1['TokenConfirmApp'] = '=='.$token;
         $query = array ($request1);
         $criteria['query'] = $query;
 
-        $result = $this->fm->findRecords($criteria, $layout);//print json_encode($criteria);var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//print json_encode($criteria);var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')

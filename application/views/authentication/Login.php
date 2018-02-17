@@ -25,7 +25,7 @@
 
     <div class="text-center">
         Forgot
-        <a onclick="LoadContent('Authentication/GoForgotUser', 0, 'div_auth')">User ID</a>
+        <a onclick="LoadContent('Authentication/GoForgotUser', 0, 'div_auth')">Username</a>
         or
         <a onclick="LoadContent('Authentication/GoForgotPassword', 0, 'div_auth')">Password?</a>
     </div>
@@ -115,7 +115,6 @@
                 if(response)
                 {
                     jQuery('#div_header').html(response);
-
                 }
             });
         }

@@ -19,7 +19,7 @@ class Dashboard extends CI_Controller
         $this->load->helper('General_Helper');
         $data['session']=GetSessionVars();
         $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']['privilegies']);
+        $data['profile_type']=ProfileType($data['session']['rol']);
 
         //echo $data['section_auth'];
 		$this->load->view($view, $data);

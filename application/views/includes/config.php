@@ -12,7 +12,7 @@ defined("CTR_URL") ? null : define("CTR_URL", base_url());
 defined("ASSETS_URL") ? null : define("ASSETS_URL", base_url('assets'));
 defined("VIEW_URL") ? null : define("VIEW_URL", APPPATH."views/");
 
-$project='Advanced Cosmetic Surgery';
+$project='EHHS';
 $src_logo=ASSETS_URL.'/images/logo.png';//large logo
 $src_logo1=ASSETS_URL.'/images/logo1.png';//short logo
 $src_favico=ASSETS_URL.'/images/icon.ico';

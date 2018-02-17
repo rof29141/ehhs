@@ -11,7 +11,7 @@
         <input type="checkbox" checked class="toggle-vis" value="1" name="1" id="1"><a class="toggle-vis1" style="padding:4px;text-decoration: none;" onclick="check(1)" for="1"><label>Full name</label></a><br>
         <input type="checkbox" checked class="toggle-vis" value="2" name="2" id="2"><a class="toggle-vis1" style="padding:4px;text-decoration: none;" onclick="check(2)" for="2"><label>Title</label></a><br>
         <input type="checkbox" checked class="toggle-vis" value="3" name="3" id="3"><a class="toggle-vis1" style="padding:4px;text-decoration: none;" onclick="check(3)" for="3"><label>Email</label></a><br>
-        <input type="checkbox" checked class="toggle-vis" value="4" name="4" id="4"><a class="toggle-vis1" style="padding:4px;text-decoration: none;" onclick="check(4)" for="4"><label>User ID</label></a><br>
+        <input type="checkbox" checked class="toggle-vis" value="4" name="4" id="4"><a class="toggle-vis1" style="padding:4px;text-decoration: none;" onclick="check(4)" for="4"><label>Username</label></a><br>
         <input type="checkbox" checked class="toggle-vis" value="5" name="5" id="5"><a class="toggle-vis1" style="padding:4px;text-decoration: none;" onclick="check(5)" for="5"><label>Account Type</label></a><br>
         <input type="checkbox" checked class="toggle-vis" value="6" name="6" id="6"><a class="toggle-vis1" style="padding:4px;text-decoration: none;" onclick="check(6)" for="6"><label>Permisions</label></a><br>
         <!-- <input type="checkbox" checked class="toggle-vis" value="7" name="7" id="7"><a class="toggle-vis1" style="padding:4px;text-decoration: none;" onclick="check(7)" for="7"><label>Vanity URL</label></a><br>

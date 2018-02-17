@@ -1,13 +1,9 @@
 <?php
 Class M_Appointment extends CI_Model
 {
-    private $fm;
-
     function  __construct()
     {
         parent::__construct();
-        $this->load->model('MacTutorREST');
-        $this->fm = new MacTutorREST ();
     }
 
     function error($result)
@@ -26,7 +22,7 @@ Class M_Appointment extends CI_Model
 
     function GetAllAppointmentByPatient($id_patient)//history
     {
-        $layout='PHP_Appointment';
+        $table='PHP_Appointment';
 
         $request1['_zfk_ClientRec'] = $id_patient;
         $request1['APT_Date'] = '<'. date('m/d/Y');
@@ -42,7 +38,7 @@ Class M_Appointment extends CI_Model
         $sort = array ($sort1, $sort2);
         $criteria['sort'] = $sort;
         //print json_encode($criteria);
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -77,7 +73,7 @@ Class M_Appointment extends CI_Model
 
     function GetPendingAppointmentByPatient($id_patient)
     {
-        $layout='PHP_Appointment';
+        $table='PHP_Appointment';
         date_default_timezone_set('America/New_York');
 
         $request1['_zfk_ClientRec'] = $id_patient;
@@ -96,7 +92,7 @@ Class M_Appointment extends CI_Model
         $sort = array ($sort1, $sort2);
         $criteria['sort'] = $sort;
         //print json_encode($criteria);
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -130,7 +126,7 @@ Class M_Appointment extends CI_Model
 
     function GetNextAppointmentByPatient($id_patient)
     {
-        $layout='PHP_Appointment';
+        $table='PHP_Appointment';
         date_default_timezone_set('America/New_York');
 
         $request1['_zfk_ClientRec'] = $id_patient;
@@ -150,7 +146,7 @@ Class M_Appointment extends CI_Model
         $sort = array ($sort1, $sort2);
         $criteria['sort'] = $sort;
         //print json_encode($criteria);
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -188,7 +184,7 @@ Class M_Appointment extends CI_Model
 
     function GetNextAppointmentByRecordID($recordID)
     {
-        $layout='PHP_Appointment';
+        $table='PHP_Appointment';
         date_default_timezone_set('America/New_York');
 
         $request1['RecordID'] = $recordID;
@@ -198,7 +194,7 @@ Class M_Appointment extends CI_Model
         $criteria['range'] = '1';
         $criteria['offset'] = '1';
         //print json_encode($criteria);
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -232,7 +228,7 @@ Class M_Appointment extends CI_Model
 
     function GetAppointmentByRecordID($recordID)
     {
-        $layout='PHP_Appointment';
+        $table='PHP_Appointment';
         date_default_timezone_set('America/New_York');
 
         $request1['RecordID'] = $recordID;
@@ -242,7 +238,7 @@ Class M_Appointment extends CI_Model
         $criteria['range'] = '1';
         $criteria['offset'] = '1';
         //print json_encode($criteria);
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')

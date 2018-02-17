@@ -31,13 +31,10 @@ class Authentication extends CI_Controller
     function CreateAccount()
     {
         $data=array(
-            'first'=>$this->input->post('first'),
-            'last'=>$this->input->post('last'),
-            'birth'=>$this->input->post('birth'),
-            'cell'=>$this->input->post('cell'),
             'email'=>$this->input->post('email'),
             'user'=>$this->input->post('user'),
             'pass'=>password_hash($this->input->post('txt_pass'), PASSWORD_DEFAULT),
+            'rol'=>$this->input->post('rol'),
             'sec1'=>$this->input->post('sec1'),
             'sec2'=>$this->input->post('sec2'),
             'sec3'=>$this->input->post('sec3'),
@@ -48,13 +45,13 @@ class Authentication extends CI_Controller
 
         $result=$this->Auth->CreateAccount($data);
 
-        if($result['error']=='0')
+        if($result['error_msg']=='0')
         {
             $this->ValidateEmail($this->input->post('email'),'activate');
             echo 'CREATED';
         }
         else
-            echo $result['error'];
+            echo $result['error_msg'];
     }
 
     function Verify()
@@ -72,17 +69,17 @@ class Authentication extends CI_Controller
         {
             $result = $this->CheckDatabase($this->input->post('pass'));//var_dump($result);
 
-            if ($result['error']=='0')
+            if ($result['error_msg']=='0')
             {
                 print 'LOGGED';
             } 
-			elseif($result['error']=='ACTIVATE')
+			elseif($result['error_msg']=='ACTIVATE')
 			{
-                print $result['email'];
+                print $result['data']->email;
             }
 			else 
 			{
-                print $result['error'];
+                print $result['error_msg'];
             }
         }
         else
@@ -96,28 +93,24 @@ class Authentication extends CI_Controller
     function CheckDatabase($password)
     {
         $username = $this->input->post('user');
-        $result = $this->Auth->Login($username, $password);
+        $result = $this->Auth->Login($username, $password);//echo $result['data']->email;//var_dump($result);
 
-        if ($result['error']=='0')
+        if ($result['error_msg']=='0')
         {
             $sess_array = array(
-                'id' => $result['id'],
-                'user_name' => $result['user_name'],
-                'bd_FirstName' => $result['bd_FirstName'],
-                'bd_LastName' => $result['bd_LastName'],
-                'email' => $result['email'],
-                '__zkp_Client_Rec' => $result['__zkp_Client_Rec'],
-                'PersonalContactInformationStatus' => $result['PersonalContactInformationStatus'],
-                'next_app_date' => $result['next_app_date'],
+                'id_user' => $result['data']->id_user,
+                'user' => $result['data']->user,
+                'email' => $result['data']->email,
+                'rol' => $result['data']->rol
             );
 
             $this->session->set_userdata('logged_user_ehhs', $sess_array);
         }
-        elseif ($result['error']=='ACTIVATE')
+        elseif ($result['error_msg']=='ACTIVATE')
         {
-            $this->ValidateEmail($result['email'],'activate_yet');
+            $this->ValidateEmail($result['data']->email,'activate_yet');
             //print $return;
-			//$result['error'] = 'Sorry, your account doesn\'t have been activate yet. Please check your inbox.';
+			//$result['error_msg'] = 'Sorry, your account doesn\'t have been activate yet. Please check your inbox.';
         }
 
         return $result;
@@ -133,9 +126,9 @@ class Authentication extends CI_Controller
         if ($email != '')
         {
             $result = $this->Auth->ValidateEmail($email);//var_dump($result);
-            //print $result['error'];die();
+            //print $result['error_msg'];die();
 
-            if ($result['error']=='0')
+            if ($result['error_msg']=='0')
             {//print var_dump($result['result']);//die();
                 $from_email = EMAIL_FROM;
                 $from_name = EMAIL_FROM_NAME;
@@ -146,7 +139,7 @@ class Authentication extends CI_Controller
 
                 if($send=='pass')
                 {
-                    $id = $result['id'];
+                    $id = $result['data']->id_user;
                     $result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
 
                     if ($result['token'])
@@ -179,16 +172,16 @@ class Authentication extends CI_Controller
                 }
                 elseif ($send=='user')
                 {
-                    $subject = "Recover User ID";
+                    $subject = "Recover Username";
                     $body = '
                             <html>
                                 <head>
-                                    <title>Recover User ID</title>
+                                    <title>Recover Username</title>
                                 </head>
                                 <body>
-                                    <h1>User ID</h1>
-                                    <p>Your User ID for '.COMPANY.'\'s website is:</p>
-                                        <p><h2><strong>'. $result["user_name"] .'</strong></h2></p>
+                                    <h1>Username</h1>
+                                    <p>Your Username for '.COMPANY.'\'s website is:</p>
+                                        <p><h2><strong>'. $result['data']->user .'</strong></h2></p>
                                     <p>If you think you received this email in error, please delete.</p>
                                     <p>Thanks,</p>'
                                     .EMAIL_SIGNATURE.
@@ -220,14 +213,14 @@ class Authentication extends CI_Controller
                 }
                 elseif ($send=='activate')
                 {
-                    $Activate_Status = $result['Activate_Status'];
-					if($Activate_Status==1)
+                    $activate_status = $result['data']->activate_status;
+					if($activate_status==1)
 					{
 						return 'ACTIVATED';
 					}
 					else
 					{
-						$id = $result['id'];
+						$id = $result['data']->id_user;
 						$result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
 
 						if ($result['token'])
@@ -235,7 +228,7 @@ class Authentication extends CI_Controller
 							$token = $result['token'];
 
 							$subject = "Activate Your Account";
-							$link = base_url('Main?c=Authentication&f=Activate&p1=' . $token.'&p2=' . $email.'&v=main-view');
+							$link = base_url('Main?c=Authentication&f=Activate&p1='. $token.'&p2='. $email.'&v=main-view');
 							$body = '
 								<html>
 									<head>
@@ -261,7 +254,7 @@ class Authentication extends CI_Controller
                 }
                 elseif ($send=='activate_yet')
                 {
-                    $id = $result['id'];
+                    $id = $result['data']->id_user;
                     $result = $this->generarLinkTemporal($id);//print '$token: '.$token;die();
 
                     if ($result['token'])
@@ -269,7 +262,7 @@ class Authentication extends CI_Controller
                         $token = $result['token'];
 
                         $subject = "Activate Your Account";
-                        $link = base_url('Main?c=Authentication&f=Activate&p1=' . $token);
+                        $link = base_url('Main?c=Authentication&f=Activate&p1='. $token.'&p2='. $email.'&v=main-view');//echo $link;
                         $body = '
                             <html>
                                 <head>
@@ -294,7 +287,7 @@ class Authentication extends CI_Controller
                 }
                 elseif ($send=='recover')
                 {
-                    if($result["Sec1"]!='' && $result["Sec2"]!='' && $result["Sec3"]!='')
+                    if($result["data"]->sec1!='' && $result["data"]->sec2!='' && $result["data"]->sec3!='')
                     $this->load->view('authentication/SecurityQuestions', $result);
                     else
                     {
@@ -320,7 +313,7 @@ class Authentication extends CI_Controller
                             '</head>
                                 <body>
                                     <h1>You respond well the 3 security questions</h1>
-                                    <p>Your User ID for '.COMPANY.'\'s website is:</p>
+                                    <p>Your Username for '.COMPANY.'\'s website is:</p>
                                     <p><h2><strong>'. $result["user_name"] .'</strong></h2></p>
                                     <p>Please click on the button below to reset the password for your account:</p>
                                     <p><a href="' . $link . '"><button class="btn btn-success">Reset password</button></a></p>
@@ -352,25 +345,24 @@ class Authentication extends CI_Controller
         if ($user != '')
         {
             $result = $this->Auth->ValidateUserID($user);//var_dump($result);
-            //print $result['error'];die();
+            //print $result['error_msg'];die();
 
-            if ($result['error']=='0')
+            if ($result['error_msg']=='0')
             {
                 if ($type=='recover')
                 {
-                    if($result["Sec1"]!='' && $result["Sec2"]!='' && $result["Sec3"]!='')
+                    if($result["data"]->sec1!='' && $result["data"]->sec2!='' && $result["data"]->sec3!='')
                         $this->load->view('authentication/SecurityQuestions', $result);
                     else
-                    {
-                        print 'SEC_EMPTY';
-                    }
+						print 'SEC_EMPTY';
+                    
                 }
-
             }
-            else{print 'WRONG';}
-
+            else
+				print 'WRONG';
         }
-        else{print 'EMPTY';}
+        else
+			print 'EMPTY';
     }
 
     function ValidateSecAnswers($user_email='',$search='', $ans1='',$ans2='',$ans3='')
@@ -385,10 +377,10 @@ class Authentication extends CI_Controller
         if($data['user_email'] != '' && $data['search'] != '' && $data['ans1'] != '' && $data['ans2'] != '' && $data['ans3'] != '')
         {
             $result = $this->Auth->ValidateSecAnswers($data);//var_dump($result);
-            //print $result['error'];die();
+            //print $result['error_msg'];die();
             if(isset($result['data']) && $result['data']=='OK')
             {
-                print 'User ID: '.$result['user'].'<br>Temporary Password: '.$result['pass'];
+                print 'Username: '.$result['user'].'<br>Temporary Password: '.$result['pass'];
             }
             elseif($result['error']!='0')
                 print $result['error'];
@@ -414,7 +406,7 @@ class Authentication extends CI_Controller
 
         $result=$this->Auth->ValidaToken($token);//var_dump($result);
 
-        if ($result['error']=='0')
+        if ($result['error_msg']=='0')
         {
             $data['id'] = $result['id'];
             $data['section_auth'] = '/authentication/RestorePass.php';
@@ -434,7 +426,7 @@ class Authentication extends CI_Controller
         
         $result=$this->Auth->ActivateAccount($token);//var_dump($result);
 
-		if ($result['error']=='0')
+		if ($result['error_msg']=='0')
         {
             $data['success']='Thank you for activate your account.';
         }
@@ -446,7 +438,12 @@ class Authentication extends CI_Controller
 			else
 			$data['error']='Sorry, the token is expired. Please, check your inbox. Has been sent an email to: '.$email;
         }
-		//echo $return;
+		
+		$this->load->helper('General_Helper');
+        $data['session']=GetSessionVars();
+        $data['language']=LoadLanguage();
+        $data['profile_type']=ProfileType($data['session']['rol']);
+		
 		$this->load->view('dashboard/Dashboard', $data);
     }
 
@@ -465,10 +462,10 @@ class Authentication extends CI_Controller
         $warning='';
         $error='';
 
-        if($result['error']=='0')
+        if($result['error_msg']=='0')
             print 'OK';
         else
-            print $result['error'];
+            print $result['error_msg'];
     }
 
     function GoForgotUser($email='')
@@ -482,13 +479,14 @@ class Authentication extends CI_Controller
         $this->load->helper('General_Helper');
         $data['session']=GetSessionVars();
         $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']['privilegies']);
+        $data['profile_type']=ProfileType($data['session']['rol']);
         $this->load->view('authentication/Login', $data);
     }
 
-    function GoForgotPassword()
+    function GoForgotPassword($email='')
     {
-        $this->load->view('authentication/ForgotPassword');
+        $data['email']=$email;
+		$this->load->view('authentication/ForgotPassword', $data);
     }
 
     function GoResetPassword()
@@ -510,9 +508,9 @@ class Authentication extends CI_Controller
     {
         $user_id=$this->input->post('user_id');
 
-        $result=$this->Auth->CheckExistUserID($user_id);
+        $result=$this->Auth->ValidateUserID($user_id);
 
-        if($result['error']=='0')
+        if($result['error_msg']=='0')
         {
             echo 'EXIST';
         }
@@ -523,26 +521,9 @@ class Authentication extends CI_Controller
     function CheckExistEmail()
     {
         $email=$this->input->post('email');
+        $result=$this->Auth->ValidateEmail($email);
 
-        $result=$this->Auth->CheckExistEmail($email);
-
-        if($result['error']=='0')
-        {
-            echo 'EXIST';
-        }
-        else
-            echo 'NO_EXIST';
-    }
-
-    function CheckExistUser()
-    {
-        $data['first']=$this->input->post('first');
-        $data['last']=$this->input->post('last');
-        $data['birth']=$this->input->post('birth');
-
-        $result=$this->Auth->CheckExistUser($data);
-
-        if($result['error']=='0')
+        if($result['error_msg']=='0')
         {
             echo 'EXIST';
         }
@@ -565,15 +546,16 @@ class Authentication extends CI_Controller
         $warning='';
         $error='';
 
-        if($result['error']=='0')
+        if($result['error_msg']=='0')
             print 'OK';
-        else
-            print $result['error'];
-    }
-
-    function GoToServices()
-    {
-        redirect('Services/GoToServices');
+        elseif($result['error_msg']=='0')
+            print 'OK';
+		elseif($result['error_msg']=='WRONG_PASS')
+            print 'Your password is wrong';
+		elseif($result['error_msg']=='ACTIVATE')
+            print 'You have to activate your account first.';
+		elseif($result['error_msg']=='WRONG_ID')
+            print 'Your username is wrong.';
     }
 
     function Logout()

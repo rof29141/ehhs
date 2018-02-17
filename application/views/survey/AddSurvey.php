@@ -1214,7 +1214,7 @@
                         else
                             window.location.replace("Authentication");
                     }).fail(function (jqHTR, textStatus, thrown) {
-                        alertify.error('Something wrong with AJAX:' + textStatus);
+                        alertify.error('Something is wrong with AJAX:' + textStatus);
                     });
                 }
                 else

@@ -1,13 +1,9 @@
 <?php
 Class M_Invoice extends CI_Model
 {
-    private $fm;
-
     function  __construct()
     {
         parent::__construct();
-        $this->load->model('MacTutorREST');
-        $this->fm = new MacTutorREST ();
     }
 
     function error($result)
@@ -26,7 +22,7 @@ Class M_Invoice extends CI_Model
 
     function GetMyInvoices($id_patient)
     {
-        $layout='PHP_Invoice';
+        $table='PHP_Invoice';
 
         $request1['ClientRec'] = $id_patient;
 
@@ -39,7 +35,7 @@ Class M_Invoice extends CI_Model
         $sort = array ($sort1);
         $criteria['sort'] = $sort;
         print json_encode($criteria);
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -74,7 +70,7 @@ Class M_Invoice extends CI_Model
 
     function GetInvoiceLine($id_invoice, $anchor, $cat)
     {
-        $layout='PHP_Invoice_Line';
+        $table='PHP_Invoice_Line';
 
         $request1['BillingRec'] = $id_invoice;
         $request1['IsBIL_item?'] = $anchor;
@@ -85,7 +81,7 @@ Class M_Invoice extends CI_Model
         $criteria['range'] = '10000';
         $criteria['offset'] = '1';
         //print json_encode($criteria);
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')

@@ -1,16 +1,14 @@
 <!-- Navbar -->
 <div class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="fa fa-bars"></span>
-            </button>
-            <a class="navbar-brand" href="index.html" style="display: none;">
-                <img id="logo-header" src="<?php print base_url('assets/unify/img/logo1-default.png'); ?>" alt="Logo">
-            </a>
-        </div>
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="fa fa-bars"></span>
+			</button>
+			
+		</div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-responsive-collapse">
@@ -50,7 +48,18 @@
                 <?php }?>
 
                 <?php
-                if(isset($profile_type['profile_type']))
+                if(isset($profile_type['profile_type']) && ($profile_type['profile_type']=='admin' || $profile_type['profile_type']=='asist'))
+                {
+                    ?>
+                    <li class="">
+                        <a onclick="LoadContent('Form1')" class="dropdown-toggle" data-toggle="dropdown">
+                            Form 1
+                        </a>
+                    </li>
+                <?php }?>
+
+                <?php
+                if(isset($profile_type['profile_type']) && ($profile_type['profile_type']=='admin' || $profile_type['profile_type']=='worker'))
                 {
                 ?>
                 <li class="">
@@ -62,7 +71,7 @@
                 <?php }?>
 
                 <li class="">
-                    <a class="dropdown-toggle chat" onclick="LoadContent('Job/GoAvailableJobs');" data-toggle="dropdown">
+                    <a class="dropdown-toggle chat" data-toggle="dropdown">
                         Contact Us
                     </a>
                 </li>

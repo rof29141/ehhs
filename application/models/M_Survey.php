@@ -1,13 +1,9 @@
 <?php
 Class M_Survey extends CI_Model
 {
-    private $fm;
-
     function  __construct()
     {
         parent::__construct();
-        $this->load->model('MacTutorREST');
-        $this->fm = new MacTutorREST ();
     }
 
 
@@ -27,13 +23,13 @@ Class M_Survey extends CI_Model
 
     function GetProfileUser($data)
     {
-        $layout='PHP_Patients';
+        $table='PHP_Patients';
 
         $request1['RecordID'] = $data['id'];//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -62,13 +58,13 @@ Class M_Survey extends CI_Model
 
     function Save($datas='')
     {//die();
-        $layout='PHP_Surveys';
+        $table='PHP_Surveys';
 
         $record['_kf_Patient_ID'] = $datas['__zkp_Client_Rec'];
         $record['Contact_Method'] = $datas['contact_method'];
         $data['data'] = $record;
 
-        $result = $this->fm->createRecord($data, $layout);//var_dump($result);
+        $result = $this->fm->createRecord($data, $table);//var_dump($result);
         $return['error'] = $this->error($result);
 
         if($return['error']=='0')
@@ -80,7 +76,7 @@ Class M_Survey extends CI_Model
             $query = array ($request1);
             $criteria['query'] = $query;
 
-            $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+            $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
             $return['error']=$this->error($result);
 
             if($return['error']=='0')
@@ -94,7 +90,7 @@ Class M_Survey extends CI_Model
 
                 if($surveyID)
                 {
-                    $layout = 'PHP_Surveys_Lines';
+                    $table = 'PHP_Surveys_Lines';
 
                     foreach ($datas as $key => $value)
                     {
@@ -106,7 +102,7 @@ Class M_Survey extends CI_Model
                             $data1['data'] = $record1;
                             //print json_encode($data1);
 
-                            $result = $this->fm->createRecord($data1, $layout);//var_dump($result);
+                            $result = $this->fm->createRecord($data1, $table);//var_dump($result);
                             $return['error'] = $this->error($result);
                         }
                     }

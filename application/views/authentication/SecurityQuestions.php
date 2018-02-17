@@ -1,3 +1,9 @@
+<?php 
+$Sec1=$data->sec1;
+$Sec2=$data->sec2;
+$Sec3=$data->sec3;
+?>
+
 <div class="col-md-12 input-group margin-bottom-5">
 	<strong>
 		<?php

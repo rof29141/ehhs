@@ -1,11 +1,11 @@
 <form class="reg-page" id='frm_auth'>
     <div class="reg-header">
-        <h2>Recover Account by Email or User ID</h2>
+        <h2>Recover Account by Email or Username</h2>
     </div>
 
     <div class="col-md-12 input-group margin-bottom-5">
-        <strong>User ID</strong>
-        <input name="user" id="user" class="form-control" type="text" placeholder="Enter your registered User ID" autocomplete="off"/>
+        <strong>Username</strong>
+        <input name="user" id="user" class="form-control" type="text" placeholder="Enter your registered Username" autocomplete="off"/>
     </div>
 	
 	<div class="col col-xs-12 col-lg-12">
@@ -99,7 +99,7 @@
                 });
             }
             else
-            alertify.error('You have to enter a registered User ID or your Email address.');
+            alertify.error('You have to enter a registered Username or your Email address.');
         });
 
         jQuery('#btn_recover').on('click', function()

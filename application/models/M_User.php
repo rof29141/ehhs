@@ -1,71 +1,185 @@
 <?php
 Class M_User extends CI_Model
 {
-    private $fm;
-
-    function __construct()
+    function  __construct()
     {
         parent::__construct();
-        $this->load->model('MacTutorREST');
-        $this->fm = new MacTutorREST ();
     }
 
-    function error($result)
+    function Result($error_code=0, $error_msg=0, $result='')
     {
-        if (array_key_exists("errorCode", $result) && array_key_exists("errorMessage", $result))
-        {
-            return 'Something is wrong: (' . $result ["errorCode"] . ') ' . $result ["errorMessage"] . "\n";
-        }
-        elseif (array_key_exists("errorMessage", $result))
-        {
-            return 'Something is wrong: ' . $result ["errorMessage"] . "\n";
-        }
-        else
-            return 0;
-    }
-
-    function GetProfileUser($data)
-    {
-        $layout='PHP_Patients';
-
-        $request1['RecordID'] = $data['id'];//print $data['id'];
-        $query = array ($request1);
-        $criteria['query'] = $query;
-
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
-        $return['error']=$this->error($result);
-
-        if($return['error']=='0')
-        {
-            for($i=0;$i<sizeof($result["data"]);$i++)
-            {
-                $field['bd_FirstName'] = $result["data"][$i]["fieldData"]["bd_FirstName"];
-                $field['bd_LastName'] = $result["data"][$i]["fieldData"]["bd_LastName"];
-                $field['bd_user_email'] = $result["data"][$i]["fieldData"]["bd_user_email"];
-                $field['bd_user_name'] = $result["data"][$i]["fieldData"]["bd_user_name"];
-                $field['bd_DateOfBirth'] = $result["data"][$i]["fieldData"]["bd_DateOfBirth"];
-                $field['bd_Phone'] = $result["data"][$i]["fieldData"]["bd_Phone"];
-                $field['bd_ZipCode'] = $result["data"][$i]["fieldData"]["bd_ZipCode"];
-                $field['RecordID'] = $result["data"][$i]["fieldData"]["RecordID"];
-
-                $fields[$i] = $field;
-            }
-
-            $return['data']=$fields;
-        }
+        $return['error_code']=$error_code;
+        $return['error_msg']=$error_msg;
+        $return['data']=$result;
 
         return $return;
     }
 
-    function GetPersonalInfo($data)
+    function GetAccountUser($data)
     {
-        $layout='PHP_Patients';
+		$this -> db -> select('*');
+        $this -> db -> from('user');
+        $this -> db -> where('id_user = ' . "'" . $data['session']['id_user'] . "'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() == 1)
+			$return=$this->Result(0, 0, $query->row());
+        else
+			$return=$this->Result(1, 'NO_LOGGED');
+       
+		return $return;
+    }
+	
+	function GetProfileUser($data)
+    {
+		$this -> db -> select('*');
+        $this -> db -> from('person');
+		$this -> db -> join('zip', 'zip.id_zip = person.id_zip');
+		$this -> db -> join('city', 'city.id_city = zip.id_city');
+		$this -> db -> join('state', 'state.id_state = city.id_state');
+		$this -> db -> join('country', 'country.id_country = state.id_country');
+        $this -> db -> where('id_user = ' . "'" . $data['session']['id_user'] . "'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() == 1)
+			$return=$this->Result(0, 0, $query->row());
+        else
+			$return=$this->Result(1, 'NO_PERSON');
+       
+		return $return;
+    }
+
+    function GetStateByZIP($zip)
+    {
+        $this -> db -> select('*');
+        $this -> db -> from('zip');
+        $this -> db -> join('city', 'city.id_city = zip.id_city');
+        $this -> db -> join('state', 'state.id_state = city.id_state');
+        $this -> db -> join('country', 'country.id_country = state.id_country');
+        $this -> db -> where('zip = ' . "'" . $zip . "'");
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() >= 1)
+            $return=$this->Result(0, 0, $query->row());
+        else
+            $return=$this->Result(1, 'NO_ZIP');
+
+        return $return;
+    }
+
+    function GetEmployee($id_person)
+    {
+		$this -> db -> select('*');
+        $this -> db -> from('employee');
+        $this -> db -> where('id_person = ' . "'" . $id_person . "'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() == 1)
+			$return=$this->Result(0, 0, $query->row());
+        else
+			$return=$this->Result(1, 'NO_EMPLOYEE');
+
+		return $return;
+    }
+
+    function GetEmployment($id_person)
+    {
+		$this -> db -> select('*');
+        $this -> db -> from('form');
+		$this -> db -> join('employee', 'employee.id_employee = form.id_employee');
+        $this -> db -> where('id_person = ' . "'" . $id_person . "'");
+        $this -> db -> where('form_name = ' . "'employment'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() == 1)
+			$return=$this->Result(0, 0, $query->row());
+        else
+			$return=$this->Result(1, 'NO_EMPLOYEE');
+
+		return $return;
+    }
+
+    function GetEmploymentConsent($id_person)
+    {
+		$this -> db -> select('*');
+        $this -> db -> from('consent');
+		$this -> db -> join('form', 'form.id_form = consent.id_form');
+		$this -> db -> join('employee', 'employee.id_employee = form.id_employee');
+        $this -> db -> where('id_person = ' . "'" . $id_person . "'");
+        $this -> db -> where('form_name = ' . "'employment'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() >= 1)
+			$return=$this->Result(0, 0, $query->row());
+        else
+			$return=$this->Result(1, 'NO_EMPLOYEE');
+
+		return $return;
+    }
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	function GetPersonalInfo($data)
+    {
+        $table='PHP_Patients';
 
         $request1['RecordID'] = $data['id'];//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -134,7 +248,7 @@ Class M_User extends CI_Model
 
     function GetListUser()
     {
-        $layout='PHP_Patients';
+        $table='PHP_Patients';
 
         $request1['RecordID'] = "*";//print $data['id'];
         $query = array ($request1);
@@ -142,7 +256,7 @@ Class M_User extends CI_Model
         $criteria['range'] = '10';
         $criteria['offset'] = '1';
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -169,13 +283,13 @@ Class M_User extends CI_Model
 
     function GetUpdateUser($data)
     {
-        $layout='PHP_Patients';
+        $table='PHP_Patients';
 
         $request1['RecordID'] = $data['id'];//print $data['id'];
         $query = array ($request1);
         $criteria['query'] = $query;
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -203,7 +317,7 @@ Class M_User extends CI_Model
 
     function GetPersonalInfoSetting()
     {
-        $layout='PHP_Personal_Info_Template';
+        $table='PHP_Personal_Info_Template';
 
         $request1['Template_Status'] = "==". 1;//print $data['id'];
         $query = array ($request1);
@@ -211,7 +325,7 @@ Class M_User extends CI_Model
         $criteria['range'] = '1';
         $criteria['offset'] = '1';
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -232,7 +346,7 @@ Class M_User extends CI_Model
 
     function GetPrimaryKeyByRecordID($recordID)
     {
-        $layout='PHP_Patients';
+        $table='PHP_Patients';
 
         $request1['RecordID'] = $recordID;//echo $data['id'];
         $query = array ($request1);
@@ -240,7 +354,7 @@ Class M_User extends CI_Model
         $criteria['range'] = '1';
         $criteria['offset'] = '1';
 
-        $result = $this->fm->findRecords($criteria, $layout);//var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')
@@ -260,7 +374,7 @@ Class M_User extends CI_Model
 
     function SavePersonalInfo($id_patient, $id_survey, $id_question, $id_answer, $id_answer_multiple, $text)
     {
-        $layout = 'PHP_Personal_Info';
+        $table = 'PHP_Personal_Info';
 
         $record['_kf_PHP_Personal_Info_Temp_ID'] = $id_survey;
         $record['_kf_Answers'] = $id_answer;
@@ -270,7 +384,7 @@ Class M_User extends CI_Model
         $record['AnswerText'] = $text;
         $data['data'] = $record;//print json_encode($data);
 
-        $result = $this->fm->createRecord($data, $layout);//var_dump($result);
+        $result = $this->fm->createRecord($data, $table);//var_dump($result);
         $return['error']=$this->error($result);
 
         return $return;
@@ -278,7 +392,7 @@ Class M_User extends CI_Model
 
     function GetRewards($data)
     {
-        $layout='PHP_Rewards';
+        $table='PHP_Rewards';
 
         $request1['ACSClientID'] = $data['__zkp_Client_Rec'];//print $data['id'];
         $query = array ($request1);
@@ -286,7 +400,7 @@ Class M_User extends CI_Model
         $criteria['range'] = '1';
         $criteria['offset'] = '1';
 
-        $result = $this->fm->findRecords($criteria, $layout);//echo json_encode($criteria);var_dump($result);
+        $result = $this->fm->findRecords($criteria, $table);//echo json_encode($criteria);var_dump($result);
         $return['error']=$this->error($result);
 
         if($return['error']=='0')

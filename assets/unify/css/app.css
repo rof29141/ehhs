@@ -89,7 +89,7 @@ h1 i, h2 i, h3 i, h4 i, h5 i, h6 i {
 .headline {
   display: block;
   margin: 10px 0 25px 0;
-  border-bottom: 1px dotted #e4e9f0;
+  border-bottom: 2px solid #3498db;
 }
 
 .headline h2 {
@@ -351,7 +351,7 @@ h3.heading-xs {
 
 .tab-v1 .nav-tabs a { 
   font-size: 14px;
-  padding: 5px 15px; 
+  padding: 5px 8px; 
 }
 
 .tab-v1 .nav-tabs > .active > a, 

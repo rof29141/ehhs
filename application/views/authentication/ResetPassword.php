@@ -5,8 +5,8 @@
     </div>
 
     <div class="col-md-12 input-group margin-bottom-5">
-        <strong>User ID</strong>
-        <input name="user" id="user" class="form-control" type="text" placeholder="Enter your User ID" />
+        <strong>Username</strong>
+        <input name="user" id="user" class="form-control" type="text" placeholder="Enter your Username" />
 	</div>
     
 	 <div class="col-md-12 input-group margin-bottom-5">
@@ -64,7 +64,7 @@
 
 			messages : {
 				user : {
-					required : 'Please enter your User ID.'
+					required : 'Please enter your Username.'
 				},
 				password : {
 					required : 'Please enter your password.'

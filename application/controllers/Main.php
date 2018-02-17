@@ -25,7 +25,7 @@ class Main extends CI_Controller
         $this->load->helper('General_Helper');
         $data['session']=GetSessionVars();
         $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']['privilegies']);
+        $data['profile_type']=ProfileType($data['session']['rol']);
 
 		$this->load->view("Main", $data);
 	}
@@ -37,7 +37,7 @@ class Main extends CI_Controller
             $this->load->helper('General_Helper');
             $data['session']=GetSessionVars();
             $data['language']=LoadLanguage();
-            $data['profile_type']=ProfileType($data['session']['privilegies']);
+            $data['profile_type']=ProfileType($data['session']['rol']);
 
             $data_type = $_POST['data_type'];
             $view_url = $_POST['view_url'];
@@ -51,7 +51,7 @@ class Main extends CI_Controller
             {
                 for($i=0;$i<$cant; next($var), $i++)
                 {
-                    $view_url = current($var);//print $layout.' - ';die();
+                    $view_url = current($var);//print $table.' - ';die();
                     $this->load->view($view_url, $data);
                 }
             }
@@ -71,80 +71,82 @@ class Main extends CI_Controller
             $this->load->helper('General_Helper');
             $data['session']=GetSessionVars();
             $data['language']=LoadLanguage();
-            $data['profile_type']=ProfileType($data['session']['privilegies']);
+            $data['profile_type']=ProfileType($data['session']['rol']);
 
-            if($data_type==='appointment')
-            {
-                $id_service = $_POST['id_service'];
-                $id_doctor = $_POST['id_doctor'];
-
-                if(isset($_POST['start']))
-                {
-                    $date=date('m/d/y', strtotime($_POST['start']));
-                    $time=substr($_POST['start'],16,8);
-                    $this->load->model('M_Dashboard');
-                    $result['app']=$this->M_Dashboard->GetAppointmentBy($id_service, $id_doctor, $date, $time);
-                }
-
-                $result['start'] = $_POST['start'];
-                $result['end'] = $_POST['end'];
-                $result['service']=$this->M_Main->GetServiceByID($id_service);
-                $result['doctor']=$this->M_Main->GetDoctorByID($id_doctor);
-
-                $result['setting_id'] = $_POST['setting_id'];
-                $result['ReminderEmail'] = $_POST['ReminderEmail'];
-                $result['ReminderMsg'] = $_POST['ReminderMsg'];
-                $result['ReminderContactBy'] = $_POST['ReminderContactBy'];
-
-            }
-            elseif($data_type==='dataprofile')
+            if($data_type==='data_account')
             {
                 $this->load->model('M_User');
-                $result['user']=$this->M_User->GetProfileUser($data);
+                $result['user']=$this->M_User->GetAccountUser($data);
             }
-            elseif($data_type==='dropdown_doctor')
-            {
-                $id_service = $_POST['id_service'];
-                if(isset($_POST['id_doctor']))$result['id_doctor'] = $_POST['id_doctor'];
-
-                $this->load->model('M_Dashboard');
-                //$setting=$this->M_Dashboard->GetAppointmentSettings($id_service);
-
-                //if($setting['error']=='0')
-                //{
-                    //print 'errorrrrrr: '.$setting['error'];
-                    $result['doctor'] = $this->M_Main->GetDoctorsByService($id_service);
-                //}
-            }
-            elseif($data_type==='datatableListMyAppointment')
-            {
-                $id_patient = $data['__zkp_Client_Rec'];
-                $this->load->model('M_Appointment');
-                $result['my_appointments']=$this->M_Appointment->GetAllAppointmentByPatient($id_patient);
-            }
-            elseif($data_type==='MyAppointments')
-            {
-                $id_patient = $data['__zkp_Client_Rec'];
-                $this->load->model('M_Appointment');
-                $result['my_all_appointments']=$this->M_Appointment->GetNextAppointmentByPatient($id_patient);
-                $this->load->model('M_User');
-                $result['rewards']=$this->M_User->GetRewards($data);//var_dump($data);
-            }elseif($data_type==='dataPersonalInfo')
+            elseif($data_type==='data_profile')
             {
                 $this->load->model('M_User');
-                $result['user']=$this->M_User->GetPersonalInfo($data);
+                $result['profile']=$this->M_User->GetProfileUser($data);
             }
-            elseif($data_type==='dataPersonalInfo')
+			elseif($data_type==='data_employment')
             {
                 $this->load->model('M_User');
-                $result['user']=$this->M_User->GetPersonalInfo($data);
+                $result['id_person']=$this->input->post('id_person');
+                $result['employee']=$this->M_User->GetEmployee($result['id_person']);
+                $result['employment']=$this->M_User->GetEmployment($result['id_person']);
+                $result['consent']=$this->M_User->GetEmploymentConsent($result['id_person']);
             }
-            elseif($data_type==='datatableListMyInvoice')
+            elseif($data_type==='data_probation')
             {
-                $id_patient = $data['__zkp_Client_Rec'];
-                $this->load->model('M_Invoice');
-                $result['my_invoices'] = $this->M_Invoice->GetMyInvoices($id_patient);//var_dump($result);
+                date_default_timezone_set('America/New_York');
+				$this->load->model('M_User');
+				$result['profile']=$this->M_User->GetProfileUser($data);
+				$result['business_date']=$this->GetBusinessDate(date('m/d/Y'), 5);
             }
+			elseif($data_type==='data_statement')
+            {
+                date_default_timezone_set('America/New_York');
+				$this->load->model('M_User');
+				$result['profile']=$this->M_User->GetProfileUser($data);
+            }
+            elseif($data_type==='data_equipment')
+            {
+                date_default_timezone_set('America/New_York');
+				$this->load->model('M_User');
+				$result['profile']=$this->M_User->GetProfileUser($data);
+            }
+			elseif($data_type==='data_medical')
+            {
+                date_default_timezone_set('America/New_York');
+				$this->load->model('M_User');
+				$result['profile']=$this->M_User->GetProfileUser($data);
+            }
+			elseif($data_type==='data_orientation')
+            {
+                date_default_timezone_set('America/New_York');
+				$this->load->model('M_User');
+				$result['profile']=$this->M_User->GetProfileUser($data);
+            }
+            elseif($data_type==='data_tax')
+            {
+                date_default_timezone_set('America/New_York');
+				$this->load->model('M_User');
+				$result['profile']=$this->M_User->GetProfileUser($data);
+            }
+            elseif($data_type==='data_inservice')
+            {
+                date_default_timezone_set('America/New_York');
+				$this->load->model('M_User');
+				$result['profile']=$this->M_User->GetProfileUser($data);
+            }
+            elseif($data_type==='data_over')
+            {
+                date_default_timezone_set('America/New_York');
+				$this->load->model('M_User');
+				$result['profile']=$this->M_User->GetProfileUser($data);
+            }
+            elseif($data_type==='data_emergency')
+            {
+                date_default_timezone_set('America/New_York');
+				$this->load->model('M_User');
+				$result['profile']=$this->M_User->GetProfileUser($data);
+            }
+            
 
             return $result;
         }
@@ -153,6 +155,37 @@ class Main extends CI_Controller
             print 1;
         }
     }
+	
+	function GetBusinessDate($startdate, $numberofdays)
+	{
+		//$_POST['startdate'] = '2012-08-14';
+		//$_POST['numberofdays'] = 10;
+
+		$d = new DateTime( $startdate );
+		$t = $d->getTimestamp();
+
+		// loop for X days
+		for($i=0; $i<$numberofdays; $i++){
+
+			// add 1 day to timestamp
+			$addDay = 86400;
+
+			// get what day it is next day
+			$nextDay = date('w', ($t+$addDay));
+
+			// if it's Saturday or Sunday get $i-1
+			if($nextDay == 0 || $nextDay == 6) {
+				$i--;
+			}
+
+			// modify timestamp, add 1 day
+			$t = $t+$addDay;
+		}
+
+		$d->setTimestamp($t);
+
+		return $d->format( 'm/d/Y' );
+	}
 
     function GoObject()
     {
@@ -176,7 +209,7 @@ class Main extends CI_Controller
             $i=0;
             foreach($_POST as $field_name => $value)
             {
-                if($field_name!='layout' && $field_name!='type') {
+                if($field_name!='table' && $field_name!='type') {
                     $fields[$i] = $field_name;
                     $value = $this->security->xss_clean($value);
                     $value = html_escape($value);
@@ -186,19 +219,19 @@ class Main extends CI_Controller
                     //$asignacion = "\$" . $field_name . "='" . $value . "';";
                     //eval($asignacion);
                 }
-                elseif($field_name=='layout')
-                    $layout=$value;
+                elseif($field_name=='table')
+                    $table=$value;
                 elseif($field_name=='type')
                     $type=$value;
             }
-            //print $layout;die();
+            //print $table;die();
 
-            $result=$this->M_Main->Execute($type, $fields, $datas, $layout);
+            $result=$this->M_Main->Execute($type, $fields, $datas, $table);
 
-            if($result['error']=='0' && $type=='INSERT')
+            if($result['error_msg']=='0' && $type=='INSERT')
                 print $result['data']['recordId'];
             else
-                print $result['error'];
+                print $result['error_msg'];
         }
         else
         {
@@ -211,7 +244,7 @@ class Main extends CI_Controller
         $i=0;
         foreach($_POST as $field_name => $value)
         {
-            if($field_name!='layout' && $field_name!='type') {
+            if($field_name!='table' && $field_name!='type') {
                 $fields[$i] = $field_name;
                 $value = $this->security->xss_clean($value);
                 $value = html_escape($value);
@@ -220,25 +253,25 @@ class Main extends CI_Controller
                 //print $field_name . "=" . $value;
                 //eval($asignacion);
             }
-            elseif($field_name=='layout')
-                $layout=$value;
+            elseif($field_name=='table')
+                $table=$value;
             elseif($field_name=='type')
                 $type=$value;
         }
-        $result=$this->M_Main->Execute($type, $fields, $datas, $layout);
-        print $result['error'];
+        $result=$this->M_Main->Execute($type, $fields, $datas, $table);
+        print $result['error_msg'];
     }
 
     function DeleteObject()
     {
         if($this->session->userdata('logged_user_ehhs'))
         {
-            $layouts = $this->input->post('go_layout');
+            $tables = $this->input->post('go_table');
             $data['ids'] = $this->input->post('id');
 
-            //print 'lays: '.$layouts.' ids: '.$data['ids'].' ctr_function: '.$ctr_function;die();
+            //print 'lays: '.$tables.' ids: '.$data['ids'].' ctr_function: '.$ctr_function;die();
 
-            $var = explode("-", $layouts);
+            $var = explode("-", $tables);
 
             if(sizeof($var) != 0)
             {
@@ -246,13 +279,13 @@ class Main extends CI_Controller
 
                 for($i=0;$i<$cant; next($var), $i++)
                 {
-                    $layout = current($var);//print $layout.' - ';die();
+                    $table = current($var);//print $table.' - ';die();
 
                     if (isset($data['ids']))
                     {
 
-                        $result=$this->M_Main->Execute('DELETE', '', $data, $layout);
-                        print $result['error'];
+                        $result=$this->M_Main->Execute('DELETE', '', $data, $table);
+                        print $result['error_msg'];
                     }
                     else
                     {
@@ -264,7 +297,7 @@ class Main extends CI_Controller
             else
             {
                 print '02';
-                //$this->index($ctr_function, '','', 'You have to delete something. The Layout is empty.');
+                //$this->index($ctr_function, '','', 'You have to delete something. The table is empty.');
             }
         }
         else
@@ -348,7 +381,7 @@ class Main extends CI_Controller
         $this->load->helper('General_Helper');
         $data['session']=GetSessionVars();
         $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']['privilegies']);
+        $data['profile_type']=ProfileType($data['session']['rol']);
 
         $this->load->view('includes/top_bar', $data);
         $this->load->view('includes/nav_bar', $data);

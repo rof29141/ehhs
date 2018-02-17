@@ -49,12 +49,12 @@ class Job extends CI_Controller
             {
                 $result = $this->M_Invoice->GetInvoiceLine($id_invoice, $anchor, $cat);
 
-                if ($result['error'] == '0')
+                if ($result['error_msg'] == '0')
                 {
                     //$data['invoice_detail']=$result['data'];
                     $this->load->view('invoice/InvoiceLine', $result);
                 } else
-                    print $result['error'];
+                    print $result['error_msg'];
             }
         }
         else

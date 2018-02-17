@@ -5,7 +5,7 @@
     <th class="hidden-xs hidden-sm" style="width: 20%">Full name</th>
     <th class="hidden-xs hidden-sm" style="width: 20%">Title</th>
     <th class="hidden-xs hidden-sm" style="width: 20%">Email</th>
-    <th class="hidden-xs hidden-sm" style="width: 10%">User ID</th>
+    <th class="hidden-xs hidden-sm" style="width: 10%">Username</th>
     <th class="hidden-xs hidden-sm" style="width: 12%">Account Type</th>
     <th class="hidden-xs hidden-sm">Permissions</th>
     <th class="hidden-xs hidden-sm text-center" style="width: 2%"><input name='select_all' id='select_all' type='checkbox'></th>

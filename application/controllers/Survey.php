@@ -91,7 +91,7 @@ class Survey extends CI_Controller
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
             $result=$this->M_Survey->Save($data);
-            print $result['error'];
+            print $result['error_msg'];
         }
         else
         {

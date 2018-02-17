@@ -9,7 +9,7 @@ function GetSessionVars()
     if(!$my_instance->session->userdata('language'))
     {
         $session_lang = array('lang' => 'english');
-        $this->session->set_userdata('language', $session_lang);
+        $my_instance->session->set_userdata('language', $session_lang);
     }
 
     $session_lang = $my_instance->session->userdata('language');
@@ -20,31 +20,25 @@ function GetSessionVars()
     $data['email_test_to'] = EMAIL_FROM_TO;
     $data['email_test_staff_to'] = EMAIL_FROM_STAFF_TO;
 
-    $data['id'] = '';
-    $data['user_name'] = '';
-    $data['bd_FirstName'] = '';
-    $data['bd_LastName'] = '';
-    $data['email'] = '';
-    $data['__zkp_Client_Rec'] = '';
-    $data['PersonalContactInformationStatus'] = '';
-    $data['next_app_date'] = '';
-    $data['privilegies'] = '';
+    $data['id_user'] = '';
+	$data['user'] = '';
+	$data['email'] = '';
+	$data['rol'] = '';
     $data['section_auth'] = '/authentication/Login.php';
+	$data['no_filled']=array();
 
     if($my_instance->session->userdata('logged_user_ehhs'))
     {
         $session_data = $my_instance->session->userdata('logged_user_ehhs');
 
-        $data['id'] = $session_data['id'];
-        $data['user_name'] = $session_data['user_name'];
-        $data['bd_FirstName'] = $session_data['bd_FirstName'];
-        $data['bd_LastName'] = $session_data['bd_LastName'];
+        $data['id_user'] = $session_data['id_user'];
+        $data['user'] = $session_data['user'];
         $data['email'] = $session_data['email'];
-        $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
-        $data['PersonalContactInformationStatus'] = $session_data['PersonalContactInformationStatus'];
-        $data['next_app_date'] = $session_data['next_app_date'];
-        $data['privilegies'] = 'admin';
+        $data['rol'] = $session_data['rol'];
         $data['section_auth'] = '';
+		
+		$my_instance->load->model('M_Main');
+		$data['no_filled']=$my_instance->M_Main->CkeckProfile($data);
     }
 
     return $data;
@@ -71,6 +65,7 @@ function LoadLanguage()
 function ProfileType($access_profile)
 {
     $data='';
+	$my_instance =& get_instance();
 
     if($access_profile=='worker')
     {

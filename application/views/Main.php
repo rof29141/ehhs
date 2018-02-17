@@ -21,7 +21,7 @@ ini_set('memory_limit', '2048M');
 <script type="text/javascript">
 
     /*-------------------DO NOT CHANGE THE CODE-------------------*/
-	if('<?php if(isset($ctr))print $ctr?>'!='' && '<?php if(isset($func))print $func?>'!='' && '<?php if(isset($view_area))print $view_area?>'!='')
+	if('<?php if(isset($ctr))print $ctr?>'!='' && '<?php if(isset($func))print $func?>'!='')//&& '<?php if(isset($view_area))print $view_area?>'!=''
 	{
 		var str='<?php if(isset($ctr) && isset($func))print $ctr."/".$func;?>';
 		var str=str+'<?php if(isset($param1))print "/".$param1;?>';
@@ -58,11 +58,11 @@ ini_set('memory_limit', '2048M');
                 window.location.replace("Authentication");
         }).fail(function(jqHTR, textStatus, thrown)
         {
-            alertify.error('Something wrong with AJAX:' + textStatus);
+            alertify.error('Something is wrong with AJAX:' + textStatus);
         });
     }
 
-    function DeleteContent(go_function, go_layout, id)
+    function DeleteContent(go_function, go_table, id)
     {
         jQuery( '.main-view' ).empty();
         var target = document.getElementById('container');
@@ -72,14 +72,14 @@ ini_set('memory_limit', '2048M');
             type: "POST",
             dataType: "html",
             url: go_function,
-            data:{go_layout:go_layout, id:id}
+            data:{go_table:go_table, id:id}
         }).done(function(response, textStatus, jqXHR)
         {
             if(response!='1' && response!='')
             {
                 if(response=='0'){alertify.success('Element deleted.');}
                 else if(response=='01'){alertify.warning('You have to delete something. The ID is empty.');}
-                else if(response=='02'){alertify.warning('You have to delete something. The Layout is empty.');}
+                else if(response=='02'){alertify.warning('You have to delete something. The table is empty.');}
                 else {alertify.error('Error: The element could not be deleted. '+ response);}
                 spinner.stop();
                 LoadContent(jQuery('#view').val());
@@ -88,12 +88,13 @@ ini_set('memory_limit', '2048M');
                 window.location.replace("Authentication");
         }).fail(function(jqHTR, textStatus, thrown)
         {
-            alertify.error('Something wrong with AJAX:' + textStatus);
+            alertify.error('Something is wrong with AJAX:' + textStatus);
         });
     }
 
     function LoadContent(pag, click=1, div='main-view')
     {
+		if(div=='')div='main-view';
         //if(click!=0)jQuery('.navbar-toggle').click();
 
         var target = document.getElementById('main-view');
@@ -111,19 +112,24 @@ ini_set('memory_limit', '2048M');
             {
 				jQuery('#'+div).html(response);
                 jQuery('#view').val(pag);
-                spinner.stop();
             }
             else if(response=='NO_LOGGED')
+            {
                 alertify.error('You don\'t have access.');
+                window.location.replace("Main");
+            }
+
+            if(click==1)goToByScroll(div);
+            spinner.stop();
         }).fail(function(jqHTR, textStatus, thrown)
         {
-            alertify.error('Something wrong with AJAX:' + textStatus);
+            alertify.error('Something is wrong with AJAX:' + textStatus);
         });
     }
 
     function SaveContent(url, array_inputs)
     {
-        jQuery( '.main-view' ).empty();
+        jQuery('.main-view').empty();
         var target = document.getElementById('container');
         var spinner = new Spinner(opts).spin(target);
 
@@ -145,8 +151,15 @@ ini_set('memory_limit', '2048M');
                 window.location.replace("Authentication");
         }).fail(function(jqHTR, textStatus, thrown)
         {
-            alertify.error('Something wrong with AJAX:' + textStatus);
+            alertify.error('Something is wrong with AJAX:' + textStatus);
         });
+    }
+
+    function goToByScroll(div)
+    {//alert(div);
+        jQuery('html, body').animate({
+                scrollTop: jQuery("#"+div).offset().top-100},
+            'slow');
     }
 
     /*-------------------DO NOT CHANGE THE CODE-------------------*/

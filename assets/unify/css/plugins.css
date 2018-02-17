@@ -313,13 +313,13 @@
 /*Owl Carousel Style v2*/
 .owl-carousel-style-v2 .item {
   margin: 0 3px;
-  background: #fafafa;
+  background: #f2f2f2;
   text-align: center;
-  border: solid 1px #eee;
+  border: solid 1px #e6e6e6;
 }
 
 .owl-carousel-style-v2 .item img {
-  padding: 0 3px;
+  padding: 3px;
   display: inline-block;
 }
 
