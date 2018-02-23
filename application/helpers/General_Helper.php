@@ -25,6 +25,7 @@ function GetSessionVars()
 	$data['email'] = '';
 	$data['rol'] = '';
     $data['section_auth'] = '/authentication/Login.php';
+    $data['id_person'] = '';
 	$data['no_filled']=array();
 
     if($my_instance->session->userdata('logged_user_ehhs'))
@@ -36,12 +37,34 @@ function GetSessionVars()
         $data['email'] = $session_data['email'];
         $data['rol'] = $session_data['rol'];
         $data['section_auth'] = '';
-		
+        $data['id_person'] = $session_data['id_person'];
+
 		$my_instance->load->model('M_Main');
 		$data['no_filled']=$my_instance->M_Main->CkeckProfile($data);
     }
 
     return $data;
+}
+
+function UpdateSessionVars($key, $value)
+{
+    $data='';
+    $my_instance =& get_instance();
+
+    if($my_instance->session->userdata('logged_user_ehhs'))
+    {
+        if($key=='id_user')$data['id_user'] = $value;
+        if($key=='user')$data['user'] = $value;
+        if($key=='email')$data['email'] = $value;
+        if($key=='rol')$data['rol'] = $value;
+        if($key=='section_auth')$data['section_auth'] = $value;
+        if($key=='id_person')$data['id_person'] = $value;
+
+        $my_instance->load->model('M_Main');
+        $data['no_filled']=$my_instance->M_Main->CkeckProfile($data);
+
+        $this->session->set_userdata('logged_user_ehhs', $data);
+    }
 }
 
 function LoadLanguage()
@@ -62,14 +85,22 @@ function LoadLanguage()
     return $data;
 }
 
-function ProfileType($access_profile)
+function ProfileType($session)
 {
     $data='';
 	$my_instance =& get_instance();
+	$access_profile=$session['rol'];
+	$id_person=$session['id_person'];//echo $id_person;
 
     if($access_profile=='worker')
     {
-        $data['percent']=65;
+        $percent_result=$my_instance->M_Main->GetCompletedPercentByPersonID($id_person);//var_dump($percent_result);
+		
+		if($percent_result['error_code']==0)
+			$data['percent']=$percent_result['data']->completed_percent;//echo $percent_result['data']->completed_percent;
+		else
+			$data['percent']=0;
+		
         $data['available_jobs']=3;
         $data['profile_type']=$access_profile;
     }

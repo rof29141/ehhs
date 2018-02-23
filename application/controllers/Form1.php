@@ -21,7 +21,7 @@ class Form1 extends CI_Controller
             $this->load->helper('General_Helper');
             $data['session']=GetSessionVars();
             $data['language']=LoadLanguage();
-            $data['profile_type']=ProfileType($data['session']['rol']);
+            $data['profile_type']=ProfileType($data['session']);
 
             $this->load->view($view, $data);
         }

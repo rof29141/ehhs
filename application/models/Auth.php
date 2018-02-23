@@ -42,6 +42,25 @@ Class Auth extends CI_Model
         return $return;
 	}
 
+	function GetPersonByUserId($id_user)
+	{
+        $this -> db -> select('*');
+        $this -> db -> from('person');
+        $this -> db -> where('id_user = ' . "'" . $id_user . "'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() == 1)
+        {
+			$return=$this->Result(0, 0, $query->row());
+        }
+        else
+        $return=$this->Result(1, 'PERSON_EMPTY');
+
+        return $return;
+	}
+
     function ValidateEmail($email)
     {
         $this -> db -> select('*');

@@ -14,6 +14,42 @@ Class M_Main extends CI_Model
 
         return $return;
     }
+	
+	function GetCompletedPercentByPersonID($id_person)
+	{
+		$return=array();
+		
+		$this -> db -> select('*');
+        $this -> db -> from('employee');
+        $this -> db -> where('id_person = ' . "'" . $id_person . "'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() == 1)
+			$return=$this->Result(0, 0, $query->row());
+        else
+			$return=$this->Result(1, 'NO_EMPLOYEE');
+
+		return $return;
+	}
+
+	function GetCompletedPercentByEmployeeID($id_employee)
+	{
+		$this -> db -> select('*');
+        $this -> db -> from('employee');
+        $this -> db -> where('id_employee = ' . "'" . $id_employee . "'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() == 1)
+			$return=$this->Result(0, 0, $query->row());
+        else
+			$return=$this->Result(1, 'NO_EMPLOYEE');
+
+		return $return;
+	}
 
     function Execute($type='', $fields='', $datas='', $table='', $field_id='')
     {
@@ -31,28 +67,34 @@ Class M_Main extends CI_Model
 			$sql = $this->db->set($insert)->get_compiled_insert($table);
 			//echo $sql;
 			
-			$this->db->insert($table, $insert);
+			$this->db->insert($table, $insert).'<br>';
 			$insert_id['last_id'] = $this->db->insert_id();
 			$return=$this->Result(0, 0, $insert_id);
         }
 
         if($type=='UPDATE')
         {
-			$query = $this->db->where($field_id, $datas['id'])->get($table);
+			//$query = $this->db->where($field_id, $datas['id'])->get($table);
 
-			if($query->num_rows() > 0)
-			{
+			//if($query->num_rows() > 0)
+			//{
 				foreach ($fields as $field)
 				{
-					$update[$field] = $datas[$field];
+                    if($field!='id'){
+                        $update[$field] = $datas[$field];
+                    }
 				}
 
-				$this->db->update($table, $update, array($field_id => $datas['id']));
+                $this->db->where($field_id, $datas['id']);
+                $this->db->update($table, $update);
 
-				$return=$this->Result(0, 0, $query->row());
-			}
-			else
-				$return=$this->Result(1, 'The record does not exist.');
+				//$this->db->update($table, $update, array($field_id => $datas['id']));print $field_id.' - '.$datas['id'];
+                //echo $this->db->set($update, array($field_id => $datas['id']))->get_compiled_update($table);
+
+				$return=$this->Result(0, 0);
+			//}
+			//else
+				//$return=$this->Result(1, 'The record does not exist.');
 		   
 			return $return;
         }

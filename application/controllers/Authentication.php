@@ -94,6 +94,14 @@ class Authentication extends CI_Controller
     {
         $username = $this->input->post('user');
         $result = $this->Auth->Login($username, $password);//echo $result['data']->email;//var_dump($result);
+        $result_person = $this->Auth->GetPersonByUserId($result['data']->id_user);//echo $result['data']->email;//var_dump($result);
+
+        if ($result_person['error_msg']=='0')
+        {
+            $id_person=$result_person['data']->id_person;
+        }
+        else
+            $id_person='';
 
         if ($result['error_msg']=='0')
         {
@@ -101,7 +109,8 @@ class Authentication extends CI_Controller
                 'id_user' => $result['data']->id_user,
                 'user' => $result['data']->user,
                 'email' => $result['data']->email,
-                'rol' => $result['data']->rol
+                'rol' => $result['data']->rol,
+                'id_person' => $id_person
             );
 
             $this->session->set_userdata('logged_user_ehhs', $sess_array);
@@ -442,7 +451,7 @@ class Authentication extends CI_Controller
 		$this->load->helper('General_Helper');
         $data['session']=GetSessionVars();
         $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']['rol']);
+        $data['profile_type']=ProfileType($data['session']);
 		
 		$this->load->view('dashboard/Dashboard', $data);
     }
@@ -479,7 +488,7 @@ class Authentication extends CI_Controller
         $this->load->helper('General_Helper');
         $data['session']=GetSessionVars();
         $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']['rol']);
+        $data['profile_type']=ProfileType($data['session']);
         $this->load->view('authentication/Login', $data);
     }
 

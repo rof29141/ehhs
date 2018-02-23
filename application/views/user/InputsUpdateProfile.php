@@ -267,8 +267,10 @@
 							RebuildHeader();
 							alertify.success('Data Saved.');
 
-                            if(jQuery('#role').val()=='worker')
+                            if('<?php print $session['rol'];?>'=='worker')
+                            {
                                 LoadDataEmployment(jQuery('#id_person').val());
+                            }
 						}
 						else{alertify.error('Error: The element could not be Saved. '+ response);}
 						spinner.stop();

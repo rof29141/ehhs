@@ -302,6 +302,20 @@ website:   	http://www.themepunch.com
 			border-style: none; 
 			white-space:nowrap;		
 		}
+		
+.tp-caption.modern_big_light{
+			position: absolute;
+			color: #000;
+			text-shadow: none;
+			font-weight: 300;
+			font-size: 50px;
+			line-height: 50px;
+			font-family: 'Open Sans', sans;
+			margin: 0px;
+			border-width: 0px;
+			border-style: none;
+			white-space:nowrap;	
+		}
 .tp-caption.modern_big_bluebg{
 			position: absolute; 
 			color: #fff; 

@@ -1022,7 +1022,11 @@
 }
 .sky-form .radio,
 .sky-form .checkbox {
-	font-weight: 400;
+	font-weight: normal;
+}
+
+.sky-form .checkbox_bold {
+	font-weight: bold;
 }
 .sky-form .radio + .radio,
 .sky-form .checkbox + .checkbox {

@@ -10,6 +10,24 @@ var Datepicker = function () {
 	            prevText: '<i class="fa fa-angle-left"></i>',
 	            nextText: '<i class="fa fa-angle-right"></i>'
 	        });
+
+            jQuery('#medical_data1').datepicker({
+                dateFormat: 'mm/dd/yy',
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
+
+            jQuery('#medical_data2').datepicker({
+                dateFormat: 'mm/dd/yy',
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
+
+            jQuery('#medical_data3').datepicker({
+                dateFormat: 'mm/dd/yy',
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
 	        
 	        // Date range
 	        jQuery('#start').datepicker({
@@ -57,6 +75,8 @@ var Datepicker = function () {
 	                jQuery('#inline-start').datepicker('option', 'maxDate', selectedDate);
 	            }
 	        });
+
+
         }
 
     };

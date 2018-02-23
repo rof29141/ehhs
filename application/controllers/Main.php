@@ -25,7 +25,7 @@ class Main extends CI_Controller
         $this->load->helper('General_Helper');
         $data['session']=GetSessionVars();
         $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']['rol']);
+        $data['profile_type']=ProfileType($data['session']);
 
 		$this->load->view("Main", $data);
 	}
@@ -37,7 +37,7 @@ class Main extends CI_Controller
             $this->load->helper('General_Helper');
             $data['session']=GetSessionVars();
             $data['language']=LoadLanguage();
-            $data['profile_type']=ProfileType($data['session']['rol']);
+            $data['profile_type']=ProfileType($data['session']);
 
             $data_type = $_POST['data_type'];
             $view_url = $_POST['view_url'];
@@ -67,11 +67,12 @@ class Main extends CI_Controller
         if($this->session->userdata('logged_user_ehhs'))
         {
             $result='';
+			date_default_timezone_set('America/New_York');
 
             $this->load->helper('General_Helper');
             $data['session']=GetSessionVars();
             $data['language']=LoadLanguage();
-            $data['profile_type']=ProfileType($data['session']['rol']);
+            $data['profile_type']=ProfileType($data['session']);
 
             if($data_type==='data_account')
             {
@@ -86,65 +87,84 @@ class Main extends CI_Controller
 			elseif($data_type==='data_employment')
             {
                 $this->load->model('M_User');
-                $result['id_person']=$this->input->post('id_person');
-                $result['employee']=$this->M_User->GetEmployee($result['id_person']);
-                $result['employment']=$this->M_User->GetEmployment($result['id_person']);
-                $result['consent']=$this->M_User->GetEmploymentConsent($result['id_person']);
+                $result['id_person']=$data['session']['id_person'];//echo $data['session']['id_person'];die();
+                $result['employee']=$this->M_User->GetEmployeeByPersonID($result['id_person']);
+                $result['form']=$this->M_User->GetFormByPersonID($result['id_person'], 'employment');
+                $result['consent']=$this->M_User->GetConsentByPersonID($result['id_person'], 'employment');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByPersonID($result['id_person']);//var_dump($result['consent']);die();
             }
             elseif($data_type==='data_probation')
             {
-                date_default_timezone_set('America/New_York');
 				$this->load->model('M_User');
-				$result['profile']=$this->M_User->GetProfileUser($data);
-				$result['business_date']=$this->GetBusinessDate(date('m/d/Y'), 5);
+				$result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+				$result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
+                $result['business_date']=$this->GetBusinessDate(date('m/d/Y'), 5);
             }
 			elseif($data_type==='data_statement')
             {
-                date_default_timezone_set('America/New_York');
-				$this->load->model('M_User');
-				$result['profile']=$this->M_User->GetProfileUser($data);
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'statement');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'statement');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             elseif($data_type==='data_equipment')
             {
-                date_default_timezone_set('America/New_York');
-				$this->load->model('M_User');
-				$result['profile']=$this->M_User->GetProfileUser($data);
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'equipment');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'equipment');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
 			elseif($data_type==='data_medical')
             {
-                date_default_timezone_set('America/New_York');
-				$this->load->model('M_User');
-				$result['profile']=$this->M_User->GetProfileUser($data);
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
 			elseif($data_type==='data_orientation')
             {
-                date_default_timezone_set('America/New_York');
-				$this->load->model('M_User');
-				$result['profile']=$this->M_User->GetProfileUser($data);
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             elseif($data_type==='data_tax')
             {
-                date_default_timezone_set('America/New_York');
-				$this->load->model('M_User');
-				$result['profile']=$this->M_User->GetProfileUser($data);
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             elseif($data_type==='data_inservice')
             {
-                date_default_timezone_set('America/New_York');
-				$this->load->model('M_User');
-				$result['profile']=$this->M_User->GetProfileUser($data);
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             elseif($data_type==='data_over')
             {
-                date_default_timezone_set('America/New_York');
-				$this->load->model('M_User');
-				$result['profile']=$this->M_User->GetProfileUser($data);
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             elseif($data_type==='data_emergency')
             {
-                date_default_timezone_set('America/New_York');
-				$this->load->model('M_User');
-				$result['profile']=$this->M_User->GetProfileUser($data);
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             
 
@@ -381,7 +401,7 @@ class Main extends CI_Controller
         $this->load->helper('General_Helper');
         $data['session']=GetSessionVars();
         $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']['rol']);
+        $data['profile_type']=ProfileType($data['session']);
 
         $this->load->view('includes/top_bar', $data);
         $this->load->view('includes/nav_bar', $data);

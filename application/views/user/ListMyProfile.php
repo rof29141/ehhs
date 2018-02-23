@@ -7,10 +7,10 @@
                 <ul class="nav nav-tabs bordered" id="myTab1">
                     <li id="tab1" class="active"><a data-toggle="tab" href="#s1">Account</a></li>
                     <li id="tab2"><a data-toggle="tab" href="#s2">Profile</a></li>
-                    <?php if($session['rol']=='worker'){?><li id="tab3" style="display: none;"><a data-toggle="tab" href="#s3">Empployment</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab3" style="display: none;"><a data-toggle="tab" href="#s3">Employment</a></li><?php }?>
                     <?php if($session['rol']=='worker'){?><li id="tab4" style="display: none;"><a data-toggle="tab" href="#s4">Acknowledgment</a></li><?php }?>
                     <?php if($session['rol']=='worker'){?><li id="tab5" style="display: none;"><a data-toggle="tab" href="#s5">Statement</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab6" style="display: none;"><a data-toggle="tab" href="#s6">Equiment</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab6" style="display: none1;"><a data-toggle="tab" href="#s6">Equiment</a></li><?php }?>
                     <?php if($session['rol']=='worker'){?><li id="tab7" style="display: none;"><a data-toggle="tab" href="#s7">Medical</a></li><?php }?>
                     <?php if($session['rol']=='worker'){?><li id="tab8" style="display: none;"><a data-toggle="tab" href="#s8">Orientation</a></li><?php }?>
                     <?php if($session['rol']=='worker'){?><li id="tab9" style="display: none;"><a data-toggle="tab" href="#s9">Tax Exempt</a></li><?php }?>
@@ -210,7 +210,7 @@
 					<?php
 					}
 					?>
-					
+                    <input type="hidden" name="id_employee" id="id_employee" value="4" />
                 </div>
 
             </div>
@@ -264,157 +264,94 @@
                 }
             });
         }
-		
-		function LoadDataEmployment()
+
+        LoadDataEquipment(4);
+        function LoadDataEquipment(id_employee)//borrar
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_employment',view_url:'employee/InputsUpdateEmployment'}
-            }).done(function(response, textStatus, jqXHR)
-            {
-                if(response)
-                {
-                    jQuery('#data_employment').html(response);
-                    LoadDataProbation();
-                }
-            });
-        }
-		
-		function LoadDataProbation()
-        {
-            jQuery.ajax({
-                url: 'Main/LlenarDataTable',
-                type: 'POST',
-                data: {data_type:'data_probation',view_url:'employee/InputsUpdateProbation'}
-            }).done(function(response, textStatus, jqXHR)
-            {
-                if(response)
-                {
-                    jQuery('#data_probation').html(response);
-					LoadDataStatement();
-                }
-            });
-        }
-		
-		function LoadDataStatement()
-        {
-            jQuery.ajax({
-                url: 'Main/LlenarDataTable',
-                type: 'POST',
-                data: {data_type:'data_statement',view_url:'employee/InputsUpdateStatement'}
-            }).done(function(response, textStatus, jqXHR)
-            {
-                if(response)
-                {
-                    jQuery('#data_statement').html(response);
-					LoadDataEquipment();
-                }
-            });
-        }
-		
-		function LoadDataEquipment()
-        {
-            jQuery.ajax({
-                url: 'Main/LlenarDataTable',
-                type: 'POST',
-                data: {data_type:'data_equipment',view_url:'employee/InputsUpdateEquipment'}
+                data: {data_type:'data_equipment',view_url:'employee/InputsUpdateEquipment', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
                     jQuery('#data_equipment').html(response);
-					LoadDataMedical();
                 }
             });
         }
+
+
+
 		
-		function LoadDataMedical()
+
+		
+		function LoadDataOrientation(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_medical',view_url:'employee/InputsUpdateMedical'}
-            }).done(function(response, textStatus, jqXHR)
-            {
-                if(response)
-                {
-                    jQuery('#data_medical').html(response);
-					LoadDataOrientation();
-                }
-            });
-        }
-		
-		function LoadDataOrientation()
-        {
-            jQuery.ajax({
-                url: 'Main/LlenarDataTable',
-                type: 'POST',
-                data: {data_type:'data_orientation',view_url:'employee/InputsUpdateOrientation'}
+                data: {data_type:'data_orientation',view_url:'employee/InputsUpdateOrientation', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
                     jQuery('#data_orientation').html(response);
-					LoadDataTax();
                 }
             });
         }
 		
-		function LoadDataTax()
+		function LoadDataTax(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_tax',view_url:'employee/InputsUpdateTaxExemp'}
+                data: {data_type:'data_tax',view_url:'employee/InputsUpdateTaxExemp', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
                     jQuery('#data_tax').html(response);
-					LoadDataInService();
                 }
             });
         }
 		
-		function LoadDataInService()
+		function LoadDataInService(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_inservice',view_url:'employee/InputsUpdateInService'}
+                data: {data_type:'data_inservice',view_url:'employee/InputsUpdateInService', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
                     jQuery('#data_inservice').html(response);
-					LoadDataOver();
                 }
             });
         }
 		
-		function LoadDataOver()
+		function LoadDataOver(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_over',view_url:'employee/InputsUpdateOverTime'}
+                data: {data_type:'data_over',view_url:'employee/InputsUpdateOverTime', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
                     jQuery('#data_over').html(response);
-					LoadDataEmergency();
                 }
             });
         }
 		
-		function LoadDataEmergency()
+		function LoadDataEmergency(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_emergency',view_url:'employee/InputsUpdateEmergencyNotification'}
+                data: {data_type:'data_emergency',view_url:'employee/InputsUpdateEmergencyNotification', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)

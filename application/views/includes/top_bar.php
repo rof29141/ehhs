@@ -13,7 +13,7 @@ if(isset($profile_type['percent']) && $profile_type['percent']==100)
 {
     $badge = '<span class="badge badge-green rounded-2x">100%</span>';
 }
-elseif(isset($profile_type['percent']) && $profile_type['percent']>0)
+elseif(isset($profile_type['percent']) && $profile_type['percent']>=0)
 {
     $badge = '<span class="badge badge-red rounded-2x">'.$fill_profile.' '.$profile_type['percent'] . '%</span>';
 }
@@ -54,6 +54,7 @@ elseif(!isset($profile_type['percent']))
     </div>
 </div>
 <!-- End Topbar -->
+
 
 <script type="text/javascript">
 

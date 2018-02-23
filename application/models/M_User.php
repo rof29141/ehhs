@@ -72,7 +72,7 @@ Class M_User extends CI_Model
         return $return;
     }
 
-    function GetEmployee($id_person)
+    function GetEmployeeByPersonID($id_person)
     {
 		$this -> db -> select('*');
         $this -> db -> from('employee');
@@ -89,13 +89,13 @@ Class M_User extends CI_Model
 		return $return;
     }
 
-    function GetEmployment($id_person)
+    function GetFormByPersonID($id_person, $form_name)
     {
 		$this -> db -> select('*');
         $this -> db -> from('form');
 		$this -> db -> join('employee', 'employee.id_employee = form.id_employee');
         $this -> db -> where('id_person = ' . "'" . $id_person . "'");
-        $this -> db -> where('form_name = ' . "'employment'");
+        $this -> db -> where('form_name = ' . "'" . $form_name . "'");
         $this -> db -> limit(1);
 
         $query = $this -> db -> get();//var_dump($query->row());die();
@@ -108,20 +108,74 @@ Class M_User extends CI_Model
 		return $return;
     }
 
-    function GetEmploymentConsent($id_person)
+    function GetConsentByPersonID($id_person, $form_name)
     {
 		$this -> db -> select('*');
         $this -> db -> from('consent');
 		$this -> db -> join('form', 'form.id_form = consent.id_form');
 		$this -> db -> join('employee', 'employee.id_employee = form.id_employee');
         $this -> db -> where('id_person = ' . "'" . $id_person . "'");
-        $this -> db -> where('form_name = ' . "'employment'");
-        $this -> db -> limit(1);
+        $this -> db -> where('form_name = ' . "'" . $form_name . "'");
 
         $query = $this -> db -> get();//var_dump($query->row());die();
 
         if($query -> num_rows() >= 1)
+			$return=$this->Result(0, 0, $query->result());
+        else
+			$return=$this->Result(1, 'NO_EMPLOYEE');
+
+		return $return;
+    }
+
+    function GetEmployeeByEmployeeID($id_employee)
+    {
+		$this -> db -> select('*');
+        $this -> db -> from('employee');
+        $this -> db -> where('employee.id_employee = ' . "'" . $id_employee . "'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() == 1)
 			$return=$this->Result(0, 0, $query->row());
+        else
+			$return=$this->Result(1, 'NO_EMPLOYEE');
+
+		return $return;
+    }
+
+    function GetFormByEmployeeID($id_employee, $form_name)
+    {
+		$this -> db -> select('*');
+        $this -> db -> from('form');
+		$this -> db -> join('employee', 'employee.id_employee = form.id_employee');
+        $this -> db -> where('employee.id_employee = ' . "'" . $id_employee . "'");
+        $this -> db -> where('form_name = ' . "'" . $form_name . "'");
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() == 1)
+			$return=$this->Result(0, 0, $query->row());
+        else
+			$return=$this->Result(1, 'NO_EMPLOYEE');
+
+		return $return;
+    }
+
+    function GetConsentByEmployeeID($id_employee, $form_name)
+    {
+		$this -> db -> select('*');
+        $this -> db -> from('consent');
+		$this -> db -> join('form', 'form.id_form = consent.id_form');
+		$this -> db -> join('employee', 'employee.id_employee = form.id_employee');
+        $this -> db -> where('employee.id_employee = ' . "'" . $id_employee . "'");
+        $this -> db -> where('form_name = ' . "'" . $form_name . "'");
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() >= 1)
+			$return=$this->Result(0, 0, $query->result());
         else
 			$return=$this->Result(1, 'NO_EMPLOYEE');
 

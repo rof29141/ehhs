@@ -8,5 +8,3 @@
 
 <input type="hidden" id="inp_result" value="<?php if(isset($result))print $result;?>">
 <input type="hidden" id="inp_pag" value="<?php if(isset($pag))print $pag;?>">
-
-<input name="role" id="role" value="<?php echo $session['rol'];?>" type="text">
