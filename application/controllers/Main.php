@@ -122,48 +122,49 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
-                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
-                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'medical');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'medical');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
 			elseif($data_type==='data_orientation')
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
-                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
-                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'orientation');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'orientation');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             elseif($data_type==='data_tax')
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
-                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
-                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'tax');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'tax');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
+                $result['profile']=$this->M_User->GetProfileUser($data);
             }
             elseif($data_type==='data_inservice')
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
-                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
-                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'inservice');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'inservice');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             elseif($data_type==='data_over')
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
-                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
-                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'over');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'over');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             elseif($data_type==='data_emergency')
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
-                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
-                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'emergency');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             

@@ -92,16 +92,19 @@ class Authentication extends CI_Controller
 
     function CheckDatabase($password)
     {
+        $id_person='';
         $username = $this->input->post('user');
         $result = $this->Auth->Login($username, $password);//echo $result['data']->email;//var_dump($result);
-        $result_person = $this->Auth->GetPersonByUserId($result['data']->id_user);//echo $result['data']->email;//var_dump($result);
 
-        if ($result_person['error_msg']=='0')
+        if($result['error_msg']=='0')
         {
-            $id_person=$result_person['data']->id_person;
+            $result_person = $this->Auth->GetPersonByUserId($result['data']->id_user);//echo $result['data']->email;//var_dump($result);
+
+            if($result_person['error_msg']=='0')
+            {
+                $id_person=$result_person['data']->id_person;
+            }
         }
-        else
-            $id_person='';
 
         if ($result['error_msg']=='0')
         {

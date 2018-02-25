@@ -108,6 +108,23 @@ Class M_User extends CI_Model
 		return $return;
     }
 
+    function GetAllFormsByPersonID($id_person)
+    {
+		$this -> db -> select('*');
+        $this -> db -> from('form');
+		$this -> db -> join('employee', 'employee.id_employee = form.id_employee');
+        $this -> db -> where('id_person = ' . "'" . $id_person . "'");
+
+        $query = $this -> db -> get();//var_dump($query->result());die();
+
+        if($query -> num_rows() >= 1)
+			$return=$this->Result(0, 0, $query->result());
+        else
+			$return=$this->Result(1, 'NO_EMPLOYEE');
+
+		return $return;
+    }
+
     function GetConsentByPersonID($id_person, $form_name)
     {
 		$this -> db -> select('*');

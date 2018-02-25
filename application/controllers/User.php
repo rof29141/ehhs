@@ -23,6 +23,8 @@ class User extends CI_Controller
             $data['language']=LoadLanguage();
             $data['profile_type']=ProfileType($data['session']);
 
+            $data['all_forms']=$this->M_User->GetAllFormsByPersonID($data['session']['id_person']);
+
             $this->load->view($view, $data);
         }
         else

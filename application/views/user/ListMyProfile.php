@@ -4,19 +4,44 @@
 
             <div class="tab-v1">
 
+                <?php
+                $employment=0;$probation=0;$statement=0;$equipment=0;$medical=0;$orientation=0;$tax=0;$inservice=0;$over=0;$emergency=0;
+
+                if($session['rol']=='worker')
+                {
+                    if ($all_forms['error_code'] == '0')
+                    {
+                        foreach ($all_forms['data'] as $row)
+                        {
+                            if($row->form_name=='employment')$employment = 1;
+                            if($row->form_name=='probation')$probation=1;
+                            if($row->form_name=='statement')$statement=1;
+                            if($row->form_name=='equipment')$equipment=1;
+                            if($row->form_name=='medical')$medical=1;
+                            if($row->form_name=='orientation')$orientation=1;
+                            if($row->form_name=='tax')$tax=1;
+                            if($row->form_name=='inservice')$inservice=1;
+                            if($row->form_name=='over')$over=1;
+                            if($row->form_name=='emergency')$emergency=1;
+                        }
+                    }
+                }
+
+                ?>
+
                 <ul class="nav nav-tabs bordered" id="myTab1">
                     <li id="tab1" class="active"><a data-toggle="tab" href="#s1">Account</a></li>
                     <li id="tab2"><a data-toggle="tab" href="#s2">Profile</a></li>
-                    <?php if($session['rol']=='worker'){?><li id="tab3" style="display: none;"><a data-toggle="tab" href="#s3">Employment</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab4" style="display: none;"><a data-toggle="tab" href="#s4">Acknowledgment</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab5" style="display: none;"><a data-toggle="tab" href="#s5">Statement</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab6" style="display: none1;"><a data-toggle="tab" href="#s6">Equiment</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab7" style="display: none;"><a data-toggle="tab" href="#s7">Medical</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab8" style="display: none;"><a data-toggle="tab" href="#s8">Orientation</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab9" style="display: none;"><a data-toggle="tab" href="#s9">Tax Exempt</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab10" style="display: none;"><a data-toggle="tab" href="#s10">In Service</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab11" style="display: none;"><a data-toggle="tab" href="#s11">Over Time</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab12" style="display: none;"><a data-toggle="tab" href="#s12">Emergency</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab3" <?php if($employment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Employment</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab4" <?php if($probation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s4">Acknowledgment</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab5" <?php if($statement==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s5">Statement</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab6" <?php if($equipment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s6">Equiment</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab7" <?php if($medical==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s7">Medical</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab8" <?php if($orientation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s8">Orientation</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab9" <?php if($tax==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s9">Tax Exempt</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab10" <?php if($inservice==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s10">In Service</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab11" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s11">Over Time</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab12" <?php if($emergency==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s12">Emergency</a></li><?php }?>
                 </ul>
 
                 <div class="tab-content" id="myTabContent1">
@@ -28,9 +53,9 @@
                                 <fieldset class="myfieldset">
                                     <legend class="mylegend">Security Information</legend>
 
-									<form class='sky-form validatable' role='form' name='frm' id='frm' action="">
-										<div id="data_account"></div>
-									</form>
+                                    <form class='sky-form validatable' role='form' name='frm' id='frm' action="">
+                                        <div id="data_account"></div>
+                                    </form>
 
                                 </fieldset>
                             </div>
@@ -44,19 +69,19 @@
                                 <fieldset class="myfieldset">
                                     <legend class="mylegend">Personal Information</legend>
 
-									<form class="sky-form" role='form' name='frm1' id='frm1' action="">
-										<div id="data_profile"></div>
-									</form>
+                                    <form class="sky-form" role='form' name='frm1' id='frm1' action="">
+                                        <div id="data_profile"></div>
+                                    </form>
 
                                 </fieldset>
                             </div>
                         </div>
                     </div>
-					
-					<?php if($session['rol']=='worker')
-					{
-					    ?>
-					
+
+                    <?php if($session['rol']=='worker')
+                    {
+                        ?>
+
                         <div class="tab-pane fade" id="s3">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -206,10 +231,10 @@
                                 </div>
                             </div>
                         </div>
-					
-					<?php
-					}
-					?>
+
+                        <?php
+                    }
+                    ?>
                     <input type="hidden" name="id_employee" id="id_employee" value="4" />
                 </div>
 
@@ -228,6 +253,16 @@
         function Load()
         {
             LoadDataAccount();
+            if('<?php echo $employment?>'==1)LoadDataEmployment(jQuery('#id_person').val());
+            if('<?php echo $probation?>'==1)LoadDataProbation(jQuery('#id_employee').val());
+            if('<?php echo $statement?>'==1)LoadDataStatement(jQuery('#id_employee').val());
+            if('<?php echo $equipment?>'==1)LoadDataEquipment(jQuery('#id_employee').val());
+            if('<?php echo $medical?>'==1)LoadDataMedical(jQuery('#id_employee').val());
+            if('<?php echo $orientation?>'==1)LoadDataOrientation(jQuery('#id_employee').val());
+            if('<?php echo $tax?>'==1)LoadDataTax(jQuery('#id_employee').val());
+            if('<?php echo $inservice?>'==1)LoadDataInService(jQuery('#id_employee').val());
+            if('<?php echo $over?>'==1)LoadDataOver(jQuery('#id_employee').val());
+            if('<?php echo $emergency?>'==1)LoadDataEmergency(jQuery('#id_employee').val());
         }
 
         function LoadDataAccount()
@@ -244,13 +279,13 @@
                 if(response)
                 {
                     jQuery('#data_account').html(response);
-					LoadDataProfile();
+                    LoadDataProfile();
                     spinner.stop();
                 }
             });
         }
-		
-		function LoadDataProfile()
+
+        function LoadDataProfile()
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
@@ -265,8 +300,52 @@
             });
         }
 
-        LoadDataEquipment(4);
-        function LoadDataEquipment(id_employee)//borrar
+        function LoadDataEmployment(id_person='')
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_employment',view_url:'employee/InputsUpdateEmployment', id_person:id_person}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_employment').html(response);
+                }
+            });
+        }
+
+        function LoadDataProbation(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_probation',view_url:'employee/InputsUpdateProbation', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_probation').html(response);
+                }
+            });
+        }
+
+        function LoadDataStatement(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_statement',view_url:'employee/InputsUpdateStatement', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_statement').html(response);
+                }
+            });
+        }
+
+        function LoadDataEquipment(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
@@ -281,12 +360,22 @@
             });
         }
 
+        function LoadDataMedical(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_medical',view_url:'employee/InputsUpdateMedical', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_medical').html(response);
+                }
+            });
+        }
 
-
-		
-
-		
-		function LoadDataOrientation(id_employee)
+        function LoadDataOrientation(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
@@ -300,8 +389,8 @@
                 }
             });
         }
-		
-		function LoadDataTax(id_employee)
+
+        function LoadDataTax(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
@@ -315,8 +404,8 @@
                 }
             });
         }
-		
-		function LoadDataInService(id_employee)
+
+        function LoadDataInService(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
@@ -330,8 +419,8 @@
                 }
             });
         }
-		
-		function LoadDataOver(id_employee)
+
+        function LoadDataOver(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
@@ -345,8 +434,8 @@
                 }
             });
         }
-		
-		function LoadDataEmergency(id_employee)
+
+        function LoadDataEmergency(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
@@ -360,6 +449,9 @@
                 }
             });
         }
+
     });
 
 </script>
+}
+}
