@@ -18,7 +18,7 @@
         <?php if($session['section_auth']!='')require_once APPPATH.'views'.$session['section_auth'];?>
     </div>
 
-    <!-- Service Blocks -->
+    <!-- Service Blocks
     <div class="margin-bottom-5"></div>
     <div class="row margin-bottom-40">
 
@@ -79,7 +79,7 @@
             </div>
         </div>
     </div>
-    <!-- End Service Blokcs -->
+     End Service Blokcs -->
 </div>
 
 

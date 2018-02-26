@@ -113,8 +113,35 @@ if($slider==1)
                         <img class="img-border"style='border-radius:5px !important;' src="<?php print base_url('assets/images/slider/revolution/p8.jpg'); ?>" alt="Image 8">
                     </div>
 
+                    <div class="caption randomrotate"
+                         data-x="190"
+                         data-y="189"
+                         data-speed="500"
+                         data-start="2100"
+                         data-easing="easeOutExpo">
+                        <img width="200px;" class="img-border"style='border-radius:5px !important;' src="<?php print base_url('assets/images/slider/revolution/p10.jpg'); ?>" alt="Image 10">
+                    </div>
+
+                    <div class="caption randomrotate"
+                         data-x="-50"
+                         data-y="139"
+                         data-speed="500"
+                         data-start="1700"
+                         data-easing="easeOutExpo">
+                        <img width="190px;" class="img-border"style='border-radius:5px !important;' src="<?php print base_url('assets/images/slider/revolution/p11.jpg'); ?>" alt="Image 11">
+                    </div>
+
+                    <div class="caption randomrotate"
+                         data-x="-120"
+                         data-y="240"
+                         data-speed="500"
+                         data-start="1700"
+                         data-easing="easeOutExpo">
+                        <img width="170px;" class="img-border"style='border-radius:5px !important;' src="<?php print base_url('assets/images/slider/revolution/p12.jpg'); ?>" alt="Image 12">
+                    </div>
+
                     <div class="caption large_black_text sfb "
-                         data-x="400"
+                         data-x="500"
                          data-y="260"
                          data-speed="1000"
                          data-start="3000"
@@ -123,12 +150,12 @@ if($slider==1)
                     </div>
 
                     <div class="caption large_black_text sfb stb"
-						 data-x="630"
+						 data-x="700"
 						 data-y="320"
 						 data-speed="1000"
 						 data-start="3500"
 						 data-easing="easeOutExpo" data-end="10000" data-endspeed="300" data-endeasing="easeInSine">
-                        <span style="color:red;font-size:48px;">2010</span>
+                        <span style="color:#3498db;font-size:48px;">2010</span>
                     </div>
 
                     <!--<div class="caption randomrotate"
