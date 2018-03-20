@@ -42,6 +42,8 @@
                     <?php if($session['rol']=='worker'){?><li id="tab10" <?php if($inservice==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s10">In Service</a></li><?php }?>
                     <?php if($session['rol']=='worker'){?><li id="tab11" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s11">Over Time</a></li><?php }?>
                     <?php if($session['rol']=='worker'){?><li id="tab12" <?php if($emergency==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s12">Emergency</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab12" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s19">I9</a></li><?php }?>
+                    <?php if($session['rol']=='worker'){?><li id="tab12" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s20">W9</a></li><?php }?>
                 </ul>
 
                 <div class="tab-content" id="myTabContent1">
@@ -216,8 +218,8 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="tab-pane fade" id="s12">
+						
+						<div class="tab-pane fade" id="s12">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <fieldset class="myfieldset">
@@ -231,6 +233,41 @@
                                 </div>
                             </div>
                         </div>
+						
+						
+						
+                        <div class="tab-pane fade" id="s19">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <fieldset class="myfieldset">
+                                        <legend class="mylegend">I9</legend>
+
+                                        <form class="sky-form" role='form' name='frm19' id='frm19' action="">
+                                            <div id="data_i9"></div>
+                                        </form>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div> 
+						
+						<div class="tab-pane fade" id="s20">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <fieldset class="myfieldset">
+                                        <legend class="mylegend">W9</legend>
+
+                                        <form class="sky-form" role='form' name='frm20' id='frm20' action="">
+                                            <div id="data_w9"></div>
+                                        </form>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div> 
+						
+						
+						
 
                         <?php
                     }
@@ -263,6 +300,10 @@
             if('<?php echo $inservice?>'==1)LoadDataInService(jQuery('#id_employee').val());
             if('<?php echo $over?>'==1)LoadDataOver(jQuery('#id_employee').val());
             if('<?php echo $emergency?>'==1)LoadDataEmergency(jQuery('#id_employee').val());
+			
+			
+            if('<?php echo $over?>'==1)LoadDataW9(jQuery('#id_employee').val());
+            if('<?php echo $over?>'==1)LoadDataI9(jQuery('#id_employee').val());
         }
 
         function LoadDataAccount()
@@ -441,6 +482,37 @@
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {data_type:'data_emergency',view_url:'employee/InputsUpdateEmergencyNotification', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_emergency').html(response);
+                }
+            });
+        }
+		
+		
+		function LoadDataI9(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_i9',view_url:'employee/InputsUpdateI9', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_i9').html(response);
+                }
+            });
+        }
+		
+		function LoadDataW9(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_w9',view_url:'employee/InputsUpdateW9', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)

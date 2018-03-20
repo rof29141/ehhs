@@ -167,6 +167,22 @@ class Main extends CI_Controller
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
+            elseif($data_type==='data_i9')
+            {
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'emergency');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
+            }
+            elseif($data_type==='data_w9')
+            {
+                $this->load->model('M_User');
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'emergency');
+                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
+                $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
+            }
             
 
             return $result;
@@ -208,19 +224,36 @@ class Main extends CI_Controller
 		return $d->format( 'm/d/Y' );
 	}
 
+    function GoView($view='', $msg="", $success="", $warning="", $error="")
+    {
+        $data['msg']=$msg;
+        $data['success']=$success;
+        $data['warning']=$warning;
+        $data['error']=$error;
+        $data['view']=str_replace("-","/",$view);
+
+        $this->load->helper('General_Helper');
+        $data['session']=GetSessionVars();
+        $data['language']=LoadLanguage();
+        $data['profile_type']=ProfileType($data['session']);
+
+        if($data['view']!='')
+            $this->load->view($data['view']);
+    }
+
+
+
+
+
+
     function GoObject()
     {
         $data['ctr']=$this->input->get('c');
         $data['func']=$this->input->get('f');
         $data['param1']=$this->input->get('p1');
-		$data['view_area']=$this->input->get('v');
-		
-		$this->load->view("Main", $data);
-    }
+        $data['view_area']=$this->input->get('v');
 
-    function GoView($view='')
-    {
-		if($view!='')$this->load->view($view);
+        $this->load->view("Main", $data);
     }
 
     function SaveObject()

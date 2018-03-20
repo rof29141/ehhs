@@ -27,10 +27,10 @@
                         Our Business
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a onclick="LoadContent('Dashboard/GoDashboard')">About Us</a></li>
-                        <li><a onclick="LoadContent('Dashboard/GoDashboard')">About Basic</a></li>
-                        <li><a onclick="LoadContent('Dashboard/GoDashboard')">About Me</a></li>
-                        <li><a onclick="LoadContent('Dashboard/GoDashboard')">About Our Team</a></li>
+                        <li><a onclick="LoadContent('Main/GoView/dashboard-AboutUs', 0, 'main-view')">About Us</a></li>
+                        <li><a onclick="LoadContent('Main/GoView/dashboard-Mission', 0, 'main-view')">Mission and Goals</a></li>
+                        <li><a onclick="LoadContent('Main/GoView/dashboard-Team', 0, 'main-view')">Our Team</a></li>
+                        <!--<li><a onclick="LoadContent('Main/GoView/dashboard-Insurance', 0, 'main-view')">Insurance Partners</a></li>-->
                     </ul>
 
                 </li>
@@ -71,7 +71,7 @@
                 <?php }?>
 
                 <li class="">
-                    <a class="dropdown-toggle chat" data-toggle="dropdown">
+                    <a onclick="LoadContent('Main/GoView/dashboard-ContactUs', 0, 'main-view')" class="dropdown-toggle" data-toggle="dropdown">
                         Contact Us
                     </a>
                 </li>
