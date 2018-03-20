@@ -5,7 +5,7 @@
 			<label>First Name</label>
 			<input type="text" name="first_name" id="first_name" class="form-control required"  value="<?php if(isset($data['profile']['data']->first_name)) print $data['profile']['data']->first_name;?>" />
 			<input type="hidden" datafld='ignore' name="id_person" id="id_person" class="form-control"  value="<?php if(isset($data['profile']['data']->id_person)) print $data['profile']['data']->id_person;?>" />
-			<input type="hidden" name="id_user" id="id_user" class="form-control"  value="<?php print $session['id_user'];?>" />
+			<input type="text" name="id_user" id="id_user" class="form-control"  value="<?php if(isset($data['profile']['data']->id_user) && $data['profile']['data']->id_user!='') print $data['profile']['data']->id_user;else print $data['id_user'];?>" />
 		</div>
 		
 		<div class="form-group">
@@ -48,7 +48,6 @@
 			<input type="text" name="address" id="address" class="form-control required" value="<?php if(isset($data['profile']['data']->address)) print $data['profile']['data']->address;?>" />
 		</div>
 
-		
 		<div class="row">   
 			<section class="col col-3">
 				<label class="form-group">
@@ -98,7 +97,7 @@
 		</div>
 
 		<div class="form-group pull-right">
-			<button type="button" disabled id="btn_save_profile" class="btn btn-primary">Next <span style="vertical-align: middle;font-size: 16px;" class="icon-control-forward"></span></button>
+			<button type="button" disabled id="btn_save_profile" class="btn btn-primary"><?php if($data['role']['data']->rol!='admin' && $data['role']['data']->rol!='asist'){?>Next <span style="vertical-align: middle;font-size: 16px;" class="icon-control-forward"></span><?php }else {?>Save<?php }?></button>
 		</div>
 
 	</div>
@@ -267,9 +266,13 @@
 							RebuildHeader();
 							alertify.success('Data Saved.');
 
-                            if('<?php print $session['rol'];?>'=='worker')
+                            if('<?php print $data['role']['data']->rol;?>'=='worker')
                             {
                                 LoadDataEmployment(jQuery('#id_person').val());
+                                jQuery('#tab3').show().tab('show');
+                                jQuery('#s2').removeClass('active').addClass('fade');
+                                jQuery('#s3').removeClass('fade').addClass('active');
+                                goToByScroll('tab3');
                             }
 						}
 						else{alertify.error('Error: The element could not be Saved. '+ response);}
@@ -281,11 +284,6 @@
 				{
 					alertify.error('Something is wrong with AJAX:' + textStatus);
 				});
-
-                jQuery('#tab3').show().tab('show');
-                jQuery('#s2').removeClass('active').addClass('fade');
-                jQuery('#s3').removeClass('fade').addClass('active');
-                goToByScroll('tab3');
             }
         });
 		

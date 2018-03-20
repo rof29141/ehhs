@@ -27,7 +27,7 @@ class Job extends CI_Controller
             $data['email'] = $session_data['email'];
             $data['__zkp_Client_Rec'] = $session_data['__zkp_Client_Rec'];
 
-            //$data['data']['user']=$this->M_Invoice->GetProfileUser($data);
+            //$data['data']['user']=$this->M_Invoice->GetProfileUserByUserID($data);
 
             $this->load->view($view, $data);
         }

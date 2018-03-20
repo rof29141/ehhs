@@ -104,6 +104,11 @@ function ProfileType($session)
         $data['available_jobs']=3;
         $data['profile_type']=$access_profile;
     }
+    elseif($access_profile=='asist')
+    {
+        $data['available_jobs']=5;
+        $data['profile_type']=$access_profile;
+    }
     elseif($access_profile=='admin')
     {
         $data['available_jobs']=5;

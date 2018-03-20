@@ -1,7 +1,7 @@
 <?php
 Class M_Main extends CI_Model
 {
-    function  __construct()
+    function __construct()
     {
         parent::__construct();
     }
@@ -191,7 +191,10 @@ Class M_Main extends CI_Model
 		
 		$this -> db -> select('*');
         $this -> db -> from('person');
-        $this -> db -> where('id_user = ' . "'" . $data['id_user'] . "'");
+
+        if(isset($data['id_user']) && $data['id_user']!='')$this -> db -> where('id_user = ' . "'" . $data['id_user'] . "'");
+        elseif(isset($data['id_person']) && $data['id_person']!='')$this -> db -> where('id_person = ' . "'" . $data['id_person'] . "'");
+
         $this -> db -> limit(1);
 
         $query = $this -> db -> get();//var_dump($query->row());die();

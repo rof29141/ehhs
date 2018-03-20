@@ -50,6 +50,15 @@
 <script type="text/javascript" src="<?php print ASSETS_URL; ?>/unify/js/plugins/datepicker.js"></script>
 
 
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.bootstrap4.min.css">
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
+
 <style type="text/css">
 a:hover {
 text-decoration:none;
@@ -63,6 +72,16 @@ cursor: pointer;
 	background-position: center center;
 	background-size: cover;
 	width: 80px;
+	border-radius: 50% !important;
+}
+
+.photo_person_row {
+	display: inline-block;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	width: 20px;
 	border-radius: 50% !important;
 }
 
@@ -86,6 +105,12 @@ cursor: pointer;
 }
 
 .img_up{background:url(<?php print ASSETS_URL.'/unify/img/up.png';?>);}
+
+
+.mysearch{border-color: #999;border-width: 1px;font-size: 14px;color: #404040;height: 34px;padding: 6px 12px;-webkit-transition: border-color 0.3s;-moz-box-sizing: border-box;}
+
+
+
 
 /* Fieldset */
 .myfieldset {

@@ -76,18 +76,33 @@ class Main extends CI_Controller
 
             if($data_type==='data_account')
             {
+                $id_user=$this->input->post('id_user');
+
+                if($id_user=='')
+                    $id_user=$data['session']['id_user'];
+
                 $this->load->model('M_User');
-                $result['user']=$this->M_User->GetAccountUser($data);
+                $result['user']=$this->M_User->GetAccountUserByUserID($id_user);
             }
             elseif($data_type==='data_profile')
             {
+                $result['id_user']=$this->input->post('id_user');
+
+                if($result['id_user']=='')
+                    $result['id_user']=$data['session']['id_user'];
+
                 $this->load->model('M_User');
-                $result['profile']=$this->M_User->GetProfileUser($data);
+                $result['profile']=$this->M_User->GetProfileUserByUserID($result['id_user']);
+                $result['role']=$this->M_User->GetRoleByUserID($result['id_user']);
             }
 			elseif($data_type==='data_employment')
             {
+                $result['id_person']=$this->input->post('id_person');
+
+                if($result['id_person']=='')
+                    $result['id_person']=$data['session']['id_person'];//echo $data['session']['id_person'];die();
+
                 $this->load->model('M_User');
-                $result['id_person']=$data['session']['id_person'];//echo $data['session']['id_person'];die();
                 $result['employee']=$this->M_User->GetEmployeeByPersonID($result['id_person']);
                 $result['form']=$this->M_User->GetFormByPersonID($result['id_person'], 'employment');
                 $result['consent']=$this->M_User->GetConsentByPersonID($result['id_person'], 'employment');//var_dump($result['consent']);die();
@@ -141,7 +156,6 @@ class Main extends CI_Controller
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'tax');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'tax');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
-                $result['profile']=$this->M_User->GetProfileUser($data);
             }
             elseif($data_type==='data_inservice')
             {
@@ -183,7 +197,12 @@ class Main extends CI_Controller
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
-            
+
+            elseif($data_type==='data_list_employee')
+            {
+                $this->load->model('M_Employee');
+                $result['employee']=$this->M_Employee->GetAllEmployee();
+            }
 
             return $result;
         }
@@ -232,21 +251,45 @@ class Main extends CI_Controller
         $data['error']=$error;
         $data['view']=str_replace("-","/",$view);
 
-        $this->load->helper('General_Helper');
-        $data['session']=GetSessionVars();
-        $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']);
+        if($this->session->userdata('logged_user_ehhs'))
+        {
+            $this->load->helper('General_Helper');
+            $data['session'] = GetSessionVars();//die();
+            $data['language'] = LoadLanguage();
+            $data['profile_type'] = ProfileType($data['session']);
 
-        if($data['view']!='')
-            $this->load->view($data['view']);
+            if ($data['view'] != '')
+                $this->load->view($data['view']);
+        }
+        else
+        {
+            print 'NO_LOGGED';
+        }
     }
 
-
-
-
-
-
     function GoObject()
+    {
+        if($this->session->userdata('logged_user_ehhs'))
+        {
+            $this->load->helper('General_Helper');
+            $data['session'] = GetSessionVars();//die();
+            $data['language'] = LoadLanguage();
+            $data['profile_type'] = ProfileType($data['session']);
+
+            $data['go_view'] = str_replace("-","/", $this->input->post('go_view'));
+            $data['go_back'] = $this->input->post('go_back');
+            $data['id'] = $this->input->post('id');
+
+            if ($data['go_view'] != '')
+                $this->load->view($data['go_view'], $data);
+        }
+        else
+        {
+            print 'NO_LOGGED';
+        }
+    }
+
+    function GoObject1111111()
     {
         $data['ctr']=$this->input->get('c');
         $data['func']=$this->input->get('f');

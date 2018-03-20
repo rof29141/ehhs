@@ -8,7 +8,7 @@ class User extends CI_Controller
         $this->load->model('M_User');
     }
 
-    public function index($view="user/ListMyProfile", $msg="", $success="", $warning="", $error="")
+    function index($view="user/ListMyProfile", $msg="", $success="", $warning="", $error="")
     {
         $data['msg']=$msg;
         $data['success']=$success;

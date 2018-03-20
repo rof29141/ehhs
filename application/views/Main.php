@@ -48,14 +48,17 @@ ini_set('memory_limit', '2048M');
             data:{go_view:go_view, go_back:go_back, id:id}
         }).done(function(response, textStatus, jqXHR)
         {
-            if(response!='1' && response!='')
+            if(response!='NO_LOGGED')
             {
-                jQuery('.main-view').html(response);
+                jQuery('#main-view').html(response);
                 jQuery('#view').val(go_back);
                 spinner.stop();
             }
-            else
-                window.location.replace("Authentication");
+            else if(response=='NO_LOGGED')
+            {
+                alertify.error("You don\'t have access.");
+                window.location.replace("Main");
+            }
         }).fail(function(jqHTR, textStatus, thrown)
         {
             alertify.error('Something is wrong with AJAX:' + textStatus);
@@ -115,7 +118,7 @@ ini_set('memory_limit', '2048M');
             }
             else if(response=='NO_LOGGED')
             {
-                alertify.error('You don\'t have access.');
+                alertify.error("You don\'t have access.");
                 window.location.replace("Main");
             }
 

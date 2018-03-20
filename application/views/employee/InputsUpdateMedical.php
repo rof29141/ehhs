@@ -390,6 +390,10 @@
                         if('<?php print $session['rol'];?>'=='worker')
                         {
                             LoadDataOrientation(response);
+                            jQuery('#tab8').show().tab('show');
+                            jQuery('#s7').removeClass('active').addClass('fade');
+                            jQuery('#s8').removeClass('fade').addClass('active');
+                            goToByScroll('tab8');
                         }
                     }
                     else{alertify.error('Error: The element could not be Saved. '+ response);}
@@ -399,11 +403,6 @@
                 {
                     alertify.error('Something is wrong with AJAX:' + textStatus);
                 });
-
-                jQuery('#tab8').show().tab('show');
-                jQuery('#s7').removeClass('active').addClass('fade');
-                jQuery('#s8').removeClass('fade').addClass('active');
-                goToByScroll('tab8');
 			}
 		});
 

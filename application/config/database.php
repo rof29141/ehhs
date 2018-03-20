@@ -72,10 +72,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $active_group = 'default';
 $query_builder = TRUE;
-
+//mysql.esperanzaehhs.com
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'mysql.esperanzaehhs.com',
+	'hostname' => 'localhost',
 	'username' => 'rojeda',
 	'password' => 'Ray130865',
 	'database' => 'ehhs',

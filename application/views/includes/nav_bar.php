@@ -40,9 +40,8 @@
                 {
                     ?>
                     <li class="">
-                        <a onclick="LoadContent('User/GoListUser')" class="dropdown-toggle" data-toggle="dropdown">
-                            Accounts
-                            <span class="badge badge-blue"><?php print $profile_type['available_jobs'];?></span>
+                        <a onclick="LoadContent('Main/GoView/employee-ListEmployee')" class="dropdown-toggle" data-toggle="dropdown">
+                            Employee
                         </a>
                     </li>
                 <?php }?>

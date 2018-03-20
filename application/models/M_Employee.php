@@ -1,5 +1,5 @@
 <?php
-Class M_User extends CI_Model
+Class M_Employee extends CI_Model
 {
     function  __construct()
     {
@@ -15,11 +15,32 @@ Class M_User extends CI_Model
         return $return;
     }
 
-    function GetAccountUserByUserID($id_user)
+    function GetAllEmployee()
+    {
+        $this -> db -> select('*');
+        $this -> db -> from('employee');
+        $this -> db -> join('person', 'employee.id_person = person.id_person');
+        $this -> db -> join('user', 'user.id_user = person.id_user');
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() >= 1)
+            $return=$this->Result(0, 0, $query->result());
+        else
+            $return=$this->Result(1, 'NO_EMPLOYEE');
+
+        return $return;
+    }
+
+
+
+
+
+    function GetAccountUserByUserID($data)
     {
 		$this -> db -> select('*');
         $this -> db -> from('user');
-        $this -> db -> where('id_user = ' . "'" . $id_user . "'");
+        $this -> db -> where('id_user = ' . "'" . $data['session']['id_user'] . "'");
         $this -> db -> limit(1);
 
         $query = $this -> db -> get();//var_dump($query->row());die();
@@ -32,7 +53,7 @@ Class M_User extends CI_Model
 		return $return;
     }
 	
-	function GetProfileUserByUserID($id_user)
+	function GetProfileUserByUserID($data)
     {
 		$this -> db -> select('*');
         $this -> db -> from('person');
@@ -40,7 +61,7 @@ Class M_User extends CI_Model
 		$this -> db -> join('city', 'city.id_city = zip.id_city');
 		$this -> db -> join('state', 'state.id_state = city.id_state');
 		$this -> db -> join('country', 'country.id_country = state.id_country');
-        $this -> db -> where('id_user = ' . "'" . $id_user . "'");
+        $this -> db -> where('id_user = ' . "'" . $data['session']['id_user'] . "'");
         $this -> db -> limit(1);
 
         $query = $this -> db -> get();//var_dump($query->row());die();
@@ -119,23 +140,6 @@ Class M_User extends CI_Model
 
         if($query -> num_rows() >= 1)
 			$return=$this->Result(0, 0, $query->result());
-        else
-			$return=$this->Result(1, 'NO_EMPLOYEE');
-
-		return $return;
-    }
-
-    function GetRoleByUserID($id_user)
-    {
-		$this -> db -> select('*');
-        $this -> db -> from('user');
-        $this -> db -> where('id_user = ' . "'" . $id_user . "'");
-        $this -> db -> limit(1);
-
-        $query = $this -> db -> get();//var_dump($query->result());die();
-
-        if($query -> num_rows() == 1)
-			$return=$this->Result(0, 0, $query->row());
         else
 			$return=$this->Result(1, 'NO_EMPLOYEE');
 
