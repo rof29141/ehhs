@@ -387,7 +387,7 @@
                         jQuery('#medical_form_sign').attr('readonly', true);
                         jQuery('#btn_save_medical').hide();
 
-                        if('<?php print $session['rol'];?>'=='worker')
+                        if('<?php print $data['role']['data']->rol;?>'=='worker')
                         {
                             LoadDataOrientation(response);
                             jQuery('#tab8').show().tab('show');

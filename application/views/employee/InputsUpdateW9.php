@@ -1196,7 +1196,7 @@
                         jQuery("#frm11 input").prop("disabled", true);
                         jQuery('#btn_save_over').hide();
 
-                        if('<?php print $session['rol'];?>'=='worker')
+                        if('<?php print $data['role']['data']->rol;?>'=='worker')
                         {
                             LoadDataEmergency(response);
                             jQuery('#tab12').show().tab('show');

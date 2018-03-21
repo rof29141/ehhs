@@ -65,9 +65,9 @@ Class M_Main extends CI_Model
                 }
             }
 			$sql = $this->db->set($insert)->get_compiled_insert($table);
-			//echo $sql;
+			//echo $sql.'<br>';
 			
-			$this->db->insert($table, $insert).'<br>';
+			$this->db->insert($table, $insert);
 			$insert_id['last_id'] = $this->db->insert_id();
 			$return=$this->Result(0, 0, $insert_id);
         }
@@ -142,43 +142,6 @@ Class M_Main extends CI_Model
             $return['error']=$errors;
             $return['id_eliminated']=$id_eliminated;
             $return['id_not_eliminated']=$id_not_eliminated;
-        }
-
-        if($type=='S')
-        {//print 'criterio'.$data['criteria'];//die();
-            $compoundFind =& $fm->newCompoundFindCommand($table);
-            $findreq1 =& $fm->newFindRequest($table);
-            $findreq1->addFindCriterion("name", $data['criteria']);
-
-            $findreq2 =& $fm->newFindRequest($table);
-            $findreq2->addFindCriterion("email", $data['criteria']);
-            /*
-            foreach ($fields as $field)
-            {
-                $findreq->addFindCriterion($field, $data['criteria']);
-                $compoundFind->add(1,$findreq);
-            }
-            */
-
-
-            $compoundFind->add(1, $findreq1);
-            $compoundFind->add(2, $findreq2);
-            $result = $compoundFind->execute();
-            $this->error($result);
-
-            $records = $result->getRecords();
-            $count = $result->getFoundSetCount();
-
-            for ($i=0;$i<$count;$i++)
-            {
-                $data[$i]['id'] = $records[$i]->getField('id');
-                $data[$i]['name'] = $records[$i]->getField('name');
-                $data[$i]['email'] = $records[$i]->getField('email');
-            }
-            if($count > 0)
-                return $data;
-            else
-                return false;
         }
 
         return $return;

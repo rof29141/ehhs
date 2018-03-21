@@ -32,15 +32,24 @@ function GetSessionVars()
     {
         $session_data = $my_instance->session->userdata('logged_user_ehhs');
 
-        $data['id_user'] = $session_data['id_user'];
-        $data['user'] = $session_data['user'];
-        $data['email'] = $session_data['email'];
-        $data['rol'] = $session_data['rol'];
-        $data['section_auth'] = '';
-        $data['id_person'] = $session_data['id_person'];
+        if (isset($session_data['id_user']))
+        {
+            $data['id_user'] = $session_data['id_user'];
+            $data['user'] = $session_data['user'];
+            $data['email'] = $session_data['email'];
+            $data['rol'] = $session_data['rol'];
+            $data['section_auth'] = '';
+            $data['id_person'] = $session_data['id_person'];
 
-		$my_instance->load->model('M_Main');
-		$data['no_filled']=$my_instance->M_Main->CkeckProfile($data);
+            $my_instance->load->model('M_Main');
+            $data['no_filled'] = $my_instance->M_Main->CkeckProfile($data);
+        }
+        else
+        {
+            $my_instance->session->unset_userdata('logged_user_ehhs');
+            $my_instance->load->model('Auth');
+            $my_instance->Auth->Logout();
+        }
     }
 
     return $data;
@@ -63,7 +72,7 @@ function UpdateSessionVars($key, $value)
         $my_instance->load->model('M_Main');
         $data['no_filled']=$my_instance->M_Main->CkeckProfile($data);
 
-        $this->session->set_userdata('logged_user_ehhs', $data);
+        $my_instance->session->set_userdata('logged_user_ehhs', $data);
     }
 }
 
@@ -74,7 +83,7 @@ function LoadLanguage()
     if(!$my_instance->session->userdata('language'))
     {
         $session_lang = array('lang' => 'english');
-        $this->session->set_userdata('language', $session_lang);
+        $my_instance->session->set_userdata('language', $session_lang);
     }
 
     $session_lang = $my_instance->session->userdata('language');
@@ -102,6 +111,10 @@ function ProfileType($session)
 			$data['percent']=0;
 		
         $data['available_jobs']=3;
+        $data['profile_type']=$access_profile;
+    }
+    elseif($access_profile=='client')
+    {
         $data['profile_type']=$access_profile;
     }
     elseif($access_profile=='asist')

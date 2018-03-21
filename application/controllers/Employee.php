@@ -10,10 +10,8 @@ class Employee extends CI_Controller
 
 	function SaveEmployment()
     {
-        $this->load->helper('General_Helper');
-        $data['session']=GetSessionVars();
-
         $field_id='';
+        $existing_completed_percent=0;
 
         $consent_name1=$this->input->post('consent_name1');
         $consent_name2=$this->input->post('consent_name2');
@@ -25,7 +23,7 @@ class Employee extends CI_Controller
         $id_consent2=$this->input->post('id_consent2');
         $id_consent3=$this->input->post('id_consent3');
 
-        $id_person=$data['session']['id_person'];
+        $id_person=$this->input->post('id_person');
         $id_employee=$this->input->post('id_employee');
         $id_form=$this->input->post('id_form');
         $completed_percent=$this->input->post('completed_percent');
@@ -58,6 +56,7 @@ class Employee extends CI_Controller
             $field_id='id_employee';
         }
 
+        $this->load->model('M_Main');
         $result=$this->M_Main->GetCompletedPercentByPersonID($id_person);
 
         if($result['error_code']=='0')
@@ -70,7 +69,7 @@ class Employee extends CI_Controller
             $this->load->model('M_Main');
             $result = $this->M_Main->Execute($type, $fields, $datas, $table, $field_id);
         }
-
+//var_dump($result['data']);
         //--------------EMPLOYEE---------------
 
         //----------------FORM-----------------
@@ -81,11 +80,11 @@ class Employee extends CI_Controller
 
         if($id_form=='')
         {
+
             $type='INSERT';
-            if(isset($result['data']['last_id']) && $result['data']['last_id']!='')
+            if(array_key_exists('last_id', $result['data']))
             {
                 $id_employee=$result['data']['last_id'];
-                $type='INSERT';
             }
             else
                 print 'LAST_ID_EMPTY';
@@ -95,7 +94,7 @@ class Employee extends CI_Controller
             $type='UPDATE';
             $datas['id']=$id_form;
             $field_id='id_form';
-        }
+        }//die();
 
         $fields[]='form_name';
         $fields[]='form_sign';
@@ -121,7 +120,7 @@ class Employee extends CI_Controller
         if($id_consent1=='')
         {
             $type='INSERT';
-            if(isset($result['data']['last_id']) && $result['data']['last_id']!='')
+            if(array_key_exists('last_id', $result['data']))
             {
                 $id_form=$result['data']['last_id'];
                 $type='INSERT';
@@ -515,7 +514,7 @@ class Employee extends CI_Controller
         if($id_consent1=='')
         {
             $type='INSERT';
-            if(isset($result['data']['last_id']) && $result['data']['last_id']!='')
+            if(array_key_exists('last_id', $result['data']))
             {
                 $id_form=$result['data']['last_id'];
             }
@@ -880,7 +879,7 @@ class Employee extends CI_Controller
         if($id_consent1=='')
         {
             $type='INSERT';
-            if(isset($result['data']['last_id']) && $result['data']['last_id']!='')
+            if(array_key_exists('last_id', $result['data']))
             {
                 $id_form=$result['data']['last_id'];
             }
@@ -1098,7 +1097,7 @@ class Employee extends CI_Controller
         if($id_consent1=='')
         {
             $type='INSERT';
-            if(isset($result['data']['last_id']) && $result['data']['last_id']!='')
+            if(array_key_exists('last_id', $result['data']))
             {
                 $id_form=$result['data']['last_id'];
             }

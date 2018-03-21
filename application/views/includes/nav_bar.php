@@ -41,7 +41,18 @@
                     ?>
                     <li class="">
                         <a onclick="LoadContent('Main/GoView/employee-ListEmployee')" class="dropdown-toggle" data-toggle="dropdown">
-                            Employee
+                            Employees
+                        </a>
+                    </li>
+                <?php }?>
+
+                <?php
+                if(isset($profile_type['profile_type']) && ($profile_type['profile_type']=='admin' || $profile_type['profile_type']=='asist'))
+                {
+                    ?>
+                    <li class="">
+                        <a onclick="LoadContent('Main/GoView/client-ListClient')" class="dropdown-toggle" data-toggle="dropdown">
+                            Clients
                         </a>
                     </li>
                 <?php }?>

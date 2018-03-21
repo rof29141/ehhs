@@ -562,7 +562,7 @@
                         jQuery("#frm8 input").prop("disabled", true);
                         jQuery('#btn_save_orientation').hide();
 
-                        if('<?php print $session['rol'];?>'=='worker')
+                        if('<?php print $data['role']['data']->rol;?>'=='worker')
                         {
                             LoadDataTax(response);
                             jQuery('#tab9').show().tab('show');

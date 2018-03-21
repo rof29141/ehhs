@@ -160,7 +160,8 @@
 
 		<div class="form-group pull-right">
 			<button type="button" id="btn_save_employment" class="btn btn-primary">Next <span style="vertical-align: middle;font-size: 16px;" class="icon-control-forward"></span></button>
-            <input type="hidden" name="id_employee" id="id_employee" value="<?php if(isset($data['employee']['data']->id_employee)) print $data['employee']['data']->id_employee;?>" />
+            <input type="text" name="id_employee" id="id_employee" value="<?php if(isset($data['employee']['data']->id_employee)) print $data['employee']['data']->id_employee;?>" />
+            <input type="text" datafld='ignore' name="id_person" id="id_person" class="form-control"  value="<?php if(isset($data['id_person'])) print $data['id_person'];?>" />
             <input type="hidden" name="employment_id_form" id="employment_id_form" value="<?php if(isset($data['form']['data']->id_form)) print $data['form']['data']->id_form;?>" />
 		</div>
 
@@ -190,6 +191,7 @@
                 var form_sign=jQuery('#employment_form_sign').val();
                 var date=jQuery('#employment_today_date').val();
 
+                var id_person=jQuery('#id_person').val();
                 var id_employee=jQuery('#id_employee').val();
                 var id_form=jQuery('#employment_id_form').val();
 
@@ -210,6 +212,7 @@
                     form_sign:form_sign,
                     date:date,
                     completed_percent:completed_percent,
+                    id_person:id_person,
                     id_employee:id_employee,
                     id_form:id_form
                 };
@@ -237,9 +240,10 @@
                         jQuery('#employment_form_sign').attr('readonly', true);
                         jQuery('#btn_save_employment').hide();
 						
-						if('<?php print $session['rol'];?>'=='worker')
+						if('<?php print $data['role']['data']->rol;?>'=='worker')
 						{
-							LoadDataProbation(response);
+                            jQuery('#id_employee').val(response);
+						    LoadDataProbation(response);
 							jQuery('#tab4').show().tab('show');
                             jQuery('#s3').removeClass('active').addClass('fade');
                             jQuery('#s4').removeClass('fade').addClass('active');

@@ -272,7 +272,6 @@
                         <?php
                     }
                     ?>
-                    <input type="hidden" name="id_employee" id="id_employee" value="4" />
                 </div>
 
             </div>
@@ -285,26 +284,7 @@
 
     jQuery(document).ready(function()
     {
-        Load();
-
-        function Load()
-        {
-            LoadDataAccount();
-            if('<?php echo $employment?>'==1)LoadDataEmployment(jQuery('#id_person').val());
-            if('<?php echo $probation?>'==1)LoadDataProbation(jQuery('#id_employee').val());
-            if('<?php echo $statement?>'==1)LoadDataStatement(jQuery('#id_employee').val());
-            if('<?php echo $equipment?>'==1)LoadDataEquipment(jQuery('#id_employee').val());
-            if('<?php echo $medical?>'==1)LoadDataMedical(jQuery('#id_employee').val());
-            if('<?php echo $orientation?>'==1)LoadDataOrientation(jQuery('#id_employee').val());
-            if('<?php echo $tax?>'==1)LoadDataTax(jQuery('#id_employee').val());
-            if('<?php echo $inservice?>'==1)LoadDataInService(jQuery('#id_employee').val());
-            if('<?php echo $over?>'==1)LoadDataOver(jQuery('#id_employee').val());
-            if('<?php echo $emergency?>'==1)LoadDataEmergency(jQuery('#id_employee').val());
-			
-			
-            if('<?php echo $over?>'==1)LoadDataW9(jQuery('#id_employee').val());
-            if('<?php echo $over?>'==1)LoadDataI9(jQuery('#id_employee').val());
-        }
+        LoadDataAccount();
 
         function LoadDataAccount()
         {
@@ -337,6 +317,7 @@
                 if(response)
                 {
                     jQuery('#data_profile').html(response);
+                    if('<?php echo $employment?>'==1)LoadDataEmployment(jQuery('#id_person').val());
                 }
             });
         }
@@ -352,9 +333,28 @@
                 if(response)
                 {
                     jQuery('#data_employment').html(response);
+                    LoadOther();
                 }
             });
         }
+
+        function LoadOther()
+        {
+            if('<?php echo $probation?>'==1)LoadDataProbation(jQuery('#id_employee').val());
+            if('<?php echo $statement?>'==1)LoadDataStatement(jQuery('#id_employee').val());
+            if('<?php echo $equipment?>'==1)LoadDataEquipment(jQuery('#id_employee').val());
+            if('<?php echo $medical?>'==1)LoadDataMedical(jQuery('#id_employee').val());
+            if('<?php echo $orientation?>'==1)LoadDataOrientation(jQuery('#id_employee').val());
+            if('<?php echo $tax?>'==1)LoadDataTax(jQuery('#id_employee').val());
+            if('<?php echo $inservice?>'==1)LoadDataInService(jQuery('#id_employee').val());
+            if('<?php echo $over?>'==1)LoadDataOver(jQuery('#id_employee').val());
+            if('<?php echo $emergency?>'==1)LoadDataEmergency(jQuery('#id_employee').val());
+
+
+            if('<?php echo $over?>'==1)LoadDataW9(jQuery('#id_employee').val());
+            if('<?php echo $over?>'==1)LoadDataI9(jQuery('#id_employee').val());
+        }
+
 
         function LoadDataProbation(id_employee)
         {

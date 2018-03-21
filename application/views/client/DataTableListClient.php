@@ -18,11 +18,11 @@
 <tbody>
 
 <?php
-if(isset($data['employee']['data']))
+if(isset($data['client']['data']))
 {
     $i=0;
 
-    foreach ($data['employee']['data'] as $row)
+    foreach ($data['client']['data'] as $row)
     {
         if($row->rol=='admin')$role='Administrator';
         if($row->rol=='asist')$role='Asistant';
@@ -37,8 +37,8 @@ if(isset($data['employee']['data']))
 
         <tr id="<?php print "tr" . $i;?>">
 
-            <td class="row_update text-center" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $i+1;?></td>
-            <td class="row_update" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>">
+            <td class="row_update text-center" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $i+1;?></td>
+            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>">
 
                 <?php if(isset($row->id_user)){?>
                     <img class="photo_person_row" src="<?php print base_url('/assets/upload/person_photo/photo_'.$row->id_person.'.jpg');?>" alt="<?php if(isset($row->first_name)) print $row->first_name;?>" />
@@ -47,14 +47,14 @@ if(isset($data['employee']['data']))
                 <?php }?>
 
             </td>
-            <td class="row_update" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->first_name.' '.$row->second_name;?></td>
-            <td class="row_update" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->last_name;?></td>
-            <td class="row_update hidden-xs hidden-sm" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->birthday;?></td>
-            <td class="row_update hidden-xs hidden-sm" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $gender;?></td>
-            <td class="row_update" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->email;?></td>
-            <td class="row_update" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->cel;?></td>
-            <td class="row_update" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $role;?></td>
-            <td class="row_update text-center" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $status;?></td>
+            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->first_name.' '.$row->second_name;?></td>
+            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->last_name;?></td>
+            <td class="row_update hidden-xs hidden-sm" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->birthday;?></td>
+            <td class="row_update hidden-xs hidden-sm" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $gender;?></td>
+            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->email;?></td>
+            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->cel;?></td>
+            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $role;?></td>
+            <td class="row_update text-center" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $status;?></td>
             <td class="text-center"><input name='<?php print 'cbx_'.$row->id_user;?>' type='checkbox' value='<?php print $row->id_user;?>' class="cbx"></td>
 
         </tr>
@@ -81,7 +81,7 @@ if(isset($data['employee']['data']))
     {
         if(id)
         {//alert(id);
-            var go_function='Employee/GoUpdateEmployee';
+            var go_function='Client/GoUpdateClient';
             var go_back=jQuery('#view').val();
 
             UpdateContent(go_function, go_view, go_back, id);

@@ -133,7 +133,7 @@
                         jQuery("#frm10 input").prop("disabled", true);
                         jQuery('#btn_save_inservice').hide();
 
-                        if('<?php print $session['rol'];?>'=='worker')
+                        if('<?php print $data['role']['data']->rol;?>'=='worker')
                         {
                             LoadDataOver(response);
                             jQuery('#tab11').show().tab('show');

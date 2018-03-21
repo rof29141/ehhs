@@ -218,7 +218,7 @@
                         jQuery('#probation_form_sign').attr('readonly', true);
                         jQuery('#btn_save_probation').hide();
 						
-						if('<?php print $session['rol'];?>'=='worker')
+						if('<?php print $data['role']['data']->rol;?>'=='worker')
 						{
 							LoadDataStatement(response);
                             jQuery('#tab5').show().tab('show');

@@ -237,7 +237,7 @@
                         jQuery('#statement_form_sign').attr('readonly', true);
                         jQuery('#btn_save_statement').hide();
 
-                        if('<?php print $session['rol'];?>'=='worker')
+                        if('<?php print $data['role']['data']->rol;?>'=='worker')
                         {
                             LoadDataEquipment(response);
                             jQuery('#tab6').show().tab('show');

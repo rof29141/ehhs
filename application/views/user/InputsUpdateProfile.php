@@ -274,6 +274,14 @@
                                 jQuery('#s3').removeClass('fade').addClass('active');
                                 goToByScroll('tab3');
                             }
+                            elseif('<?php print $data['role']['data']->rol;?>'=='client')
+                            {
+                                LoadDataClientPreference(jQuery('#id_person').val());
+                                jQuery('#tab3').show().tab('show');
+                                jQuery('#s2').removeClass('active').addClass('fade');
+                                jQuery('#s3').removeClass('fade').addClass('active');
+                                goToByScroll('tab3');
+                            }
 						}
 						else{alertify.error('Error: The element could not be Saved. '+ response);}
 						spinner.stop();
@@ -320,6 +328,21 @@
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
                 data: {data_type:'data_employment',view_url:'employee/InputsUpdateEmployment', id_person:id_person}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_employment').html(response);
+                }
+            });
+        }
+
+        function LoadDataClientPreference(id_person='')
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_client_preference',view_url:'client/InputsUpdatePreference', id_person:id_person}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)

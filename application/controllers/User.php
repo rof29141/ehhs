@@ -108,7 +108,7 @@ class User extends CI_Controller
 
 			if($type=='INSERT')
 			{
-				if(isset($result['data']['last_id']) && $result['data']['last_id']!='')
+				if(array_key_exists('last_id', $result['data']))
 				{
 					$id=$result['data']['last_id'];
 					$photo_name='photo_'.$id.'.jpg';
@@ -178,9 +178,6 @@ class User extends CI_Controller
     {
         $status = "";
         $msg = "";
-		
-		$this->load->helper('General_Helper');
-        $data['session']=GetSessionVars();
 
         $file = 'multiple_fileupload';
         $random = $this->input->post('random');
@@ -195,7 +192,7 @@ class User extends CI_Controller
             $config['encrypt_name'] = false;
             $config['overwrite'] = TRUE;
             $config['remove_spaces'] = FALSE;
-            $config['file_name'] = 'photo_'.$data['session']['id_user'];
+            $config['file_name'] = 'photo_1';
 
             $this->load->library('upload', $config);
 

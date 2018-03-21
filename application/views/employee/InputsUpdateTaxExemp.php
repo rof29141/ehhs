@@ -174,7 +174,7 @@
                         jQuery("#frm9 input").prop("disabled", true);
                         jQuery('#btn_save_tax').hide();
 
-                        if('<?php print $session['rol'];?>'=='worker')
+                        if('<?php print $data['role']['data']->rol;?>'=='worker')
                         {
                             LoadDataInService(response);
                             jQuery('#tab10').show().tab('show');

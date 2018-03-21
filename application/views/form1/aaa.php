@@ -4,7 +4,7 @@
 
 $table='consent';
 
-if(isset($result['data']['last_id']) && $result['data']['last_id']!='')
+if(array_key_exists('last_id', $result['data']))
 {
 $id_form=$result['data']['last_id'];
 }

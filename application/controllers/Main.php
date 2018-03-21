@@ -92,8 +92,8 @@ class Main extends CI_Controller
                     $result['id_user']=$data['session']['id_user'];
 
                 $this->load->model('M_User');
-                $result['profile']=$this->M_User->GetProfileUserByUserID($result['id_user']);
                 $result['role']=$this->M_User->GetRoleByUserID($result['id_user']);
+                $result['profile']=$this->M_User->GetProfileUserByUserID($result['id_user']);
             }
 			elseif($data_type==='data_employment')
             {
@@ -103,6 +103,7 @@ class Main extends CI_Controller
                     $result['id_person']=$data['session']['id_person'];//echo $data['session']['id_person'];die();
 
                 $this->load->model('M_User');
+                $result['role']=$this->M_User->GetRoleByPersonID($result['id_person']);
                 $result['employee']=$this->M_User->GetEmployeeByPersonID($result['id_person']);
                 $result['form']=$this->M_User->GetFormByPersonID($result['id_person'], 'employment');
                 $result['consent']=$this->M_User->GetConsentByPersonID($result['id_person'], 'employment');//var_dump($result['consent']);die();
@@ -112,6 +113,7 @@ class Main extends CI_Controller
             {
 				$this->load->model('M_User');
 				$result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'probation');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'probation');//var_dump($result['consent']);die();
 				$result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -121,6 +123,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'statement');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'statement');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -129,6 +132,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'equipment');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'equipment');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -137,6 +141,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'medical');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'medical');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -145,6 +150,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'orientation');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'orientation');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -153,6 +159,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'tax');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'tax');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -161,6 +168,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'inservice');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'inservice');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -169,6 +177,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'over');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'over');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -177,6 +186,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'emergency');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -185,6 +195,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'emergency');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -193,6 +204,7 @@ class Main extends CI_Controller
             {
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
+                $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
                 $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'emergency');
                 $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
@@ -201,7 +213,23 @@ class Main extends CI_Controller
             elseif($data_type==='data_list_employee')
             {
                 $this->load->model('M_Employee');
-                $result['employee']=$this->M_Employee->GetAllEmployee();
+                $result['employee']=$this->M_Employee->GetAllWorkers();
+            }
+            elseif($data_type==='data_list_client')
+            {
+                $this->load->model('M_Client');
+                $result['client']=$this->M_Client->GetAllClients();
+            }
+            elseif($data_type==='data_client_preference')
+            {
+                $result['id_person']=$this->input->post('id_person');
+
+                if($result['id_person']=='')
+                    $result['id_person']=$data['session']['id_person'];
+
+                $this->load->model('M_Employee');
+                $result['prefered']=$this->M_Client->GetPreferedEmployeeByPersonID($result['id_person']);
+                $result['employee']=$this->M_Employee->GetAllWorkers();
             }
 
             return $result;
