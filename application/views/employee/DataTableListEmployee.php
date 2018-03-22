@@ -1,3 +1,4 @@
+
 <thead>
     <tr>
         <th style="width: 1%" class="text-center">#</th>
@@ -6,10 +7,11 @@
         <th style="width: 15%">Last Name</th>
         <th style="width: 10%" class="hidden-xs hidden-sm">Birth</th>
         <th style="width: 8%" class="hidden-xs hidden-sm">Gender</th>
-        <th style="width: 15%">Email</th>
-        <th style="width: 10%">Phone</th>
+        <th style="width: 13%">Email</th>
+        <th style="width: 8%">Phone</th>
         <th style="width: 8%">Rol</th>
         <th style="text-align: center;">Active</th>
+        <th style="text-align: center;">Approved</th>
         <th class="text-center" style="width: 2%"><input name='select_all' id='select_all' type='checkbox'></th>
     </tr>
 </thead>
@@ -32,6 +34,7 @@ if(isset($data['employee']['data']))
         if($row->gender=='female')$gender='Female';
 
         if($row->status=='1')$status='<span class="fa fa-check"></span>';else $status='<span class="brankic-cancel2"></span>';
+        if($row->approved=='1')$approved='<span class="fa fa-check"></span>';else $status='<span class="brankic-cancel2"></span>';
         ?>
 
 
@@ -41,7 +44,8 @@ if(isset($data['employee']['data']))
             <td class="row_update" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>">
 
                 <?php if(isset($row->id_user)){?>
-                    <img class="photo_person_row" src="<?php print base_url('/assets/upload/person_photo/photo_'.$row->id_person.'.jpg');?>" alt="<?php if(isset($row->first_name)) print $row->first_name;?>" />
+                    <img class="photo_person_row" id="photo_person_row_<?php print $row->id_person;?>" src="<?php print base_url('/assets/upload/person_photo/photo_'.$row->id_person.'.jpg');?>" alt="<?php if(isset($row->first_name)) print $row->first_name;?>" />
+                    <script>ShowPhoto(<?php print $row->id_person;?>);</script>
                 <?php }else{?>
                     <img class="photo_person_row" src="<?php print base_url('/assets/images/male.png');?>" alt="" />
                 <?php }?>
@@ -55,6 +59,7 @@ if(isset($data['employee']['data']))
             <td class="row_update" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->cel;?></td>
             <td class="row_update" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $role;?></td>
             <td class="row_update text-center" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $status;?></td>
+            <td class="row_update text-center" data-goto="employee-UpdateEmployee&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $approved;?></td>
             <td class="text-center"><input name='<?php print 'cbx_'.$row->id_user;?>' type='checkbox' value='<?php print $row->id_user;?>' class="cbx"></td>
 
         </tr>
@@ -68,6 +73,16 @@ if(isset($data['employee']['data']))
 </tbody>
 
 <script>
+
+    function ShowPhoto(id_person='')
+    {//alert(id_person);
+        d = new Date();
+        if(id_person!='')
+        {//alert("<?php print base_url('/assets/upload/person_photo/photo_');?>"+id_person+".jpg?"+d.getTime());
+            jQuery("#photo_person_row_"+id_person).attr("src", "<?php print base_url('/assets/upload/person_photo/photo_');?>"+id_person+".jpg?"+d.getTime());
+        }
+    }
+
     jQuery('.row_update').on('click', function (e)
     {
         var id='';

@@ -227,9 +227,10 @@ class Main extends CI_Controller
                 if($result['id_person']=='')
                     $result['id_person']=$data['session']['id_person'];
 
+                $this->load->model('M_Client');
                 $this->load->model('M_Employee');
-                $result['prefered']=$this->M_Client->GetPreferedEmployeeByPersonID($result['id_person']);
-                $result['employee']=$this->M_Employee->GetAllWorkers();
+                $result['client']=$this->M_Client->GetClientByPersonID($result['id_person']);
+                $result['approved_employee']=$this->M_Employee->GetAllApprovedWorkers();
             }
 
             return $result;
@@ -317,6 +318,35 @@ class Main extends CI_Controller
         }
     }
 
+    function GoUpdateEmployee()
+    {
+        if($this->session->userdata('logged_user_ehhs'))
+        {
+            $this->load->helper('General_Helper');
+            $data['session'] = GetSessionVars();//die();
+            $data['language'] = LoadLanguage();
+            $data['profile_type'] = ProfileType($data['session']);
+
+            $data['go_view'] = str_replace("-","/", $this->input->post('go_view'));
+            $data['go_back'] = $this->input->post('go_back');
+
+            $vars = explode("-", $this->input->post('id'));
+            $data['id_user']=$vars[0];
+            $data['id_person']=$vars[1];
+
+            $this->load->model('M_User');
+            $data['all_forms']=$this->M_User->GetAllFormsByPersonID($data['id_person']);
+            $data['role']=$this->M_User->GetRoleByUserID($data['id_user']);
+
+            if ($data['go_view'] != '')
+                $this->load->view($data['go_view'], $data);
+        }
+        else
+        {
+            print 'NO_LOGGED';
+        }
+    }
+
     function GoObject1111111()
     {
         $data['ctr']=$this->input->get('c');
@@ -334,7 +364,7 @@ class Main extends CI_Controller
             $i=0;
             foreach($_POST as $field_name => $value)
             {
-                if($field_name!='table' && $field_name!='type') {
+                if($field_name!='table' && $field_name!='type' && $field_name!='field_id') {
                     $fields[$i] = $field_name;
                     $value = $this->security->xss_clean($value);
                     $value = html_escape($value);
@@ -348,19 +378,23 @@ class Main extends CI_Controller
                     $table=$value;
                 elseif($field_name=='type')
                     $type=$value;
+                elseif($field_name=='field_id')
+                    $field_id=$value;
             }
             //print $table;die();
 
-            $result=$this->M_Main->Execute($type, $fields, $datas, $table);
+            $result=$this->M_Main->Execute($type, $fields, $datas, $table, $field_id);
 
             if($result['error_msg']=='0' && $type=='INSERT')
-                print $result['data']['recordId'];
+                print $result['data']['last_id'];
+            elseif($result['error_msg']=='0' && $type=='UPDATE')
+                print $datas['id'];
             else
                 print $result['error_msg'];
         }
         else
         {
-            print 1;
+            print 'NO_LOGGED';
         }
     }
 

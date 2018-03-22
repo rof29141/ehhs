@@ -21,7 +21,7 @@ Class M_Client extends CI_Model
         $this -> db -> from('client');
         $this -> db -> join('person', 'client.id_person = person.id_person');
         $this -> db -> join('user', 'user.id_user = person.id_user');
-        $this -> db -> where("rol = 'client'");
+        $this -> db -> where("rol = 'patient'");
 
         $query = $this -> db -> get();//var_dump($query->result());die();
 
@@ -33,7 +33,7 @@ Class M_Client extends CI_Model
         return $return;
     }
 
-    function GetPreferedEmployeeByPersonID($id_person)
+    function GetClientByPersonID($id_person)
     {
         $this -> db -> select('*');
         $this -> db -> from('client');

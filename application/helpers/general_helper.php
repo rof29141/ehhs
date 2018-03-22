@@ -41,8 +41,14 @@ function GetSessionVars()
             $data['section_auth'] = '';
             $data['id_person'] = $session_data['id_person'];
 
-            $my_instance->load->model('M_Main');
-            $data['no_filled'] = $my_instance->M_Main->CkeckProfile($data);
+            $my_instance->load->model('M_Main');//print $data['rol'];
+
+            if ($data['rol']=='employee')
+                $data['no_filled']=$my_instance->M_Main->CkeckEmployee($data);
+            elseif ($data['rol']=='patient')
+                $data['no_filled']=$my_instance->M_Main->CkeckClient($data);
+            else
+                $data['no_filled']=$my_instance->M_Main->CkeckProfile($data);
         }
         else
         {
@@ -62,6 +68,8 @@ function UpdateSessionVars($key, $value)
 
     if($my_instance->session->userdata('logged_user_ehhs'))
     {
+        $session_data = $my_instance->session->userdata('logged_user_ehhs');
+
         if($key=='id_user')$data['id_user'] = $value;
         if($key=='user')$data['user'] = $value;
         if($key=='email')$data['email'] = $value;
@@ -70,7 +78,13 @@ function UpdateSessionVars($key, $value)
         if($key=='id_person')$data['id_person'] = $value;
 
         $my_instance->load->model('M_Main');
-        $data['no_filled']=$my_instance->M_Main->CkeckProfile($data);
+
+        if ($data['rol']=='employee')
+            $data['no_filled']=$my_instance->M_Main->CkeckEmployee($data);
+        elseif ($data['rol']=='patient')
+            $data['no_filled']=$my_instance->M_Main->CkeckClient($data);
+        else
+            $data['no_filled']=$my_instance->M_Main->CkeckProfile($data);
 
         $my_instance->session->set_userdata('logged_user_ehhs', $data);
     }

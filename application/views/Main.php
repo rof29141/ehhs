@@ -78,7 +78,7 @@ ini_set('memory_limit', '2048M');
             data:{go_table:go_table, id:id}
         }).done(function(response, textStatus, jqXHR)
         {
-            if(response!='1' && response!='')
+            if(response!='NO_LOGGED')
             {
                 if(response=='0'){alertify.success('Element deleted.');}
                 else if(response=='01'){alertify.warning('You have to delete something. The ID is empty.');}
@@ -87,8 +87,11 @@ ini_set('memory_limit', '2048M');
                 spinner.stop();
                 LoadContent(jQuery('#view').val());
             }
-            else
-                window.location.replace("Authentication");
+            else if(response=='NO_LOGGED')
+            {
+                alertify.error("You don\'t have access.");
+                window.location.replace("Main");
+            }
         }).fail(function(jqHTR, textStatus, thrown)
         {
             alertify.error('Something is wrong with AJAX:' + textStatus);
@@ -143,15 +146,18 @@ ini_set('memory_limit', '2048M');
             data:array_inputs
         }).done(function(response, textStatus, jqXHR)
         {
-            if(response!='1' && response!='')
+            if(response!='NO_LOGGED')
             {
                 if(jQuery.isNumeric(response)){alertify.success('Data Saved.');}
                 else{alertify.error('Error: The element could not be Saved. '+ response);}
                 spinner.stop();
                 LoadContent(jQuery('#view').val());
             }
-            else
-                window.location.replace("Authentication");
+            else if(response=='NO_LOGGED')
+            {
+                alertify.error("You don\'t have access.");
+                window.location.replace("Main");
+            }
         }).fail(function(jqHTR, textStatus, thrown)
         {
             alertify.error('Something is wrong with AJAX:' + textStatus);

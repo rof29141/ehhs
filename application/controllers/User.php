@@ -23,7 +23,15 @@ class User extends CI_Controller
             $data['language']=LoadLanguage();
             $data['profile_type']=ProfileType($data['session']);
 
-            $data['all_forms']=$this->M_User->GetAllFormsByPersonID($data['session']['id_person']);
+            if($data['session']['rol']=='worker')
+            {
+                $data['all_forms']=$this->M_User->GetAllFormsByPersonID($data['session']['id_person']);
+            }
+            elseif($data['session']['rol']=='patient')
+            {
+                $this->load->model('M_Client');
+                $data['client']=$this->M_Client->GetClientByPersonID($data['session']['id_person']);
+            }
 
             $this->load->view($view, $data);
         }

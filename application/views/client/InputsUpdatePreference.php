@@ -2,19 +2,53 @@
 	<div class="col-sm-12">
 		<fieldset class="myfieldset">
 			<?php $lg='Preferences';?>
-			<legend class="mylegend" id="probation_lg1"><?php print $lg;?></legend>
+			<legend class="mylegend" id="preference_lg1"><?php print $lg;?></legend>
 
-			<div style='text-align:justify;'>
-				<p>You can add a prefered asistant or not select anyone.</p>
+			<div style='text-align:center;'>
+				<h4>You can add a preferred patient asistant or not select anyone.</h4>
 			</div>
 
-			<div class="form-group">
-                <strong>Employee</strong>
-                <select name="sel_prefered_employee" id="sel_prefered_employee" class="my_select2" style="width: 100%;">
-                    <?php for ($i=0;$i<sizeof($result_vl['vl']['data']);$i++){?>
-                        <option  <?php if(isset($result['_kf_SecurityQuestion_SN'])){if($result['_kf_SecurityQuestion_SN']==$result_vl['vl']['data'][$i]['_zhk_RecordSerialNumber']){?> selected <?php }}?>value="<?php print $result_vl['vl']['data'][$i]['_zhk_RecordSerialNumber'];?>"><?php print $result_vl['vl']['data'][$i]['Security_Questions'];?></option>
-                    <?php }?>
-                </select>
+            <div class="col-md-9">
+                <!-- Thumbnails v1 -->
+                <div class="row">
+                    <?php
+                    if(isset($data['approved_employee']['data']))
+                    {
+                        $i=0;
+
+                        foreach ($data['approved_employee']['data'] as $row)
+                        {
+                            if($row->gender=='male')$gender='Male';
+                            if($row->gender=='female')$gender='Female';
+
+
+                            ?>
+                            <div class="col-md-4">
+                                <div class="thumbnail thumbnail-style thumbnail-kenburn">
+                                    <div class="thumbnail-img">
+                                        <div class="overflow-hidden text-center"style="padding: 15px;">
+                                            <?php if(isset($row->id_person)){?>
+                                                <img class="photo_person" src="<?php print base_url('/assets/upload/person_photo/photo_'.$row->id_person.'.jpg');?>" alt="<?php if(isset($row->first_name)) print $row->first_name;?>" />
+                                            <?php }else{?>
+                                                <img class="photo_person" src="<?php print base_url('/assets/images/male.png');?>" alt="" />
+                                            <?php }?>
+                                        </div>
+
+                                    </div>
+                                    <div class="caption text-center">
+                                        <h3><a class="hover-effect" href="#"><?php if(isset($row->first_name)) print $row->first_name;?></a></h3>
+                                        <p><?php print $gender;?></p>
+                                        <input type="radio" name="rbt_employee" datafld="ignore" <?php if(isset($data['client']['data'][0]->id_employee_preferred) && $data['client']['data'][0]->id_employee_preferred==$row->id_employee){print 'checked';}?> value="<?php print $row->id_employee;?>"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+
+                            $i++;
+                        }
+                    }
+                    ?>
+                </div>
             </div>
 		
 		</fieldset>
@@ -22,7 +56,9 @@
 
 
 		<div class="form-group pull-right">
-			<button type="button" id="btn_save_probation" class="btn btn-primary">Next <span style="vertical-align: middle;font-size: 16px;" class="icon-control-forward"></span></button>
+			<button type="button" id="btn_save_preference" class="btn btn-primary">Save </button>
+            <input type="hidden" datafld='ignore' name="id_person" id="id_person" value="<?php if(isset($data['id_person'])) print $data['id_person'];?>" />
+            <input type="hidden" datafld='ignore' name="id_client" id="id_client" value="<?php if(isset($data['client']['data'][0]->id_client)) print $data['client']['data'][0]->id_client;?>" />
 		</div>
 
 	</div>
@@ -30,52 +66,34 @@
 <script type="text/javascript">
     jQuery(document).ready(function()
     {
-		jQuery('#btn_save_probation').on('click', function ()
+		jQuery('#btn_save_preference').on('click', function ()
         {
-            ValidateFrm('frm4');
-			if (jQuery("#frm4").valid()) 
+            ValidateFrm('frm3');
+			if (jQuery("#frm3").valid())
 			{
-				var consent_name1=jQuery('#probation_lg1').html();
-                var consent_name2=jQuery('#probation_lg2').html();
-                var consent_name3=jQuery('#probation_lg3').html();
+                var id_employee_preferred=jQuery("input[name='rbt_employee']:checked").val();
 
-                var sign1=jQuery('#probation_initial1').val();
-                var sign2=jQuery('#probation_initial2').val();
-                var sign3=jQuery('#probation_initial3').val();
+                var table='client';
+                var id_person=jQuery('#id_person').val();
+                var id=jQuery('#id_client').val();
 
-                var id_consent1=jQuery('#probation_id_consent1').val();
-                var id_consent2=jQuery('#probation_id_consent2').val();
-                var id_consent3=jQuery('#probation_id_consent3').val();
+                if(id=='')
+                    var type='INSERT';
+                else
+                    var type='UPDATE';
 
-                var form_name='probation';
-                var form_sign=jQuery('#probation_form_sign').val();
-                var date=jQuery('#probation_today_date').val();
-
-                var id_employee=jQuery('#id_employee').val();
-                var id_form=jQuery('#probation_id_form').val();
-
-                var completed_percent=16;
 
                 var data =
                 {
-                    consent_name1:consent_name1,
-                    consent_name2:consent_name2,
-                    consent_name3:consent_name3,
-                    sign1:sign1,
-                    sign2:sign2,
-                    sign3:sign3,
-                    id_consent1:id_consent1,
-                    id_consent2:id_consent2,
-                    id_consent3:id_consent3,
-                    form_name:form_name,
-                    form_sign:form_sign,
-                    date:date,
-                    completed_percent:completed_percent,
-                    id_employee:id_employee,
-                    id_form:id_form
+                    table:table,
+                    type:type,
+                    id_employee_preferred:id_employee_preferred,
+                    id_person:id_person,
+                    field_id:'id_client',
+                    id:id
                 };
 
-                var url = 'Employee/SaveEmployeeFormConsent';
+                var url = 'Main/SaveObject';
 
                 var target = document.getElementById('container');
                 var spinner = new Spinner(opts).spin(target);
@@ -92,20 +110,7 @@
                         RebuildHeader();
                         alertify.success('Data Saved.');
 
-                        jQuery('#probation_initial1').attr('readonly', true);
-                        jQuery('#probation_initial2').attr('readonly', true);
-                        jQuery('#probation_initial3').attr('readonly', true);
-                        jQuery('#probation_form_sign').attr('readonly', true);
-                        jQuery('#btn_save_probation').hide();
-						
-						if('<?php print $data['role']['data']->rol;?>'=='worker')
-						{
-							LoadDataStatement(response);
-                            jQuery('#tab5').show().tab('show');
-                            jQuery('#s4').removeClass('active').addClass('fade');
-                            jQuery('#s5').removeClass('fade').addClass('active');
-                            goToByScroll('tab5');
-						}
+                        //jQuery('#btn_save_preference').hide();
                     }
                     else{alertify.error('Error: The element could not be Saved. '+ response);}
                     spinner.stop();
@@ -133,12 +138,12 @@
             });
         }
 		
-		function LoadDataStatement(id_employee)
+		function LoadDataStatement(id_approved_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_statement',view_url:'employee/InputsUpdateStatement', id_employee:id_employee}
+                data: {data_type:'data_statement',view_url:'approved_employee/InputsUpdateStatement', id_approved_employee:id_approved_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)

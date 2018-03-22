@@ -27,6 +27,7 @@ if(isset($data['client']['data']))
         if($row->rol=='admin')$role='Administrator';
         if($row->rol=='asist')$role='Asistant';
         if($row->rol=='worker')$role='Caregiver';
+        if($row->rol=='patient')$role='Patient';
 
         if($row->gender=='male')$gender='Male';
         if($row->gender=='female')$gender='Female';

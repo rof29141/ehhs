@@ -5,7 +5,7 @@
 			<label>First Name</label>
 			<input type="text" name="first_name" id="first_name" class="form-control required"  value="<?php if(isset($data['profile']['data']->first_name)) print $data['profile']['data']->first_name;?>" />
 			<input type="hidden" datafld='ignore' name="id_person" id="id_person" class="form-control"  value="<?php if(isset($data['profile']['data']->id_person)) print $data['profile']['data']->id_person;?>" />
-			<input type="text" name="id_user" id="id_user" class="form-control"  value="<?php if(isset($data['profile']['data']->id_user) && $data['profile']['data']->id_user!='') print $data['profile']['data']->id_user;else print $data['id_user'];?>" />
+			<input type="hidden" name="id_user" id="id_user" class="form-control"  value="<?php if(isset($data['profile']['data']->id_user) && $data['profile']['data']->id_user!='') print $data['profile']['data']->id_user;else print $data['id_user'];?>" />
 		</div>
 		
 		<div class="form-group">
@@ -274,7 +274,7 @@
                                 jQuery('#s3').removeClass('fade').addClass('active');
                                 goToByScroll('tab3');
                             }
-                            elseif('<?php print $data['role']['data']->rol;?>'=='client')
+                            else if('<?php print $data['role']['data']->rol;?>'=='patient')
                             {
                                 LoadDataClientPreference(jQuery('#id_person').val());
                                 jQuery('#tab3').show().tab('show');
@@ -347,7 +347,7 @@
             {
                 if(response)
                 {
-                    jQuery('#data_employment').html(response);
+                    jQuery('#data_client_preference').html(response);
                 }
             });
         }

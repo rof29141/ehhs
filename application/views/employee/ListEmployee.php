@@ -5,14 +5,9 @@
             <fieldset class="myfieldset">
                 <legend class="mylegend">List Employee</legend>
 
-
-
                     <section class="col col-12" style="padding: 10px;">
-
                         <table id="data_table_employee" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
-
                     </section>
-
 
             </fieldset>
         </div>
@@ -60,9 +55,6 @@
                 {
                     jQuery('#data_table_employee').html(response);
                     var datatable_Employee=DataTable_Employee();
-                    //var other_btn=jQuery('#other_btn').html();
-                    //jQuery('.dt-buttons').append(other_btn);
-                    //jQuery('#other_btn').html('');
                     spinner.stop();
                 }
             });

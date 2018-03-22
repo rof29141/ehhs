@@ -170,6 +170,55 @@ Class M_Main extends CI_Model
        
 		return $return;
 	}
+
+	function CkeckEmployee($data)
+	{
+		$i=0;
+		$return=array();
+
+		$this -> db -> select('*');
+        $this -> db -> from('person');
+        $this -> db -> join('employee', 'employee.id_person = person.id_person');
+
+        if(isset($data['id_user']) && $data['id_user']!='')$this -> db -> where('id_user = ' . "'" . $data['id_user'] . "'");
+        elseif(isset($data['id_person']) && $data['id_person']!='')$this -> db -> where('id_person = ' . "'" . $data['id_person'] . "'");
+
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() != 1)
+		{
+			$return['NO_FILLED_PERSON'] = 1;
+		}
+
+
+		return $return;
+	}
+
+	function CkeckClient($data)
+	{
+		$return=array();
+
+		$this -> db -> select('*');
+        $this -> db -> from('person');
+        $this -> db -> join('client', 'client.id_person = person.id_person');
+
+        if(isset($data['id_user']) && $data['id_user']!='')$this -> db -> where('id_user = ' . "'" . $data['id_user'] . "'");
+        elseif(isset($data['id_person']) && $data['id_person']!='')$this -> db -> where('id_person = ' . "'" . $data['id_person'] . "'");
+
+        $this -> db -> limit(1);
+
+        $query = $this -> db -> get();//var_dump($query->row());die();
+
+        if($query -> num_rows() != 1)
+		{
+			$return['NO_FILLED_PERSON'] = 1;
+		}
+
+
+		return $return;
+	}
 	
 	function Logout()
     {

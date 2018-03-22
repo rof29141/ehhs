@@ -3,22 +3,16 @@
 
         <div class="col-lg-12">
             <fieldset class="myfieldset">
-                <legend class="mylegend">List Client</legend>
-
-
+                <legend class="mylegend">List Patient</legend>
 
                     <section class="col col-12" style="padding: 10px;">
-                        
                         <table id="data_table_client" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
-
                     </section>
-
 
             </fieldset>
         </div>
     </div>
 </div>
-
 
 <script type="text/javascript">
 
