@@ -326,7 +326,7 @@
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_account',view_url:'user/InputsUpdateAccount'}
+                data: {data_type:'data_account',view_url:'user/InputsUpdateAccount',id_user:'<?php if(isset($session['id_user']))print $session['id_user'];?>'}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
@@ -343,7 +343,7 @@
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_profile',view_url:'user/InputsUpdateProfile'}
+                data: {data_type:'data_profile',view_url:'user/InputsUpdateProfile',id_user:'<?php if(isset($session['id_user']))print $session['id_user'];?>'}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)

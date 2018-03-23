@@ -21,6 +21,15 @@ class Dashboard extends CI_Controller
         $data['language']=LoadLanguage();
         $data['profile_type']=ProfileType($data['session']);
 
+        /*$this->load->model('M_Main');
+
+        if ($data['session']['rol']=='employee')
+            $data['no_filled']=$this->M_Main->CkeckEmployee($data);
+        elseif ($data['session']['rol']=='patient')
+            $data['no_filled']=$this->M_Main->CkeckClient($data);
+        else
+            $data['no_filled']=$this->M_Main->CkeckProfile($data);*/
+
         //echo $data['section_auth'];
 		$this->load->view($view, $data);
     }

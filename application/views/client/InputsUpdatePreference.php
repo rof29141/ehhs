@@ -5,7 +5,7 @@
 			<legend class="mylegend" id="preference_lg1"><?php print $lg;?></legend>
 
 			<div style='text-align:center;'>
-				<h4>You can add a preferred patient asistant or not select anyone.</h4>
+				<h5 style="text-align: center; color: red;">You can add a preferred patient assistance or not select anyone. If you don't select anyone the office will assign you one.</h5>
 			</div>
 
             <div class="col-md-9">

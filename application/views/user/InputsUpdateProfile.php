@@ -1,4 +1,9 @@
-
+<?php
+if(isset($data['role']['data']->rol) && $data['role']['data']->rol!='')
+    $role=$data['role']['data']->rol;
+else
+    $role=$data['role'];
+?>
 	<div class="col-sm-12">
 
 		<div class="form-group">
@@ -97,7 +102,10 @@
 		</div>
 
 		<div class="form-group pull-right">
-			<button type="button" disabled id="btn_save_profile" class="btn btn-primary"><?php if($data['role']['data']->rol!='admin' && $data['role']['data']->rol!='asist'){?>Next <span style="vertical-align: middle;font-size: 16px;" class="icon-control-forward"></span><?php }else {?>Save<?php }?></button>
+            <?php
+                if(isset($role) && $role!='admin' && $role!='asist')$next=1;
+            ?>
+			<button type="button" disabled id="btn_save_profile" class="btn btn-primary"><?php if(isset($next) && $next==1){?>Next <span style="vertical-align: middle;font-size: 16px;" class="icon-control-forward"></span><?php }else {?>Save<?php }?></button>
 		</div>
 
 	</div>
@@ -266,7 +274,7 @@
 							RebuildHeader();
 							alertify.success('Data Saved.');
 
-                            if('<?php print $data['role']['data']->rol;?>'=='worker')
+                            if('<?php print $role;?>'=='worker')
                             {
                                 LoadDataEmployment(jQuery('#id_person').val());
                                 jQuery('#tab3').show().tab('show');
@@ -274,7 +282,7 @@
                                 jQuery('#s3').removeClass('fade').addClass('active');
                                 goToByScroll('tab3');
                             }
-                            else if('<?php print $data['role']['data']->rol;?>'=='patient')
+                            else if('<?php print $role;?>'=='patient')
                             {
                                 LoadDataClientPreference(jQuery('#id_person').val());
                                 jQuery('#tab3').show().tab('show');

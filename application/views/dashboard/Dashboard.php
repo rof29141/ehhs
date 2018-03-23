@@ -10,8 +10,35 @@
 
     <div class="clearfix margin-bottom-40"></div>
 
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-        <?php //if($section_left_auth!='')require_once APPPATH.'views'.$section_left_auth;?>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center">
+        <?php //if($section_left_auth!='')require_once APPPATH.'views'.$section_left_auth;
+
+
+        $fill_profile='';$badge='';//var_dump($session['no_filled']);
+
+        if($session['no_filled']!='' && array_key_exists("NO_FILLED_PERSON", $session['no_filled']) && isset($profile_type['percent']))
+            $fill_profile = '<i class="fa fa-exclamation-triangle" style="color:white;"></i>';
+        elseif(isset($session['no_filled']) && array_key_exists("NO_FILLED_PERSON", $session['no_filled']) && !isset($profile_type['percent']))
+            $fill_profile = "<i class='fa fa-exclamation-triangle' style='color:red;'></i> Dear user, your profile is not completed yet,<br> please click in <a onclick='LoadContent(\"User\");'>MY ACCOUNT</a> to complete it.";
+
+        if(isset($profile_type['percent']) && $profile_type['percent']==100)
+        {
+            $badge = '<span class="badge badge-green rounded-2x">100%</span>';
+        }
+        elseif(isset($profile_type['percent']) && $profile_type['percent']>=0)
+        {
+            $badge = '<span class="badge badge-red rounded-2x">'.$fill_profile.' '.$profile_type['percent'] . '%</span>';
+        }
+        elseif(!isset($profile_type['percent']))
+        {
+            $badge = $fill_profile;
+        }
+
+        print '<h4>'.$badge.'</h4>';
+
+        if($badge=='' && $session['rol']=='patient')
+
+        ?>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="div_auth">

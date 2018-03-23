@@ -20,12 +20,25 @@ class Client extends CI_Controller
             $data['go_view'] = str_replace("-","/", $this->input->post('go_view'));
             $data['go_back'] = $this->input->post('go_back');
 
-            $vars = explode("-", $this->input->post('id'));
-            $data['id_user']=$vars[0];
-            $data['id_person']=$vars[1];
 
-            $this->load->model('M_User');
-            $data['role']=$this->M_User->GetRoleByUserID($data['id_user']);
+            if($this->input->post('id')!='')
+            {
+                $vars = explode("-", $this->input->post('id'));
+                $data['id_user'] = $vars[0];
+                $data['id_person'] = $vars[1];
+
+                $this->load->model('M_User');
+                $this->load->model('M_Client');
+
+                if ($data['id_user'] != '')
+                    $data['role'] = $this->M_User->GetRoleByUserID($data['id_user']);
+
+                if ($data['id_person'] != '')
+                    $data['client'] = $this->M_Client->GetClientByPersonID($data['id_person']);
+            }
+            else
+                $data['role'] = 'patient';
+
 
             if ($data['go_view'] != '')
                 $this->load->view($data['go_view'], $data);

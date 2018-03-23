@@ -38,8 +38,8 @@ if(isset($data['client']['data']))
 
         <tr id="<?php print "tr" . $i;?>">
 
-            <td class="row_update text-center" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $i+1;?></td>
-            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>">
+            <td class="row_update text-center" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $i+1;?></td>
+            <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>">
 
                 <?php if(isset($row->id_user)){?>
                     <img class="photo_person_row" src="<?php print base_url('/assets/upload/person_photo/photo_'.$row->id_person.'.jpg');?>" alt="<?php if(isset($row->first_name)) print $row->first_name;?>" />
@@ -48,15 +48,15 @@ if(isset($data['client']['data']))
                 <?php }?>
 
             </td>
-            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->first_name.' '.$row->second_name;?></td>
-            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->last_name;?></td>
-            <td class="row_update hidden-xs hidden-sm" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->birthday;?></td>
-            <td class="row_update hidden-xs hidden-sm" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $gender;?></td>
-            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->email;?></td>
-            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->cel;?></td>
-            <td class="row_update" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $role;?></td>
-            <td class="row_update text-center" data-goto="client-UpdateClient&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $status;?></td>
-            <td class="text-center"><input name='<?php print 'cbx_'.$row->id_user;?>' type='checkbox' value='<?php print $row->id_user;?>' class="cbx"></td>
+            <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->first_name.' '.$row->second_name;?></td>
+            <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->last_name;?></td>
+            <td class="row_update hidden-xs hidden-sm" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->birthday;?></td>
+            <td class="row_update hidden-xs hidden-sm" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $gender;?></td>
+            <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->email;?></td>
+            <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->cel;?></td>
+            <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $role;?></td>
+            <td class="row_update text-center" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $status;?></td>
+            <td class="text-center"><input name='cbx' type='checkbox' data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>" id="<?php print $row->id_client;?>" class="cbx_row"></td>
 
         </tr>
 
@@ -69,11 +69,72 @@ if(isset($data['client']['data']))
 </tbody>
 
 <script>
-    jQuery('.row_update').on('click', function (e)
+
+    jQuery('#btn_insert').on('click', function (e)
+    {
+        var go_function='Client/GoUpdateClient';
+        var go_view='general-Update';
+        var go_back=jQuery('#view').val();
+
+        UpdateContent(go_function, go_view, go_back);
+
+    });
+
+    jQuery('#btn_delete').on('click', function (e)
     {
         var id='';
+        jQuery('.cbx_row:checked').each(
+            function()
+            {
+                if(id=='')
+                    id = jQuery(this).attr('id');
+                else
+                    id = id + '-' + jQuery(this).attr('id');
+            }
+        );
+
+        if(id!='')
+        {
+            var go_function='Main/DeleteObject';
+            var table='client';
+            var field_id='id_client';
+
+            alertify.defaults.transition = "slide";
+            alertify.defaults.theme.ok = "btn btn-success";
+            alertify.defaults.theme.cancel = "btn btn-default";
+            alertify.confirm("<h4>Do you confirm the action?</h4>", function (e)
+            {
+                DeleteContent(go_function, table, field_id, id);
+            }
+            ,function()
+            {
+                alertify.error('Declined.');
+            });
+        }
+        else
+            alertify.error('You have to select a row.');
+    });
+
+    jQuery('.row_update').on('click', function (e)
+    {
         var string=jQuery(this).attr("data-goto");
         var result=string.split('&');
+
+        Update(result[0],result[1]);
+    });
+
+    jQuery('#btn_update').on('click', function (e)
+    {
+        var result=['',''];
+
+        jQuery('.cbx_row:checked').each(
+            function()
+            {
+                var chain=jQuery(this).attr("data-goto");
+                result=chain.split('&');
+                return true;
+            }
+        );
 
         Update(result[0],result[1]);
     });

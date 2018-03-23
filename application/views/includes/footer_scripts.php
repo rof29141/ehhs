@@ -102,7 +102,7 @@
             });
         });
 
-        jQuery('body').on('click', '#btn_insert', function (e)
+        jQuery('body').on('click', '#btn_insert1', function (e)
         {
             var go_function='Main/GoObject';
             var go_view=jQuery(this).attr("data-goto");
@@ -112,7 +112,7 @@
 
         });
 
-        jQuery('body').on('click', '#btn_update', function (e)
+        jQuery('body').on('click', '#btn_update1', function (e)
         {
             var id='';
             jQuery('.cbx:checked').each(
@@ -175,7 +175,7 @@
             }
         });
 
-        jQuery('body').on('click', '#btn_delete', function (e)
+        jQuery('body').on('click', '#btn_delete1', function (e)
         {
             var id='';
             jQuery('.cbx:checked').each(

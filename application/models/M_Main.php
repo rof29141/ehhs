@@ -101,11 +101,8 @@ Class M_Main extends CI_Model
 
         if($type=='DELETE')
         {
-            //$myfm = new MacTutorREST ('','', $table,'');
-
             $id_eliminated='';
-            $id_not_eliminated='';
-            $errors=0;
+
             $var = explode("-",$datas['ids']);
 
             if(sizeof($var) != 0)
@@ -113,35 +110,19 @@ Class M_Main extends CI_Model
                 for ($i = 0; $i < sizeof($var); next($var), $i++)
                 {
                     $id = current($var);//print $id.' - ';
+                    $delete=array($field_id => $id);
 
-                    $result = $this->fm->deleteRecord($id, $table);
-                    $error=$this->error($result);
+                    $this->db->delete($table, $delete);
 
-                    if($error=='0')
-                    {
-                        if($id_eliminated=='')
-                            $id_eliminated=$id;
-                        else
-                            $id_eliminated.='-'.$id;
-                    }
+                    if($id_eliminated=='')
+                        $id_eliminated=$id;
                     else
-                    {
-                        if($id_not_eliminated=='')
-                            $id_not_eliminated=$id;
-                        else
-                            $id_not_eliminated.='-'.$id;
+                        $id_eliminated.='-'.$id;
 
-                        if($errors==0)
-                            $errors=$error;
-                        else
-                            $errors.=' - '.$error;
-                    }
                 }
             }
 
-            $return['error']=$errors;
-            $return['id_eliminated']=$id_eliminated;
-            $return['id_not_eliminated']=$id_not_eliminated;
+            $return=$this->Result(0, 0, $id_eliminated);
         }
 
         return $return;

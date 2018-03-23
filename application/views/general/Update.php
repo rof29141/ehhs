@@ -7,7 +7,12 @@
                 <?php
                 $employment=0;$probation=0;$statement=0;$equipment=0;$medical=0;$orientation=0;$tax=0;$inservice=0;$over=0;$emergency=0;$prefered=0;
 
-                if($session['rol']=='worker')
+                if(isset($role['data']->rol))
+                    $role=$role['data']->rol;
+
+                //echo $role;
+
+                if($role=='worker')
                 {
                     if ($all_forms['error_code'] == '0')
                     {
@@ -26,11 +31,11 @@
                         }
                     }
                 }
-                elseif ($session['rol']=='patient')
+                elseif ($role=='patient')
                 {
-                    if ($client['error_code'] == '0')
+                    if (isset($client) && $client['error_code'] == '0')
                     {
-                        if($client['data'][0]->id_client!='')$prefered = 1;
+                        if($client['data'][0]->id_client!='')$prefered = 1;//echo $client['data'][0]->id_client;
                     }
                 }
 
@@ -38,21 +43,21 @@
 
                 <ul class="nav nav-tabs bordered" id="myTab1">
                     <li id="tab1" class="active"><a data-toggle="tab" href="#s1">Account</a></li>
-                    <li id="tab2"><a data-toggle="tab" href="#s2">Profile</a></li>
-                    <?php if($session['rol']=='worker'){?><li id="tab3" <?php if($employment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Employment</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab4" <?php if($probation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s4">Acknowledgment</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab5" <?php if($statement==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s5">Statement</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab6" <?php if($equipment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s6">Equiment</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab7" <?php if($medical==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s7">Medical</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab8" <?php if($orientation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s8">Orientation</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab9" <?php if($tax==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s9">Tax Exempt</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab10" <?php if($inservice==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s10">In Service</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab11" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s11">Over Time</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab12" <?php if($emergency==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s12">Emergency</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab12" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s19">I9</a></li><?php }?>
-                    <?php if($session['rol']=='worker'){?><li id="tab12" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s20">W9</a></li><?php }?>
+                    <li id="tab2"><a data-toggle="tab" href="#s2">Personal</a></li>
+                    <?php if($role=='worker'){?><li id="tab3" <?php if($employment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Employment</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab4" <?php if($probation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s4">Acknowledgment</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab5" <?php if($statement==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s5">Statement</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab6" <?php if($equipment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s6">Equiment</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab7" <?php if($medical==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s7">Medical</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab8" <?php if($orientation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s8">Orientation</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab9" <?php if($tax==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s9">Tax Exempt</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab10" <?php if($inservice==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s10">In Service</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab11" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s11">Over Time</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab12" <?php if($emergency==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s12">Emergency</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab13" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s19">I9</a></li><?php }?>
+                    <?php if($role=='worker'){?><li id="tab14" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s20">W9</a></li><?php }?>
 
-                    <?php if($session['rol']=='patient'){?><li id="tab3" <?php if($prefered==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Preferences</a></li><?php }?>
+                    <?php if($role=='patient'){?><li id="tab3" <?php if($prefered==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Preferences</a></li><?php }?>
                 </ul>
 
                 <div class="tab-content" id="myTabContent1">
@@ -89,7 +94,7 @@
                         </div>
                     </div>
 
-                    <?php if($session['rol']=='worker')
+                    <?php if($role=='worker')
                     {
                         ?>
 
@@ -282,7 +287,7 @@
                     }
                     ?>
 
-                    <?php if($session['rol']=='patient')
+                    <?php if($role=='patient')
                     {
                         ?>
 
@@ -326,7 +331,7 @@
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_account',view_url:'user/InputsUpdateAccount'}
+                data: {data_type:'data_account',view_url:'user/InputsUpdateAccount',id_user:"<?php if(isset($id_user))print $id_user;?>",role:"<?php if(isset($role))print $role;?>"}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
@@ -343,7 +348,7 @@
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_profile',view_url:'user/InputsUpdateProfile'}
+                data: {data_type:'data_profile',view_url:'user/InputsUpdateProfile',id_user:"<?php if(isset($id_user))print $id_user;?>",role:"<?php if(isset($role))print $role;?>"}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
@@ -389,7 +394,6 @@
             if('<?php echo $over?>'==1)LoadDataI9(jQuery('#id_employee').val());
             //---------------------WORKER--------------------
         }
-
 
         function LoadDataProbation(id_employee)
         {
@@ -557,6 +561,8 @@
             });
         }
 
+
+
         function LoadDataClientPreference(id_person='')
         {
             jQuery.ajax({
@@ -571,6 +577,7 @@
                 }
             });
         }
+
     });
 
 </script>

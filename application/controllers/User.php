@@ -25,12 +25,20 @@ class User extends CI_Controller
 
             if($data['session']['rol']=='worker')
             {
-                $data['all_forms']=$this->M_User->GetAllFormsByPersonID($data['session']['id_person']);
+                if($data['session']['id_person']!='')
+                    $data['all_forms']=$this->M_User->GetAllFormsByPersonID($data['session']['id_person']);
+                else
+                    $data['all_forms'] = '';
             }
             elseif($data['session']['rol']=='patient')
             {
-                $this->load->model('M_Client');
-                $data['client']=$this->M_Client->GetClientByPersonID($data['session']['id_person']);
+                if($data['session']['id_person']!='')
+                {
+                    $this->load->model('M_Client');
+                    $data['client'] = $this->M_Client->GetClientByPersonID($data['session']['id_person']);
+                }
+                else
+                    $data['client'] = '';
             }
 
             $this->load->view($view, $data);

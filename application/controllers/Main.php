@@ -76,24 +76,34 @@ class Main extends CI_Controller
 
             if($data_type==='data_account')
             {
-                $id_user=$this->input->post('id_user');
+                $result['id_user']=$this->input->post('id_user');
 
-                if($id_user=='')
-                    $id_user=$data['session']['id_user'];
-
-                $this->load->model('M_User');
-                $result['user']=$this->M_User->GetAccountUserByUserID($id_user);
+                if($result['id_user']!='')
+                {
+                    $this->load->model('M_User');
+                    $result['user'] = $this->M_User->GetAccountUserByUserID($result['id_user']);
+                }
+                else
+                {
+                    $result['role']=$this->input->post('role');//print ' roleeee '.$result['role'];
+                    $result['user']='';
+                }
             }
             elseif($data_type==='data_profile')
             {
                 $result['id_user']=$this->input->post('id_user');
 
-                if($result['id_user']=='')
-                    $result['id_user']=$data['session']['id_user'];
-
-                $this->load->model('M_User');
-                $result['role']=$this->M_User->GetRoleByUserID($result['id_user']);
-                $result['profile']=$this->M_User->GetProfileUserByUserID($result['id_user']);
+                if($result['id_user']!='')
+                {
+                    $this->load->model('M_User');
+                    $result['role'] = $this->M_User->GetRoleByUserID($result['id_user']);
+                    $result['profile'] = $this->M_User->GetProfileUserByUserID($result['id_user']);
+                }
+                else
+                {
+                    $result['role']=$this->input->post('role');
+                    $result['profile']='';
+                }
             }
 			elseif($data_type==='data_employment')
             {
@@ -318,35 +328,6 @@ class Main extends CI_Controller
         }
     }
 
-    function GoUpdateEmployee()
-    {
-        if($this->session->userdata('logged_user_ehhs'))
-        {
-            $this->load->helper('General_Helper');
-            $data['session'] = GetSessionVars();//die();
-            $data['language'] = LoadLanguage();
-            $data['profile_type'] = ProfileType($data['session']);
-
-            $data['go_view'] = str_replace("-","/", $this->input->post('go_view'));
-            $data['go_back'] = $this->input->post('go_back');
-
-            $vars = explode("-", $this->input->post('id'));
-            $data['id_user']=$vars[0];
-            $data['id_person']=$vars[1];
-
-            $this->load->model('M_User');
-            $data['all_forms']=$this->M_User->GetAllFormsByPersonID($data['id_person']);
-            $data['role']=$this->M_User->GetRoleByUserID($data['id_user']);
-
-            if ($data['go_view'] != '')
-                $this->load->view($data['go_view'], $data);
-        }
-        else
-        {
-            print 'NO_LOGGED';
-        }
-    }
-
     function GoObject1111111()
     {
         $data['ctr']=$this->input->get('c');
@@ -425,12 +406,14 @@ class Main extends CI_Controller
     {
         if($this->session->userdata('logged_user_ehhs'))
         {
-            $tables = $this->input->post('go_table');
+            $tables = $this->input->post('table');
+            $field_ids = $this->input->post('field_id');
             $data['ids'] = $this->input->post('id');
 
             //print 'lays: '.$tables.' ids: '.$data['ids'].' ctr_function: '.$ctr_function;die();
 
             $var = explode("-", $tables);
+            $var1 = explode("-", $field_ids);
 
             if(sizeof($var) != 0)
             {
@@ -438,30 +421,29 @@ class Main extends CI_Controller
 
                 for($i=0;$i<$cant; next($var), $i++)
                 {
-                    $table = current($var);//print $table.' - ';die();
+                    $table = current($var);
+                    $field_id = current($var1);
 
                     if (isset($data['ids']))
                     {
 
-                        $result=$this->M_Main->Execute('DELETE', '', $data, $table);
+                        $result=$this->M_Main->Execute('DELETE', '', $data, $table, $field_id);
                         print $result['error_msg'];
                     }
                     else
                     {
-                        print '01';
-                        //$this->index($ctr_function, '','', 'You have to delete something. The ID is empty.');
+                        print 'EMPTY_ID';
                     }
                 }
             }
             else
             {
-                print '02';
-                //$this->index($ctr_function, '','', 'You have to delete something. The table is empty.');
+                print 'EMPTY_TABLE';
             }
         }
         else
         {
-            print 1;
+            print 'NO_LOGGED';
         }
     }
 

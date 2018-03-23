@@ -6,6 +6,16 @@
                 <legend class="mylegend">List Patient</legend>
 
                     <section class="col col-12" style="padding: 10px;">
+                        <div class="col col-12">
+                            <div class="col col-6 pull-left" id=""></div>
+                            <div class="col col-6 pull-right">
+                                <div id="other_btn" style="display: inline-block;">
+                                    <a class="btn btn-primary" id='btn_insert'><span>Add</span></a>
+                                    <a class="btn btn-primary" id='btn_update'><span>Edit</span></a>
+                                    <a class="btn btn-primary" id='btn_delete'><span>Delete</span></a>
+                                </div>
+                            </div>
+                        </div>
                         <table id="data_table_client" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
                     </section>
 
@@ -54,9 +64,6 @@
                 {
                     jQuery('#data_table_client').html(response);
                     var datatable_Client=DataTable_Client();
-                    //var other_btn=jQuery('#other_btn').html();
-                    //jQuery('.dt-buttons').append(other_btn);
-                    //jQuery('#other_btn').html('');
                     spinner.stop();
                 }
             });

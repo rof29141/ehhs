@@ -65,7 +65,7 @@ ini_set('memory_limit', '2048M');
         });
     }
 
-    function DeleteContent(go_function, go_table, id)
+    function DeleteContent(go_function, table, field_id, id)
     {
         jQuery( '.main-view' ).empty();
         var target = document.getElementById('container');
@@ -75,14 +75,14 @@ ini_set('memory_limit', '2048M');
             type: "POST",
             dataType: "html",
             url: go_function,
-            data:{go_table:go_table, id:id}
+            data:{table:table, field_id:field_id, id:id}
         }).done(function(response, textStatus, jqXHR)
         {
             if(response!='NO_LOGGED')
             {
                 if(response=='0'){alertify.success('Element deleted.');}
-                else if(response=='01'){alertify.warning('You have to delete something. The ID is empty.');}
-                else if(response=='02'){alertify.warning('You have to delete something. The table is empty.');}
+                else if(response=='EMPTY_ID'){alertify.warning('You have to delete something. The ID is empty.');}
+                else if(response=='EMPTY_TABLE'){alertify.warning('You have to delete something. The table is empty.');}
                 else {alertify.error('Error: The element could not be deleted. '+ response);}
                 spinner.stop();
                 LoadContent(jQuery('#view').val());
