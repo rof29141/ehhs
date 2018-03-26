@@ -30,22 +30,22 @@ var Datepicker = function () {
             });
 	        
 	        // Date range
-	        jQuery('#start').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	        jQuery('#start_date').datepicker({
+	            dateFormat: 'mm/dd/yy',
 	            prevText: '<i class="fa fa-angle-left"></i>',
 	            nextText: '<i class="fa fa-angle-right"></i>',
 	            onSelect: function( selectedDate )
 	            {
-	                jQuery('#finish').datepicker('option', 'minDate', selectedDate);
+	                jQuery('#end_date').datepicker('option', 'minDate', selectedDate);
 	            }
 	        });
-	        jQuery('#finish').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	        jQuery('#end_date').datepicker({
+	            dateFormat: 'mm/dd/yy',
 	            prevText: '<i class="fa fa-angle-left"></i>',
 	            nextText: '<i class="fa fa-angle-right"></i>',
 	            onSelect: function( selectedDate )
 	            {
-	                jQuery('#start').datepicker('option', 'maxDate', selectedDate);
+	                jQuery('#start_date').datepicker('option', 'maxDate', selectedDate);
 	            }
 	        });
 	        

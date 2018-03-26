@@ -43,6 +43,7 @@ if(isset($data['client']['data']))
 
                 <?php if(isset($row->id_user)){?>
                     <img class="photo_person_row" src="<?php print base_url('/assets/upload/person_photo/photo_'.$row->id_person.'.jpg');?>" alt="<?php if(isset($row->first_name)) print $row->first_name;?>" />
+                    <script>ShowPhoto(<?php print $row->id_person;?>);</script>
                 <?php }else{?>
                     <img class="photo_person_row" src="<?php print base_url('/assets/images/male.png');?>" alt="" />
                 <?php }?>

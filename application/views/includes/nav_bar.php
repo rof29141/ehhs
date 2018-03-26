@@ -62,8 +62,8 @@
                 {
                     ?>
                     <li class="">
-                        <a onclick="LoadContent('Form1')" class="dropdown-toggle" data-toggle="dropdown">
-                            Form 1
+                        <a onclick="LoadContent('Care/GoAddCare')" class="dropdown-toggle" data-toggle="dropdown">
+                            Care Schedule
                         </a>
                     </li>
                 <?php }?>

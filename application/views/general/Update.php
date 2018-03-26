@@ -43,7 +43,7 @@
 
                 <ul class="nav nav-tabs bordered" id="myTab1">
                     <li id="tab1" class="active"><a data-toggle="tab" href="#s1">Account</a></li>
-                    <li id="tab2"><a data-toggle="tab" href="#s2">Personal</a></li>
+                    <li id="tab2" <?php if(!isset($id_user)){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s2">Personal</a></li>
                     <?php if($role=='worker'){?><li id="tab3" <?php if($employment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Employment</a></li><?php }?>
                     <?php if($role=='worker'){?><li id="tab4" <?php if($probation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s4">Acknowledgment</a></li><?php }?>
                     <?php if($role=='worker'){?><li id="tab5" <?php if($statement==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s5">Statement</a></li><?php }?>
@@ -328,16 +328,21 @@
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
 
+            var view_url='user/InputsUpdateAccount';
+
+            if('<?php if(isset($id_user))print $id_user;?>'=='')
+            var view_url='user/InputsInsertAccount';
+
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_account',view_url:'user/InputsUpdateAccount',id_user:"<?php if(isset($id_user))print $id_user;?>",role:"<?php if(isset($role))print $role;?>"}
+                data: {data_type:'data_account',view_url:view_url,id_user:"<?php if(isset($id_user))print $id_user;?>",role:"<?php if(isset($role))print $role;?>"}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
                     jQuery('#data_account').html(response);
-                    LoadDataProfile();
+                    if('<?php if(isset($id_user)) echo $id_user?>'!='')LoadDataProfile();
                     spinner.stop();
                 }
             });

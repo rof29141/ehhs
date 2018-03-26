@@ -107,6 +107,7 @@
                 {
                     if(jQuery.isNumeric(response) && response>0)
                     {
+                        jQuery('#id_client').val(response)
                         RebuildHeader();
                         alertify.success('Data Saved.');
 

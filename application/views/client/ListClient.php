@@ -26,6 +26,15 @@
 
 <script type="text/javascript">
 
+    function ShowPhoto(id_person='')
+    {//alert(id_person);
+        d = new Date();
+        if(id_person!='')
+        {//alert("<?php print base_url('/assets/upload/person_photo/photo_');?>"+id_person+".jpg?"+d.getTime());
+            jQuery("#photo_person_row_"+id_person).attr("src", "<?php print base_url('/assets/upload/person_photo/photo_');?>"+id_person+".jpg?"+d.getTime());
+        }
+    }
+
     jQuery(document).ready(function()
     {
         Load();

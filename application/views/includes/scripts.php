@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="<?php print ASSETS_URL; ?>/unify/plugins/revolution_slider/rs-plugin/css/settings.css">
 <link rel="stylesheet" href="<?php print ASSETS_URL; ?>/unify/plugins/owl-carousel/owl-carousel/owl.carousel.css">
 
+<link rel="stylesheet" href="<?php print ASSETS_URL; ?>/css/timepicker.css">
+
 <!-- CSS Theme -->
 <link rel="stylesheet" href="<?php print ASSETS_URL; ?>/unify/css/themes/blue.css" id="style_color">
 <link rel="stylesheet" href="<?php print ASSETS_URL; ?>/unify/css/themes/headers/default.css" id="style_color-header-1">
@@ -48,6 +50,8 @@
 <script type="text/javascript" src="<?php print ASSETS_URL; ?>/unify/js/plugins/owl-carousel.js"></script>
 <script type="text/javascript" src="<?php print ASSETS_URL; ?>/unify/js/plugins/masking.js"></script>
 <script type="text/javascript" src="<?php print ASSETS_URL; ?>/unify/js/plugins/datepicker.js"></script>
+<script type="text/javascript" src="<?php print ASSETS_URL; ?>/js/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="<?php print ASSETS_URL; ?>/js/timepicker.js"></script>
 
 
 

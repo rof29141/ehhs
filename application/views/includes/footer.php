@@ -114,8 +114,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <p style='font-size:10px;'>
-                        Esperanza Home Health Service Inc. | 2018
-                        <!--<a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>-->
+                        Esperanza Home Health Service Inc. - 2018 | Powered By<a href="mailto:rof29141@hotmail.com">RO</a><!-- | <a href="#">Terms of Service</a>-->
                     </p>
                 </div>
                 

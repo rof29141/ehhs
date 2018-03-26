@@ -145,17 +145,17 @@ if($slider==1)
                          data-y="260"
                          data-speed="1000"
                          data-start="3000"
-                         data-easing="easeOutExpo" data-end="9500" data-endspeed="300" data-endeasing="easeInSine">
-                        <span style="font-size:40px;">We are helping families since</span>
+                         data-easing="easeOutExpo" data-end="9500" data-endspeed="300">
+                        We are helping families
                     </div>
 
                     <div class="caption large_black_text sfb stb"
-						 data-x="700"
+						 data-x="640"
 						 data-y="320"
 						 data-speed="1000"
 						 data-start="3500"
-						 data-easing="easeOutExpo" data-end="10000" data-endspeed="300" data-endeasing="easeInSine">
-                        <span style="color:#3498db;font-size:48px;">2010</span>
+						 data-easing="easeOutExpo" data-end="10000" data-endspeed="300">
+                        since 2010
                     </div>
 
                     <!--<div class="caption randomrotate"
@@ -306,6 +306,23 @@ if($slider==1)
                          data-easing="easeOutExpo" data-end="8200" data-endspeed="300" data-endeasing="easeInSine">
                         $ 142
                     </div>-->
+                </li>
+
+
+                <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-delay="15000">
+
+                    <!-- THE MAIN IMAGE IN THE SECOND SLIDE -->
+                    <img width='100%' src="<?php print base_url('assets/images/slider/revolution/bg3.png'); ?>">
+
+                    <div class="caption large_black_text sfb"
+                         data-x="150"
+                         data-y="12"
+                         data-speed="500"
+                         data-start="800"
+                         data-easing="easeOutExpo">
+                        <?php print COMPANY;?>
+                    </div>
+
                 </li>
 
                 

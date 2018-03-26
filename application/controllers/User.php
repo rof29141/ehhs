@@ -53,10 +53,10 @@ class User extends CI_Controller
     {
 		if($this->session->userdata('logged_user_ehhs'))
         {
-            $i=0;
+            $i=0;$field_id='';
             foreach($_POST as $field_name => $value)
             {
-                if(substr($field_name,0,3)!='pk_' && $field_name!='table' && $field_name!='type' && $field_name!='sec1' && $field_name!='sec2' && $field_name!='sec3') {
+                if(substr($field_name,0,3)!='pk_' && $field_name!='table' && $field_name!='type' && $field_name!='sec1' && $field_name!='sec2' && $field_name!='sec3' && $field_name!='user' && $field_name!='email' && $field_name!='rol') {
                     $fields[$i] = $field_name;
                     $value = $this->security->xss_clean($value);
                     $value = html_escape($value);
@@ -65,7 +65,7 @@ class User extends CI_Controller
                     //$asignacion = "\$" . $field_name . "='" . $value . "';";
                     //eval($asignacion);
                 }
-                elseif($field_name=='sec1' || $field_name=='sec2' || $field_name=='sec3')
+                elseif($field_name=='sec1' || $field_name=='sec2' || $field_name=='sec3' || $field_name=='user' || $field_name=='email' || $field_name=='rol')
 				{
                     $fields[$i] = $field_name;
 					$datas[$field_name]=$value;
@@ -85,7 +85,12 @@ class User extends CI_Controller
 			$this->load->model('M_Main');
             $result=$this->M_Main->Execute($type, $fields, $datas, $table, $field_id);
 
-            print $result['error_msg'];
+            if(array_key_exists('last_id', $result['data']))
+            {
+                print $result['data']['last_id'];
+            }
+            else
+                print $result['error_msg'];
         }
         else
         {
@@ -100,7 +105,7 @@ class User extends CI_Controller
             $i=0;
             foreach($_POST as $field_name => $value)
             {
-                if(substr($field_name,0,3)!='pk_' && $field_name!='table' && $field_name!='type' && $field_name!='random')
+                if(substr($field_name,0,3)!='pk_' && $field_name!='table' && $field_name!='type' && $field_name!='random' && $field_name!='update_sessions')
 				{
                     $fields[$i] = $field_name;
 					$datas[$field_name]=$value;
@@ -137,8 +142,12 @@ class User extends CI_Controller
 					}else
 					$this->DeleteFile($random, 'photo_1.jpg', 'NO');
 
-                    $this->load->helper('General_Helper');
-                    UpdateSessionVars('id_person',$id);
+					$update_sessions=$this->input->post('update_sessions');
+					if($update_sessions=='')
+                    {
+                        $this->load->helper('General_Helper');
+                        UpdateSessionVars('id_person', $id);
+                    }
 
 					print $id;
 				}

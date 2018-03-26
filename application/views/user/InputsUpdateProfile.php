@@ -249,6 +249,8 @@ else
                 var url = 'User/SaveProfile';
                 var data = array_inputs+'&table='+table+'&type='+type+'&pk_id_person='+id;
 
+                data = data + '&update_sessions=0';
+
 				var target = document.getElementById('container');
 				var spinner = new Spinner(opts).spin(target);
 

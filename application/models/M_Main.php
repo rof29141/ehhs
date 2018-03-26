@@ -91,7 +91,7 @@ Class M_Main extends CI_Model
 				//$this->db->update($table, $update, array($field_id => $datas['id']));print $field_id.' - '.$datas['id'];
                 //echo $this->db->set($update, array($field_id => $datas['id']))->get_compiled_update($table);
 
-				$return=$this->Result(0, 0);
+				$return=$this->Result(0, 0,array());
 			//}
 			//else
 				//$return=$this->Result(1, 'The record does not exist.');

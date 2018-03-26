@@ -8,14 +8,14 @@
 			<label class="input">
 				<label>Username</label>
 				<input type="text" name="user" id="user" class="form-control required" <?php if(!isset($data['user']['data']->user) || $data['user']['data']->user!='')print 'disabled';?> value="<?php if(isset($data['user']['data']->user)) print $data['user']['data']->user;?>" />
-				<input type="hidden" name="id" id="id" class="form-control required"  value="<?php if(isset($data['user']['data']->id_user)) print $data['user']['data']->id_user;?>" />
+				<input type="hidden" name="id_user" id="id_user" class="form-control required"  value="<?php if(isset($data['user']['data']->id_user)) print $data['user']['data']->id_user;?>" />
 			</label>
 		</section>
 		
 		<section class="col col-6">
 			<label class="input">
 				<label>Email address</label>
-				<input type="email" name="email" id="email" class="form-control required" disabled value="<?php if(isset($data['user']['data']->email)) print $data['user']['data']->email;?>" />
+				<input type="text" name="email" id="email" class="form-control required" disabled value="<?php if(isset($data['user']['data']->email)) print $data['user']['data']->email;?>" />
 			</label>
 		</section>
 	</div>
@@ -152,84 +152,88 @@
 
         jQuery("#frm").validate(
         {
-            rules : {
-                email : {required : true,email : true},
-                user : {required : true},
+            rules: {
+                email: {required: true, email: true},
+                user: {required: true},
                 txt_pass1: {equalTo: "#txt_pass"}
             },
 
-            messages : {
-				email : {required : 'Please enter your Email address.', email : 'Please enter a VALID Email address'},
-                user : {required : 'Please enter a Username'},
-                txt_pass1: {equalTo : 'Please insert the same password'}
+            messages: {
+                email: {
+                    required: 'Please enter your Email address.',
+                    email: 'Please enter a VALID Email address'
+                },
+                user: {required: 'Please enter a Username'},
+                txt_pass1: {equalTo: 'Please insert the same password'}
             },
 
             // Do not change code below
-            errorPlacement : function(error, element) {
+            errorPlacement: function (error, element) {
                 error.insertAfter(element.parent());
             }
         });
 
+
         jQuery('#btn_save_account').on('click', function (e)
         {
-            if(jQuery('#frm').valid())
-            {
-                SaveUser();
-            }
+            SaveUser();
         });
 
-       
+
         function SaveUser()
         {
-            var id=jQuery('#id').val();
+            var id_user=jQuery('#id_user').val();
             var pass=jQuery('#txt_pass').val();
             var pass1=jQuery('#txt_pass').val();
-			
+
             var sec1=jQuery('#sec1').val();
             var sec2=jQuery('#sec2').val();
             var sec3=jQuery('#sec3').val();
-			
+
 			var ans1=jQuery('#ans1').val();
             var ans2=jQuery('#ans2').val();
             var ans3=jQuery('#ans3').val();
-			
-			if(pass!='' || pass1!='' || ans1!='' || ans2!='' || ans3!='')
-            {
-                var data='';
-				
-				if(pass!='')data = 'pass='+pass;
-				
-                if(sec1!='')data = data+'&sec1='+sec1;
-                if(sec2!='')data = data+'&sec2='+sec2;
-                if(sec3!='')data = data+'&sec3='+sec3;
-				
-				if(ans1!='')data = data+'&ans1='+ans1;
-                if(ans2!='')data = data+'&ans2='+ans2;
-                if(ans3!='')data = data+'&ans3='+ans3;
-				
-				data = data+'&type=UPDATE&table=user'+'&pk_id_user='+id;
-				
-                jQuery.ajax({
-                    type: "POST",
-                    dataType: "html",
-                    url: 'User/SaveAccount',
-                    data: data
-                }).done(function (response, textStatus, jqXHR) {
-                    if (response == '0')
-                    {
-                        alertify.success('Data saved.');
-                    }
-					else
-						alertify.error('Something is wrong: '+response);
-                }).fail(function (jqHTR, textStatus, thrown) {
-                    alertify.error('Something is wrong with AJAX:' + textStatus);
-                });
-            }
 
-            jQuery('#tab2').show().tab('show');
-            jQuery('#s1').removeClass('active').addClass('fade');
-            jQuery('#s2').removeClass('fade').addClass('active');
-            goToByScroll('tab2');
+            var data='';
+
+            if(pass!='')data = 'pass='+pass;
+
+            if(sec1!='')data = data+'&sec1='+sec1;
+            if(sec2!='')data = data+'&sec2='+sec2;
+            if(sec3!='')data = data+'&sec3='+sec3;
+
+            if(ans1!='')data = data+'&ans1='+ans1;
+            if(ans2!='')data = data+'&ans2='+ans2;
+            if(ans3!='')data = data+'&ans3='+ans3;
+
+            if(jQuery('#frm').valid())
+            {
+                if (pass != '' || pass1 != '' || ans1 != '' || ans2 != '' || ans3 != '') {
+                    data = data + '&type=UPDATE&table=user' + '&pk_id_user=' + id_user;
+
+                    jQuery.ajax({
+                        type: "POST",
+                        dataType: "html",
+                        url: 'User/SaveAccount',
+                        data: data
+                    }).done(function (response, textStatus, jqXHR) {
+                        if (response == '0') {
+                            alertify.success('Data saved.');
+
+
+                        }
+                        else
+                            alertify.error('Something is wrong: ' + response);
+                    }).fail(function (jqHTR, textStatus, thrown) {
+                        alertify.error('Something is wrong with AJAX:' + textStatus);
+                    });
+                }
+
+                jQuery('#tab2').show().tab('show');
+                jQuery('#s1').removeClass('active').addClass('fade');
+                jQuery('#s2').removeClass('fade').addClass('active');
+                goToByScroll('tab2');
+            }
         }
     });
 </script>

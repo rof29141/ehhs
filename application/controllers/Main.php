@@ -290,20 +290,13 @@ class Main extends CI_Controller
         $data['error']=$error;
         $data['view']=str_replace("-","/",$view);
 
-        if($this->session->userdata('logged_user_ehhs'))
-        {
-            $this->load->helper('General_Helper');
-            $data['session'] = GetSessionVars();//die();
-            $data['language'] = LoadLanguage();
-            $data['profile_type'] = ProfileType($data['session']);
+        $this->load->helper('General_Helper');
+        $data['session'] = GetSessionVars();//die();
+        $data['language'] = LoadLanguage();
+        $data['profile_type'] = ProfileType($data['session']);
 
-            if ($data['view'] != '')
-                $this->load->view($data['view']);
-        }
-        else
-        {
-            print 'NO_LOGGED';
-        }
+        if ($data['view'] != '')
+            $this->load->view($data['view']);
     }
 
     function GoObject()
