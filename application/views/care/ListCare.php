@@ -3,21 +3,20 @@
 
         <div class="col-lg-12">
             <fieldset class="myfieldset">
-                <legend class="mylegend">List Patient</legend>
+                <legend class="mylegend">List Care Scheduled</legend>
 
                     <section class="col col-12" style="padding: 10px;">
                         <div class="col col-12">
                             <div class="col col-6 pull-left" id=""></div>
                             <div class="col col-6 pull-right">
                                 <div id="other_btn" style="display: inline-block;">
-                                    <a class="btn btn-primary" onclick="LoadContent('Care/GoAddCare');"><span>Add Care Schedule</span></a>
-                                    <a class="btn btn-primary" id='btn_insert'><span>Add</span></a>
-                                    <a class="btn btn-primary" id='btn_update'><span>Edit</span></a>
-                                    <a class="btn btn-primary" id='btn_delete'><span>Delete</span></a>
+                                    <a class="btn btn-primary" id='btn_insert' onclick="LoadContent('Care/GoAddCare');"><span>Add</span></a>
+                                    <a class="btn btn-primary" id='btn_disable'><span>Approve</span></a>
+                                    <a class="btn btn-primary" id='btn_disable'><span>Reject</span></a>
                                 </div>
                             </div>
                         </div>
-                        <table id="data_table_client" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
+                        <table id="data_table_care" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
                     </section>
 
             </fieldset>
@@ -42,12 +41,12 @@
 
         function Load()
         {
-            LoadDataTable_Client();
+            LoadDataTable_Care();
         }
 
-        function DataTable_Client()
+        function DataTable_Care()
         {
-            var data_table_client=jQuery('#data_table_client').DataTable(
+            var data_table_care=jQuery('#data_table_care').DataTable(
                 {
                     dom:
                     "<'col-xs-12 col-sm-12 col-md-3 col-lg-3'f>" +
@@ -56,10 +55,10 @@
                     "scrollX": true
                 });
 
-            return data_table_client;
+            return data_table_care;
         }
 
-        function LoadDataTable_Client()
+        function LoadDataTable_Care()
         {
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
@@ -67,13 +66,13 @@
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_list_client',view_url:'client/DataTableListClient'}
+                data: {data_type:'data_list_care',view_url:'care/DataTableListCare', show_client:1}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
-                    jQuery('#data_table_client').html(response);
-                    var datatable_Client=DataTable_Client();
+                    jQuery('#data_table_care').html(response);
+                    var datatable_Care=DataTable_Care();
                     spinner.stop();
                 }
             });

@@ -2,14 +2,15 @@
     <tr>
         <th style="width: 1%" class="text-center">#</th>
         <th style="width: 3%" class="text-center">&nbsp;</th>
-        <th style="width: 18%">Name</th>
-        <th style="width: 15%">Last Name</th>
+        <th style="width: 16%">Name</th>
+        <th style="width: 14%">Last Name</th>
         <th style="width: 10%" class="hidden-xs hidden-sm">Birth</th>
         <th style="width: 8%" class="hidden-xs hidden-sm">Gender</th>
         <th style="width: 15%">Email</th>
         <th style="width: 10%">Phone</th>
         <th style="width: 8%">Rol</th>
         <th style="text-align: center;">Active</th>
+        <th style="text-align: center;"></th>
         <th class="text-center" style="width: 2%"><input name='select_all' id='select_all' type='checkbox'></th>
     </tr>
 </thead>
@@ -32,7 +33,7 @@ if(isset($data['client']['data']))
         if($row->gender=='male')$gender='Male';
         if($row->gender=='female')$gender='Female';
 
-        if($row->status=='1')$status='<span class="fa fa-check"></span>';else $status='<span class="brankic-cancel2"></span>';
+        if($row->status=='1')$status='<span class="fa fa-check"></span>';else $status='<span class="fa fa-ban"></span>';
         ?>
 
 
@@ -57,6 +58,7 @@ if(isset($data['client']['data']))
             <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->cel;?></td>
             <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $role;?></td>
             <td class="row_update text-center" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $status;?></td>
+            <td class="text-center add_care" id="<?php print $row->id_client;?>" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><span class="fa fa-plus-circle"></span></td>
             <td class="text-center"><input name='cbx' type='checkbox' data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>" id="<?php print $row->id_client;?>" class="cbx_row"></td>
 
         </tr>
@@ -122,6 +124,29 @@ if(isset($data['client']['data']))
         var result=string.split('&');
 
         Update(result[0],result[1]);
+    });
+
+    jQuery('.add_care').on('click', function (e)
+    {
+        var id_client=jQuery(this).attr("id");
+
+        var target = document.getElementById('container');
+        var spinner = new Spinner(opts).spin(target);
+
+        jQuery.ajax({
+            type: "POST",
+            dataType: "html",
+            url: 'Care/GoAddCare',
+            data:{id_client:id_client}
+        }).done(function(response, textStatus, jqXHR)
+        {
+            jQuery('#main-view').html(response);
+            spinner.stop();
+
+        }).fail(function(jqHTR, textStatus, thrown)
+        {
+            alertify.error('Something is wrong with AJAX:' + textStatus);
+        });
     });
 
     jQuery('#btn_update').on('click', function (e)

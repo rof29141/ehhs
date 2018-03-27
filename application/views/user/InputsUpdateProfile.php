@@ -261,43 +261,39 @@ else
 					data:data
 				}).done(function(response, textStatus, jqXHR)
 				{
-					if(response!='1' && response!='')
-					{
-						if(jQuery.isNumeric(response))
-						{
-							jQuery('#id_person').val(response);
-							
-							jQuery('#files').hide('slow',function() {
-								jQuery('#files').html('');
-							});
-							if(jQuery('#id_person').val()=='')jQuery('#random').val('');else jQuery('#random').val('no');
-						
-							ShowPhoto(response);
-							RebuildHeader();
-							alertify.success('Data Saved.');
+                    if(jQuery.isNumeric(response))
+                    {
+                        jQuery('#id_person').val(response);
 
-                            if('<?php print $role;?>'=='worker')
-                            {
-                                LoadDataEmployment(jQuery('#id_person').val());
-                                jQuery('#tab3').show().tab('show');
-                                jQuery('#s2').removeClass('active').addClass('fade');
-                                jQuery('#s3').removeClass('fade').addClass('active');
-                                goToByScroll('tab3');
-                            }
-                            else if('<?php print $role;?>'=='patient')
-                            {
-                                LoadDataClientPreference(jQuery('#id_person').val());
-                                jQuery('#tab3').show().tab('show');
-                                jQuery('#s2').removeClass('active').addClass('fade');
-                                jQuery('#s3').removeClass('fade').addClass('active');
-                                goToByScroll('tab3');
-                            }
-						}
-						else{alertify.error('Error: The element could not be Saved. '+ response);}
-						spinner.stop();
-					}
-					//else
-						//window.location.replace("Authentication");
+                        jQuery('#files').hide('slow',function() {
+                            jQuery('#files').html('');
+                        });
+                        if(jQuery('#id_person').val()=='')jQuery('#random').val('');else jQuery('#random').val('no');
+
+                        ShowPhoto(response);
+                        RebuildHeader();
+                        alertify.success('Data Saved.');
+
+                        if('<?php print $role;?>'=='worker')
+                        {
+                            LoadDataEmployment(jQuery('#id_person').val());
+                            jQuery('#tab3').show().tab('show');
+                            jQuery('#s2').removeClass('active').addClass('fade');
+                            jQuery('#s3').removeClass('fade').addClass('active');
+                            goToByScroll('tab3');
+                        }
+                        else if('<?php print $role;?>'=='patient')
+                        {
+                            LoadDataClientPreference(jQuery('#id_person').val());
+                            jQuery('#tab3').show().tab('show');
+                            jQuery('#s2').removeClass('active').addClass('fade');
+                            jQuery('#s3').removeClass('fade').addClass('active');
+                            goToByScroll('tab3');
+                        }
+                    }
+                    else{alertify.error('Error: The element could not be Saved. '+ response);}
+                    spinner.stop();
+
 				}).fail(function(jqHTR, textStatus, thrown)
 				{
 					alertify.error('Something is wrong with AJAX:' + textStatus);

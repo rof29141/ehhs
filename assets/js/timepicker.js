@@ -10,9 +10,9 @@
         var defaults = {
             format_output: function(tim, mini, meri) {
                 if(settings.show_meridian){
-                    return tim + " : " + mini + " : " + meri;
+                    return tim + ":" + mini + " " + meri;
                 }else{
-                    return tim + " : " + mini;
+                    return tim + ":" + mini;
                 }
             },
             increase_direction: 'down',
@@ -39,11 +39,11 @@
 
             // developer can specify which arrow makes the numbers go up or down
             var top_arrow_button = (settings.increase_direction === 'up') ?
-                "<div class='prev action-prev'></div>" :
-                "<div class='prev action-next'></div>";
+                "<div class='prev_timepicker action-prev'></div>" :
+                "<div class='prev_timepicker action-next'></div>";
             var bottom_arrow_button = (settings.increase_direction === 'up') ?
-                "<div class='next action-next'></div>" :
-                "<div class='next action-prev'></div>";
+                "<div class='next_timepicker action-next'></div>" :
+                "<div class='next_timepicker action-prev'></div>";
 
             var new_ele = $(
                 "<div class='timepicker_wrap " + settings.custom_classes + "'>" +

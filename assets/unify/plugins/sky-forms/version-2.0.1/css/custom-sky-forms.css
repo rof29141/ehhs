@@ -3,12 +3,7 @@
 
 /*Sky-Forms
 ------------------------------------*/
-/**/
-/* defaults */
-/**/
-.sky-form {
-  box-shadow: none;
-}
+
 
 .sky-form header {
   color: inherit;
@@ -91,11 +86,11 @@
   border-color: #bbb;
 }
 .sky-form .toggle i:before {
-  background-color: #999;  
+  background-color: #d93912;
 }
 
 .sky-form .button {
-  background: #3498db;
+  background: #3498DB;
 }
 
 /**/
@@ -157,7 +152,7 @@
   border-color: #999;  
 }
 .sky-form .rating input:checked ~ label {
-  color: #72c02c; 
+  color: #2da5da;
 }
 
 /**/

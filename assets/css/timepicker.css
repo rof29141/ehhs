@@ -15,17 +15,17 @@ Author: senthil
 .time,
 .mins,
 .meridian {
-    width: 60px;
+    width: 50px;
     float: left;
-    margin: 0 10px;
+    margin: 0 3px;
     font-size: 20px;
     color: #2d2e2e;
     font-family: arial;
     font-weight: 700;
 }
 
-.prev,
-.next {
+.prev_timepicker,
+.next_timepicker {
     cursor: pointer;
     padding: 18px;
     width: 28%;
@@ -35,16 +35,16 @@ Author: senthil
     border-radius: 5px;
 }
 
-.prev:hover,
-.next:hover {
+.prev_timepicker:hover,
+.next_timepicker:hover {
     background-color: #ccc;
 }
 
-.next {
+.next_timepicker {
     background-position: 50% 150%;
 }
 
-.prev {
+.prev_timepicker {
     background-position: 50% -50%;
 }
 
@@ -53,7 +53,7 @@ Author: senthil
 }
 
 .timepicker_wrap {
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     z-index: 998;
     display: none;

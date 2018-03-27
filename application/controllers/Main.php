@@ -242,12 +242,23 @@ class Main extends CI_Controller
                 $result['client']=$this->M_Client->GetClientByPersonID($result['id_person']);
                 $result['approved_employee']=$this->M_Employee->GetAllApprovedWorkers();
             }
+            elseif($data_type==='data_list_care')
+            {
+                $result['id_client']=$this->input->post('id_client');
+                $result['show_client']=$this->input->post('show_client');
+
+                $this->load->model('M_Care');
+                if(isset($result['id_client']) && $result['id_client']!='')
+                    $result['care']=$this->M_Care->GetCareByClientID($result['id_client']);
+                else
+                    $result['care']=$this->M_Care->GetAllCares();
+            }
 
             return $result;
         }
         else
         {
-            print 1;
+            print 'NO_LOGGED';
         }
     }
 	
@@ -333,6 +344,8 @@ class Main extends CI_Controller
 
     function SaveObject()
     {
+        $field_id='';
+
         if($this->session->userdata('logged_user_ehhs'))
         {
             $i=0;

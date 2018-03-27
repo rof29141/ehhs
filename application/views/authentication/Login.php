@@ -88,6 +88,7 @@
 						alertify.success('Welcome, Session successfully started.');
                         jQuery('#div_auth').html('');
                         RebuildHeader();
+                        LoadContent('Dashboard/GoDashboard', 0, 'main-view');
                     }
 					else if(response=='WRONG_PASS') {
                         alertify.error('Wrong Password.');

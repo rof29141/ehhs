@@ -4,7 +4,7 @@
 
             <div class="row">
 
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-5">
                     <fieldset class="myfieldset">
                         <legend class="mylegend">Add Care Schedule</legend>
 
@@ -14,24 +14,24 @@
                                 <div class="row">
                                     <section class="col col-9">
                                         <label>Patient</label>
-                                            <select name="sel_client" id="sel_client" class="my_select2_client required_select" style="width: 100%;">
-                                                <option value="-1" selected></option>
-                                                <?php
-                                                if(isset($client['data']))
+                                        <select name="sel_client" id="sel_client" class="my_select2_client required_select" style="width: 100%;">
+                                            <option value="-1" selected></option>
+                                            <?php
+                                            if(isset($client['data']))
+                                            {
+                                                $i=0;
+
+                                                foreach ($client['data'] as $row)
                                                 {
-                                                    $i=0;
+                                                    ?>
 
-                                                    foreach ($client['data'] as $row)
-                                                    {
-                                                        ?>
+                                                    <option <?php if($row->id_client==$id_client)print 'selected';?> value="<?php print $row->id_client;?>" id="<?php print $row->id_client;?>" title="<?php print $row->id_person;?>"><?php print $row->first_name.' '.$row->second_name;?></option>
 
-                                                        <option id="<?php print $row->id_client;?>" title="<?php print $row->id_person;?>"><?php print $row->first_name.' '.$row->second_name;?></option>
-
-                                                        <?php
-                                                    }
+                                                    <?php
                                                 }
-                                                ?>
-                                            </select>
+                                            }
+                                            ?>
+                                        </select>
                                     </section>
                                     
                                     <section class="col col-3 text-center">
@@ -72,7 +72,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <section class="col col-6">
+                                    <section class="col col-7">
                                         <fieldset class="myfieldset" style="padding-top:0px;padding-bottom: 10px;">
                                             <legend class="mylegend" >Days of week</legend>
                                             <label class="toggle"><input type="checkbox" id="cbx_sunday" name="cbx_sunday" checked><i class="rounded-4x"></i>Sunday</label>
@@ -86,10 +86,10 @@
 
                                     </section>
 
-                                    <section class="col col-6">
+                                    <section class="col col-5">
                                         <label class="input">
                                             <label>Repeat every N weeks</label>
-                                            <input type="number" name="repeat" id="repeat" class="form-control required" value="1" min="1" max="10"/>
+                                            <input type="number" name="repeat_every_week" id="repeat_every_week" class="form-control required" value="1" min="1" max="10"/>
                                         </label>
                                     </section>
                                 </div>
@@ -99,6 +99,15 @@
                                 </div>
                             </div>
                         </form>
+
+                    </fieldset>
+                </div>
+
+                <div class="col-lg-7">
+                    <fieldset class="myfieldset">
+                        <legend class="mylegend">List Care Schedule</legend>
+
+                        <table id="data_table_care" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
 
                     </fieldset>
                 </div>
@@ -172,23 +181,55 @@
             templateSelection: ShowPhoto1
         });
 
+        jQuery('#sel_client').on('change', function()
+        {
+            var id_client=jQuery(this).val();
+            LoadTableCare(id_client);
+        });
+
+        if('<?php print $id_client;?>'!='')LoadTableCare(<?php print $id_client;?>);
+
+        function LoadTableCare(id_client='')
+        {
+            var target = document.getElementById('container');
+            var spinner = new Spinner(opts).spin(target);
+
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_list_care',view_url:'care/DataTableListCare', id_client:id_client}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_table_care').html(response);
+                    spinner.stop();
+                }
+            });
+        }
+
         jQuery('#btn_save_care').on('click', function (e)
         {
             if(jQuery('#frm').valid())
             {
                 var table='care_schedule';
-                var id=jQuery('#id_person').val();
+                var id_client=jQuery('#sel_client').val();
+                var start_time=jQuery('#start_time').val();
+                var end_time=jQuery('#end_time').val();
+                var start_date=jQuery('#start_date').val();
+                var end_date=jQuery('#end_date').val();
+                var repeat_every_week=jQuery('#repeat_every_week').val();
 
-                if(id=='')
-                    var type='INSERT';
-                else
-                    var type='UPDATE';
+                if(jQuery('#cbx_sunday').prop('checked'))var week_days='1';else var week_days='0';
+                if(jQuery('#cbx_monday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
+                if(jQuery('#cbx_tuesday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
+                if(jQuery('#cbx_wenesday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
+                if(jQuery('#cbx_thursday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
+                if(jQuery('#cbx_friday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
+                if(jQuery('#cbx_saturday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
 
-                var array_inputs=jQuery('#frm1').find('input[datafld!=ignore], select[datafld!=ignore]').serialize();
-                var url = 'User/SaveProfile';
-                var data = array_inputs+'&table='+table+'&type=INSERT';
-
-                data = data + '&update_sessions=0';
+                var url = 'Main/SaveObject';
+                var data = 'id_client='+id_client+'&start_time='+start_time+'&end_time='+end_time+'&start_date='+start_date+'&end_date='+end_date+'&repeat_every_week='+repeat_every_week+'&week_days='+week_days+'&table='+table+'&type=INSERT';
 
                 var target = document.getElementById('container');
                 var spinner = new Spinner(opts).spin(target);
@@ -200,43 +241,14 @@
                     data:data
                 }).done(function(response, textStatus, jqXHR)
                 {
-                    if(response!='1' && response!='')
+                    if(jQuery.isNumeric(response))
                     {
-                        if(jQuery.isNumeric(response))
-                        {
-                            jQuery('#id_person').val(response);
-
-                            jQuery('#files').hide('slow',function() {
-                                jQuery('#files').html('');
-                            });
-                            if(jQuery('#id_person').val()=='')jQuery('#random').val('');else jQuery('#random').val('no');
-
-                            ShowPhoto(response);
-                            RebuildHeader();
-                            alertify.success('Data Saved.');
-
-                            if('<?php print $role;?>'=='worker')
-                            {
-                                LoadDataEmployment(jQuery('#id_person').val());
-                                jQuery('#tab3').show().tab('show');
-                                jQuery('#s2').removeClass('active').addClass('fade');
-                                jQuery('#s3').removeClass('fade').addClass('active');
-                                goToByScroll('tab3');
-                            }
-                            else if('<?php print $role;?>'=='patient')
-                            {
-                                LoadDataClientPreference(jQuery('#id_person').val());
-                                jQuery('#tab3').show().tab('show');
-                                jQuery('#s2').removeClass('active').addClass('fade');
-                                jQuery('#s3').removeClass('fade').addClass('active');
-                                goToByScroll('tab3');
-                            }
-                        }
-                        else{alertify.error('Error: The element could not be Saved. '+ response);}
-                        spinner.stop();
+                        alertify.success('Data Saved.');
+                        LoadContent('Care/GoAddCare');
                     }
-                    //else
-                    //window.location.replace("Authentication");
+                    else{alertify.error('Error: The element could not be Saved. '+ response);}
+                    spinner.stop();
+
                 }).fail(function(jqHTR, textStatus, thrown)
                 {
                     alertify.error('Something is wrong with AJAX:' + textStatus);

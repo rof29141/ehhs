@@ -28,7 +28,7 @@
                 }
                 elseif ($session['rol']=='patient')
                 {
-                    if ($client['error_code'] == '0')
+                    if (isset($client['error_code']) && $client['error_code'] == '0')
                     {
                         if($client['data'][0]->id_client!='')$prefered = 1;
                     }

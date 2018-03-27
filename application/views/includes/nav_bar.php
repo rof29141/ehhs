@@ -50,21 +50,13 @@
                 if(isset($profile_type['profile_type']) && ($profile_type['profile_type']=='admin' || $profile_type['profile_type']=='asist'))
                 {
                     ?>
-                    <li class="">
+                    <li class="dropdown">
                         <a onclick="LoadContent('Main/GoView/client-ListClient')" class="dropdown-toggle" data-toggle="dropdown">
                             Clients
                         </a>
-                    </li>
-                <?php }?>
-
-                <?php
-                if(isset($profile_type['profile_type']) && ($profile_type['profile_type']=='admin' || $profile_type['profile_type']=='asist'))
-                {
-                    ?>
-                    <li class="">
-                        <a onclick="LoadContent('Care/GoAddCare')" class="dropdown-toggle" data-toggle="dropdown">
-                            Care Schedule
-                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a onclick="LoadContent('Main/GoView/care-ListCare')" class="dropdown-toggle" data-toggle="dropdown">Care Schedule</a></li>
+                        </ul>
                     </li>
                 <?php }?>
 
