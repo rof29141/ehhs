@@ -21,11 +21,16 @@ class Dashboard extends CI_Controller
         $data['language']=LoadLanguage();
         $data['profile_type']=ProfileType($data['session']);
 
-        /*$this->load->model('M_Main');
 
-        if ($data['session']['rol']=='employee')
-            $data['no_filled']=$this->M_Main->CkeckEmployee($data);
-        elseif ($data['session']['rol']=='patient')
+
+        if ($data['session']['rol']=='asist')
+        {
+            $this->load->model('M_Care');
+            $this->load->model('M_Employee');
+            $data['pending_care']=$this->M_Care->GetCareByApproved(0);
+            $data['pending_employee']=$this->M_Employee->GetWorkerByApproved(0);//var_dump($data['pending_employee']);
+        }
+        /*elseif ($data['session']['rol']=='patient')
             $data['no_filled']=$this->M_Main->CkeckClient($data);
         else
             $data['no_filled']=$this->M_Main->CkeckProfile($data);*/

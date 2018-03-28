@@ -240,7 +240,7 @@ class Main extends CI_Controller
                 $this->load->model('M_Client');
                 $this->load->model('M_Employee');
                 $result['client']=$this->M_Client->GetClientByPersonID($result['id_person']);
-                $result['approved_employee']=$this->M_Employee->GetAllApprovedWorkers();
+                $result['approved_employee']=$this->M_Employee->GetWorkerByApproved(1);
             }
             elseif($data_type==='data_list_care')
             {

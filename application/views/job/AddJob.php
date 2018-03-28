@@ -6,26 +6,26 @@
 
                 <div class="col-lg-5">
                     <fieldset class="myfieldset">
-                        <legend class="mylegend">Add Care Schedule</legend>
+                        <legend class="mylegend">Assign Job to Employee</legend>
 
                         <form class='sky-form validatable' role='form' name='frm' id='frm' action="">
                             <div class="col-sm-12">
 
                                 <div class="row">
                                     <section class="col col-9">
-                                        <label>Patient</label>
-                                        <select name="sel_client" id="sel_client" class="my_select2_client required_select" style="width: 100%;">
+                                        <label>Employee</label>
+                                        <select name="sel_employee" id="sel_employee" class="my_select2_employee required_select" style="width: 100%;">
                                             <option value="-1" selected></option>
                                             <?php
-                                            if(isset($client['data']))
+                                            if(isset($worker['data']))
                                             {
                                                 $i=0;
 
-                                                foreach ($client['data'] as $row)
+                                                foreach ($worker['data'] as $row)
                                                 {
                                                     ?>
 
-                                                    <option <?php if($row->id_client==$id_client)print 'selected';?> value="<?php print $row->id_client;?>" id="<?php print $row->id_client;?>" title="<?php print $row->id_person;?>"><?php print $row->first_name.' '.$row->second_name;?></option>
+                                                    <option <?php if($row->id_employee==$id_employee)print 'selected';?> value="<?php print $row->id_employee;?>" id="<?php print $row->id_employee;?>" title="<?php print $row->id_person;?>"><?php print $row->first_name.' '.$row->second_name;?></option>
 
                                                     <?php
                                                 }
@@ -35,63 +35,14 @@
                                     </section>
                                     
                                     <section class="col col-3 text-center">
-                                        <div id=client_pic></div>
+                                        <div id=employee_pic></div>
                                     </section>
                                 </div>
 
                                 <div class="row">
-                                    <section class="col col-6">
-                                        <label class="input">
-                                            <label>Start Time</label>
-                                            <input placeholder="Enter the Start Time"type="text" name="start_time" id="start_time" class="form-control required" data-autoclose="true"/>
-                                        </label>
-                                    </section>
-
-                                    <section class="col col-6">
-                                        <label class="input">
-                                            <label>End Time</label>
-                                            <input placeholder="Enter the End Time" type="text" name="end_time" id="end_time" class="form-control required" data-autoclose="true"/>
-                                        </label>
-                                    </section>
-                                </div>
-
-                                <div class="row">
-                                    <section class="col col-6">
-                                        <label class="input">
-                                            <label>Start Date</label>
-                                            <input placeholder="Enter the Start Date"type="text" name="start_date" id="start_date" class="form-control required"/>
-                                        </label>
-                                    </section>
-
-                                    <section class="col col-6">
-                                        <label class="input">
-                                            <label>End Date</label>
-                                            <input placeholder="Enter the End Date" type="text" name="end_date" id="end_date" class="form-control required"/>
-                                        </label>
-                                    </section>
-                                </div>
-
-                                <div class="row">
-                                    <section class="col col-7">
-                                        <fieldset class="myfieldset" style="padding-top:0px;padding-bottom: 10px;">
-                                            <legend class="mylegend" >Days of week</legend>
-                                            <label class="toggle"><input type="checkbox" id="cbx_sunday" name="cbx_sunday" checked><i class="rounded-4x"></i>Sunday</label>
-                                            <label class="toggle"><input type="checkbox" id="cbx_monday" name="cbx_monday" checked><i class="rounded-4x"></i>Monday</label>
-                                            <label class="toggle"><input type="checkbox" id="cbx_tuesday" name="cbx_tuesday" checked><i class="rounded-4x"></i>Tuesday</label>
-                                            <label class="toggle"><input type="checkbox" id="cbx_wenesday" name="cbx_wenesday" checked><i class="rounded-4x"></i>Wesnesday</label>
-                                            <label class="toggle"><input type="checkbox" id="cbx_thursday" name="cbx_thursday" checked><i class="rounded-4x"></i>Thursday</label>
-                                            <label class="toggle"><input type="checkbox" id="cbx_friday" name="cbx_friday" checked><i class="rounded-4x"></i>Friday</label>
-                                            <label class="toggle"><input type="checkbox" id="cbx_saturday" name="cbx_saturday" checked><i class="rounded-4x"></i>Saturday</label>
-                                        </fieldset>
-
-                                    </section>
-
-                                    <section class="col col-5">
-                                        <label class="input">
-                                            <label>Repeat every N weeks</label>
-                                            <input type="number" name="repeat_every_week" id="repeat_every_week" class="form-control required" value="1" min="1" max="10"/>
-                                        </label>
-                                    </section>
+                                    <table id="data_table_care" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%">
+                                        <?php require APPPATH.'views/care/DataTableListCare.php';?>
+                                    </table>
                                 </div>
 
                                 <div class="form-group pull-right">
@@ -105,9 +56,9 @@
 
                 <div class="col-lg-7">
                     <fieldset class="myfieldset">
-                        <legend class="mylegend">List Care Schedule</legend>
+                        <legend class="mylegend">List Assigned Jobs</legend>
 
-                        <table id="data_table_care" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
+                        <table id="data_table_job" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
 
                     </fieldset>
                 </div>
@@ -167,29 +118,29 @@
             var result= jQuery(
                 '<span>' + data.text + '</span>'
             );
-            if(data.title)jQuery('#client_pic').html('<img class="photo_person" src="<?php print base_url('/assets/upload/person_photo/photo_');?>'+data.title+'.jpg"/>');
-            else jQuery('#client_pic').html('<img class="photo_person" src="<?php print base_url('assets/images/male.png');?>"/>');
+            if(data.title)jQuery('#employee_pic').html('<img class="photo_person" src="<?php print base_url('/assets/upload/person_photo/photo_');?>'+data.title+'.jpg"/>');
+            else jQuery('#employee_pic').html('<img class="photo_person" src="<?php print base_url('assets/images/male.png');?>"/>');
             return result;
         };
 
-        jQuery(".my_select2_client").select2({
+        jQuery(".my_select2_employee").select2({
             placeholder: {
                 id: '-1', // the value of the option
-                text: 'Select a Patient'
+                text: 'Select an Employee'
             },
             templateResult: ShowPhoto,
             templateSelection: ShowPhoto1
         });
 
-        jQuery('#sel_client').on('change', function()
+        jQuery('#sel_employee').on('change', function()
         {
-            var id_client=jQuery(this).val();
-            LoadTableCare(id_client);
+            var id_employee=jQuery(this).val();
+            //LoadTableJob(id_employee);
         });
 
-        if('<?php print $id_client;?>'!='')LoadTableCare(<?php print $id_client;?>);
+        if('<?php print $id_employee;?>'!='')LoadTableCare(<?php print $id_employee;?>);
 
-        function LoadTableCare(id_client='')
+        function LoadTableJob(id_employee='')
         {
             var target = document.getElementById('container');
             var spinner = new Spinner(opts).spin(target);
@@ -197,12 +148,12 @@
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_list_care',view_url:'care/DataTableListCare', id_client:id_client}
+                data: {data_type:'data_list_job',view_url:'care/DataTableListJob', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
-                    jQuery('#data_table_care').html(response);
+                    jQuery('#data_table_job').html(response);
                     spinner.stop();
                 }
             });

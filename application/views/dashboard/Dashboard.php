@@ -8,9 +8,9 @@
         </div>
     </div>
 
-    <div class="clearfix margin-bottom-40"></div>
+    <div class="clearfix margin-bottom-20"></div>
 
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center" style="padding: 0px;">
         <?php //if($section_left_auth!='')require_once APPPATH.'views'.$section_left_auth;
 
 
@@ -34,15 +34,73 @@
             $badge = $fill_profile;
         }
 
-        print '<h4>'.$badge.'</h4>';
+        //print '<h4>'.$badge.'</h4>';
 
-        if($badge=='' && $session['rol']=='patient')
+        //if($badge=='' && $session['rol']=='patient')
 
+        if($badge!='')
+        {
+            ?>
+
+            <div class="col-md-12" style="padding: 0px;">
+                <div class="servive-block servive-block-default">
+                    <i class="icon-custom rounded-x icon-bg-dark fa fa-compress"></i>
+                    <h2 class="heading-md">Alerts</h2>
+                    <p><?php print $badge; ?></p>
+                </div>
+            </div>
+
+            <?php
+        }
+
+        if($session['rol']=='asist')
+        {
+            $total_pending_care=0;
+            $total_pending_employee=0;
+            if($pending_care['error_code']=='0')$total_pending_care=sizeof($pending_care['data']);
+            if($pending_employee['error_code']=='0')$total_pending_employee=sizeof($pending_employee['data']);
+            ?>
+            <a onclick="LoadContent('Main/GoView/care-ListCare')">
+                <div class="col-sm-6">
+                    <div class="servive-block servive-block-default" style="height: 150px;">
+                        <span class="badge badge-red" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
+                            <div class="count">
+                                <?php print $total_pending_care;?>
+                            </div>
+                        </span>
+                        <h3 class="heading-md" style="margin-top: 20px;margin-left: -10px;margin-right: -10px;">Pending Cares Schedule</h3>
+                    </div>
+                </div>
+            </a>
+
+            <a onclick="LoadContent('Main/GoView/employee-ListEmployee')">
+                <div class="col-sm-6">
+                    <div class="servive-block servive-block-default" style="height: 150px;">
+                        <span class="badge badge-red" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
+                            <div class="count">
+                                <?php print $total_pending_employee;?>
+                            </div>
+                        </span>
+                        <h3 class="heading-md" style="margin-top: 20px;margin-left: -10px;margin-right: -10px;">Pending Employees</h3>
+                    </div>
+                </div>
+            </a>
+            <?php
+        }
         ?>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="div_auth">
-        <?php if($session['section_auth']!='')require_once APPPATH.'views'.$session['section_auth'];?>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="div_auth" >
+        <?php
+            if($session['section_auth']!='')
+                require_once APPPATH.'views'.$session['section_auth'];
+            else
+            {
+                ?>
+                <iframe width="100%" height="150" src="https://www.youtube.com/embed/fjzxxhc1Agw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <?php
+            }
+        ?>
     </div>
 
     <!-- Service Blocks
@@ -109,29 +167,20 @@
      End Service Blokcs -->
 </div>
 
-
-
-
-    <!-- End Info Blokcs -->
-
-<!--/container-->
-<!-- End Content Part -->
-
-
 <script type="text/javascript">
-    
-	alertify.defaults.transition = "zoom";
-
-	var msg = '<?php if(isset($msg))print $msg;?>';
-	if (msg != '' && msg != null) alertify.message(msg);
-
-	var success = '<?php if(isset($success))print $success;?>';
-	if (success != '' && success != null) alertify.success(success);
-
-	var warning = '<?php if(isset($warning))print $warning;?>';
-	if (warning != '' && warning != null) alertify.alert(warning);
-
-	var error = '<?php if(isset($error))print $error;?>';
-	if (error != '' && error != null) alertify.error(error);
-    
+    jQuery(document).ready(function()
+    {
+        jQuery('.count').each(function ()
+        {
+            jQuery(this).prop('Counter',0).animate({
+                Counter: jQuery(this).text()
+            }, {
+                duration: 4000,
+                easing: 'swing',
+                step: function (now) {
+                    jQuery(this).text(Math.ceil(now));
+                }
+            });
+        });
+    });
 </script>

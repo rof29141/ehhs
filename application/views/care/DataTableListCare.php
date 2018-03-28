@@ -47,7 +47,7 @@ if(isset($data['care']['data']))
             }
         }
 
-        if($row->aproved=='1')$approve='<span class="fa fa-check"></span>';else $approve='<span class="fa fa-ban"></span>';
+        if($row->approved=='1')$approve='<span class="fa fa-check"></span>';else $approve='<span class="fa fa-ban"></span>';
         ?>
 
 
@@ -95,7 +95,17 @@ if(isset($data['care']['data']))
 
     });
 
-    jQuery('#btn_delete').on('click', function (e)
+    jQuery('#btn_approve').on('click', function (e)
+    {
+        ApproveRejectCare(1);
+    });
+
+    jQuery('#btn_reject').on('click', function (e)
+    {
+        ApproveRejectCare(0);
+    });
+
+    function ApproveRejectCare(approved)
     {
         var id='';
         jQuery('.cbx_row:checked').each(
@@ -110,16 +120,49 @@ if(isset($data['care']['data']))
 
         if(id!='')
         {
-            var go_function='Main/DeleteObject';
-            var table='client';
-            var field_id='id_client';
+            var url='Care/ApproveRejectCare';
+
+            var data =
+                {
+                    table:'care_schedule',
+                    type:'UPDATE',
+                    approved:approved,
+                    field_id:'id_care_schedule',
+                    id:id
+                };
 
             alertify.defaults.transition = "slide";
             alertify.defaults.theme.ok = "btn btn-success";
             alertify.defaults.theme.cancel = "btn btn-default";
             alertify.confirm("<h4>Do you confirm the action?</h4>", function (e)
             {
-                DeleteContent(go_function, table, field_id, id);
+                var target = document.getElementById('container');
+                var spinner = new Spinner(opts).spin(target);
+
+                jQuery.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: url,
+                    data:data
+                }).done(function(response, textStatus, jqXHR)
+                {
+                    if(response!='NO_LOGGED')
+                    {
+                        if(jQuery.isNumeric(response) && response>0)
+                        {
+                            alertify.success('Data Saved.');
+                            LoadContent('Main/GoView/care-ListCare');
+                        }
+                    }
+                    else if(response=='NO_LOGGED')
+                    {
+                        alertify.error("You don\'t have access.");
+                        window.location.replace("Main");
+                    }
+                }).fail(function(jqHTR, textStatus, thrown)
+                {
+                    alertify.error('Something is wrong with AJAX:' + textStatus);
+                });
             }
             ,function()
             {
@@ -128,5 +171,5 @@ if(isset($data['care']['data']))
         }
         else
             alertify.error('You have to select a row.');
-    });
+    }
 </script>

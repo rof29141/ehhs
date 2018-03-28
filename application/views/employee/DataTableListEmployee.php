@@ -3,16 +3,17 @@
     <tr>
         <th style="width: 1%" class="text-center">#</th>
         <th style="width: 3%" class="text-center">&nbsp;</th>
-        <th style="width: 18%">Name</th>
+        <th style="width: 15%">Name</th>
         <th style="width: 15%">Last Name</th>
         <th style="width: 10%" class="hidden-xs hidden-sm">Birth</th>
-        <th style="width: 8%" class="hidden-xs hidden-sm">Gender</th>
+        <th style="width: 5%" class="hidden-xs hidden-sm">Gender</th>
         <th style="width: 13%">Email</th>
         <th style="width: 8%">Phone</th>
         <th style="width: 8%">Rol</th>
+        <th style="width: 4%">%</th>
         <th style="text-align: center;">Active</th>
         <th style="text-align: center;">Approved</th>
-        <th class="text-center" style="width: 2%"><input name='select_all' id='select_all' type='checkbox'></th>
+        <th class="text-center" style="width: 1%"></th>
     </tr>
 </thead>
 
@@ -33,8 +34,15 @@ if(isset($data['employee']['data']))
         if($row->gender=='male')$gender='Male';
         if($row->gender=='female')$gender='Female';
 
-        if($row->status=='1')$status='<span class="fa fa-check"></span>';else $status='<span class="brankic-cancel2"></span>';
-        if($row->approved=='1')$approved='<span class="fa fa-check"></span>';else $status='<span class="brankic-cancel2"></span>';
+        if($row->status=='1')$status='<span class="fa fa-check"></span>';else $status='<span class="fa fa-ban"></span>';
+        if($row->approved=='1')$approved='<span class="fa fa-check"></span>';else $approved='<span class="fa fa-ban"></span>';
+
+        if($row->completed_percent==100)
+        {
+            $completed_percent='<span class="badge badge-green rounded-2x">'.$row->completed_percent.'</span>';
+        }
+        else
+            $completed_percent='<span class="badge badge-red rounded-2x">'.$row->completed_percent.'</span>';
         ?>
 
 
@@ -58,9 +66,10 @@ if(isset($data['employee']['data']))
             <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->email;?></td>
             <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->cel;?></td>
             <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $role;?></td>
+            <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $completed_percent;?></td>
             <td class="row_update text-center" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $status;?></td>
             <td class="row_update text-center" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $approved;?></td>
-            <td class="text-center"><input name='cbx' type='checkbox' data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?> class="cbx_row"></td>
+            <td class="text-center"><input name='cbx' type='checkbox' data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>" id='<?php print $row->id_employee;?>' class="cbx_row"></td>
 
         </tr>
 
@@ -91,6 +100,84 @@ if(isset($data['employee']['data']))
             var go_back=jQuery('#view').val();
 
             UpdateContent(go_function, go_view, go_back, id);
+        }
+        else
+            alertify.error('You have to select a row.');
+    }
+
+    jQuery('#btn_approve').on('click', function (e)
+    {
+        ApproveRejectEmployee(1);
+    });
+
+    jQuery('#btn_reject').on('click', function (e)
+    {
+        ApproveRejectEmployee(0);
+    });
+
+    function ApproveRejectEmployee(approved)
+    {
+        var id='';
+        jQuery('.cbx_row:checked').each(
+            function()
+            {
+                if(id=='')
+                    id = jQuery(this).attr('id');
+                else
+                    id = id + '-' + jQuery(this).attr('id');
+            }
+        );
+
+        if(id!='')
+        {
+            var url='Employee/ApproveRejectEmployee';
+
+            var data =
+            {
+                table:'employee',
+                type:'UPDATE',
+                approved:approved,
+                field_id:'id_employee',
+                id:id
+            };
+
+            alertify.defaults.transition = "slide";
+            alertify.defaults.theme.ok = "btn btn-success";
+            alertify.defaults.theme.cancel = "btn btn-default";
+            alertify.confirm("<h4>Do you confirm the action?</h4>", function (e)
+                {
+                    var target = document.getElementById('container');
+                    var spinner = new Spinner(opts).spin(target);
+
+                    jQuery.ajax({
+                        type: "POST",
+                        dataType: "html",
+                        url: url,
+                        data:data
+                    }).done(function(response, textStatus, jqXHR)
+                    {
+                        if(response!='NO_LOGGED')
+                        {
+                            if(jQuery.isNumeric(response) && response>0)
+                            {
+                                alertify.success('Data Saved.');
+                                LoadContent('Main/GoView/employee-ListEmployee');
+                            }
+                        }
+                        else if(response=='NO_LOGGED')
+                        {
+                            alertify.error("You don\'t have access.");
+                            window.location.replace("Main");
+                        }
+                    }).fail(function(jqHTR, textStatus, thrown)
+                    {
+                        alertify.error('Something is wrong with AJAX:' + textStatus);
+                    });
+                }
+                ,function()
+                {
+                    alertify.error('Declined.');
+                });
         }
         else
             alertify.error('You have to select a row.');

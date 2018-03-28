@@ -9,10 +9,10 @@
                         <div class="col col-12">
                             <div class="col col-6 pull-left" id=""></div>
                             <div class="col col-6 pull-right">
-                                <div id="other_btn" style="display: inline-block;">
+                                <div style="display: inline-block;margin: 15px;">
                                     <a class="btn btn-primary" id='btn_insert' onclick="LoadContent('Care/GoAddCare');"><span>Add</span></a>
-                                    <a class="btn btn-primary" id='btn_disable'><span>Approve</span></a>
-                                    <a class="btn btn-primary" id='btn_disable'><span>Reject</span></a>
+                                    <a class="btn btn-primary" id='btn_approve'><span>Approve</span></a>
+                                    <a class="btn btn-primary" id='btn_reject'><span>Reject</span></a>
                                 </div>
                             </div>
                         </div>

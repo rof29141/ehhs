@@ -6,6 +6,16 @@
                 <legend class="mylegend">List Employee</legend>
 
                     <section class="col col-12" style="padding: 10px;">
+                        <div class="col col-12">
+                            <div class="col col-6 pull-left" id=""></div>
+                            <div class="col col-6 pull-right">
+                                <div style="display: inline-block;margin: 15px;">
+                                    <!--<a class="btn btn-primary" id='btn_insert' onclick="LoadContent('Employee/GoAddCare');"><span>Add</span></a>-->
+                                    <a class="btn btn-primary" id='btn_approve'><span>Approve</span></a>
+                                    <a class="btn btn-primary" id='btn_reject'><span>Reject</span></a>
+                                </div>
+                            </div>
+                        </div>
                         <table id="data_table_employee" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
                     </section>
 

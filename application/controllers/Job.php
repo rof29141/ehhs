@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Care extends CI_Controller
+class Job extends CI_Controller
 {
     function __construct()
     {
@@ -8,7 +8,7 @@ class Care extends CI_Controller
         //$this->load->model('M_Employee');
     }
 
-    function GoAddCare()
+    function GoAddJob()
     {
         if($this->session->userdata('logged_user_ehhs'))
         {
@@ -17,13 +17,16 @@ class Care extends CI_Controller
             $data['language'] = LoadLanguage();
             $data['profile_type'] = ProfileType($data['session']);
 
-            $data['go_view'] = 'care/AddCare';
+            $data['go_view'] = 'job/AddJob';
             $data['go_back'] = $this->input->post('go_back');
 
-            $data['id_client']=$this->input->post('id_client');
+            $data['id_employee']=$this->input->post('id_employee');
 
-            $this->load->model('M_Client');
-            $data['client']=$this->M_Client->GetAllClients();
+            $this->load->model('M_Employee');
+            $this->load->model('M_Care');
+            $data['worker']=$this->M_Employee->GetAllWorkers();
+            $data['data']['care']=$this->M_Care->GetAvailableCare();//var_dump($data['available_job']);die();
+            $data['data']['show_client']=1;
 
             if ($data['go_view'] != '')
                 $this->load->view($data['go_view'], $data);

@@ -61,6 +61,17 @@
                 <?php }?>
 
                 <?php
+                if(isset($profile_type['profile_type']) && ($profile_type['profile_type']=='admin' || $profile_type['profile_type']=='asist'))
+                {
+                    ?>
+                    <li class="">
+                        <a onclick="LoadContent('Job/GoAddJob')" class="dropdown-toggle" data-toggle="dropdown">
+                            Jobs
+                        </a>
+                    </li>
+                <?php }?>
+
+                <?php
                 if(isset($profile_type['profile_type']) && ($profile_type['profile_type']=='admin' || $profile_type['profile_type']=='worker'))
                 {
                 ?>

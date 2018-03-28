@@ -9,7 +9,7 @@
                         <div class="col col-12">
                             <div class="col col-6 pull-left" id=""></div>
                             <div class="col col-6 pull-right">
-                                <div id="other_btn" style="display: inline-block;">
+                                <div style="display: inline-block;margin: 15px;">
                                     <a class="btn btn-primary" onclick="LoadContent('Care/GoAddCare');"><span>Add Care Schedule</span></a>
                                     <a class="btn btn-primary" id='btn_insert'><span>Add</span></a>
                                     <a class="btn btn-primary" id='btn_update'><span>Edit</span></a>
