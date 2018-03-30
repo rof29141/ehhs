@@ -3,16 +3,16 @@
         <?php if(isset($data['show_client']) && $data['show_client']!=''){?>
 
             <th style="width: 1%">#</th>
-            <th style="width: 3%"></th>
+            <th style="width: 2%"></th>
             <th style="width: 15%">Client</th>
 
         <?php }?>
-        <th style="width: 11%">Start Time</th>
-        <th style="width: 11%">End Time</th>
+        <th style="width: 12%">Start Time</th>
+        <th style="width: 12%">End Time</th>
         <th style="width: 11%">Start Date</th>
         <th style="width: 11%">End Date</th>
         <th style="">Days</th>
-        <th style="width: 8%">N Week</th>
+        <th style="width: 10%">N Week</th>
         <th style="width: 2%"></th>
         <th style="width: 2%"></th>
     </tr>

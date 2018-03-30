@@ -25,8 +25,8 @@ class Job extends CI_Controller
             $this->load->model('M_Employee');
             $this->load->model('M_Care');
             $data['worker']=$this->M_Employee->GetAllWorkers();
-            $data['data']['care']=$this->M_Care->GetAvailableCare();//var_dump($data['available_job']);die();
-            $data['data']['show_client']=1;
+            //$data['data']['care']=$this->M_Care->GetAvailableCare();//var_dump($data['available_job']);die();
+            //$data['data']['show_client']=1;
 
             if ($data['go_view'] != '')
                 $this->load->view($data['go_view'], $data);
@@ -37,7 +37,7 @@ class Job extends CI_Controller
         }
     }
 
-    function ApproveRejectCare()
+    function SaveJob()
     {
         if($this->session->userdata('logged_user_ehhs'))
         {
@@ -57,10 +57,8 @@ class Job extends CI_Controller
                     $table=$value;
                 elseif($field_name=='type')
                     $type=$value;
-                elseif($field_name=='field_id')
-                    $field_id=$value;
             }
-
+            $fields[$i] = 'id_care_schedule';
             $data['ids'] = $this->input->post('id');
             $var = explode("-", $data['ids']);
 
@@ -70,11 +68,11 @@ class Job extends CI_Controller
 
                 for($i=0;$i<$cant; next($var), $i++)
                 {
-                    $datas['id'] = current($var);
+                    $datas['id_care_schedule'] = current($var);
 
-                    if (isset($datas['id']))
+                    if (isset($datas['id_care_schedule']))
                     {
-                        $result=$this->M_Main->Execute($type, $fields, $datas, $table, $field_id);
+                        $result=$this->M_Main->Execute($type, $fields, $datas, $table, '');
                         if($result['error_msg']=='0' && $type=='INSERT')
                             print $result['data']['last_id'];
                         elseif($result['error_msg']=='0' && $type=='UPDATE')

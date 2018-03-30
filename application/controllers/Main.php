@@ -253,6 +253,24 @@ class Main extends CI_Controller
                 else
                     $result['care']=$this->M_Care->GetAllCares();
             }
+            elseif($data_type==='data_list_job')
+            {
+                $result['id_employee']=$this->input->post('id_employee');
+                $result['show_employee']=$this->input->post('show_employee');
+
+                $this->load->model('M_Job');
+                if(isset($result['id_employee']) && $result['id_employee']!='')
+                    $result['job']=$this->M_Job->GetJobByEmployeeID($result['id_employee']);
+                else
+                    $result['job']=$this->M_Job->GetAllJobs();
+            }
+            elseif($data_type==='data_list_available_job')
+            {
+                $result['show_client']=$this->input->post('show_client');
+
+                $this->load->model('M_Care');
+                $result['care']=$this->M_Care->GetAvailableCare();
+            }
 
             return $result;
         }

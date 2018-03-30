@@ -2,9 +2,19 @@
     <div class="row" style="margin-top: 70px;">
         <div class="col-lg-12">
 
+            <script>
+                function ShowPhoto (data)
+                {
+                    if (data.id==0) { return data.text; }
+
+                    var result= jQuery('<span><img class="photo_person_row" src="<?php print base_url('/assets/upload/person_photo/photo_');?>'+data.title+'.jpg"/> ' + data.text + '</span>');
+                    return result;
+                };
+            </script>
+
             <div class="row">
 
-                <div class="col-lg-5">
+                <div class="col-lg-12">
                     <fieldset class="myfieldset">
                         <legend class="mylegend">Assign Job to Employee</legend>
 
@@ -12,7 +22,7 @@
                             <div class="col-sm-12">
 
                                 <div class="row">
-                                    <section class="col col-9">
+                                    <section class="col col-6">
                                         <label>Employee</label>
                                         <select name="sel_employee" id="sel_employee" class="my_select2_employee required_select" style="width: 100%;">
                                             <option value="-1" selected></option>
@@ -34,31 +44,32 @@
                                         </select>
                                     </section>
                                     
-                                    <section class="col col-3 text-center">
+                                    <section class="col col-6 text-center">
                                         <div id=employee_pic></div>
                                     </section>
                                 </div>
 
+                                <div class="row" style="margin-bottom: 20px;">
+                                    <fieldset class="myfieldset" style="margin-top: 5px;padding: 0px;">
+                                        <legend class="mylegend">List Assigned Jobs</legend>
+
+                                        <table id="data_table_job" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
+
+                                    </fieldset>
+                                </div>
+
                                 <div class="row">
-                                    <table id="data_table_care" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%">
-                                        <?php require APPPATH.'views/care/DataTableListCare.php';?>
-                                    </table>
+                                    <fieldset class="myfieldset" style="margin-top: 5px;padding: 0px;">
+                                        <legend class="mylegend">Available Jobs</legend>
+                                        <table id="data_table_available_job" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
+                                    </fieldset>
                                 </div>
 
                                 <div class="form-group pull-right">
-                                    <button type="button" id="btn_save_care" class="btn btn-primary">Save</button>
+                                    <button type="button" id="btn_save_employee_care" disabled class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </form>
-
-                    </fieldset>
-                </div>
-
-                <div class="col-lg-7">
-                    <fieldset class="myfieldset">
-                        <legend class="mylegend">List Assigned Jobs</legend>
-
-                        <table id="data_table_job" class="table table-condensed table-responsive table-striped table-hover " style="margin-left: auto;margin-right: auto;" width="100%"></table>
 
                     </fieldset>
                 </div>
@@ -77,31 +88,6 @@
         jQuery('#end_time').timepicki();
 
         Datepicker.initDatepicker();
-
-        jQuery("#frm").validate(
-        {
-            rules: {
-                start_time : {
-                    required : true
-                },
-                end_time : {
-                    required : true
-                }
-            },
-
-            messages: {
-                start_time : {
-                    required : 'Please enter a start time.'
-                },
-                end_time : {
-                    required : 'Please enter a end time.'
-                }
-            },
-
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            }
-        });
 
         function ShowPhoto (data)
         {
@@ -132,11 +118,7 @@
             templateSelection: ShowPhoto1
         });
 
-        jQuery('#sel_employee').on('change', function()
-        {
-            var id_employee=jQuery(this).val();
-            //LoadTableJob(id_employee);
-        });
+
 
         if('<?php print $id_employee;?>'!='')LoadTableCare(<?php print $id_employee;?>);
 
@@ -148,39 +130,131 @@
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_list_job',view_url:'care/DataTableListJob', id_employee:id_employee}
+                data: {data_type:'data_list_job',view_url:'job/DataTableListJob', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
+                    if(jQuery('#data_table_job').html()!='')jQuery("#data_table_job").dataTable().fnDestroy();
                     jQuery('#data_table_job').html(response);
+                    DataTable_Job();
                     spinner.stop();
                 }
             });
         }
 
-        jQuery('#btn_save_care').on('click', function (e)
+        function DataTable_Job()
         {
-            if(jQuery('#frm').valid())
+            var data_table_job=jQuery('#data_table_job').DataTable(
+                {
+                    dom:
+                    "<'col-xs-12 col-sm-12 col-md-3 col-lg-3'f>" +
+                    "<'col-xs-12 col-sm-12 col-md-2 col-lg-2'l>" +
+                    "<'col-xs-12 col-sm-12 col-md-7 col-lg-7 pull-right'Br>'tip'",
+                    "scrollX": true
+                });
+
+            return data_table_job;
+        }
+
+
+
+
+        LoadTableAvailable();
+
+        function LoadTableAvailable()
+        {
+            var target = document.getElementById('container');
+            var spinner = new Spinner(opts).spin(target);
+
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_list_available_job',view_url:'job/DataTableListCare', show_client:1}
+            }).done(function(response, textStatus, jqXHR)
             {
-                var table='care_schedule';
-                var id_client=jQuery('#sel_client').val();
-                var start_time=jQuery('#start_time').val();
-                var end_time=jQuery('#end_time').val();
-                var start_date=jQuery('#start_date').val();
-                var end_date=jQuery('#end_date').val();
-                var repeat_every_week=jQuery('#repeat_every_week').val();
+                if(response)
+                {
+                    if(jQuery('#data_table_available_job').html()!='')jQuery("#data_table_available_job").dataTable().fnDestroy();
+                    jQuery('#data_table_available_job').html(response);
+                    DataTable_AvailableJob();
+                    spinner.stop();
+                }
+            });
+        }
 
-                if(jQuery('#cbx_sunday').prop('checked'))var week_days='1';else var week_days='0';
-                if(jQuery('#cbx_monday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
-                if(jQuery('#cbx_tuesday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
-                if(jQuery('#cbx_wenesday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
-                if(jQuery('#cbx_thursday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
-                if(jQuery('#cbx_friday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
-                if(jQuery('#cbx_saturday').prop('checked'))week_days=week_days+',1';else week_days=week_days+',0';
+        function DataTable_AvailableJob()
+        {
+            var data_table_available_job=jQuery('#data_table_available_job').DataTable(
+                {
+                    dom:
+                    "<'col-xs-12 col-sm-12 col-md-3 col-lg-3'f>" +
+                    "<'col-xs-12 col-sm-12 col-md-2 col-lg-2'l>" +
+                    "<'col-xs-12 col-sm-12 col-md-7 col-lg-7 pull-right'Br>'tip'",
+                    "scrollX": true
+                });
 
-                var url = 'Main/SaveObject';
-                var data = 'approved=1&id_client='+id_client+'&start_time='+start_time+'&end_time='+end_time+'&start_date='+start_date+'&end_date='+end_date+'&repeat_every_week='+repeat_every_week+'&week_days='+week_days+'&table='+table+'&type=INSERT';
+            return data_table_available_job;
+        }
+
+
+
+
+        jQuery('#sel_employee').on('change', function()
+        {
+            var id_employee=jQuery(this).val();
+            LoadTableJob(id_employee);
+            EnableDisableBtn();
+        });
+
+        jQuery('body').on('click', '.cbx_row_care', function()
+        {
+            EnableDisableBtn();
+        });
+
+        function EnableDisableBtn()
+        {
+            var id_employee=jQuery('#sel_employee').val();
+
+            var id='';
+            jQuery('.cbx_row_care:checked').each(
+                function()
+                {
+                    if(id=='')
+                        id = jQuery(this).attr('id');
+                    else
+                        id = id + '-' + jQuery(this).attr('id');
+                }
+            );
+
+            if(id!='' && id_employee!='' && id_employee!='-1')
+                jQuery('#btn_save_employee_care').attr('disabled',false);
+            else
+                jQuery('#btn_save_employee_care').attr('disabled',true);
+        }
+
+        jQuery('#btn_save_employee_care').on('click', function (e)
+        {
+            var id_employee=jQuery('#sel_employee').val();
+
+            var id='';
+            jQuery('.cbx_row_care:checked').each(
+                function()
+                {
+                    if(id=='')
+                        id = jQuery(this).attr('id');
+                    else
+                        id = id + '-' + jQuery(this).attr('id');
+                }
+            );
+
+            if(id!='' && id_employee!='' && id_employee!='-1')
+            {
+                var table='employee_care';
+                var date_took='<?php print date("m/d/Y");?>';
+
+                var url = 'Job/SaveJob';
+                var data = 'date_took='+date_took +'&id='+id+'&id_employee='+id_employee+'&table='+table+'&type=INSERT';
 
                 var target = document.getElementById('container');
                 var spinner = new Spinner(opts).spin(target);
@@ -195,7 +269,8 @@
                     if(jQuery.isNumeric(response))
                     {
                         alertify.success('Data Saved.');
-                        LoadContent('Care/GoAddCare');
+                        LoadTableJob(jQuery('#sel_employee').val());
+                        LoadTableAvailable();
                     }
                     else{alertify.error('Error: The element could not be Saved. '+ response);}
                     spinner.stop();
@@ -207,6 +282,65 @@
             }
         });
 
+
+
+
+        jQuery('body').on('click', '.btn_del_employee_care', function (e)
+        {
+            var id = jQuery(this).attr('id');
+
+            if(id!='')
+            {
+                var go_function='Main/DeleteObject';
+                var table='employee_care';
+                var field_id='id_employee_care';
+
+                alertify.defaults.transition = "slide";
+                alertify.defaults.theme.ok = "btn btn-success";
+                alertify.defaults.theme.cancel = "btn btn-default";
+                alertify.confirm("<h4>Do you confirm the action?</h4>", function (e)
+                {
+                    DeleteJob(go_function, table, field_id, id);
+                }
+                ,function()
+                {
+                    alertify.error('Declined.');
+                });
+            }
+        });
+
+        function DeleteJob(go_function, table, field_id, id)
+        {
+            var target = document.getElementById('container');
+            var spinner = new Spinner(opts).spin(target);
+
+            jQuery.ajax({
+                type: "POST",
+                dataType: "html",
+                url: go_function,
+                data:{table:table, field_id:field_id, id:id}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response!='NO_LOGGED')
+                {
+                    if(response=='0'){alertify.success('Element deleted.');}
+                    else if(response=='EMPTY_ID'){alertify.warning('You have to delete something. The ID is empty.');}
+                    else if(response=='EMPTY_TABLE'){alertify.warning('You have to delete something. The table is empty.');}
+                    else {alertify.error('Error: The element could not be deleted. '+ response);}
+                    spinner.stop();
+                    LoadTableJob(jQuery('#sel_employee').val());
+                    LoadTableAvailable();
+                }
+                else if(response=='NO_LOGGED')
+                {
+                    alertify.error("You don\'t have access.");
+                    window.location.replace("Main");
+                }
+            }).fail(function(jqHTR, textStatus, thrown)
+            {
+                alertify.error('Something is wrong with AJAX:' + textStatus);
+            });
+        }
     });
 
 </script>
