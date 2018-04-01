@@ -14,7 +14,7 @@
                                 <div class="row">
                                     <section class="col col-9">
                                         <label>Patient</label>
-                                        <select name="sel_client" id="sel_client" class="my_select2_client required_select" style="width: 100%;">
+                                        <select name="sel_client" id="sel_client" class="my_select2 required_select" style="width: 100%;">
                                             <option value="-1" selected></option>
                                             <?php
                                             if(isset($client['data']))
@@ -89,7 +89,7 @@
                                     <section class="col col-5">
                                         <label class="input">
                                             <label>Repeat every N weeks</label>
-                                            <input type="number" name="repeat_every_week" id="repeat_every_week" class="form-control required" value="1" min="1" max="10"/>
+                                            <input type="number" name="repeat_every_week" id="repeat_every_week" class="form-control required" value="1" min="1"/>
                                         </label>
                                     </section>
                                 </div>
@@ -127,31 +127,6 @@
 
         Datepicker.initDatepicker();
 
-        jQuery("#frm").validate(
-        {
-            rules: {
-                start_time : {
-                    required : true
-                },
-                end_time : {
-                    required : true
-                }
-            },
-
-            messages: {
-                start_time : {
-                    required : 'Please enter a start time.'
-                },
-                end_time : {
-                    required : 'Please enter a end time.'
-                }
-            },
-
-            errorPlacement: function (error, element) {
-                error.insertAfter(element.parent());
-            }
-        });
-
         function ShowPhoto (data)
         {
             if (data.id==0) { return data.text; }
@@ -172,7 +147,7 @@
             return result;
         };
 
-        jQuery(".my_select2_client").select2({
+        jQuery(".my_select2").select2({
             placeholder: {
                 id: '-1', // the value of the option
                 text: 'Select a Patient'
@@ -210,6 +185,7 @@
 
         jQuery('#btn_save_care').on('click', function (e)
         {
+            ValidateFrm('frm');
             if(jQuery('#frm').valid())
             {
                 var table='care_schedule';

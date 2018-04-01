@@ -10,7 +10,9 @@
                             <div class="col col-6 pull-left" id=""></div>
                             <div class="col col-6 pull-right">
                                 <div style="display: inline-block;margin: 15px;">
-                                    <a class="btn btn-primary" onclick="LoadContent('Care/GoAddCare');"><span>Add Care Schedule</span></a>
+                                    <!--<a class="btn btn-primary" onclick="LoadContent('Care/GoAddCare');"><span>Add Care Schedule</span></a>-->
+                                    <a class="btn btn-primary" id='btn_activate'><span>Activate</span></a>
+                                    <a class="btn btn-primary" id='btn_inactivate'><span>Inactivate</span></a>
                                     <a class="btn btn-primary" id='btn_insert'><span>Add</span></a>
                                     <a class="btn btn-primary" id='btn_update'><span>Edit</span></a>
                                     <a class="btn btn-primary" id='btn_delete'><span>Delete</span></a>

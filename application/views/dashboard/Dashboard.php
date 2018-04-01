@@ -38,20 +38,7 @@
 
         //if($badge=='' && $session['rol']=='patient')
 
-        if($badge!='')
-        {
-            ?>
 
-            <div class="col-md-12" style="padding: 0px;">
-                <div class="servive-block servive-block-default">
-                    <i class="icon-custom rounded-x icon-bg-dark fa fa-compress"></i>
-                    <h2 class="heading-md">Alerts</h2>
-                    <p><?php print $badge; ?></p>
-                </div>
-            </div>
-
-            <?php
-        }
 
         if($session['rol']=='asist')
         {
@@ -60,7 +47,7 @@
             if($pending_care['error_code']=='0')$total_pending_care=sizeof($pending_care['data']);
             if($pending_employee['error_code']=='0')$total_pending_employee=sizeof($pending_employee['data']);
             ?>
-            <a onclick="LoadContent('Main/GoView/care-ListCare')">
+            <a onclick="LoadContent('Main/GoView/care-ListCare');">
                 <div class="col-sm-6">
                     <div class="servive-block servive-block-default" style="height: 150px;">
                         <span class="badge badge-red" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
@@ -73,7 +60,7 @@
                 </div>
             </a>
 
-            <a onclick="LoadContent('Main/GoView/employee-ListEmployee')">
+            <a onclick="LoadContent('Main/GoView/employee-ListEmployee');">
                 <div class="col-sm-6">
                     <div class="servive-block servive-block-default" style="height: 150px;">
                         <span class="badge badge-red" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
@@ -86,6 +73,24 @@
                 </div>
             </a>
             <?php
+        }
+        elseif ($session['rol']=='worker')
+        {
+            if($badge!='')
+            {
+                ?>
+
+                <a onclick="LoadContent('User');">
+                    <div class="col-sm-6">
+                        <div class="servive-block servive-block-default" style="height: 150px;">
+                        <i class="fa fa-exclamation-triangle" style="color:red;font-size: 58px;"></i>
+                        <h3 class="heading-md" style="margin-top: 20px;margin-left: -10px;margin-right: -10px;">Your account is completed at <?php print $badge; ?></h3>
+                        </div>
+                    </div>
+                </a>
+
+                <?php
+            }
         }
         ?>
     </div>

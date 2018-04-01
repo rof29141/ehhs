@@ -58,8 +58,8 @@ if(isset($data['client']['data']))
             <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $row->cel;?></td>
             <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $role;?></td>
             <td class="row_update text-center" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $status;?></td>
-            <td class="text-center add_care" id="<?php print $row->id_client;?>" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><span class="fa fa-plus-circle"></span></td>
-            <td class="text-center"><input name='cbx' type='checkbox' data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>" id="<?php print $row->id_client;?>" class="cbx_row"></td>
+            <td class="text-center <?php if($row->status=='1') print 'add_care';?>" id="<?php print $row->id_client;?>" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php if($row->status=='1') print '<span class="fa fa-plus-circle"></span>';?></td>
+            <td class="text-center"><input name='cbx' type='checkbox' data-goto="<?php print $row->id_user;?>" id="<?php print $row->id_client;?>" class="cbx_row"></td>
 
         </tr>
 
@@ -173,6 +173,84 @@ if(isset($data['client']['data']))
             var go_back=jQuery('#view').val();
 
             UpdateContent(go_function, go_view, go_back, id);
+        }
+        else
+            alertify.error('You have to select a row.');
+    }
+
+    jQuery('#btn_activate').on('click', function (e)
+    {
+        ActivateInactivateUser(1);
+    });
+
+    jQuery('#btn_inactivate').on('click', function (e)
+    {
+        ActivateInactivateUser(0);
+    });
+
+    function ActivateInactivateUser(status)
+    {
+        var id='';
+        jQuery('.cbx_row:checked').each(
+            function()
+            {
+                if(id=='')
+                    id = jQuery(this).attr("data-goto");
+                else
+                    id = id + '-' + jQuery(this).attr("data-goto");
+            }
+        );
+
+        if(id!='')
+        {
+            var url='User/ActivateInactivateUser';
+
+            var data =
+                {
+                    table:'user',
+                    type:'UPDATE',
+                    status:status,
+                    field_id:'id_user',
+                    id:id
+                };
+
+            alertify.defaults.transition = "slide";
+            alertify.defaults.theme.ok = "btn btn-success";
+            alertify.defaults.theme.cancel = "btn btn-default";
+            alertify.confirm("<h4>Do you confirm the action?</h4>", function (e)
+                {
+                    var target = document.getElementById('container');
+                    var spinner = new Spinner(opts).spin(target);
+
+                    jQuery.ajax({
+                        type: "POST",
+                        dataType: "html",
+                        url: url,
+                        data:data
+                    }).done(function(response, textStatus, jqXHR)
+                    {
+                        if(response!='NO_LOGGED')
+                        {
+                            if(jQuery.isNumeric(response) && response>0)
+                            {
+                                alertify.success('Data Saved.');
+                                LoadContent('Main/GoView/client-ListClient');
+                            }
+                        }
+                        else if(response=='NO_LOGGED')
+                        {
+                            alertify.error("You don\'t have access.");
+                            window.location.replace("Main");
+                        }
+                    }).fail(function(jqHTR, textStatus, thrown)
+                    {
+                        alertify.error('Something is wrong with AJAX:' + textStatus);
+                    });
+                }
+                ,function()
+                {
+                    alertify.error('Declined.');
+                });
         }
         else
             alertify.error('You have to select a row.');

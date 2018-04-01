@@ -24,7 +24,7 @@ class Job extends CI_Controller
 
             $this->load->model('M_Employee');
             $this->load->model('M_Care');
-            $data['worker']=$this->M_Employee->GetAllWorkers();
+            $data['worker']=$this->M_Employee->GetAllApprovedWorkers();
             //$data['data']['care']=$this->M_Care->GetAvailableCare();//var_dump($data['available_job']);die();
             //$data['data']['show_client']=1;
 

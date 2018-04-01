@@ -28,10 +28,16 @@ Class Auth extends CI_Model
         {
 			if($query->row()->activate_status==1)
 			{
-				if(password_verify($password, $query->row()->pass))
-					$return=$this->Result(0, 0, $query->row());
-				else
-					$return=$this->Result(1, 'WRONG_PASS');
+
+                if($query->row()->status==1)
+                {
+                    if(password_verify($password, $query->row()->pass))
+                        $return=$this->Result(0, 0, $query->row());
+                    else
+                        $return=$this->Result(1, 'WRONG_PASS');
+                }
+                else
+                    $return=$this->Result(1, 'INACTIVE', $query->row());
 			}
 			else
 			$return=$this->Result(1, 'ACTIVATE', $query->row());

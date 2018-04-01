@@ -96,6 +96,9 @@
 					else if(response=='WRONG_ID') {
                         alertify.error('Wrong User');
                     }
+                    else if(response=='INACTIVE') {
+                        alertify.error('Sorry, your account have been inactived by the office.');
+                    }
 					else if(response) {
                         alertify.error('Sorry, your account doesn\'t have been activate yet. Has been sent an email to: '+response);
                     }

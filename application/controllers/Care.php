@@ -23,7 +23,7 @@ class Care extends CI_Controller
             $data['id_client']=$this->input->post('id_client');
 
             $this->load->model('M_Client');
-            $data['client']=$this->M_Client->GetAllClients();
+            $data['client']=$this->M_Client->GetAllActiveClients();
 
             if ($data['go_view'] != '')
                 $this->load->view($data['go_view'], $data);

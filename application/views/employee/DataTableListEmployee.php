@@ -69,7 +69,7 @@ if(isset($data['employee']['data']))
             <td class="row_update" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $completed_percent;?></td>
             <td class="row_update text-center" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $status;?></td>
             <td class="row_update text-center" data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>"><?php print $approved;?></td>
-            <td class="text-center"><input name='cbx' type='checkbox' data-goto="general-Update&<?php print $row->id_user.'-'.$row->id_person;?>" id='<?php print $row->id_employee;?>' class="cbx_row"></td>
+            <td class="text-center"><input name='cbx' type='checkbox' data-goto="<?php print $row->id_user;?>" id='<?php print $row->id_employee;?>' class="cbx_row"></td>
 
         </tr>
 
@@ -105,6 +105,16 @@ if(isset($data['employee']['data']))
             alertify.error('You have to select a row.');
     }
 
+    jQuery('#btn_activate').on('click', function (e)
+    {
+        ActivateInactivateUser(1);
+    });
+
+    jQuery('#btn_inactivate').on('click', function (e)
+    {
+        ActivateInactivateUser(0);
+    });
+
     jQuery('#btn_approve').on('click', function (e)
     {
         ApproveRejectEmployee(1);
@@ -114,6 +124,74 @@ if(isset($data['employee']['data']))
     {
         ApproveRejectEmployee(0);
     });
+
+    function ActivateInactivateUser(status)
+    {
+        var id='';
+        jQuery('.cbx_row:checked').each(
+            function()
+            {
+                if(id=='')
+                    id = jQuery(this).attr("data-goto");
+                else
+                    id = id + '-' + jQuery(this).attr("data-goto");
+            }
+        );
+
+        if(id!='')
+        {
+            var url='User/ActivateInactivateUser';
+
+            var data =
+            {
+                table:'user',
+                type:'UPDATE',
+                status:status,
+                field_id:'id_user',
+                id:id
+            };
+
+            alertify.defaults.transition = "slide";
+            alertify.defaults.theme.ok = "btn btn-success";
+            alertify.defaults.theme.cancel = "btn btn-default";
+            alertify.confirm("<h4>Do you confirm the action?</h4>", function (e)
+            {
+                var target = document.getElementById('container');
+                var spinner = new Spinner(opts).spin(target);
+
+                jQuery.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: url,
+                    data:data
+                }).done(function(response, textStatus, jqXHR)
+                {
+                    if(response!='NO_LOGGED')
+                    {
+                        if(jQuery.isNumeric(response) && response>0)
+                        {
+                            alertify.success('Data Saved.');
+                            LoadContent('Main/GoView/employee-ListEmployee');
+                        }
+                    }
+                    else if(response=='NO_LOGGED')
+                    {
+                        alertify.error("You don\'t have access.");
+                        window.location.replace("Main");
+                    }
+                }).fail(function(jqHTR, textStatus, thrown)
+                {
+                    alertify.error('Something is wrong with AJAX:' + textStatus);
+                });
+            }
+            ,function()
+            {
+                alertify.error('Declined.');
+            });
+        }
+        else
+            alertify.error('You have to select a row.');
+    }
 
     function ApproveRejectEmployee(approved)
     {
