@@ -79,3 +79,70 @@ if(isset($data['care']['data']) && $data['care']['error_code']=='0')
 }
 ?>
 </tbody>
+
+<script>
+
+    jQuery('#btn_interested').on('click', function (e)
+    {
+        SaveInterestedOrNotJob(1);
+    });
+
+    jQuery('#btn_not_interested').on('click', function (e)
+    {
+        SaveInterestedOrNotJob(0);
+    });
+
+    function SaveInterestedOrNotJob(interest)
+    {
+        if(interest=='1')
+        {
+            var id_employee='<?php if(isset($data['id_employee']))print $data['id_employee'];?>';
+
+            var id='';
+            jQuery('.cbx_row_care:checked').each(
+                function()
+                {
+                    if(id=='')
+                        id = jQuery(this).attr('id');
+                    else
+                        id = id + '-' + jQuery(this).attr('id');
+                }
+            );
+            alert(id_employee);
+            if(id!='' && id_employee!='' && id_employee!='-1')
+            {
+                var table='employee_interested';
+                var date_interested='<?php print date("m/d/Y");?>';
+
+                var url = 'Job/SaveInterestedOrNotJob';
+                var data = 'date_interested='+date_interested +'&id='+id+'&id_employee='+id_employee+'&table='+table+'&type=INSERT';
+
+                var target = document.getElementById('container');
+                var spinner = new Spinner(opts).spin(target);
+
+                jQuery.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: url,
+                    data:data
+                }).done(function(response, textStatus, jqXHR)
+                {
+                    if(jQuery.isNumeric(response))
+                    {
+                        alertify.success('Data Saved.');
+                        LoadContent('Main/GoView/job-ListJob');
+                    }
+                    else{alertify.error('Error: The element could not be Saved. '+ response);}
+                    spinner.stop();
+
+                }).fail(function(jqHTR, textStatus, thrown)
+                {
+                    alertify.error('Something is wrong with AJAX:' + textStatus);
+                });
+            }
+            else
+                alertify.error('You have to select a row.');
+        }
+    }
+
+</script>

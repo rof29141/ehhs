@@ -56,6 +56,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a onclick="LoadContent('Main/GoView/care-ListCare')" class="dropdown-toggle" data-toggle="dropdown">Care Schedule</a></li>
+                            <li><a onclick="LoadContent('Main/GoView/job-ListJob')" class="dropdown-toggle" data-toggle="dropdown">Available Jobs</a></li>
                         </ul>
                     </li>
                 <?php }?>
@@ -66,7 +67,7 @@
                     ?>
                     <li class="">
                         <a onclick="LoadContent('Job/GoAddJob')" class="dropdown-toggle" data-toggle="dropdown">
-                            Jobs
+                            Assigned Jobs
                         </a>
                     </li>
                 <?php }?>
@@ -76,9 +77,9 @@
                 {
                 ?>
                 <li class="">
-                    <a onclick="LoadContent('Job/GoAvailableJobs')" class="dropdown-toggle" data-toggle="dropdown">
+                    <a onclick="LoadContent('Main/GoView/job-ListJob')" class="dropdown-toggle" data-toggle="dropdown">
                         Available Jobs
-                        <span class="badge badge-blue"><?php print $profile_type['available_jobs'];?></span>
+                        <!--<span class="badge badge-blue"><?php print $profile_type['available_jobs'];?></span>-->
                     </a>
                 </li>
                 <?php }?>

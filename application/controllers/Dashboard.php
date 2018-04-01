@@ -29,6 +29,12 @@ class Dashboard extends CI_Controller
             $this->load->model('M_Employee');
             $data['pending_care']=$this->M_Care->GetCareByApproved(0);
             $data['pending_employee']=$this->M_Employee->GetWorkerByApproved(0);//var_dump($data['pending_employee']);
+            $data['available_care']=$this->M_Care->GetAvailableCare();
+        }
+        elseif ($data['session']['rol']=='worker')
+        {
+            $this->load->model('M_Care');
+            $data['available_care']=$this->M_Care->GetAvailableCare();
         }
         /*elseif ($data['session']['rol']=='patient')
             $data['no_filled']=$this->M_Main->CkeckClient($data);

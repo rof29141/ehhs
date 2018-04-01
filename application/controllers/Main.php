@@ -270,6 +270,19 @@ class Main extends CI_Controller
 
                 $this->load->model('M_Care');
                 $result['care']=$this->M_Care->GetAvailableCare();
+
+                if($data['session']['rol']=='worker')
+                {
+                    $this->load->model('M_User');
+                    $employee=$this->M_User->GetEmployeeByPersonID($data['session']['id_person']);//var_dump($result['employee']);
+
+                    if($employee['error_code']=='0')
+                    {
+                        $result['id_employee']=$employee['data']->id_employee;
+                    }
+                    //echo $result['id_employee'];
+                }
+
             }
 
             return $result;
@@ -325,7 +338,7 @@ class Main extends CI_Controller
         $data['profile_type'] = ProfileType($data['session']);
 
         if ($data['view'] != '')
-            $this->load->view($data['view']);
+            $this->load->view($data['view'], $data);
     }
 
     function GoObject()

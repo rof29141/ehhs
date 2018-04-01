@@ -10,7 +10,7 @@
 
     <div class="clearfix margin-bottom-20"></div>
 
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center" style="padding: 0px;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding: 0px;">
         <?php //if($section_left_auth!='')require_once APPPATH.'views'.$section_left_auth;
 
 
@@ -44,11 +44,14 @@
         {
             $total_pending_care=0;
             $total_pending_employee=0;
+            $total_available_care=0;
+
             if($pending_care['error_code']=='0')$total_pending_care=sizeof($pending_care['data']);
             if($pending_employee['error_code']=='0')$total_pending_employee=sizeof($pending_employee['data']);
+            if($available_care['error_code']=='0')$total_available_care=sizeof($available_care['data']);
             ?>
             <a onclick="LoadContent('Main/GoView/care-ListCare');">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="servive-block servive-block-default" style="height: 150px;">
                         <span class="badge badge-red" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
                             <div class="count">
@@ -61,7 +64,7 @@
             </a>
 
             <a onclick="LoadContent('Main/GoView/employee-ListEmployee');">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="servive-block servive-block-default" style="height: 150px;">
                         <span class="badge badge-red" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
                             <div class="count">
@@ -69,6 +72,19 @@
                             </div>
                         </span>
                         <h3 class="heading-md" style="margin-top: 20px;margin-left: -10px;margin-right: -10px;">Pending Employees</h3>
+                    </div>
+                </div>
+            </a>
+
+            <a onclick="LoadContent('Main/GoView/job-ListJob');">
+                <div class="col-sm-4">
+                    <div class="servive-block servive-block-default" style="height: 150px;">
+                        <span class="badge badge-green" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
+                            <div class="count">
+                                <?php print $total_available_care;?>
+                            </div>
+                        </span>
+                        <h3 class="heading-md" style="margin-top: 20px;margin-left: -10px;margin-right: -10px;">Available Jobs</h3>
                     </div>
                 </div>
             </a>
@@ -81,32 +97,54 @@
                 ?>
 
                 <a onclick="LoadContent('User');">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="servive-block servive-block-default" style="height: 150px;">
-                        <i class="fa fa-exclamation-triangle" style="color:red;font-size: 58px;"></i>
-                        <h3 class="heading-md" style="margin-top: 20px;margin-left: -10px;margin-right: -10px;">Your account is completed at <?php print $badge; ?></h3>
+                        <i class="fa fa-exclamation-triangle" style="color:red;font-size: 72px;"></i>
+                        <h3 class="heading-md" style="margin-top: 20px;margin-left: -20px;margin-right: -20px;">Account completed at <?php print $badge; ?></h3>
                         </div>
                     </div>
                 </a>
 
                 <?php
             }
+
+            $total_available_care=0;
+            if($available_care['error_code']=='0')$total_available_care=sizeof($available_care['data']);
+
+            ?>
+
+            <a onclick="LoadContent('Main/GoView/job-ListJob');">
+                <div class="col-sm-4">
+                    <div class="servive-block servive-block-default" style="height: 150px;">
+                        <span class="badge badge-green" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
+                            <div class="count">
+                                <?php print $total_available_care;?>
+                            </div>
+                        </span>
+                        <h3 class="heading-md" style="margin-top: 20px;margin-left: -10px;margin-right: -10px;">Available Jobs</h3>
+                    </div>
+                </div>
+            </a>
+
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="div_auth" >
+                <?php
+                if($session['section_auth']!='')
+                    require_once APPPATH.'views'.$session['section_auth'];
+                else
+                {
+                    ?>
+                    <iframe width="100%" height="150" src="https://www.youtube.com/embed/fjzxxhc1Agw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <?php
+                }
+                ?>
+            </div>
+
+            <?php
         }
         ?>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="div_auth" >
-        <?php
-            if($session['section_auth']!='')
-                require_once APPPATH.'views'.$session['section_auth'];
-            else
-            {
-                ?>
-                <iframe width="100%" height="150" src="https://www.youtube.com/embed/fjzxxhc1Agw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                <?php
-            }
-        ?>
-    </div>
+
 
     <!-- Service Blocks
     <div class="margin-bottom-5"></div>
