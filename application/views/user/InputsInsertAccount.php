@@ -5,16 +5,16 @@
 		<section class="col col-6">
 			<label class="input">
 				<label>Username</label>
-				<input placeholder="Enter the Username"type="text" name="user" id="user" class="form-control required" />
-                <input type="hidden" name="id_user" id="id_user" class="form-control required"  value="" />
-			</label>
+                <input type="text" name="user" id="user" class="form-control required" <?php if(!isset($data['user']['data']->user) || $data['user']['data']->user!='')print 'disabled';?> value="<?php if(isset($data['user']['data']->user)) print $data['user']['data']->user;?>" />
+                <input type="hidden" name="id_user" id="id_user" class="form-control required"  value="<?php if(isset($data['user']['data']->id_user)) print $data['user']['data']->id_user;?>" />
+            </label>
 		</section>
 		
 		<section class="col col-6">
 			<label class="input">
 				<label>Email address</label>
-				<input placeholder="Enter the Email address" type="text" name="email" id="email" class="form-control required" />
-			</label>
+                <input type="text" name="email" id="email" class="form-control required" value="<?php if(isset($data['user']['data']->email)) print $data['user']['data']->email;?>" />
+            </label>
 		</section>
 	</div>
 

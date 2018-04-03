@@ -11,7 +11,7 @@
 
 
                 <?php
-                $lb='medical_1_checbox';
+                $lb='medical_radio_hep';
                 if(isset($data['consent']['data']) && $data['consent']['data']!='')
                 {
                     foreach ($data['consent']['data'] as $row)
@@ -24,47 +24,14 @@
                         }
                     }
                 }
+                //print $sign;
                 ?>
-                <input type="hidden" name="medical_id_cbx1" id="medical_id_cbx1" value="<?php if(isset($id_consent)) print $id_consent;?>" />
-                <p><label class="checkbox checkbox_bold"><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'disabled="disabled"';?>name='medical_cbx_hep1' id='medical_cbx_hep1' type='checkbox' class="required" <?php if(isset($sign) && $sign!='') print 'checked';$sign='';?>><i></i> I decline Hepatitis B vaccination at this thine because I have been previously immunized with a complete series (three injections ) of the Hepatitis B vaccine or i have been diagnosed as having the Hepatitis B virus disease and i am immune.</label></p>
+                <input type="hidden" name="id_medical_radio_hep" id="id_medical_radio_hep" value="<?php if(isset($id_consent)) print $id_consent;?>" />
+                <p><label class="radio"><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'disabled="disabled"';?>name='medical_rbt_hep' id='medical_rbt_hep1' value="1" type='radio' class="required" <?php if(isset($sign) && $sign==1) print 'checked';?>><i class="rounded-x"></i> I decline Hepatitis B vaccination at this thine because I have been previously immunized with a complete series (three injections ) of the Hepatitis B vaccine or i have been diagnosed as having the Hepatitis B virus disease and i am immune.</label></p>
 
+                <p><label class="radio"><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'disabled="disabled"';?>name='medical_rbt_hep' id='medical_rbt_hep2' value="2" type='radio' class="required" <?php if(isset($sign) && $sign==2) print 'checked';?>><i class="rounded-x"></i> I decline Hepatitis B vaccination at this slate. I understand that by declining this vaccine, I continue to be at risk or acquiring Hepatitis B. If in the future I continue to have occupational exposure to blood or other potentially infectious material and i want to be Vaccinated with Hepatitis B vaccine , I can receive the vaccination series at no charge to me.</label></p>
 
-                <?php
-                $lb='medical_2_checbox';
-                if(isset($data['consent']['data']) && $data['consent']['data']!='')
-                {
-                    foreach ($data['consent']['data'] as $row)
-                    {
-                        if($row->consent_name==$lb)
-                        {
-                            $id_consent=$row->id_consent;
-                            $sign=$row->sign;
-                            break;
-                        }
-                    }
-                }
-                ?>
-                <input type="hidden" name="medical_id_cbx2" id="medical_id_cbx2" value="<?php if(isset($id_consent)) print $id_consent;?>" />
-                <p><label class="checkbox checkbox_bold"><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'disabled="disabled"';?>name='medical_cbx_hep2' id='medical_cbx_hep2' type='checkbox' class="required" <?php if(isset($sign) && $sign!='') print 'checked';$sign='';?>><i></i> I decline Hepatitis B vaccination at this slate. I understand that by declining this vaccine, I continue to be at risk or acquiring Hepatitis B. If in the future I continue to have occupational exposure to blood or other potentially infectious material and i want to be Vaccinated with Hepatitis B vaccine , I can receive the vaccination series at no charge to me.</label></p>
-
-
-                <?php
-                $lb='medical_3_checbox';
-                if(isset($data['consent']['data']) && $data['consent']['data']!='')
-                {
-                    foreach ($data['consent']['data'] as $row)
-                    {
-                        if($row->consent_name==$lb)
-                        {
-                            $id_consent=$row->id_consent;
-                            $sign=$row->sign;
-                            break;
-                        }
-                    }
-                }
-                ?>
-                <input type="hidden" name="medical_id_cbx3" id="medical_id_cbx3" value="<?php if(isset($id_consent)) print $id_consent;?>" />
-                <p><label class="checkbox checkbox_bold"><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'disabled="disabled"';?>name='medical_cbx_hep3' id='medical_cbx_hep3' type='checkbox' class="required" <?php if(isset($sign) && $sign!='') print 'checked';$sign='';?>><i></i> I accept vaccination with time hepatitis B vaccine.</label></p>
+                <p><label class="radio"><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'disabled="disabled"';?>name='medical_rbt_hep' id='medical_rbt_hep3' value="3" type='radio' class="required" <?php if(isset($sign) && $sign==3) print 'checked';?>><i class="rounded-x"></i> I accept vaccination with time hepatitis B vaccine.</label></p>
 
 
                 <?php
@@ -83,7 +50,7 @@
                 }
                 ?>
                 <input type="hidden" name="medical_id_label1" id="medical_id_label1" value="<?php if(isset($id_consent)) print $id_consent;?>" />
-                <p><div id="medical_lb1"><?php print $lb;?></div><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="medical_data1" id="medical_data1" class="form-control required" size='10' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"></p>
+                <p><div id="medical_lb1"><?php print $lb;?></div><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="medical_data1" id="medical_data1" class="form-control" size='10' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"></p>
 
 
                 <?php
@@ -102,7 +69,7 @@
                 }
                 ?>
                 <input type="hidden" name="medical_id_label2" id="medical_id_label2" value="<?php if(isset($id_consent)) print $id_consent;?>" />
-                <p><div id="medical_lb2"><?php print $lb;?></div><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="medical_data2" id="medical_data2" class="form-control required" size='10' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"></p>
+                <p><div id="medical_lb2"><?php print $lb;?></div><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="medical_data2" id="medical_data2" class="form-control" size='10' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"></p>
 
 
                 <?php
@@ -121,7 +88,7 @@
                 }
                 ?>
                 <input type="hidden" name="medical_id_label3" id="medical_id_label3" value="<?php if(isset($id_consent)) print $id_consent;?>" />
-                <p><div id="medical_lb3"><?php print $lb;?></div><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="medical_data3" id="medical_data3" class="form-control required" size='10' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"></p>
+                <p><div id="medical_lb3"><?php print $lb;?></div><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="medical_data3" id="medical_data3" class="form-control" size='10' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"></p>
 
 
 			</div>
@@ -289,20 +256,9 @@
                 var id_consent_lb3=jQuery('#medical_id_label3').val();
 
 
-                var cbx_name1='medical_1_checbox';
-                var cbx_name2='medical_2_checbox';
-                var cbx_name3='medical_3_checbox';
-
-                if(jQuery('#medical_cbx_hep1').prop('checked'))
-                var cbx1=1;else var cbx1=0;
-                if(jQuery('#medical_cbx_hep2').prop('checked'))
-                var cbx2=1;else var cbx2=0;
-                if(jQuery('#medical_cbx_hep3').prop('checked'))
-                var cbx3=1;else var cbx3=0;
-
-                var id_consent_cbx1=jQuery('#medical_id_cbx1').val();
-                var id_consent_cbx2=jQuery('#medical_id_cbx2').val();
-                var id_consent_cbx3=jQuery('#medical_id_cbx3').val();
+                var medical_radio_hep='medical_radio_hep';
+                var medical_rbt_hep=jQuery("input[name='medical_rbt_hep']:checked").val()
+                var id_medical_radio_hep=jQuery('#id_medical_radio_hep').val();
 
 
 
@@ -329,15 +285,9 @@
 
                 var data =
                 {
-                    cbx_name1:cbx_name1,
-                    cbx_name2:cbx_name2,
-                    cbx_name3:cbx_name3,
-                    cbx1:cbx1,
-                    cbx2:cbx2,
-                    cbx3:cbx3,
-                    id_consent_cbx1:id_consent_cbx1,
-                    id_consent_cbx2:id_consent_cbx2,
-                    id_consent_cbx3:id_consent_cbx3,
+                    medical_radio_hep:medical_radio_hep,
+                    medical_rbt_hep:medical_rbt_hep,
+                    id_medical_radio_hep:id_medical_radio_hep,
                     label_name1:label_name1,
                     label_name2:label_name2,
                     label_name3:label_name3,

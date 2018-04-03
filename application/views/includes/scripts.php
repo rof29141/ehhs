@@ -50,7 +50,6 @@
 <script type="text/javascript" src="<?php print ASSETS_URL; ?>/unify/js/plugins/owl-carousel.js"></script>
 <script type="text/javascript" src="<?php print ASSETS_URL; ?>/unify/js/plugins/masking.js"></script>
 <script type="text/javascript" src="<?php print ASSETS_URL; ?>/unify/js/plugins/datepicker.js"></script>
-<script type="text/javascript" src="<?php print ASSETS_URL; ?>/js/bootstrap-timepicker.min.js"></script>
 <script type="text/javascript" src="<?php print ASSETS_URL; ?>/js/timepicker.js"></script>
 
 
@@ -64,6 +63,109 @@
 <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
 
 <style type="text/css">
+
+    /*---TOOLTIP---*/
+
+
+
+
+    .mytooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted #ccc;
+        color: #006080;
+    }
+
+    .mytooltip .mytooltiptext {
+        visibility: hidden;
+        position: absolute;
+        width: 120px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        padding: 2px 0;
+        border-radius: 6px;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .mytooltip:hover .mytooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .mytooltip-right {
+        top: -5px;
+        left: 125%;
+    }
+
+    .mytooltip-right::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent #555 transparent transparent;
+    }
+
+    .mytooltip-bottom {
+        top: 135%;
+        left: 50%;
+        margin-left: -60px;
+    }
+
+    .mytooltip-bottom::after {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #555 transparent;
+    }
+
+    .mytooltip-top {
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+    }
+
+    .mytooltip-top::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    .mytooltip-left {
+        top: -5px;
+        bottom:auto;
+        right: 128%;
+    }
+    .mytooltip-left::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent #555;
+    }
+
+
+    /*---TOOLTIP---*/
+
+
+
 a:hover {
 text-decoration:none;
 cursor: pointer;
@@ -130,16 +232,3 @@ cursor: pointer;
 /* Fieldset */
 </style>
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/5a5fc457d7591465c706da4a/default';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-    })();
-</script>
-<!--End of Tawk.to Script-->

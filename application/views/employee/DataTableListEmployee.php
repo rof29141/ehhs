@@ -177,7 +177,7 @@ if(isset($data['employee']['data']))
                     else if(response=='NO_LOGGED')
                     {
                         alertify.error("You don\'t have access.");
-                        window.location.replace("Main");
+                        window.location.replace("Main/Main");
                     }
                 }).fail(function(jqHTR, textStatus, thrown)
                 {
@@ -245,7 +245,7 @@ if(isset($data['employee']['data']))
                         else if(response=='NO_LOGGED')
                         {
                             alertify.error("You don\'t have access.");
-                            window.location.replace("Main");
+                            window.location.replace("Main/Main");
                         }
                     }).fail(function(jqHTR, textStatus, thrown)
                     {

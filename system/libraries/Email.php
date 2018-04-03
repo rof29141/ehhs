@@ -76,7 +76,7 @@ class CI_Email {
 	 *
 	 * @var	string
 	 */
-	public $smtp_host	= '';
+	public $smtp_host	= 'mail.esperanzaehhs.com';
 
 	/**
 	 * SMTP Username
@@ -279,7 +279,7 @@ class CI_Email {
 	 *
 	 * @var	bool
 	 */
-	protected $_smtp_auth		= FALSE;
+	protected $_smtp_auth		= TRUE;
 
 	/**
 	 * Whether to send a Reply-To header
@@ -850,6 +850,12 @@ class CI_Email {
 	public function set_protocol($protocol = 'mail')
 	{
 		$this->protocol = in_array($protocol, $this->_protocols, TRUE) ? strtolower($protocol) : 'mail';
+		return $this;
+	}
+
+	public function set_smtp_pass($pass = '')
+	{
+		$this->smtp_pass = $pass;
 		return $this;
 	}
 

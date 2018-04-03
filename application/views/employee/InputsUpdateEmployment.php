@@ -160,8 +160,8 @@
 
 		<div class="form-group pull-right">
 			<button type="button" id="btn_save_employment" class="btn btn-primary">Next <span style="vertical-align: middle;font-size: 16px;" class="icon-control-forward"></span></button>
-            <input type="text" name="id_employee" id="id_employee" value="<?php if(isset($data['employee']['data']->id_employee)) print $data['employee']['data']->id_employee;?>" />
-            <input type="text" datafld='ignore' name="id_person" id="id_person" class="form-control"  value="<?php if(isset($data['id_person'])) print $data['id_person'];?>" />
+            <input type="hidden" name="id_employee" id="id_employee" value="<?php if(isset($data['employee']['data']->id_employee)) print $data['employee']['data']->id_employee;?>" />
+            <input type="hidden" datafld='ignore' name="id_person" id="id_person" class="form-control"  value="<?php if(isset($data['id_person'])) print $data['id_person'];?>" />
             <input type="hidden" name="employment_id_form" id="employment_id_form" value="<?php if(isset($data['form']['data']->id_form)) print $data['form']['data']->id_form;?>" />
 		</div>
 

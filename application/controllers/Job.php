@@ -132,13 +132,64 @@ class Job extends CI_Controller
 
                     if (isset($datas['id_care_schedule']))
                     {
-                        $result=$this->M_Main->Execute($type, $fields, $datas, $table, '');
-                        if($result['error_msg']=='0' && $type=='INSERT')
-                            print $result['data']['last_id'];
-                        elseif($result['error_msg']=='0' && $type=='UPDATE')
-                            print $datas['id'];
+                        $id_employee=$datas['id_employee'];
+                        $id_care_schedule=$datas['id_care_schedule'];
+
+                        $this->load->model('M_Job');
+                        $interest_result=$this->M_Job->GetInterestedJobsByEmployeeIDCareScheduleID($id_employee, $id_care_schedule);
+                        if($interest_result['error_code']==1)
+                        {
+                            $result=$this->M_Main->Execute($type, $fields, $datas, $table, '');
+                            if($result['error_msg']=='0' && $type=='INSERT')
+                                print $result['data']['last_id'];
+                            elseif($result['error_msg']=='0' && $type=='UPDATE')
+                                print $datas['id'];
+                            else
+                                print $result['error_msg'];
+                        }
                         else
-                            print $result['error_msg'];
+                        {
+                            print $interest_result['data'][0]->id_employee_interested;
+                        }
+                    }
+                    else
+                    {
+                        print 'EMPTY_ID';
+                    }
+                }
+            }
+            else
+            {
+                print 'EMPTY_TABLE';
+            }
+        }
+        else
+        {
+            print 'NO_LOGGED';
+        }
+    }
+
+    function DeleteInterestedJob()
+    {
+        if($this->session->userdata('logged_user_ehhs'))
+        {
+            $id_employee = $this->input->post('id_employee');
+            $ids = $this->input->post('id');
+            $var = explode("-", $ids);
+
+            if(sizeof($var) != 0)
+            {
+                $cant=sizeof($var);
+
+                for($i=0;$i<$cant; next($var), $i++)
+                {
+                    $id_care_schedule = current($var);
+
+                    if ($id_employee!='' && $id_care_schedule!='')
+                    {
+                        $this->load->model('M_Job');
+                        $result=$this->M_Job->DeleteInterestedJob($id_employee, $id_care_schedule);
+                        print $result['error_code'];
                     }
                     else
                     {

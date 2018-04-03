@@ -57,7 +57,7 @@ ini_set('memory_limit', '2048M');
             else if(response=='NO_LOGGED')
             {
                 alertify.error("You don\'t have access.");
-                window.location.replace("Main");
+                window.location.replace("Main/Main");
             }
         }).fail(function(jqHTR, textStatus, thrown)
         {
@@ -90,7 +90,7 @@ ini_set('memory_limit', '2048M');
             else if(response=='NO_LOGGED')
             {
                 alertify.error("You don\'t have access.");
-                window.location.replace("Main");
+                window.location.replace("Main/Main");
             }
         }).fail(function(jqHTR, textStatus, thrown)
         {
@@ -122,10 +122,11 @@ ini_set('memory_limit', '2048M');
             else if(response=='NO_LOGGED')
             {
                 alertify.error("You don\'t have access.");
-                window.location.replace("Main");
+                window.location.replace("Main/Main");
             }
 
-            if(click==1)goToByScroll(div);
+            //if(click==1)
+                goToByScroll(div);
             spinner.stop();
         }).fail(function(jqHTR, textStatus, thrown)
         {
@@ -156,7 +157,7 @@ ini_set('memory_limit', '2048M');
             else if(response=='NO_LOGGED')
             {
                 alertify.error("You don\'t have access.");
-                window.location.replace("Main");
+                window.location.replace("Main/Main");
             }
         }).fail(function(jqHTR, textStatus, thrown)
         {

@@ -87,7 +87,7 @@
 						2700 N. Macdill Ave<br />
 						&nbsp;&nbsp;&nbsp;&nbsp;Tampa, FL, 33607</a><br>
 						<i style='color:#fff; font-size:12px;' class="fa fa-home"></i>&nbsp;&nbsp;Suite: 211<br>
-                        <i style='color:#fff;' class="fa fa-phone"></i>&nbsp;&nbsp;813-374-0214 - 813-298-569&nbsp;&nbsp;813-374-029 (Fax)<br />
+                        <i style='color:#fff;' class="fa fa-phone"></i>&nbsp;&nbsp;813-374-0214 - 813-298-5692&nbsp;&nbsp;813-374-0299 (Fax)<br />
                         <i style='color:#fff; font-size:10px;'class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:esperanzahhs@gmail.com" class="">esperanzahhs@gmail.com</a><br />
 						<i style='color:#fff;' class="fa fa-clock-o"></i>&nbsp;&nbsp;Mon to Fri, 9:00am to 5:00pm
                     </address>

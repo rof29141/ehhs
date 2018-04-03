@@ -29,7 +29,7 @@ Class M_Job extends CI_Model
         if($query -> num_rows() >= 1)
             $return=$this->Result(0, 0, $query->result());
         else
-            $return=$this->Result(1, 'NO_CLIENT');
+            $return=$this->Result(1, 'NO_JOB');
 
         return $return;
     }
@@ -47,6 +47,50 @@ Class M_Job extends CI_Model
             $return=$this->Result(0, 0, $query->result());
         else
             $return=$this->Result(1, 'NO_CLIENT');
+
+        return $return;
+    }
+
+    function GetInterestedJobsByEmployeeIDCareScheduleID($id_employee='', $id_care_schedule='')
+    {
+        $this -> db -> select('*');
+        $this -> db -> from('employee_interested');
+        if($id_employee!='')$this -> db -> where('id_employee = ' . "'" . $id_employee . "'");
+        if($id_care_schedule!='')$this -> db -> where('id_care_schedule = ' . "'" . $id_care_schedule . "'");
+
+        $query = $this -> db -> get();//var_dump($query->result());die();
+
+        if($query -> num_rows() >= 1)
+            $return=$this->Result(0, 0, $query->result());
+        else
+            $return=$this->Result(1, 'NO_CLIENT');
+
+        return $return;
+    }
+
+    function DeleteInterestedJob($id_employee, $id_care_schedule)
+    {
+        $delete=array('id_employee' => $id_employee, 'id_care_schedule' => $id_care_schedule);
+        $this->db->delete('employee_interested', $delete);
+
+        $return=$this->Result(0, 0);
+        return $return;
+    }
+
+    function GetInterestedEmployeeByCareScheduleID($id_care_schedule='')
+    {
+        $this -> db -> select('*');
+        $this -> db -> from('employee_interested');
+        $this -> db -> join('employee', 'employee.id_employee = employee_interested.id_employee');
+        $this -> db -> join('person', 'employee.id_person = person.id_person');
+        $this -> db -> where('id_care_schedule = ' . "'" . $id_care_schedule . "'");
+
+        $query = $this -> db -> get();//var_dump($query->result());die();
+
+        if($query -> num_rows() >= 1)
+            $return=$this->Result(0, 0, $query->result());
+        else
+            $return=$this->Result(1, 'NO_INTEREST');
 
         return $return;
     }

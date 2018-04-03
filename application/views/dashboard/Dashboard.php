@@ -1,4 +1,3 @@
-
 <!--=== Content Part ===-->
 <div class="container content">
     <div class="clearfix margin-bottom-30"></div>
@@ -16,7 +15,7 @@
 
         $fill_profile='';$badge='';//var_dump($session['no_filled']);
 
-        if($session['no_filled']!='' && array_key_exists("NO_FILLED_PERSON", $session['no_filled']) && isset($profile_type['percent']))
+        if(isset($session['no_filled']) && $session['no_filled']!='' && array_key_exists("NO_FILLED_PERSON", $session['no_filled']) && isset($profile_type['percent']))
             $fill_profile = '<i class="fa fa-exclamation-triangle" style="color:white;"></i>';
         elseif(isset($session['no_filled']) && array_key_exists("NO_FILLED_PERSON", $session['no_filled']) && !isset($profile_type['percent']))
             $fill_profile = "<i class='fa fa-exclamation-triangle' style='color:red;'></i> Dear user, your profile is not completed yet,<br> please click in <a onclick='LoadContent(\"User\");'>MY ACCOUNT</a> to complete it.";
@@ -34,24 +33,18 @@
             $badge = $fill_profile;
         }
 
-        //print '<h4>'.$badge.'</h4>';
+        $total_pending_care=0;
+        $total_pending_employee=0;
+        $total_available_care=0;
 
-        //if($badge=='' && $session['rol']=='patient')
-
-
-
-        if($session['rol']=='asist')
+        if(isset($session['rol']) && $session['rol']=='asist')
         {
-            $total_pending_care=0;
-            $total_pending_employee=0;
-            $total_available_care=0;
-
             if($pending_care['error_code']=='0')$total_pending_care=sizeof($pending_care['data']);
             if($pending_employee['error_code']=='0')$total_pending_employee=sizeof($pending_employee['data']);
             if($available_care['error_code']=='0')$total_available_care=sizeof($available_care['data']);
             ?>
             <a onclick="LoadContent('Main/GoView/care-ListCare');">
-                <div class="col-sm-4">
+                <div class="col-sm-4" style="margin-bottom: 10px;">
                     <div class="servive-block servive-block-default" style="height: 150px;">
                         <span class="badge badge-red" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
                             <div class="count">
@@ -64,7 +57,7 @@
             </a>
 
             <a onclick="LoadContent('Main/GoView/employee-ListEmployee');">
-                <div class="col-sm-4">
+                <div class="col-sm-4" style="margin-bottom: 10px;">
                     <div class="servive-block servive-block-default" style="height: 150px;">
                         <span class="badge badge-red" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
                             <div class="count">
@@ -77,7 +70,7 @@
             </a>
 
             <a onclick="LoadContent('Main/GoView/job-ListJob');">
-                <div class="col-sm-4">
+                <div class="col-sm-4" style="margin-bottom: 10px;">
                     <div class="servive-block servive-block-default" style="height: 150px;">
                         <span class="badge badge-green" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
                             <div class="count">
@@ -90,14 +83,31 @@
             </a>
             <?php
         }
-        elseif ($session['rol']=='worker')
+        elseif (isset($session['rol']) && $session['rol']=='worker')
         {
+            if($available_care['error_code']=='0')$total_available_care=sizeof($available_care['data']);
+            ?>
+
+            <a onclick="LoadContent('Main/GoView/job-ListJob');">
+                <div class="col-sm-4" style="margin-bottom: 10px;">
+                    <div class="servive-block servive-block-default" style="height: 150px;">
+                        <span class="badge badge-green" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
+                            <div class="count">
+                                <?php print $total_available_care;?>
+                            </div>
+                        </span>
+                        <h3 class="heading-md" style="margin-top: 20px;margin-left: -10px;margin-right: -10px;">Available Jobs</h3>
+                    </div>
+                </div>
+            </a>
+
+            <?php
             if($badge!='')
             {
                 ?>
 
                 <a onclick="LoadContent('User');">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" style="margin-bottom: 10px;">
                         <div class="servive-block servive-block-default" style="height: 150px;">
                         <i class="fa fa-exclamation-triangle" style="color:red;font-size: 72px;"></i>
                         <h3 class="heading-md" style="margin-top: 20px;margin-left: -20px;margin-right: -20px;">Account completed at <?php print $badge; ?></h3>
@@ -107,36 +117,65 @@
 
                 <?php
             }
+            else
+            {
+                ?>
+
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+                    <iframe width="100%" height="150" src="https://www.youtube.com/embed/fjzxxhc1Agw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+
+                <?php
+            }
 
             $total_available_care=0;
             if($available_care['error_code']=='0')$total_available_care=sizeof($available_care['data']);
 
             ?>
 
-            <a onclick="LoadContent('Main/GoView/job-ListJob');">
-                <div class="col-sm-4">
-                    <div class="servive-block servive-block-default" style="height: 150px;">
-                        <span class="badge badge-green" style="font-size: 35px; width: 75px;padding-top: 20px;padding-bottom: 20px;border-radius: 50% !important;">
-                            <div class="count">
-                                <?php print $total_available_care;?>
-                            </div>
-                        </span>
-                        <h3 class="heading-md" style="margin-top: 20px;margin-left: -10px;margin-right: -10px;">Available Jobs</h3>
-                    </div>
-                </div>
-            </a>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+                <iframe width="100%" height="150" src="https://www.youtube.com/embed/6nzlvShs2Oc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="div_auth" >
+            <?php
+        }
+        elseif (isset($session['rol']) && $session['rol']=='')
+        {
+            ?>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;text-align: left;margin-top: -10px;" id="div_auth">
                 <?php
-                if($session['section_auth']!='')
-                    require_once APPPATH.'views'.$session['section_auth'];
-                else
-                {
-                    ?>
-                    <iframe width="100%" height="150" src="https://www.youtube.com/embed/fjzxxhc1Agw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <?php
-                }
+                if ($session['section_auth'] != '')
+                    require_once APPPATH . 'views' . $session['section_auth'];
                 ?>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+                <iframe width="100%" height="150" src="https://www.youtube.com/embed/fjzxxhc1Agw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+                <iframe width="100%" height="150" src="https://www.youtube.com/embed/6nzlvShs2Oc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+
+            <?php
+        }
+        elseif(isset($section_auth) && $section_auth!='')
+        {
+            ?>
+
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;text-align: left;margin-top: -5px;" id="div_auth">
+                <?php
+                //print $section_auth;
+                require_once APPPATH . 'views' . $section_auth;
+                ?>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+                <iframe width="100%" height="150" src="https://www.youtube.com/embed/fjzxxhc1Agw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+                <iframe width="100%" height="150" src="https://www.youtube.com/embed/6nzlvShs2Oc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
 
             <?php
@@ -145,69 +184,6 @@
     </div>
 
 
-
-    <!-- Service Blocks
-    <div class="margin-bottom-5"></div>
-    <div class="row margin-bottom-40">
-
-        <div class="col-md-3 col-sm-6">
-            <div class="servive-block servive-block-blue rounded">
-                <i class="icon-custom icon-color-light rounded-x icon-line icon-diamond"></i>
-                <h2 class="heading-md">Blue Box</h2>
-                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine usce dapibus elit nondapibus</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="servive-block servive-block-default">
-                <i class="icon-custom rounded-x icon-bg-dark fa fa-compress"></i>
-                <h2 class="heading-md">Fully Responsive</h2>
-                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="servive-block servive-block-default">
-                <i class="icon-custom rounded-x icon-bg-dark icon-line icon-rocket"></i>
-                <h2 class="heading-md">Launch Ready</h2>
-                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="servive-block servive-block-default">
-                <i class="icon-custom rounded-x icon-bg-dark icon-line icon-support"></i>
-                <h2 class="heading-md">Dedicated Support</h2>
-                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine usce dapibus elit nondapibus</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="servive-block servive-block-default">
-                <i class="icon-custom rounded-x icon-bg-dark fa fa-lightbulb-o"></i>
-                <h2 class="heading-md">Creative Ideas</h2>
-                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="servive-block servive-block-default">
-                <i class="icon-custom rounded-x icon-bg-dark fa fa-compress"></i>
-                <h2 class="heading-md">Fully Responsive</h2>
-                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="servive-block servive-block-default">
-                <i class="icon-custom rounded-x icon-bg-dark icon-line icon-rocket"></i>
-                <h2 class="heading-md">Launch Ready</h2>
-                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="servive-block servive-block-default">
-                <i class="icon-custom rounded-x icon-bg-dark icon-line icon-support"></i>
-                <h2 class="heading-md">Dedicated Support</h2>
-                <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine usce dapibus elit nondapibus</p>
-            </div>
-        </div>
-    </div>
-     End Service Blokcs -->
 </div>
 
 <script type="text/javascript">
@@ -215,15 +191,18 @@
     {
         jQuery('.count').each(function ()
         {
-            jQuery(this).prop('Counter',0).animate({
-                Counter: jQuery(this).text()
-            }, {
-                duration: 4000,
-                easing: 'swing',
-                step: function (now) {
-                    jQuery(this).text(Math.ceil(now));
-                }
-            });
+            //if(jQuery(this).text()>0)
+            //{
+                jQuery(this).prop('Counter', 0).animate({
+                    Counter: jQuery(this).text()
+                }, {
+                    duration: 3000,
+                    easing: 'swing',
+                    step: function (now) {
+                        jQuery(this).text(Math.ceil(now));
+                    }
+                });
+            //}
         });
     });
 </script>

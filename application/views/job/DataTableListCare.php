@@ -13,6 +13,11 @@
         <th style="width: 11%">End Date</th>
         <th style="">Days</th>
         <th style="width: 8%">N Week</th>
+
+        <?php if($session['rol']=='asist'){?>
+            <th style="width: 3%"></th>
+        <?php }?>
+
         <th style="width: 2%"></th>
     </tr>
 </thead>
@@ -70,6 +75,15 @@ if(isset($data['care']['data']) && $data['care']['error_code']=='0')
             <td><?php print $row->end_date;;?></td>
             <td><?php print $week_days;?></td>
             <td class="text-center"><?php print $row->repeat_every_week;?></td>
+
+            <?php if($session['rol']=='asist'){?>
+                <td class="text-center">
+                    <div class="mytooltip"><i id="tooltip_<?php print $row->id_care_schedule;?>" class="icon-users"></i>
+                        <span class="mytooltiptext mytooltip-left" style="text-align: left;width: 220px;padding-left: 5px;" id="tooltiptext_<?php print $row->id_care_schedule;?>"></span>
+                    </div>
+                </td>
+
+            <?php }?>
             <td class="text-center"><input name='cbx' type='checkbox' id="<?php print $row->id_care_schedule;?>" class="cbx_row_care"></td>
         </tr>
 
@@ -81,6 +95,26 @@ if(isset($data['care']['data']) && $data['care']['error_code']=='0')
 </tbody>
 
 <script>
+
+    jQuery('.icon-users').on('mouseover', function (e)
+    {
+        var id = jQuery(this).attr('id');
+        var id_care_schedule=id.substr(8);
+
+        jQuery.ajax({
+            url: 'Main/LlenarDataTable',
+            type: 'POST',
+            data: {data_type:'data_list_interested_employee',view_url:'job/InterestedEmployee', id_care_schedule:id_care_schedule}
+        }).done(function(response, textStatus, jqXHR)
+        {
+            if(response)
+            {
+                jQuery('#tooltiptext_'+id_care_schedule).html(response)
+            }
+            else
+                jQuery('#tooltiptext_'+id_care_schedule).html('Nobody is interested.')
+        });
+    });
 
     jQuery('#btn_interested').on('click', function (e)
     {
@@ -94,24 +128,26 @@ if(isset($data['care']['data']) && $data['care']['error_code']=='0')
 
     function SaveInterestedOrNotJob(interest)
     {
-        if(interest=='1')
-        {
-            var id_employee='<?php if(isset($data['id_employee']))print $data['id_employee'];?>';
+        var id_employee='<?php if(isset($data['id_employee']))print $data['id_employee'];?>';
 
-            var id='';
-            jQuery('.cbx_row_care:checked').each(
-                function()
-                {
-                    if(id=='')
-                        id = jQuery(this).attr('id');
-                    else
-                        id = id + '-' + jQuery(this).attr('id');
-                }
-            );
-            alert(id_employee);
-            if(id!='' && id_employee!='' && id_employee!='-1')
+        var id='';
+        jQuery('.cbx_row_care:checked').each(
+            function()
             {
-                var table='employee_interested';
+                if(id=='')
+                    id = jQuery(this).attr('id');
+                else
+                    id = id + '-' + jQuery(this).attr('id');
+            }
+        );
+
+        if(id!='' && id_employee!='' && id_employee!='-1')
+        {
+            var table='employee_interested';
+
+            if(interest=='1')
+            {
+
                 var date_interested='<?php print date("m/d/Y");?>';
 
                 var url = 'Job/SaveInterestedOrNotJob';
@@ -140,9 +176,47 @@ if(isset($data['care']['data']) && $data['care']['error_code']=='0')
                     alertify.error('Something is wrong with AJAX:' + textStatus);
                 });
             }
-            else
-                alertify.error('You have to select a row.');
+            else if(interest=='0')
+            {
+                var url='Job/DeleteInterestedJob';
+                var data='id_employee='+id_employee +'&id='+id;
+
+                alertify.defaults.transition = "slide";
+                alertify.defaults.theme.ok = "btn btn-success";
+                alertify.defaults.theme.cancel = "btn btn-default";
+                alertify.confirm("<h4>Do you confirm the action?</h4>", function (e)
+                {
+                    var target = document.getElementById('container');
+                    var spinner = new Spinner(opts).spin(target);
+
+                    jQuery.ajax({
+                        type: "POST",
+                        dataType: "html",
+                        url: url,
+                        data:data
+                    }).done(function(response, textStatus, jqXHR)
+                    {
+                        if(jQuery.isNumeric(response))
+                        {
+                            alertify.success('Data Saved.');
+                            LoadContent('Main/GoView/job-ListJob');
+                        }
+                        else{alertify.error('Error: The element could not be Saved. '+ response);}
+                        spinner.stop();
+
+                    }).fail(function(jqHTR, textStatus, thrown)
+                    {
+                        alertify.error('Something is wrong with AJAX:' + textStatus);
+                    });
+                }
+                ,function()
+                {
+                    alertify.error('Declined.');
+                });
+            }
         }
+        else
+            alertify.error('You have to select a row.');
     }
 
 </script>

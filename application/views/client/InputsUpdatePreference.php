@@ -8,11 +8,11 @@
 				<h5 style="text-align: center; color: red;">You can add a preferred patient assistance or not select anyone. If you don't select anyone the office will assign you one.</h5>
 			</div>
 
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <!-- Thumbnails v1 -->
                 <div class="row">
                     <?php
-                    if(isset($data['approved_employee']['data']))
+                    if(isset($data['approved_employee']['error_code']) && $data['approved_employee']['error_code']=='0')
                     {
                         $i=0;
 
@@ -46,6 +46,13 @@
 
                             $i++;
                         }
+                    }else
+                    {
+                        ?>
+
+                        <div class="col-md-12 text-center"><h3>No exists any caregiver available.</h3></div>
+
+                        <?php
                     }
                     ?>
                 </div>

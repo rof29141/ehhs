@@ -141,7 +141,7 @@ else
     jQuery(document).ready(function()
     {
 		ShowPhoto();
-		
+
 		jQuery(".my_select2").select2({
             placeholder: {
                 id: '-1',
@@ -152,7 +152,7 @@ else
         Masking.initMasking();
         Datepicker.initDatepicker();
 		GetStateByZIP();
-		
+
 		jQuery('#zip').on('keyup click blur', function (e)
         {
             GetStateByZIP();
@@ -178,7 +178,7 @@ else
 						var address='<p style="line-height:10px;padding-top:5px;"><b>City:</b> '+data.city+'</p>';
 						var address=address+'<p style="line-height:10px;"><b>State:</b> '+data.state+'</p>';
 						var address=address+'<p style="line-height:10px;"><b>Country:</b> '+data.country+'</p>';
-					
+
 						jQuery('#div_address').html(address);
 						jQuery('#btn_save_profile').attr('disabled',false);
                     }
@@ -194,7 +194,7 @@ else
                 });
             }
         }
-		
+
 		var random=Math.floor((Math.random() * 900000000000) + 1);
 
         jQuery('#multiple_fileupload').fileupload(
@@ -235,16 +235,16 @@ else
 		jQuery('#btn_save_profile').on('click', function ()
         {
             ValidateFrm('frm1');
-			if (jQuery("#frm1").valid()) 
+			if (jQuery("#frm1").valid())
 			{
                 var table='person';
 				var id=jQuery('#id_person').val();
-				
-				if(id=='') 
+
+				if(id=='')
 				var type='INSERT';
 				else
 				var type='UPDATE';
-				
+
                 var array_inputs=jQuery('#frm1').find('input[datafld!=ignore], select[datafld!=ignore]').serialize();
                 var url = 'User/SaveProfile';
                 var data = array_inputs+'&table='+table+'&type='+type+'&pk_id_person='+id;
@@ -300,7 +300,7 @@ else
 				});
             }
         });
-		
+
 		function ShowPhoto(id_person='')
 		{
 			d = new Date();
@@ -311,7 +311,7 @@ else
 			else
 			jQuery(".photo_person").attr("src", "<?php if(isset($data['profile']['data']->id_person))print base_url('/assets/upload/person_photo/photo_'.$data['profile']['data']->id_person.'.jpg');?>?"+d.getTime());
 		}
-		
+
 		function RebuildHeader()
         {
             jQuery( '#div_header' ).empty();

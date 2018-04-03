@@ -15,6 +15,9 @@ class MT_Mail
 
         $body = utf8_decode($body);
         $my_instance->email->set_mailtype("html");
+        $my_instance->email->set_priority(1);
+        //$my_instance->email->set_protocol('smtp');
+        //$my_instance->email->set_smtp_pass('Ray130865');
         $my_instance->email->from($from_email, $from_name);
         $my_instance->email->reply_to($reply_to_email, $reply_to_name);
         $my_instance->email->to($email_to);
@@ -38,10 +41,12 @@ class MT_Mail
         $my_instance->email->message($body);
 
         if($my_instance->email->send())
-            return 'OK';
+            print 'OK from: '.$from_email.' to: '.$email_to;
         else
-            print $my_instance->email->print_debugger();
-        //return 'ERROR';
+        {
+            print $my_instance->email->print_debugger();print 'ERROR';
+        }
+
     }
 }
 ?>

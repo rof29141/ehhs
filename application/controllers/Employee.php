@@ -415,15 +415,9 @@ class Employee extends CI_Controller
         $id_consent2=$this->input->post('id_consent2');
         $id_consent3=$this->input->post('id_consent3');
 
-        $consent_name4=$this->input->post('cbx_name1');
-        $consent_name5=$this->input->post('cbx_name2');
-        $consent_name6=$this->input->post('cbx_name3');
-        $sign4=$this->input->post('cbx1');
-        $sign5=$this->input->post('cbx2');
-        $sign6=$this->input->post('cbx3');
-        $id_consent4=$this->input->post('id_consent_cbx1');
-        $id_consent5=$this->input->post('id_consent_cbx2');
-        $id_consent6=$this->input->post('id_consent_cbx3');
+        $consent_name4=$this->input->post('medical_radio_hep');
+        $sign4=$this->input->post('medical_rbt_hep');
+        $id_consent4=$this->input->post('id_medical_radio_hep');
 
         $consent_name7=$this->input->post('label_name1');
         $consent_name8=$this->input->post('label_name2');
@@ -597,7 +591,7 @@ class Employee extends CI_Controller
 
         //--------------CONSENT 3--------------
 
-        //----------------CBX 1----------------
+        //----------------RBT 1----------------
 
         $table='consent';
         $fields=array();
@@ -625,67 +619,7 @@ class Employee extends CI_Controller
         $this->load->model('M_Main');
         $this->M_Main->Execute($type, $fields, $datas, $table, $field_id);
 
-        //----------------CBX 1----------------
-
-        //----------------CBX 2----------------
-
-        $table='consent';
-        $fields=array();
-        $datas=array();
-
-        if($id_consent5=='')
-        {
-            $type='INSERT';
-        }
-        else
-        {
-            $type='UPDATE';
-            $datas['id']=$id_consent5;
-            $field_id='id_consent';
-        }
-
-        $fields[]='consent_name';
-        $fields[]='sign';
-        $fields[]='id_form';
-
-        $datas['consent_name']=$consent_name5;
-        $datas['sign']=$sign5;
-        $datas['id_form']=$id_form;
-
-        $this->load->model('M_Main');
-        $this->M_Main->Execute($type, $fields, $datas, $table, $field_id);
-
-        //----------------CBX 2----------------
-
-        //----------------CBX 3----------------
-
-        $table='consent';
-        $fields=array();
-        $datas=array();
-
-        if($id_consent6=='')
-        {
-            $type='INSERT';
-        }
-        else
-        {
-            $type='UPDATE';
-            $datas['id']=$id_consent6;
-            $field_id='id_consent';
-        }
-
-        $fields[]='consent_name';
-        $fields[]='sign';
-        $fields[]='id_form';
-
-        $datas['consent_name']=$consent_name6;
-        $datas['sign']=$sign6;
-        $datas['id_form']=$id_form;
-
-        $this->load->model('M_Main');
-        $this->M_Main->Execute($type, $fields, $datas, $table, $field_id);
-
-        //----------------CBX 3----------------
+        //----------------RBT 1----------------
 
         //----------------LBL 1----------------
 

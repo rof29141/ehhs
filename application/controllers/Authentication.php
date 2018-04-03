@@ -203,7 +203,7 @@ class Authentication extends CI_Controller
                     $this->load->library('MT_Mail');
                     $obj_mail = new MT_Mail();
 
-                    $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
+                    print $obj_mail->EnviarEmail($from_email, $from_name, $email_to, $reply_to_email, $reply_to_name, $subject, $body, $attachments);
                 }
                 elseif ($send=='sec_question_continue')
                 {
@@ -418,17 +418,18 @@ class Authentication extends CI_Controller
 
         $result=$this->Auth->ValidaToken($token);//var_dump($result);
 
-        if ($result['error_msg']=='0')
+        if ($result['error_code']=='0')
         {
-            $data['id'] = $result['id'];
+            $data['id'] = $result['data']->id_user;
             $data['section_auth'] = '/authentication/RestorePass.php';
+            $this->load->view('dashboard/Dashboard', $data);
         }
         else
         {
             $data['error']='Sorry, the token is expired.';
 			$data['section_auth'] = '/authentication/Login.php';
+			redirect('Main/Main');
         }
-		$this->load->view('dashboard/Dashboard', $data);
     }
 
     function Activate($token='', $email='')

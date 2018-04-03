@@ -8,7 +8,7 @@
 </div>
 <!--=== End Header ===-->
 <?php
-$slider=0;
+$slider=1;
 
 if($slider==1)
 {

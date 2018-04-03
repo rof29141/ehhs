@@ -12,7 +12,7 @@
 
                 //echo $role;
 
-                if($role=='worker')
+                if(isset($role) && $role=='worker')
                 {
                     if ($all_forms['error_code'] == '0')
                     {
@@ -31,7 +31,7 @@
                         }
                     }
                 }
-                elseif ($role=='patient')
+                elseif (isset($role) && $role=='patient')
                 {
                     if (isset($client) && $client['error_code'] == '0')
                     {
@@ -44,20 +44,20 @@
                 <ul class="nav nav-tabs bordered" id="myTab1">
                     <li id="tab1" class="active"><a data-toggle="tab" href="#s1">Account</a></li>
                     <li id="tab2" <?php if(!isset($id_user)){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s2">Personal</a></li>
-                    <?php if($role=='worker'){?><li id="tab3" <?php if($employment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Employment</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab4" <?php if($probation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s4">Acknowledgment</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab5" <?php if($statement==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s5">Statement</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab6" <?php if($equipment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s6">Equiment</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab7" <?php if($medical==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s7">Medical</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab8" <?php if($orientation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s8">Orientation</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab9" <?php if($tax==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s9">Tax Exempt</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab10" <?php if($inservice==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s10">In Service</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab11" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s11">Over Time</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab12" <?php if($emergency==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s12">Emergency</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab13" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s19">I9</a></li><?php }?>
-                    <?php if($role=='worker'){?><li id="tab14" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s20">W9</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab3" <?php if($employment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Employment</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab4" <?php if($probation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s4">Acknowledgment</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab5" <?php if($statement==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s5">Statement</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab6" <?php if($equipment==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s6">Equiment</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab7" <?php if($medical==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s7">Medical</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab8" <?php if($orientation==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s8">Orientation</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab9" <?php if($tax==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s9">Tax Exempt</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab10" <?php if($inservice==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s10">In Service</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab11" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s11">Over Time</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab12" <?php if($emergency==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s12">Emergency</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab13" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s19">I9</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab14" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s20">W9</a></li><?php }?>
 
-                    <?php if($role=='patient'){?><li id="tab3" <?php if($prefered==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Preferences</a></li><?php }?>
+                    <?php if(isset($role) && $role=='patient'){?><li id="tab3" <?php if($prefered==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Preferences</a></li><?php }?>
                 </ul>
 
                 <div class="tab-content" id="myTabContent1">
@@ -86,6 +86,9 @@
                                     <legend class="mylegend">Personal Information</legend>
 
                                     <form class="sky-form" role='form' name='frm1' id='frm1' action="">
+                                        <div class="col-sm-12 text-right">
+                                            <span id="profile" class="fa fa-print"></span>
+                                        </div>
                                         <div id="data_profile"></div>
                                     </form>
 
@@ -94,7 +97,7 @@
                         </div>
                     </div>
 
-                    <?php if($role=='worker')
+                    <?php if(isset($role) && $role=='worker')
                     {
                         ?>
 
@@ -103,7 +106,9 @@
                                 <div class="col-lg-12">
                                     <fieldset class="myfieldset">
                                         <legend class="mylegend">Consent</legend>
-
+                                        <div class="col-sm-12 text-right">
+                                            <span id="employment" class="fa fa-print"></span>
+                                        </div>
                                         <form class="sky-form" role='form' name='frm3' id='frm3' action="">
                                             <div id="data_employment"></div>
                                         </form>
@@ -287,7 +292,7 @@
                     }
                     ?>
 
-                    <?php if($role=='patient')
+                    <?php if(isset($role) && $role=='patient')
                     {
                         ?>
 
@@ -321,6 +326,22 @@
 
     jQuery(document).ready(function()
     {
+
+        jQuery('.fa-print').on('click', function ()
+        {
+            var html='';
+            var id='data_'+jQuery(this).attr('id');//alert(id);
+
+            if(id=='data_profile')html=jQuery('#s2').html();
+            if(id=='data_employment')html=jQuery('#s3').html();
+
+
+            var myWindow = window.open("<?php print base_url('Main');?>", "_blank", '');
+            myWindow.onload = function(){
+                myWindow.init(html);
+            }
+        });
+
         LoadDataAccount();
 
         function LoadDataAccount()
@@ -348,12 +369,12 @@
             });
         }
 
-        function LoadDataProfile()
+        function LoadDataProfile(print='')
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_profile',view_url:'user/InputsUpdateProfile',id_user:"<?php if(isset($id_user))print $id_user;?>",role:"<?php if(isset($role))print $role;?>"}
+                data: {print:print,data_type:'data_profile',view_url:'user/InputsUpdateProfile',id_user:"<?php if(isset($id_user))print $id_user;?>",role:"<?php if(isset($role))print $role;?>"}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
@@ -361,6 +382,14 @@
                     jQuery('#data_profile').html(response);
                     if('<?php echo $employment?>'==1)LoadDataEmployment(jQuery('#id_person').val());
                     else if('<?php echo $prefered?>'==1)LoadDataClientPreference(jQuery('#id_person').val());
+                }
+
+                if(print==1)
+                {
+                    var myWindow = window.open("<?php print base_url('Main/PrintView');?>", "_blank", '');
+                    myWindow.onload = function(){
+                        myWindow.init(response);
+                    }
                 }
             });
         }

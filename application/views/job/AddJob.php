@@ -18,7 +18,7 @@
                     <fieldset class="myfieldset">
                         <legend class="mylegend">Assign Job to Employee</legend>
 
-                        <form class='sky-form validatable' role='form' name='frm' id='frm' action="">
+                        <form class='sky-form' role='form' name='frm' id='frm' action="">
                             <div class="col-sm-12">
 
                                 <div class="row">
@@ -252,9 +252,10 @@
             {
                 var table='employee_care';
                 var date_took='<?php print date("m/d/Y");?>';
+                var time_took='<?php print date("G:i:s");?>';
 
                 var url = 'Job/SaveJob';
-                var data = 'date_took='+date_took +'&id='+id+'&id_employee='+id_employee+'&table='+table+'&type=INSERT';
+                var data = 'date_took='+date_took +'&time_took='+time_took +'&id='+id+'&id_employee='+id_employee+'&table='+table+'&type=INSERT';
 
                 var target = document.getElementById('container');
                 var spinner = new Spinner(opts).spin(target);
@@ -334,7 +335,7 @@
                 else if(response=='NO_LOGGED')
                 {
                     alertify.error("You don\'t have access.");
-                    window.location.replace("Main");
+                    window.location.replace("Main/Main");
                 }
             }).fail(function(jqHTR, textStatus, thrown)
             {

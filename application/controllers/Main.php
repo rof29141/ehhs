@@ -8,7 +8,7 @@ class Main extends CI_Controller
         $this->load->model('M_Main');
     }
 
-    function index($view="Main", $msg="", $success="", $warning="", $error="")
+    function Main($view="Main", $msg="", $success="", $warning="", $error="")
 	{
         $data['msg']=$msg;
         $data['success']=$success;
@@ -28,6 +28,16 @@ class Main extends CI_Controller
         $data['profile_type']=ProfileType($data['session']);
 
 		$this->load->view("Main", $data);
+	}
+
+	function index()
+	{
+        $this->load->helper('General_Helper');
+        $data['session']=GetSessionVars();
+        $data['language']=LoadLanguage();
+        $data['profile_type']=ProfileType($data['session']);
+
+		$this->load->view("Print", $data);
 	}
 
     function LlenarDataTable()
@@ -282,6 +292,24 @@ class Main extends CI_Controller
                     }
                     //echo $result['id_employee'];
                 }
+                elseif($data['session']['rol']=='asist')
+                {
+                    $this->load->model('M_Job');
+
+                }
+
+            }
+            elseif($data_type==='data_list_interested_employee')
+            {
+                $id_care_schedule = $this->input->post('id_care_schedule');
+
+                $this->load->model('M_Job');
+                $result['interested_employee']=$this->M_Job->GetInterestedEmployeeByCareScheduleID($id_care_schedule);
+            }
+
+            $print=$this->input->post('print');
+            if(isset($print) && $print!='')
+            {
 
             }
 

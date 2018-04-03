@@ -70,7 +70,7 @@ elseif(!isset($profile_type['percent']))
             data:{language:language}
         }).done(function(response, textStatus, jqXHR)
         {
-            window.location.replace("Main");
+            window.location.replace("Main/Main");
         }).fail(function(jqHTR, textStatus, thrown)
         {
             alertify.error('Something is wrong with AJAX:' + textStatus);
