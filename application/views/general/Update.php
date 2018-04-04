@@ -336,7 +336,7 @@
             if(id=='data_employment')html=jQuery('#s3').html();
 
 
-            var myWindow = window.open("<?php print base_url('Main');?>", "_blank", '');
+            var myWindow = window.open("<?php print base_url('PrintView');?>", "_blank", '');
             myWindow.onload = function(){
                 myWindow.init(html);
             }
@@ -369,12 +369,12 @@
             });
         }
 
-        function LoadDataProfile(print='')
+        function LoadDataProfile()
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {print:print,data_type:'data_profile',view_url:'user/InputsUpdateProfile',id_user:"<?php if(isset($id_user))print $id_user;?>",role:"<?php if(isset($role))print $role;?>"}
+                data: {data_type:'data_profile',view_url:'user/InputsUpdateProfile',id_user:"<?php if(isset($id_user))print $id_user;?>",role:"<?php if(isset($role))print $role;?>"}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
@@ -382,14 +382,6 @@
                     jQuery('#data_profile').html(response);
                     if('<?php echo $employment?>'==1)LoadDataEmployment(jQuery('#id_person').val());
                     else if('<?php echo $prefered?>'==1)LoadDataClientPreference(jQuery('#id_person').val());
-                }
-
-                if(print==1)
-                {
-                    var myWindow = window.open("<?php print base_url('Main/PrintView');?>", "_blank", '');
-                    myWindow.onload = function(){
-                        myWindow.init(response);
-                    }
                 }
             });
         }
@@ -590,7 +582,7 @@
             {
                 if(response)
                 {
-                    jQuery('#data_emergency').html(response);
+                    jQuery('#data_w9').html(response);
                 }
             });
         }

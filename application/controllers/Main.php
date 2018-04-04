@@ -8,7 +8,7 @@ class Main extends CI_Controller
         $this->load->model('M_Main');
     }
 
-    function Main($view="Main", $msg="", $success="", $warning="", $error="")
+    function index($view="Main", $msg="", $success="", $warning="", $error="")
 	{
         $data['msg']=$msg;
         $data['success']=$success;
@@ -28,16 +28,6 @@ class Main extends CI_Controller
         $data['profile_type']=ProfileType($data['session']);
 
 		$this->load->view("Main", $data);
-	}
-
-	function index()
-	{
-        $this->load->helper('General_Helper');
-        $data['session']=GetSessionVars();
-        $data['language']=LoadLanguage();
-        $data['profile_type']=ProfileType($data['session']);
-
-		$this->load->view("Print", $data);
 	}
 
     function LlenarDataTable()

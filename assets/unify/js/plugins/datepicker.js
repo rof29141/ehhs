@@ -48,6 +48,35 @@ var Datepicker = function () {
 	                jQuery('#start_date').datepicker('option', 'maxDate', selectedDate);
 	            }
 	        });
+
+            jQuery('#date-of-birth').datepicker({
+                dateFormat: 'mm/dd/yy',
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
+
+            jQuery('#expiration').datepicker({
+                dateFormat: 'mm/dd/yy',
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
+
+            jQuery('#signature-date').datepicker({
+                dateFormat: 'mm/dd/yy',
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
+
+
+
+
+
+
+
+
+
+
+
 	        
 	        // Inline datepicker
 	        jQuery('#inline').datepicker({

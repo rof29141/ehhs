@@ -39,6 +39,6 @@ require_once("includes/config.php");
         jQuery('input').attr('readonly', 'readonly');
         jQuery(".my_select2").prop("disabled", true);
         jQuery(".my_select2").select2();
-        window.print();
+        //window.print();
     }
 </script>

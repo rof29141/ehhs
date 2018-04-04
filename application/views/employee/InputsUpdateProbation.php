@@ -38,7 +38,7 @@
 		</fieldset>
 	
 		<fieldset class="myfieldset">
-			<?php $lg='Tax exempt form';?>
+			<?php $lg='Notice';?>
 			<legend class="mylegend" id="probation_lg2"><?php print $lg;?></legend>
             <?php
             if(isset($data['consent']['data']) && $data['consent']['data']!='')
