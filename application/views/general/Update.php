@@ -54,10 +54,10 @@
                     <?php if(isset($role) && $role=='worker'){?><li id="tab10" <?php if($inservice==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s10">In Service</a></li><?php }?>
                     <?php if(isset($role) && $role=='worker'){?><li id="tab11" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s11">Over Time</a></li><?php }?>
                     <?php if(isset($role) && $role=='worker'){?><li id="tab12" <?php if($emergency==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s12">Emergency</a></li><?php }?>
-                    <?php if(isset($role) && $role=='worker'){?><li id="tab13" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s19">I9</a></li><?php }?>
-                    <?php if(isset($role) && $role=='worker'){?><li id="tab14" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s20">W9</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab19" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s19">I9</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab20" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s20">W9</a></li><?php }?>
 
-                    <?php if(isset($role) && $role=='patient'){?><li id="tab3" <?php if($prefered==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s3">Preferences</a></li><?php }?>
+                    <?php if(isset($role) && $role=='patient'){?><li id="tab100" <?php if($prefered==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s100">Preferences</a></li><?php }?>
                 </ul>
 
                 <div class="tab-content" id="myTabContent1">
@@ -70,6 +70,9 @@
                                     <legend class="mylegend">Security Information</legend>
 
                                     <form class='sky-form validatable' role='form' name='frm' id='frm' action="">
+                                        <div class="col-sm-12 text-right">
+                                            <span id="account" class="fa fa-print"></span>
+                                        </div>
                                         <div id="data_account"></div>
                                     </form>
 
@@ -106,10 +109,11 @@
                                 <div class="col-lg-12">
                                     <fieldset class="myfieldset">
                                         <legend class="mylegend">Consent</legend>
-                                        <div class="col-sm-12 text-right">
-                                            <span id="employment" class="fa fa-print"></span>
-                                        </div>
+
                                         <form class="sky-form" role='form' name='frm3' id='frm3' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="employment" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_employment"></div>
                                         </form>
 
@@ -125,6 +129,9 @@
                                         <legend class="mylegend">Consent</legend>
 
                                         <form class="sky-form" role='form' name='frm4' id='frm4' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="probation" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_probation"></div>
                                         </form>
 
@@ -140,6 +147,9 @@
                                         <legend class="mylegend">Consent</legend>
 
                                         <form class="sky-form" role='form' name='frm5' id='frm5' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="statement" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_statement"></div>
                                         </form>
 
@@ -155,6 +165,9 @@
                                         <legend class="mylegend">Consent</legend>
 
                                         <form class="sky-form" role='form' name='frm6' id='frm6' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="equipment" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_equipment"></div>
                                         </form>
 
@@ -170,6 +183,9 @@
                                         <legend class="mylegend">Consent</legend>
 
                                         <form class="sky-form" role='form' name='frm7' id='frm7' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="medical" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_medical"></div>
                                         </form>
 
@@ -185,6 +201,9 @@
                                         <legend class="mylegend">Consent</legend>
 
                                         <form class="sky-form" role='form' name='frm8' id='frm8' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="orientation" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_orientation"></div>
                                         </form>
 
@@ -200,6 +219,9 @@
                                         <legend class="mylegend">Consent</legend>
 
                                         <form class="sky-form" role='form' name='frm9' id='frm9' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="tax" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_tax"></div>
                                         </form>
 
@@ -215,6 +237,9 @@
                                         <legend class="mylegend">Consent</legend>
 
                                         <form class="sky-form" role='form' name='frm10' id='frm10' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="inservice" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_inservice"></div>
                                         </form>
 
@@ -230,6 +255,9 @@
                                         <legend class="mylegend">Consent</legend>
 
                                         <form class="sky-form" role='form' name='frm11' id='frm11' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="over" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_over"></div>
                                         </form>
 
@@ -245,6 +273,9 @@
                                         <legend class="mylegend">Consent</legend>
 
                                         <form class="sky-form" role='form' name='frm12' id='frm12' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="emergency" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_emergency"></div>
                                         </form>
 
@@ -262,6 +293,9 @@
                                         <legend class="mylegend">I9</legend>
 
                                         <form class="sky-form" role='form' name='frm19' id='frm19' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="i9" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_i9"></div>
                                         </form>
 
@@ -277,6 +311,9 @@
                                         <legend class="mylegend">W9</legend>
 
                                         <form class="sky-form" role='form' name='frm20' id='frm20' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="w9" class="fa fa-print"></span>
+                                            </div>
                                             <div id="data_w9"></div>
                                         </form>
 
@@ -284,9 +321,6 @@
                                 </div>
                             </div>
                         </div> 
-						
-						
-						
 
                         <?php
                     }
@@ -296,7 +330,7 @@
                     {
                         ?>
 
-                        <div class="tab-pane fade" id="s3">
+                        <div class="tab-pane fade" id="s100">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <fieldset class="myfieldset">
@@ -332,8 +366,19 @@
             var html='';
             var id='data_'+jQuery(this).attr('id');//alert(id);
 
+            if(id=='data_account')html=jQuery('#s1').html();
             if(id=='data_profile')html=jQuery('#s2').html();
             if(id=='data_employment')html=jQuery('#s3').html();
+            if(id=='data_probation')html=jQuery('#s4').html();
+            if(id=='data_statement')html=jQuery('#s5').html();
+            if(id=='data_equipment')html=jQuery('#s6').html();
+            if(id=='data_medical')html=jQuery('#s7').html();
+            if(id=='data_orientation')html=jQuery('#s8').html();
+            if(id=='data_tax')html=jQuery('#s9').html();
+            if(id=='data_inservice')html=jQuery('#s10').html();
+            if(id=='data_over')html=jQuery('#s11').html();
+            if(id=='data_i9')html=jQuery('#s19').html();
+            if(id=='data_w9')html=jQuery('#s20').html();
 
 
             var myWindow = window.open("<?php print base_url('PrintView');?>", "_blank", '');

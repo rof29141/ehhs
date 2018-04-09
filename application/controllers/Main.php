@@ -206,8 +206,8 @@ class Main extends CI_Controller
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
                 $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
-                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'emergency');
-                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'I9');
+                //$result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
             elseif($data_type==='data_w9')
@@ -215,8 +215,8 @@ class Main extends CI_Controller
                 $this->load->model('M_User');
                 $result['id_employee']=$this->input->post('id_employee');
                 $result['role']=$this->M_User->GetRoleByEmployeeID($result['id_employee']);
-                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'emergency');
-                $result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
+                $result['form']=$this->M_User->GetFormByEmployeeID($result['id_employee'], 'W9');
+                //$result['consent']=$this->M_User->GetConsentByEmployeeID($result['id_employee'], 'emergency');//var_dump($result['consent']);die();
                 $result['completed_percent']=$this->M_Main->GetCompletedPercentByEmployeeID($result['id_employee']);
             }
 

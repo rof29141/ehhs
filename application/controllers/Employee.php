@@ -398,6 +398,86 @@ class Employee extends CI_Controller
         print $id_employee;
     }
 
+    function SaveEmployeeForm()
+    {
+        $this->load->helper('General_Helper');
+        $data['session']=GetSessionVars();
+
+        $field_id='';
+
+        $id_employee=$this->input->post('id_employee');
+        $id_form=$this->input->post('id_form');
+        $completed_percent=$this->input->post('completed_percent');
+
+        $form_name=$this->input->post('form_name');
+        $form_sign=$this->input->post('form_sign');//print $form_sign;
+        $date=date('Y-m-d');
+
+        //--------------EMPLOYEE---------------
+
+        $table='employee';
+        $fields=array();
+        $datas=array();
+
+        $fields[]='completed_percent';
+        $datas['completed_percent']=$completed_percent;
+
+        if($id_employee!='')
+        {
+            $type='UPDATE';
+            $datas['id']=$id_employee;
+            $field_id='id_employee';
+
+            $result=$this->M_Main->GetCompletedPercentByEmployeeID($id_employee);
+
+            if($result['error_code']=='0')
+                $existing_completed_percent=$result['data']->completed_percent;
+
+            //echo $completed_percent.' > '.$existing_completed_percent;
+
+            if($completed_percent>$existing_completed_percent)
+            {//var_dump($result);
+                $this->load->model('M_Main');
+                $result = $this->M_Main->Execute($type, $fields, $datas, $table, $field_id);
+            }
+        }
+        //--------------EMPLOYEE---------------
+
+        //----------------FORM-----------------
+
+        $table='form';
+        $fields=array();
+        $datas=array();
+
+        if($id_form=='')
+        {
+            $type='INSERT';
+        }
+        else
+        {
+            $type='UPDATE';
+            $datas['id']=$id_form;
+            $field_id='id_form';
+        }
+
+        $fields[]='form_name';
+        $fields[]='form_sign';
+        $fields[]='date';
+        $fields[]='id_employee';
+
+        $datas['form_name']=$form_name;
+        $datas['form_sign']=$form_sign;
+        $datas['date']=$date;
+        $datas['id_employee']=$id_employee;
+
+        $this->load->model('M_Main');
+        $result=$this->M_Main->Execute($type, $fields, $datas, $table, $field_id);//
+
+        //----------------FORM-----------------
+
+        print $id_employee;
+    }
+
     function SaveMedical()
     {
         $this->load->helper('General_Helper');

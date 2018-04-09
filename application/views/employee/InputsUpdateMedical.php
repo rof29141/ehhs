@@ -24,7 +24,6 @@
                         }
                     }
                 }
-                //print $sign;
                 ?>
                 <input type="hidden" name="id_medical_radio_hep" id="id_medical_radio_hep" value="<?php if(isset($id_consent)) print $id_consent;?>" />
                 <p><label class="radio"><input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'disabled="disabled"';?>name='medical_rbt_hep' id='medical_rbt_hep1' value="1" type='radio' class="required" <?php if(isset($sign) && $sign==1) print 'checked';?>><i class="rounded-x"></i> I decline Hepatitis B vaccination at this thine because I have been previously immunized with a complete series (three injections ) of the Hepatitis B vaccine or i have been diagnosed as having the Hepatitis B virus disease and i am immune.</label></p>

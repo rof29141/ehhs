@@ -67,6 +67,12 @@ var Datepicker = function () {
                 nextText: '<i class="fa fa-angle-right"></i>'
             });
 
+            jQuery('#datew9').datepicker({
+                dateFormat: 'mm/dd/yy',
+                prevText: '<i class="fa fa-angle-left"></i>',
+                nextText: '<i class="fa fa-angle-right"></i>'
+            });
+
 
 
 
