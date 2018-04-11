@@ -131,13 +131,10 @@
 		<input name="ans3" id="ans3" class="form-control" type="text" placeholder="Enter a Answer 3" autocomplete="off"/>
 	</div> 
     
-    <div class="row">
-
-        <div class="col-md-12">
-            <button type="button" id="btn_save_account" class="btn pull-right">Next <span style="vertical-align: middle;font-size: 16px;" class="icon-control-forward"></span></button>
-        </div>
-    </div>
-
+	<div class="form-group pull-right">
+		<button type="button" id="btn_save_account" class="btn btn-primary">Next <span style="vertical-align: middle;font-size: 16px;" class="icon-control-forward"></span></button>
+	</div>
+   
 </div>
 
 <script type="text/javascript">

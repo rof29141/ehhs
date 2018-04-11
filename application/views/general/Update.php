@@ -5,7 +5,9 @@
             <div class="tab-v1">
 
                 <?php
-                $employment=0;$probation=0;$statement=0;$equipment=0;$medical=0;$orientation=0;$tax=0;$inservice=0;$over=0;$emergency=0;$prefered=0;
+                $employment=0;$probation=0;$statement=0;$equipment=0;$medical=0;$orientation=0;$tax=0;$inservice=0;$over=0;$emergency=0;
+				$confidentiality=0;$agreement=0;$affidavit=0;$comunicado=0;$references=0;$quiz=0;$i9=0;$w9=0;$upload=0;
+				$prefered=0;
 
                 if(isset($role['data']->rol))
                     $role=$role['data']->rol;
@@ -28,6 +30,15 @@
                             if($row->form_name=='inservice')$inservice=1;
                             if($row->form_name=='over')$over=1;
                             if($row->form_name=='emergency')$emergency=1;
+                            if($row->form_name=='confidentiality')$confidentiality=1;
+                            if($row->form_name=='agreement')$agreement=1;
+                            if($row->form_name=='affidavit')$affidavit=1;
+                            if($row->form_name=='comunicado')$comunicado=1;
+                            if($row->form_name=='references')$references=1;
+                            if($row->form_name=='quiz')$quiz=1;
+                            if($row->form_name=='i9')$i9=1;
+                            if($row->form_name=='w9')$w9=1;
+                            if($row->form_name=='upload')$upload=1;
                         }
                     }
                 }
@@ -54,8 +65,15 @@
                     <?php if(isset($role) && $role=='worker'){?><li id="tab10" <?php if($inservice==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s10">In Service</a></li><?php }?>
                     <?php if(isset($role) && $role=='worker'){?><li id="tab11" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s11">Over Time</a></li><?php }?>
                     <?php if(isset($role) && $role=='worker'){?><li id="tab12" <?php if($emergency==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s12">Emergency</a></li><?php }?>
-                    <?php if(isset($role) && $role=='worker'){?><li id="tab19" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s19">I9</a></li><?php }?>
-                    <?php if(isset($role) && $role=='worker'){?><li id="tab20" <?php if($over==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s20">W9</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab13" <?php if($confidentiality==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s13">Confidentiality</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab14" <?php if($agreement==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s14">Agreement</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab15" <?php if($affidavit==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s15">Affidavit</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab16" <?php if($comunicado==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s16">Comunicado</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab17" <?php if($references==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s17">References</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab18" <?php if($quiz==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s17">Quiz</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab19" <?php if($i9==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s19">I9</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab20" <?php if($w9==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s20">W9</a></li><?php }?>
+                    <?php if(isset($role) && $role=='worker'){?><li id="tab21" <?php if($upload==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s21">Upload</a></li><?php }?>
 
                     <?php if(isset($role) && $role=='patient'){?><li id="tab100" <?php if($prefered==0){?>style="display: none;" <?php }?>><a data-toggle="tab" href="#s100">Preferences</a></li><?php }?>
                 </ul>
@@ -284,7 +302,113 @@
                             </div>
                         </div>
 						
+						<div class="tab-pane fade" id="s13">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <fieldset class="myfieldset">
+                                        <legend class="mylegend">Consent</legend>
+
+                                        <form class="sky-form" role='form' name='frm13' id='frm13' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="confidentiality" class="fa fa-print"></span>
+                                            </div>
+                                            <div id="data_confidentiality"></div>
+                                        </form>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
 						
+						<div class="tab-pane fade" id="s14">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <fieldset class="myfieldset">
+                                        <legend class="mylegend">Consent</legend>
+
+                                        <form class="sky-form" role='form' name='frm14' id='frm14' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="agreement" class="fa fa-print"></span>
+                                            </div>
+                                            <div id="data_agreement"></div>
+                                        </form>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+						
+						<div class="tab-pane fade" id="s15">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <fieldset class="myfieldset">
+                                        <legend class="mylegend">Consent</legend>
+
+                                        <form class="sky-form" role='form' name='frm15' id='frm15' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="affidavit" class="fa fa-print"></span>
+                                            </div>
+                                            <div id="data_affidavit"></div>
+                                        </form>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+						
+						<div class="tab-pane fade" id="s16">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <fieldset class="myfieldset">
+                                        <legend class="mylegend">Consent</legend>
+
+                                        <form class="sky-form" role='form' name='frm16' id='frm16' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="comunicado" class="fa fa-print"></span>
+                                            </div>
+                                            <div id="data_comunicado"></div>
+                                        </form>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+						
+						<div class="tab-pane fade" id="s17">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <fieldset class="myfieldset">
+                                        <legend class="mylegend">Consent</legend>
+
+                                        <form class="sky-form" role='form' name='frm17' id='frm17' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="references" class="fa fa-print"></span>
+                                            </div>
+                                            <div id="data_references"></div>
+                                        </form>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+						
+						<div class="tab-pane fade" id="s18">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <fieldset class="myfieldset">
+                                        <legend class="mylegend">Consent</legend>
+
+                                        <form class="sky-form" role='form' name='frm18' id='frm18' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="quiz" class="fa fa-print"></span>
+                                            </div>
+                                            <div id="data_quiz"></div>
+                                        </form>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
 						
                         <div class="tab-pane fade" id="s19">
                             <div class="row">
@@ -315,6 +439,24 @@
                                                 <span id="w9" class="fa fa-print"></span>
                                             </div>
                                             <div id="data_w9"></div>
+                                        </form>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div> 
+						
+						<div class="tab-pane fade" id="s21">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <fieldset class="myfieldset">
+                                        <legend class="mylegend">Upload</legend>
+
+                                        <form class="sky-form" role='form' name='frm21' id='frm21' action="">
+                                            <div class="col-sm-12 text-right">
+                                                <span id="upload" class="fa fa-print"></span>
+                                            </div>
+                                            <div id="data_upload"></div>
                                         </form>
 
                                     </fieldset>
@@ -377,9 +519,16 @@
             if(id=='data_tax')html=jQuery('#s9').html();
             if(id=='data_inservice')html=jQuery('#s10').html();
             if(id=='data_over')html=jQuery('#s11').html();
+            if(id=='data_emergency')html=jQuery('#s12').html();
+            if(id=='data_confidentiality')html=jQuery('#s13').html();
+            if(id=='data_agreement')html=jQuery('#s14').html();
+            if(id=='data_affidavit')html=jQuery('#s15').html();
+            if(id=='data_comunicado')html=jQuery('#s16').html();
+            if(id=='data_references')html=jQuery('#s17').html();
+            if(id=='data_quiz')html=jQuery('#s18').html();
             if(id=='data_i9')html=jQuery('#s19').html();
             if(id=='data_w9')html=jQuery('#s20').html();
-
+            if(id=='data_upload')html=jQuery('#s21').html();
 
             var myWindow = window.open("<?php print base_url('PrintView');?>", "_blank", '');
             myWindow.onload = function(){
@@ -459,10 +608,15 @@
             if('<?php echo $inservice?>'==1)LoadDataInService(jQuery('#id_employee').val());
             if('<?php echo $over?>'==1)LoadDataOver(jQuery('#id_employee').val());
             if('<?php echo $emergency?>'==1)LoadDataEmergency(jQuery('#id_employee').val());
-
-
-            if('<?php echo $over?>'==1)LoadDataW9(jQuery('#id_employee').val());
-            if('<?php echo $over?>'==1)LoadDataI9(jQuery('#id_employee').val());
+            if('<?php echo $confidentiality?>'==1)LoadDataConfidentiality(jQuery('#id_employee').val());
+            if('<?php echo $agreement?>'==1)LoadDataAgreement(jQuery('#id_employee').val());
+            if('<?php echo $affidavit?>'==1)LoadDataAffidavit(jQuery('#id_employee').val());
+            if('<?php echo $comunicado?>'==1)LoadDataComunicado(jQuery('#id_employee').val());
+            if('<?php echo $references?>'==1)LoadDataReferences(jQuery('#id_employee').val());
+            if('<?php echo $quiz?>'==1)LoadDataQuiz(jQuery('#id_employee').val());
+            if('<?php echo $i9?>'==1)LoadDataW9(jQuery('#id_employee').val());
+            if('<?php echo $w9?>'==1)LoadDataI9(jQuery('#id_employee').val());
+            if('<?php echo $upload?>'==1)LoadDataUpload(jQuery('#id_employee').val());
             //---------------------WORKER--------------------
         }
 
@@ -601,6 +755,95 @@
             });
         }
 		
+		function LoadDataConfidentiality(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_confidentiality',view_url:'employee/InputsUpdateConfidentiality', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_confidentiality').html(response);
+                }
+            });
+        }
+		
+		function LoadDataAgreement(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_agreement',view_url:'employee/InputsUpdateAgreement', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_agreement').html(response);
+                }
+            });
+        }
+		
+		function LoadDataAffidavit(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_affidavit',view_url:'employee/InputsUpdateAffidavit', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_affidavit').html(response);
+                }
+            });
+        }
+		
+		function LoadDataComunicado(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_comunicado',view_url:'employee/InputsUpdateComunicado', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_comunicado').html(response);
+                }
+            });
+        }
+		
+		function LoadDataReferences(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_references',view_url:'employee/InputsUpdateReferences', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_references').html(response);
+                }
+            });
+        }
+		
+		function LoadDataQuiz(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_quiz',view_url:'employee/InputsUpdateQuiz', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_quiz').html(response);
+                }
+            });
+        }
 		
 		function LoadDataI9(id_employee)
         {
@@ -628,6 +871,21 @@
                 if(response)
                 {
                     jQuery('#data_w9').html(response);
+                }
+            });
+        }
+		
+		function LoadDataUpload(id_employee)
+        {
+            jQuery.ajax({
+                url: 'Main/LlenarDataTable',
+                type: 'POST',
+                data: {data_type:'data_upload',view_url:'employee/InputsUpdateUpload', id_employee:id_employee}
+            }).done(function(response, textStatus, jqXHR)
+            {
+                if(response)
+                {
+                    jQuery('#data_upload').html(response);
                 }
             });
         }

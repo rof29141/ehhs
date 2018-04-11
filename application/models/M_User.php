@@ -144,7 +144,7 @@ Class M_User extends CI_Model
 
     function GetRoleByPersonID($id_person)
     {
-		$this -> db -> select('rol');
+		$this -> db -> select('rol, first_name, second_name, last_name, ssn');
         $this -> db -> from('user');
         $this -> db -> join('person', 'person.id_user = user.id_user');
         $this -> db -> where('id_person = ' . "'" . $id_person . "'");
@@ -162,7 +162,7 @@ Class M_User extends CI_Model
 
     function GetRoleByEmployeeID($id_employee)
     {
-		$this -> db -> select('rol');
+		$this -> db -> select('rol, first_name, second_name, last_name, ssn, address');
         $this -> db -> from('user');
         $this -> db -> join('person', 'person.id_user = user.id_user');
         $this -> db -> join('employee', 'employee.id_person = person.id_person');

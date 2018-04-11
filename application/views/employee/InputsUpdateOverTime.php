@@ -22,9 +22,9 @@
 
             <div style='text-align:justify;'>
 				<p>I, <b><?php 
-				if(isset($data['profile']['data']->first_name)) print $data['profile']['data']->first_name;
-				if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-				if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+				if(isset($data['role']['data']->first_name)) print $data['role']['data']->first_name;
+				if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+				if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 				?></b> Subcontractor of Esperanza Home Health Agency, certify that resigned voluntarily any right to overtime pay, because these times are temporary and not permanent, and them working voluntarily without expecting any remuneration additional.</p>
 
 				<p>I certify that I have signed this document voluntarily, and aware of its contents.</p>
@@ -36,9 +36,9 @@
 				<label>
 					Initials 
 					<?php 
-					if(isset($data['profile']['data']->first_name)) print 'of '.$data['profile']['data']->first_name;
-					if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-					if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+					if(isset($data['role']['data']->first_name)) print 'of '.$data['role']['data']->first_name;
+					if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+					if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 					?>
 				</label>
 				<input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="over_initial1" id="over_initial1" class="form-control required" size='4' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"/>
@@ -52,9 +52,9 @@
 					<label>
 						Sign typing your full name 
 						<?php 
-						if(isset($data['profile']['data']->first_name)) print 'like this: '.$data['profile']['data']->first_name;
-						if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-						if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+						if(isset($data['role']['data']->first_name)) print 'like this: '.$data['role']['data']->first_name;
+						if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+						if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 						?>
 					</label>
                     <input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="over_form_sign" id="over_form_sign" class="form-control required" value="<?php if(isset($data['form']['data']->form_sign)) print $data['form']['data']->form_sign;?>"/>

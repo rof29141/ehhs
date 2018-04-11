@@ -29,9 +29,9 @@
 				<label>
 					Initials 
 					<?php 
-					if(isset($data['profile']['data']->first_name)) print 'of '.$data['profile']['data']->first_name;
-					if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-					if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+					if(isset($data['role']['data']->first_name)) print 'of '.$data['role']['data']->first_name;
+					if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+					if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 					?>
 				</label>
 				<input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="tax_initial1" id="tax_initial1" class="form-control required" size='4' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"/>
@@ -61,12 +61,12 @@
 
             <div style='text-align:justify;'>
 				<p>I, <b><?php 
-				if(isset($data['profile']['data']->first_name)) print $data['profile']['data']->first_name;
-				if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-				if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+				if(isset($data['role']['data']->first_name)) print $data['role']['data']->first_name;
+				if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+				if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 				?></b> hereby acknowledge that I am an Independent Contractor. Therefore, I am responsible for my social security and other taxes, and will receive an IRS 1099 Form for the preceding year by February of each year which is also sent to the Internal Revenue Services (IRS).</p>
 
-				<p>Social Security Number: <b><?php if(isset($data['profile']['data']->ssn)) print $data['profile']['data']->ssn;?></b></p>
+				<p>Social Security Number: <b><?php if(isset($data['role']['data']->ssn)) print $data['role']['data']->ssn;?></b></p>
 
 			</div>
 
@@ -74,9 +74,9 @@
 				<label>
 					Initials 
 					<?php 
-					if(isset($data['profile']['data']->first_name)) print 'of '.$data['profile']['data']->first_name;
-					if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-					if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+					if(isset($data['role']['data']->first_name)) print 'of '.$data['role']['data']->first_name;
+					if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+					if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 					?>
 				</label>
                 <input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="tax_initial2" id="tax_initial2" class="form-control required" size='4' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"/>
@@ -90,9 +90,9 @@
 					<label>
 						Sign typing your full name 
 						<?php 
-						if(isset($data['profile']['data']->first_name)) print 'like this: '.$data['profile']['data']->first_name;
-						if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-						if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+						if(isset($data['role']['data']->first_name)) print 'like this: '.$data['role']['data']->first_name;
+						if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+						if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 						?>
 					</label>
                     <input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="tax_form_sign" id="tax_form_sign" class="form-control required" value="<?php if(isset($data['form']['data']->form_sign)) print $data['form']['data']->form_sign;?>"/>

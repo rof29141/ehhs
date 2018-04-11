@@ -42,9 +42,9 @@
 				<label>
 					Initials 
 					<?php 
-					if(isset($data['profile']['data']->first_name)) print 'of '.$data['profile']['data']->first_name;
-					if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-					if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+					if(isset($data['role']['data']->first_name)) print 'of '.$data['role']['data']->first_name;
+					if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+					if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 					?>
 				</label>
                 <input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="statement_initial1" id="statement_initial1" class="form-control required" size='4' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"/>
@@ -74,9 +74,9 @@
 
             <div style='text-align:justify;'>                
 				<p>In order to protect myself and my employer, I <?php 
-					if(isset($data['profile']['data']->first_name)) print 'of '.$data['profile']['data']->first_name;
-					if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-					if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+					if(isset($data['role']['data']->first_name)) print 'of '.$data['role']['data']->first_name;
+					if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+					if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 					?> 
 					voluntarily authorize blood and urine testing for  alcohol and/or drug use. I agree to allow such samples and testing to be completed at a time and place to be chosen by my employer. I understand should such samples and testing be requested it is either due to the company's Drug Free Workplace Program, suspicion that i am under the influence of alcohol/drugs  which cluod result in an on-the-job injury, or may affect the quality of my work. I further authorized the results of samples/testing to be released to my employer.</p>
 			</div>
@@ -85,9 +85,9 @@
 				<label>
 					Initials 
 					<?php 
-					if(isset($data['profile']['data']->first_name)) print 'of '.$data['profile']['data']->first_name;
-					if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-					if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+					if(isset($data['role']['data']->first_name)) print 'of '.$data['role']['data']->first_name;
+					if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+					if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 					?>
 				</label>
                 <input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="statement_initial2" id="statement_initial2" class="form-control required" size='4' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"/>
@@ -128,9 +128,9 @@
 				<label>
 					Initials 
 					<?php 
-					if(isset($data['profile']['data']->first_name)) print 'of '.$data['profile']['data']->first_name;
-					if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-					if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+					if(isset($data['role']['data']->first_name)) print 'of '.$data['role']['data']->first_name;
+					if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+					if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 					?>
 				</label>
                 <input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="statement_initial3" id="statement_initial3" class="form-control required" size='4' style='width:100px !important;' value="<?php if(isset($sign) && $sign!='') print $sign;$sign='';?>"/>
@@ -144,9 +144,9 @@
 					<label>
 						Sign typing your full name 
 						<?php 
-						if(isset($data['profile']['data']->first_name)) print 'like this: '.$data['profile']['data']->first_name;
-						if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-						if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+						if(isset($data['role']['data']->first_name)) print 'like this: '.$data['role']['data']->first_name;
+						if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+						if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 						?>
 					</label>
                     <input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="statement_form_sign" id="statement_form_sign" class="form-control required" value="<?php if(isset($data['form']['data']->form_sign)) print $data['form']['data']->form_sign;?>"/>

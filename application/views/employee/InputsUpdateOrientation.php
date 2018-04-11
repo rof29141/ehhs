@@ -180,9 +180,9 @@
 				<label>
 					Initials 
 					<?php 
-					if(isset($data['profile']['data']->first_name)) print 'of '.$data['profile']['data']->first_name;
-					if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-					if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+					if(isset($data['role']['data']->first_name)) print 'of '.$data['role']['data']->first_name;
+					if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+					if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 					?>
 				</label>
 
@@ -246,9 +246,9 @@
 				<label>
 					Initials 
 					<?php 
-					if(isset($data['profile']['data']->first_name)) print 'of '.$data['profile']['data']->first_name;
-					if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-					if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+					if(isset($data['role']['data']->first_name)) print 'of '.$data['role']['data']->first_name;
+					if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+					if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 					?>
 				</label>
 
@@ -263,9 +263,9 @@
 					<label>
 						Sign typing your full name 
 						<?php 
-						if(isset($data['profile']['data']->first_name)) print 'like this: '.$data['profile']['data']->first_name;
-						if(isset($data['profile']['data']->second_name)) print ' '.$data['profile']['data']->second_name;
-						if(isset($data['profile']['data']->last_name)) print ' '.$data['profile']['data']->last_name;
+						if(isset($data['role']['data']->first_name)) print 'like this: '.$data['role']['data']->first_name;
+						if(isset($data['role']['data']->second_name)) print ' '.$data['role']['data']->second_name;
+						if(isset($data['role']['data']->last_name)) print ' '.$data['role']['data']->last_name;
 						?>
 					</label>
                     <input <?php if(isset($data['completed_percent']['data']->completed_percent) && $data['completed_percent']['data']->completed_percent==100)print 'readonly';?> type="text" name="orientation_form_sign" id="orientation_form_sign" class="form-control required" value="<?php if(isset($data['form']['data']->form_sign)) print $data['form']['data']->form_sign;?>"/>

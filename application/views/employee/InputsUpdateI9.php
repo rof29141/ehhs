@@ -1,10 +1,10 @@
 <?php
+$arr=array();
 if(isset($data['form']['data']->form_sign))
-    //print $data['form']['data']->form_sign;
-
-    $json=stripslashes(html_entity_decode($data['form']['data']->form_sign));//echo $json;
-    $arr= json_decode($json, true);
-    //var_dump($arr);
+{
+	$json=stripslashes(html_entity_decode($data['form']['data']->form_sign));//echo $json;
+	$arr= json_decode($json, true);
+}
 ?>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -719,7 +719,7 @@ if(isset($data['form']['data']->form_sign))
             ValidateFrm('frm19');
 			if (jQuery("#frm19").valid())
             {
-                var form_name='I9';
+                var form_name='i9';
                 var x=jQuery('#frm19').find('input[datafld!=ignore], select[datafld!=ignore]').serializeArray();
                 var date=jQuery('#i9_today_date').val();
                 var form_sign='[{';

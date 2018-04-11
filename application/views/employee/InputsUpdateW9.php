@@ -1,10 +1,10 @@
 <?php
+$arr=array();
 if(isset($data['form']['data']->form_sign))
-    //print $data['form']['data']->form_sign;
-
-    $json=stripslashes(html_entity_decode($data['form']['data']->form_sign));//echo $json;
-$arr= json_decode($json, true);
-//var_dump($arr);
+{
+	$json=stripslashes(html_entity_decode($data['form']['data']->form_sign));//echo $json;
+	$arr= json_decode($json, true);
+}
 ?>
 
 <div class="col-sm-12">
@@ -256,7 +256,7 @@ $arr= json_decode($json, true);
             ValidateFrm('frm20');
             if (jQuery("#frm20").valid())
             {
-                var form_name='W9';
+                var form_name='w9';
                 var x=jQuery('#frm20').find('input[datafld!=ignore], select[datafld!=ignore]').serializeArray();
                 var date=jQuery('#w9_today_date').val();
                 var form_sign='[{';
@@ -303,16 +303,16 @@ $arr= json_decode($json, true);
                         RebuildHeader();
                         alertify.success('Data Saved.');
 
-                        //jQuery("#frm19 input").prop("disabled", true);
-                        //jQuery('#btn_save_i9').hide();
+                        jQuery("#frm20 input").prop("disabled", true);
+                        jQuery('#btn_save_w9').hide();
 
                         if('<?php print $data['role']['data']->rol;?>'=='worker')
                         {
-                            //LoadDataW9(response);
+                            LoadDataUpload(response);
                             jQuery('#tab21').show().tab('show');
                             jQuery('#s20').removeClass('active').addClass('fade');
                             jQuery('#s21').removeClass('fade').addClass('active');
-                            //goToByScroll('tab21');
+                            goToByScroll('tab21');
                         }
                     }
                     else{alertify.error('Error: The element could not be Saved. '+ response);}
@@ -341,17 +341,17 @@ $arr= json_decode($json, true);
             });
         }
 
-        function LoadDataW9(id_employee)
+        function LoadDataUpload(id_employee)
         {
             jQuery.ajax({
                 url: 'Main/LlenarDataTable',
                 type: 'POST',
-                data: {data_type:'data_w9',view_url:'employee/InputsUpdateW9', id_employee:id_employee}
+                data: {data_type:'data_upload',view_url:'employee/InputsUpdateUpload', id_employee:id_employee}
             }).done(function(response, textStatus, jqXHR)
             {
                 if(response)
                 {
-                    jQuery('#data_w9').html(response);
+                    jQuery('#data_upload').html(response);
                 }
             });
         }
